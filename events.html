@@ -25,7 +25,7 @@
         <a href="opportunities.html">Opportunities</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-secondary" href="#">Login / Register</a>
+        <a class="btn btn-secondary" href="memberships.html#signup-form">Login / Register</a>
         <a class="btn btn-primary" href="memberships.html">Donate</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
@@ -38,7 +38,7 @@
       <a href="memberships.html">Memberships</a>
       <a href="opportunities.html">Opportunities</a>
       <div class="mobile-nav-divider"></div>
-      <a href="#">Login / Register</a>
+      <a href="memberships.html#signup-form">Login / Register</a>
       <a href="memberships.html">Donate</a>
     </nav>
   </header>
@@ -52,6 +52,19 @@
         <p class="hero-copy">Your portal blog — stay up to date with alumni events, chapter news, and community stories.</p>
       </div>
     </section>
+
+    <!-- Featured Event Banner -->
+    <div class="featured-event-banner">
+      <div class="container featured-event-inner">
+        <div class="featured-event-badge">Featured Event</div>
+        <div>
+          <h2>Annual Alumni Gala 2026</h2>
+          <p class="meta">May 10 &nbsp;·&nbsp; Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
+          <p>The biggest alumni gathering of the year. Awards, networking, and celebration of BU's legacy.</p>
+        </div>
+        <a class="btn btn-primary" href="memberships.html#signup-form">Register Now</a>
+      </div>
+    </div>
 
     <!-- Main content: asymmetric layout -->
     <section class="section">
@@ -71,8 +84,8 @@
               <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
               <p>Join fellow graduates for an evening of networking, awards, and celebration of BU's legacy.</p>
               <div class="event-actions">
-                <a class="btn btn-primary" href="#">Register (Grads Link)</a>
-                <a class="btn btn-ghost" href="#">Learn More</a>
+                <a class="btn btn-primary" href="memberships.html#signup-form">Register (Grads Link)</a>
+                <a class="btn btn-ghost" href="events.html">Learn More</a>
               </div>
             </div>
           </article>
@@ -87,8 +100,8 @@
               <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
               <p>Connect with recruiters, explore job opportunities, and meet alumni mentors across industries.</p>
               <div class="event-actions">
-                <a class="btn btn-primary" href="#">Register (Grads Link)</a>
-                <a class="btn btn-ghost" href="#">Learn More</a>
+                <a class="btn btn-primary" href="memberships.html#signup-form">Register (Grads Link)</a>
+                <a class="btn btn-ghost" href="events.html">Learn More</a>
               </div>
             </div>
           </article>
@@ -103,8 +116,8 @@
               <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
               <p>Participate in our annual 5K run to raise funds for student bursaries and school supplies.</p>
               <div class="event-actions">
-                <a class="btn btn-primary" href="#">Register (Grads Link)</a>
-                <a class="btn btn-ghost" href="#">Learn More</a>
+                <a class="btn btn-primary" href="memberships.html#signup-form">Register (Grads Link)</a>
+                <a class="btn btn-ghost" href="events.html">Learn More</a>
               </div>
             </div>
           </article>
@@ -115,21 +128,21 @@
             <p class="meta">April 15, 2026</p>
             <h3>Class of 2016 Celebrates 10-Year Reunion</h3>
             <p>Over 200 graduates gathered at BU campus to reconnect, share stories, and inspire the next generation of students...</p>
-            <a class="text-link" href="#">Read more &rarr;</a>
+            <a class="text-link" href="events.html">Read more &rarr;</a>
           </article>
 
           <article class="plog-post">
             <p class="meta">March 28, 2026</p>
             <h3>Alumni Spotlight: Dr. Sarah Nakato Leads WHO Initiative</h3>
             <p>BU alumna Dr. Sarah Nakato (Class of 2008) has been appointed to lead a regional health initiative under the World Health Organization...</p>
-            <a class="text-link" href="#">Read more &rarr;</a>
+            <a class="text-link" href="events.html">Read more &rarr;</a>
           </article>
 
           <article class="plog-post">
             <p class="meta">March 10, 2026</p>
             <h3>New Scholarship Fund Reaches 50% of Goal</h3>
             <p>Thanks to generous alumni contributions, the BU Alumni Scholarship Fund has reached the halfway mark of its UGX 50M target...</p>
-            <a class="text-link" href="#">Read more &rarr;</a>
+            <a class="text-link" href="events.html">Read more &rarr;</a>
           </article>
         </div>
 
@@ -139,10 +152,10 @@
             <h3>Business Network</h3>
             <p class="meta">Featured Partners</p>
             <ul class="sidebar-list">
-              <li><a href="#" class="text-link">Nakato &amp; Associates Law Firm</a></li>
-              <li><a href="#" class="text-link">BU Tech Founders Circle</a></li>
-              <li><a href="#" class="text-link">East Africa Alumni Investors</a></li>
-              <li><a href="#" class="text-link">BU Health Professionals Network</a></li>
+              <li><a href="opportunities.html#job-givers" class="text-link">Nakato &amp; Associates Law Firm</a></li>
+              <li><a href="opportunities.html#job-givers" class="text-link">BU Tech Founders Circle</a></li>
+              <li><a href="opportunities.html#job-givers" class="text-link">East Africa Alumni Investors</a></li>
+              <li><a href="opportunities.html#job-givers" class="text-link">BU Health Professionals Network</a></li>
             </ul>
             <a class="btn btn-secondary" href="opportunities.html" style="width:100%;margin-top:0.8rem;">Join Network</a>
           </div>
@@ -168,35 +181,61 @@
     </section>
   </main>
 
-  <footer id="footer" class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <h3 class="footer-title">BU Alumni Portal</h3>
+<footer id="footer" class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
         <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">in</a>
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">f</a>
+          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">&#9679;</a>
+        </div>
       </div>
-      <div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Portal</h4>
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="activities.html">Activities</a>
+        <a class="footer-link" href="events.html">Events</a>
+        <a class="footer-link" href="memberships.html">Memberships</a>
+        <a class="footer-link" href="opportunities.html">Opportunities</a>
+      </div>
+      <div class="footer-links-group">
         <h4 class="footer-heading">Contact</h4>
-        <p class="footer-copy">alumni@bu.edu</p>
-        <p class="footer-copy">+1 (617) 353-9000</p>
+        <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
+        <a class="footer-link" href="tel:+16173539000">+1 (617) 353-9000</a>
+        <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
+        <a class="footer-link" href="legal.html#terms">Terms of Use</a>
       </div>
-      <div>
-        <h4 class="footer-heading">Legal</h4>
-        <p><a class="footer-link" href="#">Privacy Policy</a></p>
-        <p><a class="footer-link" href="#">Terms of Use</a></p>
+      <div class="footer-newsletter">
+        <h4 class="footer-heading">Stay Updated</h4>
+        <p class="footer-copy">Get alumni news and events in your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <p class="newsletter-success" id="nl-success" hidden>&#10003; You are subscribed!</p>
       </div>
-      <div>
-        <h4 class="footer-heading">Social</h4>
-        <p><a class="footer-link" href="#">LinkedIn</a> · <a class="footer-link" href="#">Facebook</a> · <a class="footer-link" href="#">Instagram</a></p>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <script>
+<script>
     function toggleNav(btn) {
       const nav = document.getElementById('mobile-nav');
       const open = nav.classList.toggle('open');
       btn.setAttribute('aria-expanded', open);
       btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    }
+    function handleNewsletter(e) {
+      e.preventDefault();
+      e.target.hidden = true;
+      document.getElementById('nl-success').hidden = false;
     }
   </script>
 </body>

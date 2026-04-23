@@ -6,10 +6,7 @@
   <title>BU Alumni Portal | Home</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -28,7 +25,7 @@
         <a href="opportunities.html">Opportunities</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-secondary" href="#">Login / Register</a>
+        <a class="btn btn-secondary" href="memberships.html#signup-form">Login / Register</a>
         <a class="btn btn-primary" href="memberships.html">Donate</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
@@ -41,90 +38,288 @@
       <a href="memberships.html">Memberships</a>
       <a href="opportunities.html">Opportunities</a>
       <div class="mobile-nav-divider"></div>
-      <a href="#">Login / Register</a>
+      <a href="memberships.html#signup-form">Login / Register</a>
       <a href="memberships.html">Donate</a>
     </nav>
   </header>
 
   <main>
+    <!-- Hero -->
     <section class="hero home-hero" id="home">
       <div class="container home-hero-grid">
         <div class="hero-visual" aria-hidden="true">
-          <span>Hero Image Placeholder</span>
+          <span>BU Campus</span>
         </div>
         <div>
-          <h1>CONNECTING OUR PAST TO YOUR FUTURE.</h1>
+          <p class="eyebrow">Welcome Home</p>
+          <h1>Connecting Our Past to Your Future.</h1>
           <p class="hero-copy">
             Explore alumni opportunities, reconnect with classmates, and support the next generation of BU leaders.
           </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="memberships.html#signup-form">Join the Network</a>
+            <a class="btn btn-ghost" href="about.html">Learn More</a>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Animated Stats Bar -->
+    <section class="stats-bar" aria-label="Alumni network statistics">
+      <div class="container stats-bar-grid">
+        <div class="stat-bar-item">
+          <span class="stat-bar-num" data-target="389000">0</span><span class="stat-bar-suffix">+</span>
+          <p>Alumni Members</p>
+        </div>
+        <div class="stat-bar-item">
+          <span class="stat-bar-num" data-target="2500">0</span><span class="stat-bar-suffix">+</span>
+          <p>Jobs This Year</p>
+        </div>
+        <div class="stat-bar-item">
+          <span class="stat-bar-num" data-target="72">0</span>
+          <p>Active Chapters</p>
+        </div>
+        <div class="stat-bar-item">
+          <span class="stat-bar-num" data-target="18000">0</span><span class="stat-bar-suffix">+</span>
+          <p>Mentorship Connections</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
     <section class="section quick-links-section">
       <div class="container">
         <div class="quick-links-grid">
-          <a class="quick-link-card" href="opportunities.html">JOIN NETWORK</a>
-          <a class="quick-link-card" href="events.html">LATEST NEWS</a>
-          <a class="quick-link-card" href="memberships.html">GIVE BACK</a>
+          <a class="quick-link-card" href="opportunities.html">
+            <span class="ql-icon">&#128101;</span>
+            <span>Join Network</span>
+          </a>
+          <a class="quick-link-card" href="events.html">
+            <span class="ql-icon">&#128240;</span>
+            <span>Latest News</span>
+          </a>
+          <a class="quick-link-card" href="memberships.html">
+            <span class="ql-icon">&#10084;&#65039;</span>
+            <span>Give Back</span>
+          </a>
         </div>
       </div>
     </section>
 
+    <!-- Welcome + Stats -->
     <section id="general-info" class="section">
       <div class="container general-info-grid">
         <article>
+          <p class="eyebrow">Our Community</p>
           <h2>Welcome to the BU Alumni Portal</h2>
           <p class="home-copy">
-            Welcome home, Terriers. This portal is your dedicated space to stay connected with classmates, discover alumni
-            opportunities, and continue building your BU legacy long after graduation.
+            This portal is your dedicated space to stay connected with classmates, discover alumni opportunities, and continue building your BU legacy long after graduation.
           </p>
           <p class="home-copy">
-            Whether you are looking to mentor students, expand your professional network, or contribute to community causes,
-            you can find resources here to help you engage in meaningful ways.
+            Whether you are looking to mentor students, expand your professional network, or contribute to community causes, you will find resources here to help you engage in meaningful ways.
           </p>
+          <div class="hero-actions" style="margin-top:1.2rem;">
+            <a class="btn btn-primary" href="about.html">About the Portal</a>
+            <a class="btn btn-secondary" href="activities.html">Explore Activities</a>
+          </div>
         </article>
         <aside class="stats-feature-box" aria-label="BU Alumni Stats">
-          <h3>BU Alumni Stats</h3>
+          <h3>BU Alumni at a Glance</h3>
           <ul class="stats-feature-list">
             <li><strong>389,000+</strong> registered alumni members</li>
             <li><strong>2,500+</strong> jobs posted this year</li>
             <li><strong>72</strong> active alumni chapters</li>
             <li><strong>18,000+</strong> mentorship connections made</li>
+            <li><strong>UGX 31.5M</strong> raised for scholarships</li>
+            <li><strong>120+</strong> partner recruiters</li>
           </ul>
+          <a class="btn btn-primary" href="memberships.html" style="width:100%;margin-top:1rem;">Become a Member</a>
         </aside>
+      </div>
+    </section>
+
+    <!-- Featured Events Strip -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>Upcoming Events</h2>
+          <p>Don't miss what's happening in the BU alumni community.</p>
+        </div>
+        <div class="events-strip">
+          <article class="event-strip-card">
+            <div class="event-strip-date">
+              <span>MAY</span>
+              <strong>10</strong>
+            </div>
+            <div>
+              <h3>Annual Alumni Gala 2026</h3>
+              <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
+              <a class="text-link" href="events.html">Register &rarr;</a>
+            </div>
+          </article>
+          <article class="event-strip-card">
+            <div class="event-strip-date">
+              <span>JUN</span>
+              <strong>7</strong>
+            </div>
+            <div>
+              <h3>Career Fair &amp; Networking Day</h3>
+              <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
+              <a class="text-link" href="events.html">Register &rarr;</a>
+            </div>
+          </article>
+          <article class="event-strip-card">
+            <div class="event-strip-date">
+              <span>JUL</span>
+              <strong>19</strong>
+            </div>
+            <div>
+              <h3>Charity Run for Education</h3>
+              <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
+              <a class="text-link" href="events.html">Register &rarr;</a>
+            </div>
+          </article>
+        </div>
+        <div style="text-align:center;margin-top:1.5rem;">
+          <a class="btn btn-secondary" href="events.html">View All Events</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>Alumni Voices</h2>
+          <p>Hear from graduates who are making an impact.</p>
+        </div>
+        <div class="testimonials-grid">
+          <blockquote class="testimonial-card">
+            <p>"The BU Alumni Portal connected me with a mentor who helped me land my first role at a top firm. I can't imagine where I'd be without this network."</p>
+            <footer>
+              <div class="testimonial-avatar">A</div>
+              <div>
+                <strong>Amara Ssekandi</strong>
+                <span class="meta">Class of 2018 &nbsp;·&nbsp; Software Engineer</span>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="testimonial-card">
+            <p>"Donating through the portal is seamless. Knowing my contribution directly funds a student's education makes it incredibly rewarding."</p>
+            <footer>
+              <div class="testimonial-avatar">D</div>
+              <div>
+                <strong>David Mugisha</strong>
+                <span class="meta">Class of 2012 &nbsp;·&nbsp; Entrepreneur</span>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="testimonial-card">
+            <p>"I found three job leads through the Opportunities page within a week of registering. The BU network is genuinely powerful."</p>
+            <footer>
+              <div class="testimonial-avatar">F</div>
+              <div>
+                <strong>Faith Nakato</strong>
+                <span class="meta">Class of 2021 &nbsp;·&nbsp; Marketing Manager</span>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+      <div class="container cta-banner-inner">
+        <div>
+          <h2>Ready to reconnect?</h2>
+          <p>Join thousands of BU graduates building careers, communities, and legacies together.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="memberships.html#signup-form">Register Now</a>
+          <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,0.4);" href="opportunities.html">Browse Opportunities</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer id="footer" class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <h3 class="footer-title">BU Alumni Portal</h3>
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
         <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">in</a>
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">f</a>
+          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">&#9679;</a>
+        </div>
       </div>
-      <div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Portal</h4>
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="activities.html">Activities</a>
+        <a class="footer-link" href="events.html">Events</a>
+        <a class="footer-link" href="memberships.html">Memberships</a>
+        <a class="footer-link" href="opportunities.html">Opportunities</a>
+      </div>
+      <div class="footer-links-group">
         <h4 class="footer-heading">Contact</h4>
-        <p class="footer-copy">alumni@bu.edu</p>
-        <p class="footer-copy">+1 (617) 353-9000</p>
+        <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
+        <a class="footer-link" href="tel:+16173539000">+1 (617) 353-9000</a>
+        <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
+        <a class="footer-link" href="legal.html#terms">Terms of Use</a>
       </div>
-      <div>
-        <h4 class="footer-heading">Legal</h4>
-        <p><a class="footer-link" href="#">Privacy Policy</a></p>
-        <p><a class="footer-link" href="#">Terms of Use</a></p>
+      <div class="footer-newsletter">
+        <h4 class="footer-heading">Stay Updated</h4>
+        <p class="footer-copy">Get alumni news and events in your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <p class="newsletter-success" id="nl-success" hidden>&#10003; You're subscribed!</p>
       </div>
-      <div>
-        <h4 class="footer-heading">Social</h4>
-        <p><a class="footer-link" href="#">LinkedIn</a> · <a class="footer-link" href="#">Facebook</a> · <a class="footer-link" href="#">Instagram</a></p>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
       </div>
     </div>
   </footer>
+
   <script>
     function toggleNav(btn) {
       const nav = document.getElementById('mobile-nav');
       const open = nav.classList.toggle('open');
       btn.setAttribute('aria-expanded', open);
       btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    }
+
+    // Animated stat counters
+    function animateCounters() {
+      document.querySelectorAll('.stat-bar-num').forEach(el => {
+        const target = +el.dataset.target;
+        const duration = 1800;
+        const step = target / (duration / 16);
+        let current = 0;
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = Math.floor(current).toLocaleString();
+          if (current >= target) clearInterval(timer);
+        }, 16);
+      });
+    }
+
+    const statsBar = document.querySelector('.stats-bar');
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { animateCounters(); observer.disconnect(); }
+    }, { threshold: 0.3 });
+    if (statsBar) observer.observe(statsBar);
+
+    function handleNewsletter(e) {
+      e.preventDefault();
+      e.target.hidden = true;
+      document.getElementById('nl-success').hidden = false;
     }
   </script>
 </body>
