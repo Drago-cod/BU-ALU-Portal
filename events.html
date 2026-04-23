@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Events &amp; News</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a class="active" href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#">Login / Register</a>
+        <a class="btn btn-primary" href="memberships.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a class="active" href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="#">Login / Register</a>
+      <a href="memberships.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero about-hero">
+      <div class="container">
+        <p class="eyebrow">4.0 Events &amp; News</p>
+        <h1>The Plog</h1>
+        <p class="hero-copy">Your portal blog — stay up to date with alumni events, chapter news, and community stories.</p>
+      </div>
+    </section>
+
+    <!-- Main content: asymmetric layout -->
+    <section class="section">
+      <div class="container plog-layout">
+
+        <!-- Primary column -->
+        <div class="plog-primary">
+          <h2>Upcoming Events</h2>
+
+          <article class="event-row">
+            <div class="event-date-badge">
+              <span class="event-month">MAY</span>
+              <span class="event-day">10</span>
+            </div>
+            <div class="event-details">
+              <h3>Annual Alumni Gala 2026</h3>
+              <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
+              <p>Join fellow graduates for an evening of networking, awards, and celebration of BU's legacy.</p>
+              <div class="event-actions">
+                <a class="btn btn-primary" href="#">Register (Grads Link)</a>
+                <a class="btn btn-ghost" href="#">Learn More</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="event-row">
+            <div class="event-date-badge">
+              <span class="event-month">JUN</span>
+              <span class="event-day">7</span>
+            </div>
+            <div class="event-details">
+              <h3>Career Fair &amp; Networking Day</h3>
+              <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
+              <p>Connect with recruiters, explore job opportunities, and meet alumni mentors across industries.</p>
+              <div class="event-actions">
+                <a class="btn btn-primary" href="#">Register (Grads Link)</a>
+                <a class="btn btn-ghost" href="#">Learn More</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="event-row">
+            <div class="event-date-badge">
+              <span class="event-month">JUL</span>
+              <span class="event-day">19</span>
+            </div>
+            <div class="event-details">
+              <h3>Charity Run for Education</h3>
+              <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
+              <p>Participate in our annual 5K run to raise funds for student bursaries and school supplies.</p>
+              <div class="event-actions">
+                <a class="btn btn-primary" href="#">Register (Grads Link)</a>
+                <a class="btn btn-ghost" href="#">Learn More</a>
+              </div>
+            </div>
+          </article>
+
+          <h2 style="margin-top:2.5rem;">Latest Plog Posts</h2>
+
+          <article class="plog-post">
+            <p class="meta">April 15, 2026</p>
+            <h3>Class of 2016 Celebrates 10-Year Reunion</h3>
+            <p>Over 200 graduates gathered at BU campus to reconnect, share stories, and inspire the next generation of students...</p>
+            <a class="text-link" href="#">Read more &rarr;</a>
+          </article>
+
+          <article class="plog-post">
+            <p class="meta">March 28, 2026</p>
+            <h3>Alumni Spotlight: Dr. Sarah Nakato Leads WHO Initiative</h3>
+            <p>BU alumna Dr. Sarah Nakato (Class of 2008) has been appointed to lead a regional health initiative under the World Health Organization...</p>
+            <a class="text-link" href="#">Read more &rarr;</a>
+          </article>
+
+          <article class="plog-post">
+            <p class="meta">March 10, 2026</p>
+            <h3>New Scholarship Fund Reaches 50% of Goal</h3>
+            <p>Thanks to generous alumni contributions, the BU Alumni Scholarship Fund has reached the halfway mark of its UGX 50M target...</p>
+            <a class="text-link" href="#">Read more &rarr;</a>
+          </article>
+        </div>
+
+        <!-- Secondary sticky column -->
+        <aside class="plog-sidebar">
+          <div class="sidebar-widget">
+            <h3>Business Network</h3>
+            <p class="meta">Featured Partners</p>
+            <ul class="sidebar-list">
+              <li><a href="#" class="text-link">Nakato &amp; Associates Law Firm</a></li>
+              <li><a href="#" class="text-link">BU Tech Founders Circle</a></li>
+              <li><a href="#" class="text-link">East Africa Alumni Investors</a></li>
+              <li><a href="#" class="text-link">BU Health Professionals Network</a></li>
+            </ul>
+            <a class="btn btn-secondary" href="opportunities.html" style="width:100%;margin-top:0.8rem;">Join Network</a>
+          </div>
+
+          <div class="sidebar-widget">
+            <h3>Fundraising Spotlight</h3>
+            <p class="meta">Alumni Scholarship Fund</p>
+            <div class="thermometer-wrap" aria-label="Fundraising progress">
+              <div class="thermometer-bar">
+                <div class="thermometer-fill" style="width: 63%"></div>
+              </div>
+              <div class="thermometer-labels">
+                <span>UGX 0</span>
+                <span class="thermometer-pct">63%</span>
+                <span>UGX 50M</span>
+              </div>
+            </div>
+            <a class="btn btn-primary" href="memberships.html" style="width:100%;margin-top:0.8rem;">Donate</a>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3 class="footer-title">BU Alumni Portal</h3>
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <p class="footer-copy">alumni@bu.edu</p>
+        <p class="footer-copy">+1 (617) 353-9000</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Legal</h4>
+        <p><a class="footer-link" href="#">Privacy Policy</a></p>
+        <p><a class="footer-link" href="#">Terms of Use</a></p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Social</h4>
+        <p><a class="footer-link" href="#">LinkedIn</a> · <a class="footer-link" href="#">Facebook</a> · <a class="footer-link" href="#">Instagram</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const nav = document.getElementById('mobile-nav');
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Opportunities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a class="active" href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#">Login / Register</a>
+        <a class="btn btn-primary" href="memberships.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a class="active" href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="#">Login / Register</a>
+      <a href="memberships.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero about-hero">
+      <div class="container about-hero-grid">
+        <div>
+          <p class="eyebrow">6.0 Opportunities</p>
+          <h1>Jobs, Internships &amp; Bursaries</h1>
+          <p class="hero-copy">
+            Explore career opportunities posted by alumni and partner organisations. Filter by type and location to find your next step.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h3>Quick Stats</h3>
+          <ul>
+            <li><strong>2,500+</strong> jobs posted this year</li>
+            <li><strong>340</strong> active internships</li>
+            <li><strong>85</strong> bursaries available</li>
+            <li><strong>120+</strong> partner recruiters</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <section class="section" style="padding-bottom:0;">
+      <div class="container">
+        <div class="filter-bar" role="search" aria-label="Filter opportunities">
+          <div class="filter-group">
+            <label for="filter-type">Type</label>
+            <select id="filter-type" onchange="filterOpps()">
+              <option value="all">All</option>
+              <option value="job">Jobs</option>
+              <option value="internship">Internships</option>
+              <option value="bursary">Bursaries</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-location">Location</label>
+            <select id="filter-location" onchange="filterOpps()">
+              <option value="all">All Locations</option>
+              <option value="kampala">Kampala</option>
+              <option value="remote">Remote</option>
+              <option value="international">International</option>
+            </select>
+          </div>
+          <div class="filter-group filter-group--search">
+            <label for="filter-search">Search</label>
+            <input type="search" id="filter-search" placeholder="Role, company, keyword..." oninput="filterOpps()" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opportunities list -->
+    <section class="section">
+      <div class="container">
+        <div id="opp-list" class="opp-list">
+
+          <article class="opp-card" data-type="job" data-location="kampala">
+            <div class="opp-meta-row">
+              <span class="opp-tag opp-tag--job">Job</span>
+              <span class="opp-location">&#128205; Kampala</span>
+            </div>
+            <h3>Software Engineer</h3>
+            <p class="meta">Nakato &amp; Tech Ltd &nbsp;·&nbsp; Full-time</p>
+            <p>Build and maintain scalable web applications for a fast-growing fintech startup founded by BU alumni.</p>
+            <div class="opp-actions">
+              <a class="btn btn-primary" href="#">Apply</a>
+              <a class="btn btn-ghost" href="#">Grads Link</a>
+            </div>
+          </article>
+
+          <article class="opp-card" data-type="internship" data-location="kampala">
+            <div class="opp-meta-row">
+              <span class="opp-tag opp-tag--internship">Internship</span>
+              <span class="opp-location">&#128205; Kampala</span>
+            </div>
+            <h3>Marketing Intern</h3>
+            <p class="meta">BU Alumni Media House &nbsp;·&nbsp; 3 months</p>
+            <p>Support digital marketing campaigns, content creation, and social media management for alumni events.</p>
+            <div class="opp-actions">
+              <a class="btn btn-primary" href="#">Apply</a>
+              <a class="btn btn-ghost" href="#">Grads Link</a>
+            </div>
+          </article>
+
+          <article class="opp-card" data-type="bursary" data-location="international">
+            <div class="opp-meta-row">
+              <span class="opp-tag opp-tag--bursary">Bursary</span>
+              <span class="opp-location">&#127758; International</span>
+            </div>
+            <h3>BU Alumni Scholarship 2026</h3>
+            <p class="meta">BU Alumni Association &nbsp;·&nbsp; UGX 5,000,000</p>
+            <p>Full bursary for continuing BU students demonstrating academic excellence and financial need.</p>
+            <div class="opp-actions">
+              <a class="btn btn-primary" href="#">Apply</a>
+              <a class="btn btn-ghost" href="#">Grads Link</a>
+            </div>
+          </article>
+
+          <article class="opp-card" data-type="job" data-location="remote">
+            <div class="opp-meta-row">
+              <span class="opp-tag opp-tag--job">Job</span>
+              <span class="opp-location">&#128187; Remote</span>
+            </div>
+            <h3>Data Analyst</h3>
+            <p class="meta">East Africa Alumni Investors &nbsp;·&nbsp; Contract</p>
+            <p>Analyse investment data and produce reports for a network of alumni-led investment funds across East Africa.</p>
+            <div class="opp-actions">
+              <a class="btn btn-primary" href="#">Apply</a>
+              <a class="btn btn-ghost" href="#">Grads Link</a>
+            </div>
+          </article>
+
+          <article class="opp-card" data-type="internship" data-location="remote">
+            <div class="opp-meta-row">
+              <span class="opp-tag opp-tag--internship">Internship</span>
+              <span class="opp-location">&#128187; Remote</span>
+            </div>
+            <h3>Research Assistant</h3>
+            <p class="meta">BU Health Professionals Network &nbsp;·&nbsp; 6 months</p>
+            <p>Assist in compiling health data and literature reviews for ongoing community health research projects.</p>
+            <div class="opp-actions">
+              <a class="btn btn-primary" href="#">Apply</a>
+              <a class="btn btn-ghost" href="#">Grads Link</a>
+            </div>
+          </article>
+
+          <article class="opp-card" data-type="job" data-location="international">
+            <div class="opp-meta-row">
+              <span class="opp-tag opp-tag--job">Job</span>
+              <span class="opp-location">&#127758; International</span>
+            </div>
+            <h3>Project Manager</h3>
+            <p class="meta">UN Alumni Partnership Programme &nbsp;·&nbsp; Full-time</p>
+            <p>Lead cross-border development projects in partnership with UN agencies. Open to BU graduates with 3+ years experience.</p>
+            <div class="opp-actions">
+              <a class="btn btn-primary" href="#">Apply</a>
+              <a class="btn btn-ghost" href="#">Grads Link</a>
+            </div>
+          </article>
+
+        </div>
+        <p class="no-results" id="no-results" hidden>No opportunities match your filters. Try adjusting your search.</p>
+      </div>
+    </section>
+
+    <!-- Job Givers Portal -->
+    <section class="section section-alt" id="job-givers">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>6.2 Job Givers Portal</h2>
+          <p>Are you a recruiter or organisation looking to connect with BU talent? Register below.</p>
+        </div>
+        <form class="portal-form" onsubmit="handleRecruiterSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="org-name">Organisation Name</label>
+              <input type="text" id="org-name" name="org-name" placeholder="Your company or organisation" required />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Contact Email</label>
+              <input type="email" id="contact-email" name="contact-email" placeholder="hr@company.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="opp-type">Opportunity Type</label>
+              <select id="opp-type" name="opp-type" required>
+                <option value="">Select type</option>
+                <option value="job">Job</option>
+                <option value="internship">Internship</option>
+                <option value="bursary">Bursary / Scholarship</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="opp-location">Location</label>
+              <input type="text" id="opp-location" name="opp-location" placeholder="e.g. Kampala / Remote" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="talent-feedback">Feedback on BU Talent Pool (optional)</label>
+            <textarea id="talent-feedback" name="talent-feedback" rows="3" placeholder="Share your experience working with BU graduates..."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit" style="min-width:180px;">Register as Job Giver</button>
+          <p class="form-success" id="recruiter-success" aria-live="polite" hidden>
+            &#10003; Thank you! Your organisation has been registered. Our team will review and be in touch.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3 class="footer-title">BU Alumni Portal</h3>
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <p class="footer-copy">alumni@bu.edu</p>
+        <p class="footer-copy">+1 (617) 353-9000</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Legal</h4>
+        <p><a class="footer-link" href="#">Privacy Policy</a></p>
+        <p><a class="footer-link" href="#">Terms of Use</a></p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Social</h4>
+        <p><a class="footer-link" href="#">LinkedIn</a> · <a class="footer-link" href="#">Facebook</a> · <a class="footer-link" href="#">Instagram</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const nav = document.getElementById('mobile-nav');
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    }
+
+    function filterOpps() {
+      const type = document.getElementById('filter-type').value;
+      const location = document.getElementById('filter-location').value;
+      const search = document.getElementById('filter-search').value.toLowerCase();
+      const cards = document.querySelectorAll('.opp-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const matchType = type === 'all' || card.dataset.type === type;
+        const matchLoc = location === 'all' || card.dataset.location === location;
+        const matchSearch = !search || card.textContent.toLowerCase().includes(search);
+        const show = matchType && matchLoc && matchSearch;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+      document.getElementById('no-results').hidden = visible > 0;
+    }
+
+    function handleRecruiterSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const success = document.getElementById('recruiter-success');
+      form.querySelectorAll('input, select, textarea, button[type=submit]').forEach(el => el.disabled = true);
+      success.hidden = false;
+    }
+  </script>
+</body>
+</html>

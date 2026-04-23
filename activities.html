@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Activities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a class="active" href="activities.html">Activities</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#">Login / Register</a>
+        <a class="btn btn-primary" href="memberships.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a class="active" href="activities.html">Activities</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="#">Login / Register</a>
+      <a href="memberships.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero about-hero">
+      <div class="container about-hero-grid">
+        <div>
+          <p class="eyebrow">3.0 Activities</p>
+          <h1>Get Involved</h1>
+          <p class="hero-copy">
+            From career resources to community charity, there are many ways to engage with the BU alumni network and make a lasting impact.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h3>What's Available</h3>
+          <ul>
+            <li>Career Guide &amp; PDF resources</li>
+            <li>Fundraising campaigns</li>
+            <li>Charity &amp; community projects</li>
+            <li>Alumni chapter events</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activity Cards -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>3.1 Activity Hub</h2>
+          <p>Browse all active programs and initiatives.</p>
+        </div>
+        <div class="activity-cards">
+
+          <article class="activity-card">
+            <div class="activity-icon activity-icon--career" aria-hidden="true">&#128218;</div>
+            <div>
+              <h3>Career Guide</h3>
+              <p class="meta">PDF Repository</p>
+              <p>Access curated career guides, CV templates, interview prep materials, and industry reports contributed by alumni professionals.</p>
+              <a class="btn btn-secondary" href="#" style="margin-top:1rem;">Browse Resources</a>
+            </div>
+          </article>
+
+          <article class="activity-card">
+            <div class="activity-icon activity-icon--fund" aria-hidden="true">&#127381;</div>
+            <div>
+              <h3>Fundraising</h3>
+              <p class="meta">Active Campaign</p>
+              <p>Support the BU Alumni Scholarship Fund. Every contribution helps a student access quality education.</p>
+              <div class="thermometer-wrap" aria-label="Fundraising progress">
+                <div class="thermometer-bar">
+                  <div class="thermometer-fill" style="width: 63%"></div>
+                </div>
+                <div class="thermometer-labels">
+                  <span>UGX 0</span>
+                  <span class="thermometer-pct">63% raised</span>
+                  <span>UGX 50M</span>
+                </div>
+              </div>
+              <a class="btn btn-primary" href="memberships.html" style="margin-top:1rem;">Donate Now</a>
+            </div>
+          </article>
+
+          <article class="activity-card">
+            <div class="activity-icon activity-icon--charity" aria-hidden="true">&#10084;&#65039;</div>
+            <div>
+              <h3>Charity &amp; Community</h3>
+              <p class="meta">Community Impact</p>
+              <p>See how BU alumni are giving back — from school supply drives to medical outreaches and environmental projects.</p>
+              <div class="charity-gallery">
+                <div class="charity-img" aria-label="Charity photo placeholder">Photo 1</div>
+                <div class="charity-img" aria-label="Charity photo placeholder">Photo 2</div>
+                <div class="charity-img" aria-label="Charity photo placeholder">Photo 3</div>
+                <div class="charity-img" aria-label="Charity photo placeholder">Photo 4</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="activity-card">
+            <div class="activity-icon activity-icon--chapter" aria-hidden="true">&#127758;</div>
+            <div>
+              <h3>Alumni Chapters</h3>
+              <p class="meta">72 Active Chapters</p>
+              <p>Find your local or regional alumni chapter and connect with graduates near you for networking, mentorship, and social events.</p>
+              <a class="btn btn-secondary" href="#" style="margin-top:1rem;">Find a Chapter</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3 class="footer-title">BU Alumni Portal</h3>
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <p class="footer-copy">alumni@bu.edu</p>
+        <p class="footer-copy">+1 (617) 353-9000</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Legal</h4>
+        <p><a class="footer-link" href="#">Privacy Policy</a></p>
+        <p><a class="footer-link" href="#">Terms of Use</a></p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Social</h4>
+        <p><a class="footer-link" href="#">LinkedIn</a> · <a class="footer-link" href="#">Facebook</a> · <a class="footer-link" href="#">Instagram</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const nav = document.getElementById('mobile-nav');
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    }
+  </script>
+</body>
+</html>

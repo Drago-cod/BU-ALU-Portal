@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Memberships</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a href="events.html">Events</a>
+        <a class="active" href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#">Login / Register</a>
+        <a class="btn btn-primary" href="memberships.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="events.html">Events</a>
+      <a class="active" href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="#">Login / Register</a>
+      <a href="memberships.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero about-hero">
+      <div class="container about-hero-grid">
+        <div>
+          <p class="eyebrow">5.0 Memberships</p>
+          <h1>Choose Your Tier</h1>
+          <p class="hero-copy">
+            Your membership sustains the BU Alumni network and unlocks exclusive benefits. Every tier makes a difference.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h3>Why Join?</h3>
+          <ul>
+            <li>Access exclusive networking events</li>
+            <li>Support student scholarships</li>
+            <li>Unlock career opportunities</li>
+            <li>VVP members qualify for insurance</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tier Cards -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-title-wrap">
+          <h2>5.1 Membership Tiers</h2>
+          <p>Select the plan that fits your level of engagement.</p>
+        </div>
+        <div class="tier-grid">
+
+          <article class="tier-card">
+            <p class="tier-label">Ordinary</p>
+            <p class="tier-price">UGX 50,000 <span>/year</span></p>
+            <ul class="tier-features">
+              <li>&#10003; Portal access</li>
+              <li>&#10003; Alumni directory</li>
+              <li>&#10003; Event notifications</li>
+              <li class="tier-feature--off">&#10007; Networking privileges</li>
+              <li class="tier-feature--off">&#10007; Insurance benefit</li>
+            </ul>
+            <a class="btn btn-ghost" href="#signup-form" style="width:100%;">Get Started</a>
+          </article>
+
+          <article class="tier-card tier-card--featured">
+            <p class="tier-badge">Most Popular</p>
+            <p class="tier-label">VP</p>
+            <p class="tier-price">UGX 150,000 <span>/year</span></p>
+            <ul class="tier-features">
+              <li>&#10003; Everything in Ordinary</li>
+              <li>&#10003; Premium networking access</li>
+              <li>&#10003; Business network listing</li>
+              <li>&#10003; Priority event registration</li>
+              <li class="tier-feature--off">&#10007; Insurance benefit</li>
+            </ul>
+            <a class="btn btn-primary" href="#signup-form" style="width:100%;">Join VP</a>
+          </article>
+
+          <article class="tier-card tier-card--elite">
+            <div class="insurance-badge" aria-label="Qualifies for Insurance">&#127956; Qualifies for Insurance</div>
+            <p class="tier-label">VVP</p>
+            <p class="tier-price">UGX 350,000 <span>/year</span></p>
+            <ul class="tier-features">
+              <li>&#10003; Everything in VP</li>
+              <li>&#10003; Elite networking tier</li>
+              <li>&#10003; Mentorship matching</li>
+              <li>&#10003; Annual recognition award</li>
+              <li>&#10003; <strong>Alumni Insurance Certificate</strong></li>
+            </ul>
+            <a class="btn btn-primary" href="#signup-form" style="width:100%;">Join VVP</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Signup / Donation Form -->
+    <section class="section" id="signup-form">
+      <div class="container form-wrap">
+        <div class="section-title-wrap">
+          <h2>5.2 Sign Up / Donate</h2>
+          <p>Complete the form below to register your membership or make a one-time donation.</p>
+        </div>
+        <form class="portal-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="full-name">Full Name</label>
+              <input type="text" id="full-name" name="full-name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="grad-year">Graduation Year</label>
+              <input type="number" id="grad-year" name="grad-year" placeholder="e.g. 2015" min="1950" max="2026" required />
+            </div>
+            <div class="form-group">
+              <label for="tier">Membership Tier</label>
+              <select id="tier" name="tier" required>
+                <option value="">Select a tier</option>
+                <option value="ordinary">Ordinary — UGX 50,000</option>
+                <option value="vp">VP — UGX 150,000</option>
+                <option value="vvp">VVP — UGX 350,000</option>
+                <option value="donation">One-time Donation</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="feedback">Feedback on Financial Initiatives (optional)</label>
+            <textarea id="feedback" name="feedback" rows="3" placeholder="Share your thoughts on our fundraising and membership programs..."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit" style="min-width:180px;">Submit</button>
+          <p class="form-success" id="form-success" aria-live="polite" hidden>
+            &#10003; Thank you! Your submission has been received. We'll be in touch shortly.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3 class="footer-title">BU Alumni Portal</h3>
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <p class="footer-copy">alumni@bu.edu</p>
+        <p class="footer-copy">+1 (617) 353-9000</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Legal</h4>
+        <p><a class="footer-link" href="#">Privacy Policy</a></p>
+        <p><a class="footer-link" href="#">Terms of Use</a></p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Social</h4>
+        <p><a class="footer-link" href="#">LinkedIn</a> · <a class="footer-link" href="#">Facebook</a> · <a class="footer-link" href="#">Instagram</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const nav = document.getElementById('mobile-nav');
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    }
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const success = document.getElementById('form-success');
+      form.querySelectorAll('input, select, textarea, button[type=submit]').forEach(el => el.disabled = true);
+      success.hidden = false;
+    }
+  </script>
+</body>
+</html>
