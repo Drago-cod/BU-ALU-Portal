@@ -1,5 +1,103 @@
-1. Project OverviewThe BU Alumni Portal is a centralized digital ecosystem designed to connect university graduates with professional opportunities, institutional news, and social initiatives. The portal prioritizes community growth through three pillars: Professional Advancement, Financial Sustainability, and Transparent Governance.
-  Site Architecture & Page Logic1.0 Home PagePurpose: The entry point for all users (Alumni, Students, and Guests).Key Logic: High-impact Hero section followed by a "Quick Links" grid to reduce clicks to high-traffic areas (Networking, News, Donations).Metric Display: A specialized "Alumni Stats" box to showcase the scale of the network.2.0 About / 2.1 Board MembersPurpose: To build trust through transparency.Key Logic: A dedicated 8-person grid layout. Each card must include a photo placeholder, name, board title, and a LinkedIn integration to facilitate direct networking between members and leadership
-   Activities & Sub-pagesPurpose: Engagement hub.Key Logic: Modular "Activity Cards."Career Guide: PDF repository.Fundraising: Includes a visual "Thermometer" progress bar to gamify donation goals.Charity: Visual-first gallery layout to showcase community impact.
-   Events / News (The "Plog")Purpose: Chronological information feed.Key Logic: Asymmetric layout.Primary Column: List of events and "Plog" (Portal Blog) posts. Every event requires a "Grads Link" (registration portal).Secondary Column: Sticky widgets for the Business Network and current high-priority Fundraising spotlights.
-  Fundraising Details & SubscriptionsPurpose: Revenue generation and member commitment.Tier Logic:Ordinary: Basic access.VP: Premium access + networking privileges.VVP: Elite tier. MANDATORY DESIGN REQUIREMENT: This tier must prominently feature the "Qualifies for Insurance" badge, as this is a primary driver for top-tier subscriptions.Feedback Integration: Includes a form to capture alumni sentiment regarding financial initiatives.5.0 Opportunities & 5.2 Job Givers PortalPurpose: Professional marketplace.User Path 1 (Alumni/Students): A filtered list (Jobs/Internships/Bursaries) with dual CTAs: [Apply] and [Grads Link].User Path 2 (Recruiters): A dedicated "Job Givers Portal" where external partners can register and provide feedback on the talent pool.3. Functional RequirementsFeatureRequirementAuthentication"Grads Links" must be gated. Only logged-in alumni can access registration and application forms.Search/FilterOpportunity page requires real-time filtering by type (Job/Internship) and location.Responsive DesignAll multi-column grids (Board grid, Activity cards, Opportunity rows) must collapse into a vertical stack for mobile views.FormsAll feedback and signup forms must include validation and a success confirmation state.4. Design GuidelinesStyle: Clean, professional, and monochromatic (for the wireframe phase).Navigation: Consistent Global Header (with Login/Donate CTA) and Global Footer (with Social Icons) on every page.Hierarchy: Use bold typography for Tier titles (e.g., VVP) and high-priority action buttons.5. Future RoadmapIntegration of an AI-driven mentor matching system based on the Board Member profiles.Automated insurance certificate generation for VVP members upon payment confirmation.Live partnership dashboard for the Business Network section.
+# BU Alumni Portal
+
+A centralized digital platform connecting Bugema University graduates with professional opportunities, institutional news, and community initiatives.
+
+---
+
+## Overview
+
+The BU Alumni Portal is built around three core pillars:
+
+- **Professional Advancement** — job listings, internships, bursaries, and mentorship
+- **Financial Sustainability** — tiered memberships, fundraising, and donation tracking
+- **Transparent Governance** — visible leadership, board profiles, and alumni stats
+
+---
+
+## Project Structure
+
+```
+BU ALU Portal/
+├── index.html       # Home page
+├── about.html       # About & Leadership page
+├── styles.css       # Shared stylesheet
+└── image/
+    └── Bugema_logo.png
+```
+
+---
+
+## Pages
+
+### 1.0 Home
+Entry point for all users (Alumni, Students, Guests).
+
+- Hero section with a strong call-to-action
+- Quick Links grid — direct access to Networking, News, and Donations
+- Alumni Stats box showcasing network scale (389,000+ members, 72 chapters, etc.)
+
+### 2.0 About / Leadership
+Builds trust through transparency.
+
+- Portal mission and focus areas
+- Leadership section: Patron, President, General Secretary, Finance Officer
+- Each leader card includes role, bio, WhatsApp, LinkedIn, and direct contact links
+
+### 3.0 Activities
+Engagement hub with modular activity cards.
+
+- Career Guide — PDF resource repository
+- Fundraising — visual thermometer progress bar to gamify donation goals
+- Charity — gallery layout showcasing community impact
+
+### 4.0 Events & News (The "Plog")
+Chronological information feed with an asymmetric layout.
+
+- Primary column: events list and Portal Blog (Plog) posts — every event includes a Grads Link for registration
+- Secondary column: sticky widgets for the Business Network and active fundraising spotlights
+
+### 5.0 Memberships & Subscriptions
+Revenue and member commitment tiers.
+
+| Tier | Access | Notes |
+|------|--------|-------|
+| Ordinary | Basic portal access | — |
+| VP | Premium access + networking privileges | — |
+| VVP | Elite tier | Qualifies for Insurance badge (primary upgrade driver) |
+
+Includes a feedback form to capture alumni sentiment on financial initiatives.
+
+### 6.0 Opportunities & Job Givers Portal
+Professional marketplace with two user paths.
+
+- **Alumni/Students** — filtered listings (Jobs / Internships / Bursaries) with Apply and Grads Link CTAs
+- **Recruiters** — dedicated Job Givers Portal for partner registration and talent pool feedback
+
+---
+
+## Functional Requirements
+
+| Feature | Requirement |
+|---------|-------------|
+| Authentication | Grads Links are gated — only logged-in alumni can access registration and application forms |
+| Search & Filter | Opportunities page requires real-time filtering by type and location |
+| Responsive Design | All multi-column grids collapse to a vertical stack on mobile |
+| Forms | All feedback and signup forms include validation and a success confirmation state |
+
+---
+
+## Design Guidelines
+
+- **Style** — Clean, professional, monochromatic base with a blue primary (`#1140d9`)
+- **Typography** — Inter font; bold hierarchy for tier titles and primary CTAs
+- **Navigation** — Consistent global header (Login / Donate) and footer (social links) on every page
+- **Responsive** — Mobile hamburger menu at ≤680px; all grids stack at ≤680px
+
+---
+
+## Roadmap
+
+- [ ] AI-driven mentor matching based on leadership and alumni profiles
+- [ ] Automated insurance certificate generation for VVP members on payment confirmation
+- [ ] Live partnership dashboard for the Business Network section
+- [ ] Alumni chapter map with geographic filtering
