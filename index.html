@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -47,7 +47,7 @@
     <!-- Hero -->
     <section class="hero home-hero" id="home">
       <div class="container home-hero-grid">
-        <div class="hero-visual" aria-hidden="true">
+        <div class="hero-visual slide-left" aria-hidden="true">
           <span>BU Campus</span>
         </div>
         <div>
@@ -65,7 +65,7 @@
     </section>
 
     <!-- Animated Stats Bar -->
-    <section class="stats-bar" aria-label="Alumni network statistics">
+    <section class="stats-bar scale-in" aria-label="Alumni network statistics">
       <div class="container stats-bar-grid">
         <div class="stat-bar-item">
           <span class="stat-bar-num" data-target="389000">0</span><span class="stat-bar-suffix">+</span>
@@ -89,7 +89,7 @@
     <!-- Quick Links -->
     <section class="section quick-links-section">
       <div class="container">
-        <div class="quick-links-grid">
+        <div class="quick-links-grid stagger-children">
           <a class="quick-link-card" href="opportunities.html">
             <span class="ql-icon">&#128101;</span>
             <span>Join Network</span>
@@ -123,7 +123,7 @@
             <a class="btn btn-secondary" href="activities.html">Explore Activities</a>
           </div>
         </article>
-        <aside class="stats-feature-box" aria-label="BU Alumni Stats">
+        <aside class="stats-feature-box slide-right" aria-label="BU Alumni Stats">
           <h3>BU Alumni at a Glance</h3>
           <ul class="stats-feature-list">
             <li><strong>389,000+</strong> registered alumni members</li>
@@ -141,11 +141,11 @@
     <!-- Featured Events Strip -->
     <section class="section section-alt">
       <div class="container">
-        <div class="section-title-wrap">
+        <div class="section-title-wrap fade-up">
           <h2>Upcoming Events</h2>
           <p>Don't miss what's happening in the BU alumni community.</p>
         </div>
-        <div class="events-strip">
+        <div class="events-strip stagger-children">
           <article class="event-strip-card">
             <div class="event-strip-date">
               <span>MAY</span>
@@ -189,11 +189,11 @@
     <!-- Testimonials -->
     <section class="section">
       <div class="container">
-        <div class="section-title-wrap">
+        <div class="section-title-wrap fade-up">
           <h2>Alumni Voices</h2>
           <p>Hear from graduates who are making an impact.</p>
         </div>
-        <div class="testimonials-grid">
+        <div class="testimonials-grid stagger-children">
           <blockquote class="testimonial-card">
             <p>"The BU Alumni Portal connected me with a mentor who helped me land my first role at a top firm. I can't imagine where I'd be without this network."</p>
             <footer>
@@ -287,6 +287,7 @@
     </div>
   </footer>
 
+  <script src="animations.js"></script>
   <script>
     function toggleNav(btn) {
       const nav = document.getElementById('mobile-nav');

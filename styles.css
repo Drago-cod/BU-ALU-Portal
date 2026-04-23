@@ -1696,3 +1696,313 @@ h2 {
   .newsletter-form input { min-width: 100%; }
   .newsletter-form .btn  { width: 100%; }
 }
+
+/* ══════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════ */
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Page entrance ── */
+html { opacity: 0; }
+html.page-ready { animation: page-fade-in 0.35s ease forwards; }
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Scroll-triggered base states ── */
+.fade-up    { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.fade-in    { opacity: 0;                               transition: opacity 0.55s ease; }
+.slide-left { opacity: 0; transform: translateX(-32px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.slide-right{ opacity: 0; transform: translateX(32px);  transition: opacity 0.55s ease, transform 0.55s ease; }
+.scale-in   { opacity: 0; transform: scale(0.94);       transition: opacity 0.5s ease, transform 0.5s ease; }
+
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Triggered state */
+.fade-up.in-view,
+.fade-in.in-view,
+.slide-left.in-view,
+.slide-right.in-view,
+.scale-in.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+.stagger-children.in-view > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hero text entrance ── */
+.hero h1    { animation: hero-slide-up 0.65s cubic-bezier(0.22,1,0.36,1) both; }
+.hero .eyebrow { animation: hero-slide-up 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.hero .hero-copy { animation: hero-slide-up 0.65s 0.12s cubic-bezier(0.22,1,0.36,1) both; }
+.hero .hero-actions { animation: hero-slide-up 0.65s 0.22s cubic-bezier(0.22,1,0.36,1) both; }
+.hero .hero-card { animation: hero-slide-up 0.65s 0.18s cubic-bezier(0.22,1,0.36,1) both; }
+
+@keyframes hero-slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Hero visual float ── */
+.hero-visual {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ── Nav scroll shrink ── */
+.site-header {
+  transition: min-height 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.site-header.nav-scrolled {
+  box-shadow: 0 4px 20px rgba(17, 64, 217, 0.12);
+  background: rgba(246, 248, 252, 0.98);
+}
+
+.site-header.nav-scrolled .nav-wrap {
+  min-height: 58px;
+}
+
+/* ── Button ripple ── */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple 0.55s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to { transform: translate(-50%, -50%) scale(60); opacity: 0; }
+}
+
+/* ── Card hover lifts ── */
+.content-card,
+.stat-card,
+.leader-card,
+.activity-card,
+.event-row,
+.opp-card,
+.tier-card,
+.testimonial-card,
+.value-card,
+.spotlight-card,
+.event-strip-card,
+.sidebar-widget,
+.plog-post,
+.hero-card,
+.stats-feature-box {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.content-card:hover,
+.stat-card:hover,
+.activity-card:hover,
+.event-row:hover,
+.tier-card:hover,
+.testimonial-card:hover,
+.value-card:hover,
+.spotlight-card:hover,
+.event-strip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(17, 64, 217, 0.13);
+}
+
+/* ── Thermometer animated fill ── */
+.thermometer-fill {
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Stats bar count-up shimmer ── */
+.stat-bar-num {
+  display: inline-block;
+  position: relative;
+}
+
+/* ── Quick link card hover ── */
+.quick-link-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.quick-link-card:hover {
+  background: #e0e9ff;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(17, 64, 217, 0.16);
+}
+
+/* ── Nav link underline slide ── */
+.nav a {
+  position: relative;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.nav a:hover::after,
+.nav a.active::after {
+  width: 100%;
+}
+
+/* ── Leader card avatar pulse on hover ── */
+.leader-card:hover .leader-avatar {
+  animation: avatar-pulse 0.6s ease;
+}
+
+@keyframes avatar-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* ── FAQ open/close transition ── */
+.faq-item {
+  transition: box-shadow 0.2s ease;
+}
+
+.faq-item[open] {
+  box-shadow: 0 6px 20px rgba(17, 64, 217, 0.1);
+}
+
+.faq-item summary {
+  transition: color 0.2s ease;
+}
+
+.faq-item[open] summary {
+  color: var(--primary);
+}
+
+/* ── Eyebrow slide-in ── */
+.eyebrow {
+  animation: eyebrow-in 0.5s ease both;
+}
+
+@keyframes eyebrow-in {
+  from { opacity: 0; letter-spacing: 0.2em; }
+  to   { opacity: 1; letter-spacing: 0.08em; }
+}
+
+/* ── Section title underline draw ── */
+.section-title-wrap h2 {
+  position: relative;
+  display: inline-block;
+}
+
+.section-title-wrap h2::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 2px;
+  transition: width 0.6s 0.2s ease;
+}
+
+.in-view .section-title-wrap h2::after,
+.section-title-wrap.in-view h2::after {
+  width: 48px;
+}
+
+/* ── Opportunity card tag bounce ── */
+.opp-card:hover .opp-tag {
+  animation: tag-bounce 0.35s ease;
+}
+
+@keyframes tag-bounce {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* ── Tier card featured glow pulse ── */
+.tier-card--featured {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px var(--primary), var(--shadow); }
+  50%       { box-shadow: 0 0 0 4px rgba(17,64,217,0.35), 0 20px 40px rgba(17,64,217,0.18); }
+}
+
+/* ── Insurance badge shimmer ── */
+.insurance-badge {
+  background-size: 200% 100%;
+  animation: badge-shimmer 2.5s linear infinite;
+  background-image: linear-gradient(90deg, #fff8e1 0%, #fef3c7 40%, #fff8e1 60%, #fff8e1 100%);
+}
+
+@keyframes badge-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ── CTA banner text entrance ── */
+.cta-banner h2 { animation: hero-slide-up 0.6s ease both; }
+.cta-banner p  { animation: hero-slide-up 0.6s 0.1s ease both; }
+.cta-banner .hero-actions { animation: hero-slide-up 0.6s 0.2s ease both; }
+
+/* ── Spotlight image shimmer placeholder ── */
+.spotlight-img,
+.hero-visual,
+.charity-img {
+  background-size: 200% 100%;
+  animation: img-shimmer 2.5s linear infinite, float 6s ease-in-out infinite;
+}
+
+.charity-img {
+  animation: img-shimmer 2.5s linear infinite;
+}
+
+@keyframes img-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.spotlight-img {
+  background-image: linear-gradient(120deg, #113ecf 0%, #6f89ff 40%, #3a5fe8 60%, #113ecf 100%);
+}
+
+.hero-visual {
+  background-image: linear-gradient(150deg, #0f3ccc 0%, #6d88ff 40%, #3a5fe8 60%, #0f3ccc 100%);
+}
+
+.charity-img {
+  background-image: linear-gradient(120deg, #c7d4ff 0%, #e8eeff 40%, #d0daff 60%, #c7d4ff 100%);
+}
