@@ -4550,3 +4550,160 @@ textarea,
     justify-content: center;
   }
 }
+
+/* ── Career Guide page ── */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.resource-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(17,64,217,0.1);
+}
+
+.resource-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.resource-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #eff6ff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.resource-icon .material-icons-round {
+  font-size: 22px;
+  color: var(--primary);
+}
+
+.resource-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.resource-tag--career-guide   { background: #e8f0fb; color: #0a66c2; }
+.resource-tag--cv-template    { background: #e8f5e9; color: #1a7a3c; }
+.resource-tag--interview-prep { background: #f3e8ff; color: #7c3aed; }
+.resource-tag--industry-report{ background: #fff8e1; color: #b45309; }
+.resource-tag--mentorship     { background: #fce4ec; color: #be123c; }
+
+.resource-card h3 {
+  margin: 0;
+  font-size: 0.97rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.resource-card p {
+  margin: 0;
+  font-size: 0.87rem;
+  color: var(--muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.resource-contributor {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.resource-contributor .material-icons-round {
+  font-size: 14px;
+}
+
+.resource-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+.resource-actions .btn {
+  font-size: 0.8rem;
+  padding: 0.42rem 0.8rem;
+  gap: 0.3rem;
+}
+
+.resource-actions .material-icons-round {
+  font-size: 15px;
+}
+
+/* Upload form */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 640px;
+}
+
+.file-upload-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.file-upload-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.file-upload-input {
+  padding: 0.6rem 0.85rem;
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.file-upload-input:hover,
+.file-upload-input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+@media (max-width: 920px) {
+  .resource-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+}

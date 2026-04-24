@@ -1,1 +1,513 @@
-﻿<!-- placeholder -->
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Career Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a class="active" href="activities.html">Activities</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="memberships.html#signup-form">Login / Register</a>
+        <a class="btn btn-primary" href="memberships.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a class="active" href="activities.html">Activities</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="memberships.html#signup-form">Login / Register</a>
+      <a href="memberships.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero about-hero">
+      <div class="container about-hero-grid">
+        <div>
+          <p class="eyebrow">3.1 Career Guide</p>
+          <h1>Career Resource Library</h1>
+          <p class="hero-copy">
+            Curated career guides, CV templates, interview prep materials, and industry reports &mdash; contributed by BU alumni professionals and updated regularly.
+          </p>
+        </div>
+        <div class="hero-card slide-right">
+          <h3>Resource Stats</h3>
+          <ul>
+            <li><strong>48</strong> PDF resources</li>
+            <li><strong>12</strong> CV templates</li>
+            <li><strong>8</strong> industry reports</li>
+            <li>Updated monthly</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <section class="section" style="padding-bottom:0;">
+      <div class="container">
+        <div class="filter-bar" role="search" aria-label="Filter resources">
+          <div class="filter-group">
+            <label for="filter-category">Category</label>
+            <select id="filter-category" onchange="filterResources()">
+              <option value="all">All Categories</option>
+              <option value="career-guide">Career Guides</option>
+              <option value="cv-template">CV Templates</option>
+              <option value="interview-prep">Interview Prep</option>
+              <option value="industry-report">Industry Reports</option>
+              <option value="mentorship">Mentorship</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-industry">Industry</label>
+            <select id="filter-industry" onchange="filterResources()">
+              <option value="all">All Industries</option>
+              <option value="technology">Technology</option>
+              <option value="business">Business</option>
+              <option value="health">Health</option>
+              <option value="law">Law</option>
+              <option value="education">Education</option>
+              <option value="engineering">Engineering</option>
+            </select>
+          </div>
+          <div class="filter-group filter-group--search">
+            <label for="filter-search">Search</label>
+            <input type="search" id="filter-search" placeholder="Search resources..." oninput="filterResources()" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resource Grid -->
+    <section class="section">
+      <div class="container">
+        <div id="resource-grid" class="resource-grid stagger-children">
+
+          <!-- Card 1 -->
+          <article class="resource-card" data-category="career-guide" data-industry="technology">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--career-guide">Career Guide</span>
+              <div class="resource-icon"><span class="material-icons-round">rocket_launch</span></div>
+            </div>
+            <h3>Breaking into Tech: A BU Graduate&rsquo;s Roadmap</h3>
+            <p>Step-by-step guide from internship to senior engineer, written by a BU Class of 2015 software engineer at a top Kampala firm.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> David Ssemwanga &middot; Class of 2015</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="resource-card" data-category="cv-template" data-industry="business">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--cv-template">CV Template</span>
+              <div class="resource-icon"><span class="material-icons-round">description</span></div>
+            </div>
+            <h3>Professional CV Template &mdash; Business &amp; Finance</h3>
+            <p>ATS-optimised, two-page CV template tailored for finance, accounting, and business roles in East Africa.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> Grace Nakato &middot; Class of 2018</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="resource-card" data-category="interview-prep" data-industry="technology">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--interview-prep">Interview Prep</span>
+              <div class="resource-icon"><span class="material-icons-round">record_voice_over</span></div>
+            </div>
+            <h3>50 Tech Interview Questions &amp; Model Answers</h3>
+            <p>Compiled from real interviews at Ugandan and regional tech companies, with structured STAR-method answers.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> Brian Mugisha &middot; Class of 2019</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="resource-card" data-category="industry-report" data-industry="health">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--industry-report">Industry Report</span>
+              <div class="resource-icon"><span class="material-icons-round">health_and_safety</span></div>
+            </div>
+            <h3>East Africa Health Sector Employment Report 2026</h3>
+            <p>Salary benchmarks, in-demand roles, and hiring trends across Uganda, Kenya, and Tanzania&rsquo;s health sector.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> Dr. Sarah Nakato &middot; Class of 2008</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="resource-card" data-category="cv-template" data-industry="technology">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--cv-template">CV Template</span>
+              <div class="resource-icon"><span class="material-icons-round">description</span></div>
+            </div>
+            <h3>Software Engineer CV Template</h3>
+            <p>Clean, modern CV template for developers &mdash; includes sections for GitHub, projects, and tech stack.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> James Kato &middot; Class of 2020</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="resource-card" data-category="career-guide" data-industry="law">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--career-guide">Career Guide</span>
+              <div class="resource-icon"><span class="material-icons-round">gavel</span></div>
+            </div>
+            <h3>Legal Career Pathways in Uganda</h3>
+            <p>From law school to the bar &mdash; a practical guide to clerkships, law firms, and public sector legal roles.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> Nakato &amp; Associates &middot; Class of 2012</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 7 -->
+          <article class="resource-card" data-category="interview-prep" data-industry="business">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--interview-prep">Interview Prep</span>
+              <div class="resource-icon"><span class="material-icons-round">handshake</span></div>
+            </div>
+            <h3>Mastering the Business Case Interview</h3>
+            <p>Framework-based approach to consulting and business case interviews, with 10 practice cases.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> Moses Byaruhanga &middot; Class of 2016</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 8 -->
+          <article class="resource-card" data-category="industry-report" data-industry="technology">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--industry-report">Industry Report</span>
+              <div class="resource-icon"><span class="material-icons-round">trending_up</span></div>
+            </div>
+            <h3>Uganda Tech Startup Ecosystem Report 2026</h3>
+            <p>Funding landscape, top employers, and emerging roles in Uganda&rsquo;s growing technology sector.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> BU Tech Founders Circle &middot; 2026</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 9 -->
+          <article class="resource-card" data-category="mentorship" data-industry="education">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--mentorship">Mentorship</span>
+              <div class="resource-icon"><span class="material-icons-round">school</span></div>
+            </div>
+            <h3>Finding &amp; Working with a Mentor &mdash; A Guide for New Graduates</h3>
+            <p>How to identify, approach, and build a productive mentorship relationship within the BU alumni network.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> Alice Nakayiza &middot; Class of 2010</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 10 -->
+          <article class="resource-card" data-category="cv-template" data-industry="engineering">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--cv-template">CV Template</span>
+              <div class="resource-icon"><span class="material-icons-round">engineering</span></div>
+            </div>
+            <h3>Engineering CV Template &mdash; Civil &amp; Structural</h3>
+            <p>Professional CV template for civil, structural, and mechanical engineers seeking roles in East Africa.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> Robert Ssali &middot; Class of 2014</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 11 -->
+          <article class="resource-card" data-category="career-guide" data-industry="business">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--career-guide">Career Guide</span>
+              <div class="resource-icon"><span class="material-icons-round">store</span></div>
+            </div>
+            <h3>Starting Your Business in Uganda &mdash; Alumni Playbook</h3>
+            <p>Registration, funding, and growth strategies from BU alumni entrepreneurs who built successful SMEs.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> East Africa Alumni Investors &middot; 2025</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+          <!-- Card 12 -->
+          <article class="resource-card" data-category="interview-prep" data-industry="health">
+            <div class="resource-card-top">
+              <span class="resource-tag resource-tag--interview-prep">Interview Prep</span>
+              <div class="resource-icon"><span class="material-icons-round">medical_services</span></div>
+            </div>
+            <h3>Healthcare Interview Preparation Guide</h3>
+            <p>Common clinical and non-clinical interview questions for nurses, doctors, and health administrators.</p>
+            <div class="resource-contributor"><span class="material-icons-round">person</span> BU Health Professionals Network &middot; 2026</div>
+            <div class="resource-actions">
+              <a class="btn btn-primary" href="#" download><span class="material-icons-round">download</span> Download PDF</a>
+              <a class="btn btn-ghost" href="#">Preview</a>
+            </div>
+          </article>
+
+        </div>
+        <p class="no-results" id="no-results" hidden>No resources match your filters. Try adjusting your search.</p>
+      </div>
+    </section>
+
+    <!-- Upload CTA -->
+    <section class="section section-alt" id="contribute">
+      <div class="container">
+        <div class="section-title-wrap fade-up">
+          <h2>Contribute a Resource</h2>
+          <p>Are you a BU alumni professional? Share your expertise by uploading a career guide, CV template, or industry report. Help the next generation of graduates.</p>
+        </div>
+        <form class="upload-form" onsubmit="handleUploadSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="upload-name">Full Name</label>
+              <input type="text" id="upload-name" name="full-name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="upload-email">Email</label>
+              <input type="email" id="upload-email" name="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="upload-title">Resource Title</label>
+            <input type="text" id="upload-title" name="resource-title" placeholder="e.g. CV Template for Engineers" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="upload-category">Category</label>
+              <select id="upload-category" name="category" required>
+                <option value="">Select category</option>
+                <option value="career-guide">Career Guide</option>
+                <option value="cv-template">CV Template</option>
+                <option value="interview-prep">Interview Prep</option>
+                <option value="industry-report">Industry Report</option>
+                <option value="mentorship">Mentorship</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="upload-industry">Industry</label>
+              <select id="upload-industry" name="industry" required>
+                <option value="">Select industry</option>
+                <option value="technology">Technology</option>
+                <option value="business">Business</option>
+                <option value="health">Health</option>
+                <option value="law">Law</option>
+                <option value="education">Education</option>
+                <option value="engineering">Engineering</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="upload-description">Description</label>
+            <textarea id="upload-description" name="description" rows="3" placeholder="Briefly describe what this resource covers..."></textarea>
+          </div>
+          <div class="file-upload-group">
+            <label class="file-upload-label" for="upload-file">Upload PDF (max 10MB)</label>
+            <input class="file-upload-input" type="file" id="upload-file" name="file" accept=".pdf" />
+          </div>
+          <button class="btn btn-primary" type="submit" style="min-width:180px;">Submit Resource</button>
+          <p class="form-success" id="upload-success" aria-live="polite" hidden>
+            <span class="material-icons-round mi-check">check</span> Thank you! Your resource has been submitted for review. We will be in touch shortly.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+      <div class="container cta-banner-inner">
+        <div>
+          <h2>Ready to advance your career?</h2>
+          <p>Join the BU Alumni network to access all resources, connect with mentors, and discover job opportunities.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="memberships.html#signup-form">Join the Network</a>
+          <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,0.4);" href="opportunities.html">Browse Jobs</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<footer id="footer" class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+        <div class="footer-social">
+          <!-- WhatsApp -->
+          <a href="https://wa.me/256700123400" target="_blank" rel="noopener"
+             aria-label="Chat with BU Alumni on WhatsApp" class="social-icon social-icon--wa">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+              <path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2c-5.5 0-9.97 4.46-9.97 9.97 0 1.75.46 3.46 1.33 4.96L2 22l5.2-1.36a9.93 9.93 0 0 0 4.83 1.23h.01c5.5 0 9.97-4.46 9.97-9.97a9.9 9.9 0 0 0-2.91-7zM12.04 20.18h-.01a8.3 8.3 0 0 1-4.24-1.16l-.3-.18-3.09.81.82-3.01-.2-.31a8.29 8.29 0 0 1-1.28-4.42c0-4.58 3.72-8.3 8.31-8.3 2.22 0 4.3.87 5.86 2.43a8.26 8.26 0 0 1 2.43 5.87c0 4.59-3.73 8.31-8.3 8.31zm4.56-6.23c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.57.12-.17.26-.65.8-.79.96-.15.17-.29.19-.54.07-.25-.13-1.05-.38-2-1.2-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.39.11-.52.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.13-.57-1.38-.78-1.89-.21-.5-.42-.43-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.09s.9 2.43 1.02 2.6c.12.17 1.77 2.7 4.28 3.79.6.26 1.06.42 1.42.54.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.19.21-.59.21-1.09.15-1.19-.06-.11-.23-.17-.48-.3z"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener"
+             aria-label="BU Alumni on Facebook" class="social-icon social-icon--fb">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="https://x.com/BugemaUniversity" target="_blank" rel="noopener"
+             aria-label="BU Alumni on X (Twitter)" class="social-icon social-icon--x">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="15" height="15">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener"
+             aria-label="BU Alumni on LinkedIn" class="social-icon social-icon--li">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener"
+             aria-label="BU Alumni on Instagram" class="social-icon social-icon--ig">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <!-- Email -->
+          <a href="mailto:alumni@bualumni.org"
+             aria-label="Email BU Alumni" class="social-icon social-icon--em">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Portal</h4>
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="activities.html">Activities</a>
+        <a class="footer-link" href="career-guide.html">Career Guide</a>
+        <a class="footer-link" href="events.html">Events</a>
+        <a class="footer-link" href="memberships.html">Memberships</a>
+        <a class="footer-link" href="opportunities.html">Opportunities</a>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Contact</h4>
+        <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
+        <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
+        <a class="footer-link" href="legal.html#terms">Terms of Use</a>
+      </div>
+      <div class="footer-newsletter">
+        <h4 class="footer-heading">Stay Updated</h4>
+        <p class="footer-copy">Get alumni news and events in your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <p class="newsletter-success" id="nl-success" hidden><span class="material-icons-round mi-check">check</span> You are subscribed!</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  function handleNewsletter(e) {
+    e.preventDefault();
+    const form = e.target;
+    const emailField = form.querySelector('input[type="email"]');
+    const feedback = document.getElementById('nl-success');
+    if (!emailField || !feedback) return;
+    const email = emailField.value.trim();
+    feedback.textContent = 'Thanks. ' + email + ' will now receive BU alumni updates.';
+    feedback.hidden = false;
+    form.reset();
+    emailField.blur();
+  }
+
+  function handleUploadSubmit(e) {
+    e.preventDefault();
+    const success = document.getElementById('upload-success');
+    if (success) {
+      success.hidden = false;
+      e.target.reset();
+    }
+  }
+
+  function filterResources() {
+    const category = document.getElementById('filter-category').value;
+    const industry = document.getElementById('filter-industry').value;
+    const search = document.getElementById('filter-search').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('#resource-grid .resource-card');
+    let visible = 0;
+    cards.forEach(function(card) {
+      const matchCat = category === 'all' || card.dataset.category === category;
+      const matchInd = industry === 'all' || card.dataset.industry === industry;
+      const text = card.textContent.toLowerCase();
+      const matchSearch = search === '' || text.includes(search);
+      if (matchCat && matchInd && matchSearch) {
+        card.hidden = false;
+        visible++;
+      } else {
+        card.hidden = true;
+      }
+    });
+    const noResults = document.getElementById('no-results');
+    if (noResults) noResults.hidden = visible > 0;
+  }
+</script>
+  <script src="theme.js"></script>
+  <script src="animations.js"></script>
+  <script src="share.js"></script>
+</body>
+</html>
