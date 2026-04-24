@@ -3439,382 +3439,343 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   SOCIAL SHARING
+   SOCIAL SHARING — Fan-out button (Webflow-style)
 ══════════════════════════════════════════════════════════════ */
 
-/* ── Floating Action Button ── */
-.share-fab {
+/* ── Wrapper ── */
+.sfb-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Floating FAB position ── */
+.sfb-wrap--fab {
   position: fixed;
   bottom: 1.6rem;
-  right: 1.6rem;
-  z-index: 200;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: #fff;
+  right:  1.6rem;
+  z-index: 300;
+}
+
+/* ── Trigger pill ── */
+.sfb-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem 0.6rem 0.85rem;
+  border-radius: 999px;
   border: none;
+  background: var(--primary, #1140d9);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
   cursor: pointer;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 6px 20px rgba(17, 64, 217, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.15s ease;
+  box-shadow: 0 6px 20px rgba(17, 64, 217, 0.32);
+  transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0.01em;
 }
 
-.share-fab:hover {
-  background: var(--primary-dark);
-  transform: translateY(-3px) scale(1.06);
-  box-shadow: 0 10px 28px rgba(17, 64, 217, 0.42);
+.sfb-trigger:hover {
+  background: var(--primary-dark, #0c30a6);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(17, 64, 217, 0.38);
 }
 
-.share-fab:active {
+.sfb-trigger:active {
   transform: scale(0.96);
 }
 
-/* ── Inline share button ── */
-.share-btn {
+/* Icon swap: show share icon by default, close icon when open */
+.sfb-trigger-icon--close { display: none; }
+.sfb-trigger-icon--share { display: flex; }
+
+.sfb-wrap[data-open="true"] .sfb-trigger {
+  background: #374151;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+}
+
+.sfb-wrap[data-open="true"] .sfb-trigger-icon--share { display: none; }
+.sfb-wrap[data-open="true"] .sfb-trigger-icon--close { display: flex; }
+
+/* ── Pills container ── */
+.sfb-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: absolute;
+  /* Default: fan out to the LEFT of the trigger */
+  right: calc(100% + 0.6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* FAB: fan out UPWARD */
+.sfb-wrap--fab .sfb-pills {
+  right: auto;
+  left: 50%;
+  top: auto;
+  bottom: calc(100% + 0.6rem);
+  transform: translateX(-50%);
+  flex-direction: column-reverse;
+  align-items: flex-end;
+}
+
+/* ── Individual platform pill ── */
+.sfb-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.42rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--muted);
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-  white-space: nowrap;
-}
-
-.share-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: #f0f4ff;
-}
-
-.share-btn svg {
-  flex-shrink: 0;
-}
-
-/* ── Dropdown menu ── */
-.share-dropdown {
-  position: absolute;
-  z-index: 9999;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 12px 36px rgba(17, 64, 217, 0.14), 0 2px 8px rgba(0,0,0,0.08);
-  padding: 0.4rem;
-  min-width: 190px;
-  animation: shareDropIn 0.18s ease;
-}
-
-@keyframes shareDropIn {
-  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0)   scale(1);    }
-}
-
-.share-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.6rem 0.85rem;
-  border-radius: 9px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text);
-  text-decoration: none;
-  background: none;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem 0.5rem 0.65rem;
+  border-radius: 999px;
   border: none;
-  width: 100%;
-  cursor: pointer;
+  background: var(--sfb-color, #374151);
+  color: var(--sfb-text, #fff);
   font-family: inherit;
-  transition: background 0.12s ease;
-}
-
-.share-dropdown-item:hover {
-  background: var(--bg);
-}
-
-.share-item-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  display: grid;
-  place-items: center;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-  background: #f3f4f6;
-}
-
-/* Platform accent colours */
-.share-wa  .share-item-icon { background: #e7f9ef; }
-.share-fb  .share-item-icon { background: #e8f0fb; }
-.share-tw  .share-item-icon { background: #e8f4fd; }
-.share-li  .share-item-icon { background: #e8f0fb; }
-.share-em  .share-item-icon { background: #f0f4ff; }
-.share-copy .share-item-icon { background: #f3f4f6; }
-
-/* ── Responsive ── */
-@media (max-width: 480px) {
-  .share-fab {
-    bottom: 1.1rem;
-    right: 1.1rem;
-    width: 46px;
-    height: 46px;
-  }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   PAYMENT METHODS
-══════════════════════════════════════════════════════════════ */
-
-/* ── Trust bar (standalone section) ── */
-.pay-trust-section {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.pay-trust-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  text-align: center;
-}
-
-.pay-trust-label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  margin: 0;
-}
-
-.pay-methods-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-  align-items: center;
-}
-
-.pay-method-badge {
-  width: 100px;
-  height: 40px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  flex-shrink: 0;
-}
-
-.pay-method-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-}
-
-.pay-method-badge svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.pay-trust-note {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin: 0;
-}
-
-/* ── Payment selector inside form ── */
-.pay-select-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.2rem;
-  background: #f9fafb;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-}
-
-.pay-select-label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text);
-  margin: 0;
-}
-
-.pay-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.pay-option {
+  text-decoration: none;
   cursor: pointer;
-}
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
 
-.pay-option input[type="radio"] {
-  position: absolute;
+  /* Hidden state */
   opacity: 0;
-  width: 0;
-  height: 0;
+  transform: scale(0.7) translateX(12px);
+  pointer-events: none;
 }
 
-.pay-option-card {
+.sfb-wrap--fab .sfb-pill {
+  transform: scale(0.7) translateY(12px);
+}
+
+.sfb-pill-icon {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.6rem 0.75rem;
-  border: 2px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.12s;
-  min-width: 80px;
+  flex-shrink: 0;
 }
 
-.pay-option-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-1px);
+.sfb-pill-label {
+  line-height: 1;
 }
 
-.pay-option input[type="radio"]:checked + .pay-option-card,
-.pay-option-card--selected {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(17, 64, 217, 0.14);
+/* Hover lift */
+.sfb-pill:hover {
+  transform: scale(1.06) !important;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.24);
+}
+
+/* ── Open state — animate pills in ── */
+.sfb-wrap[data-open="true"] .sfb-pills {
+  pointer-events: auto;
+}
+
+.sfb-wrap[data-open="true"] .sfb-pill {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  pointer-events: auto;
+  transition:
+    opacity   0.22s ease var(--sfb-delay, 0ms),
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) var(--sfb-delay, 0ms),
+    box-shadow 0.15s ease;
+}
+
+.sfb-wrap--fab[data-open="true"] .sfb-pill {
+  transform: scale(1) translateY(0);
+}
+
+/* ── Inline share-btn wrapper ── */
+.sfb-wrap:not(.sfb-wrap--fab) {
+  /* sits inline with other action buttons */
+}
+
+.sfb-wrap:not(.sfb-wrap--fab) .sfb-trigger {
+  padding: 0.42rem 0.85rem 0.42rem 0.65rem;
+  font-size: 0.8rem;
+  box-shadow: none;
+  background: var(--surface, #fff);
+  color: var(--text, #111827);
+  border: 1.5px solid var(--border, #dbe2f1);
+}
+
+.sfb-wrap:not(.sfb-wrap--fab) .sfb-trigger:hover {
   background: #f0f4ff;
+  border-color: var(--primary, #1140d9);
+  color: var(--primary, #1140d9);
+  box-shadow: none;
+  transform: none;
 }
 
-.pay-logo {
-  width: 72px;
-  height: 28px;
-  display: block;
-  border-radius: 4px;
+.sfb-wrap:not(.sfb-wrap--fab)[data-open="true"] .sfb-trigger {
+  background: #f0f4ff;
+  border-color: var(--primary, #1140d9);
+  color: var(--primary, #1140d9);
+  box-shadow: none;
 }
 
-.pay-option-card span {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--text);
-  white-space: nowrap;
-}
-
-/* ── Payment instructions ── */
-.pay-instructions {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
-  border-radius: 10px;
-  padding: 1rem 1.1rem;
-  font-size: 0.88rem;
-  color: #78350f;
-  animation: fadeSlideIn 0.2s ease;
-}
-
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.pay-instr-block strong {
-  display: block;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  color: #92400e;
-}
-
-.pay-instr-block ol {
-  margin: 0;
-  padding-left: 1.2rem;
-}
-
-.pay-instr-block ol li {
-  margin-bottom: 0.3rem;
-  line-height: 1.5;
-}
-
-.pay-instr-block code {
-  background: rgba(0,0,0,0.07);
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
-  font-size: 0.85em;
-  font-family: monospace;
-}
-
-.pay-instr-block p {
-  margin: 0.4rem 0 0;
-  line-height: 1.6;
-}
-
-/* Bank transfer table */
-.pay-bank-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-}
-
-.pay-bank-table td {
-  padding: 0.35rem 0.5rem;
-  border-bottom: 1px solid rgba(0,0,0,0.07);
-  vertical-align: top;
-}
-
-.pay-bank-table td:first-child {
-  color: #92400e;
-  font-weight: 600;
-  width: 42%;
-  white-space: nowrap;
+/* Inline pills fan LEFT by default; flip RIGHT if near left edge */
+.sfb-wrap:not(.sfb-wrap--fab) .sfb-pills {
+  right: calc(100% + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: row-reverse;
 }
 
 /* ── Responsive ── */
-@media (max-width: 680px) {
-  .pay-methods-grid {
-    gap: 0.5rem;
+@media (max-width: 600px) {
+  .sfb-wrap--fab {
+    bottom: 1rem;
+    right:  1rem;
   }
 
-  .pay-method-badge {
-    width: 80px;
-    height: 34px;
+  /* On small screens, FAB pills fan upward in a column */
+  .sfb-wrap--fab .sfb-pills {
+    align-items: flex-end;
   }
 
-  .pay-options {
-    gap: 0.45rem;
+  /* Inline pills drop BELOW the trigger on mobile */
+  .sfb-wrap:not(.sfb-wrap--fab) .sfb-pills {
+    right: auto;
+    left: 0;
+    top: calc(100% + 0.5rem);
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem;
   }
 
-  .pay-option-card {
-    min-width: 68px;
-    padding: 0.5rem 0.55rem;
+  .sfb-wrap:not(.sfb-wrap--fab) .sfb-pill {
+    transform: scale(0.7) translateY(-8px);
   }
 
-  .pay-logo {
-    width: 60px;
-    height: 24px;
+  .sfb-wrap:not(.sfb-wrap--fab)[data-open="true"] .sfb-pill {
+    transform: scale(1) translateY(0);
   }
 }
 
-/* ── Plog post footer (Read more + Share side by side) ── */
+/* ── Plog post footer layout ── */
 .plog-post-footer {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
   margin-top: 0.6rem;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   GOOGLE MATERIAL ICONS — integration
+══════════════════════════════════════════════════════════════ */
+
+/* Base reset for all Material Icons used in the portal */
+.material-icons-round {
+  font-style:  normal;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+/* ── Alumni hub card icons ── */
+.alumni-hub-icon .material-icons-round {
+  font-size: 28px;
+  color: var(--primary);
+}
+
+/* ── Quick link card icons ── */
+.ql-icon .material-icons-round {
+  font-size: 28px;
+}
+
+/* ── Activity card icons ── */
+.activity-icon .material-icons-round {
+  font-size: 26px;
+}
+
+.activity-icon--career .material-icons-round { color: #1140d9; }
+.activity-icon--fund   .material-icons-round { color: #d97706; }
+.activity-icon--charity .material-icons-round { color: #e11d48; }
+.activity-icon--chapter .material-icons-round { color: #16a34a; }
+
+/* ── About page focus strip ── */
+.focus-item .material-icons-round {
+  font-size: 20px;
+  vertical-align: middle;
+  color: var(--primary);
+}
+
+/* ── About page value cards ── */
+.value-icon .material-icons-round {
+  font-size: 32px;
+  color: var(--primary);
+}
+
+/* ── Material Icons sizing in context ── */
+.mi-check {
+  font-size: 16px !important;
+  color: #16a34a;
+  vertical-align: middle;
+}
+.mi-close {
+  font-size: 16px !important;
+  color: #9ca3af;
+  vertical-align: middle;
+}
+.tier-features .material-icons-round,
+.mem-tier-perks .material-icons-round {
+  font-size: 15px;
+  vertical-align: middle;
+  line-height: 1;
+}
+.ticket-badge .material-icons-round {
+  font-size: 14px;
+  vertical-align: middle;
+}
+.newsletter-success .material-icons-round {
+  font-size: 16px;
+  vertical-align: middle;
+  color: #a7f3c0;
+}
+.mem-fee-note .material-icons-round {
+  font-size: 18px;
+  vertical-align: middle;
+  color: #92400e;
+}
+.pay-trust-label .material-icons-round,
+.pay-select-label .material-icons-round,
+.pay-trust-note .material-icons-round {
+  font-size: 16px;
+  vertical-align: middle;
+}
+.pay-instr-block .material-icons-round {
+  font-size: 13px;
+  vertical-align: middle;
+}
+.sidebar-widget .material-icons-round {
+  font-size: 16px;
+  vertical-align: middle;
+  color: var(--primary);
+}
+.featured-event-badge .material-icons-round {
+  font-size: 14px;
+  vertical-align: middle;
+}
+.opp-location .material-icons-round {
+  font-size: 15px;
+  vertical-align: middle;
+  color: var(--muted);
 }

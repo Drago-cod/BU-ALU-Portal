@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -80,11 +81,11 @@
             <p class="tier-label">Ordinary</p>
             <p class="tier-price">UGX 50,000 <span>/year</span></p>
             <ul class="tier-features">
-              <li>&#10003; Portal access</li>
-              <li>&#10003; Alumni directory</li>
-              <li>&#10003; Event notifications</li>
-              <li class="tier-feature--off">&#10007; Networking privileges</li>
-              <li class="tier-feature--off">&#10007; Insurance benefit</li>
+              <li><span class="material-icons-round mi-check">check</span> Portal access</li>
+              <li><span class="material-icons-round mi-check">check</span> Alumni directory</li>
+              <li><span class="material-icons-round mi-check">check</span> Event notifications</li>
+              <li class="tier-feature--off"><span class="material-icons-round mi-close">close</span> Networking privileges</li>
+              <li class="tier-feature--off"><span class="material-icons-round mi-close">close</span> Insurance benefit</li>
             </ul>
             <a class="btn btn-ghost" href="#signup-form" style="width:100%;">Get Started</a>
           </article>
@@ -94,25 +95,25 @@
             <p class="tier-label">VP</p>
             <p class="tier-price">UGX 150,000 <span>/year</span></p>
             <ul class="tier-features">
-              <li>&#10003; Everything in Ordinary</li>
-              <li>&#10003; Premium networking access</li>
-              <li>&#10003; Business network listing</li>
-              <li>&#10003; Priority event registration</li>
-              <li class="tier-feature--off">&#10007; Insurance benefit</li>
+              <li><span class="material-icons-round mi-check">check</span> Everything in Ordinary</li>
+              <li><span class="material-icons-round mi-check">check</span> Premium networking access</li>
+              <li><span class="material-icons-round mi-check">check</span> Business network listing</li>
+              <li><span class="material-icons-round mi-check">check</span> Priority event registration</li>
+              <li class="tier-feature--off"><span class="material-icons-round mi-close">close</span> Insurance benefit</li>
             </ul>
             <a class="btn btn-primary" href="#signup-form" style="width:100%;">Join VP</a>
           </article>
 
           <article class="tier-card tier-card--elite">
-            <div class="insurance-badge" aria-label="Qualifies for Insurance">&#127956; Qualifies for Insurance</div>
+            <div class="insurance-badge" aria-label="Qualifies for Insurance"><span class="material-icons-round">verified_user</span> Qualifies for Insurance</div>
             <p class="tier-label">VVP</p>
             <p class="tier-price">UGX 350,000 <span>/year</span></p>
             <ul class="tier-features">
-              <li>&#10003; Everything in VP</li>
-              <li>&#10003; Elite networking tier</li>
-              <li>&#10003; Mentorship matching</li>
-              <li>&#10003; Annual recognition award</li>
-              <li>&#10003; <strong>Alumni Insurance Certificate</strong></li>
+              <li><span class="material-icons-round mi-check">check</span> Everything in VP</li>
+              <li><span class="material-icons-round mi-check">check</span> Elite networking tier</li>
+              <li><span class="material-icons-round mi-check">check</span> Mentorship matching</li>
+              <li><span class="material-icons-round mi-check">check</span> Annual recognition award</li>
+              <li><span class="material-icons-round mi-check">check</span> <strong>Alumni Insurance Certificate</strong></li>
             </ul>
             <a class="btn btn-primary" href="#signup-form" style="width:100%;">Join VVP</a>
           </article>
@@ -350,7 +351,7 @@
             <legend class="mem-legend">Choose Your Membership</legend>
 
             <p class="mem-fee-note">
-              &#128176; A one-time registration fee of <strong>UGX 10,000</strong> applies to all tiers.
+              <span class="material-icons-round">payments</span> A one-time registration fee of <strong>UGX 10,000</strong> applies to all tiers.
             </p>
 
             <div class="mem-tier-picker" role="radiogroup" aria-label="Membership type">
@@ -363,10 +364,10 @@
                     <span class="mem-tier-price">UGX 50,000<span>/yr</span></span>
                   </div>
                   <ul class="mem-tier-perks">
-                    <li>&#10003; Portal &amp; directory access</li>
-                    <li>&#10003; Event notifications</li>
-                    <li class="perk-off">&#10007; Networking privileges</li>
-                    <li class="perk-off">&#10007; Insurance benefit</li>
+                    <li><span class="material-icons-round mi-check">check</span> Portal &amp; directory access</li>
+                    <li><span class="material-icons-round mi-check">check</span> Event notifications</li>
+                    <li class="perk-off"><span class="material-icons-round mi-close">close</span> Networking privileges</li>
+                    <li class="perk-off"><span class="material-icons-round mi-close">close</span> Insurance benefit</li>
                   </ul>
                 </div>
               </label>
@@ -380,10 +381,10 @@
                     <span class="mem-tier-price">UGX 150,000<span>/yr</span></span>
                   </div>
                   <ul class="mem-tier-perks">
-                    <li>&#10003; Everything in Standard</li>
-                    <li>&#10003; Premium networking</li>
-                    <li>&#10003; Business listing</li>
-                    <li class="perk-off">&#10007; Insurance benefit</li>
+                    <li><span class="material-icons-round mi-check">check</span> Everything in Standard</li>
+                    <li><span class="material-icons-round mi-check">check</span> Premium networking</li>
+                    <li><span class="material-icons-round mi-check">check</span> Business listing</li>
+                    <li class="perk-off"><span class="material-icons-round mi-close">close</span> Insurance benefit</li>
                   </ul>
                 </div>
               </label>
@@ -391,16 +392,16 @@
               <label class="mem-tier-option" for="tier-lifetime">
                 <input type="radio" id="tier-lifetime" name="membershipType" value="Lifetime" />
                 <div class="mem-tier-card mem-tier-card--elite">
-                  <span class="mem-elite-badge">&#127956; Includes Insurance</span>
+                  <span class="mem-elite-badge"><span class="material-icons-round">verified_user</span> Includes Insurance</span>
                   <div class="mem-tier-top">
                     <span class="mem-tier-name">Lifetime</span>
                     <span class="mem-tier-price">UGX 350,000<span>once</span></span>
                   </div>
                   <ul class="mem-tier-perks">
-                    <li>&#10003; Everything in Premium</li>
-                    <li>&#10003; Mentorship matching</li>
-                    <li>&#10003; Annual recognition</li>
-                    <li>&#10003; <strong>Insurance Certificate</strong></li>
+                    <li><span class="material-icons-round mi-check">check</span> Everything in Premium</li>
+                    <li><span class="material-icons-round mi-check">check</span> Mentorship matching</li>
+                    <li><span class="material-icons-round mi-check">check</span> Annual recognition</li>
+                    <li><span class="material-icons-round mi-check">check</span> <strong>Insurance Certificate</strong></li>
                   </ul>
                 </div>
               </label>
@@ -576,7 +577,7 @@
 
         <!-- ── Success state ── -->
         <div class="mem-success" id="mem-success" hidden>
-          <div class="mem-success-icon">&#10003;</div>
+          <div class="mem-success-icon"><span class="material-icons-round mi-check">check</span></div>
           <h3>Registration Submitted!</h3>
           <p id="mem-success-msg"></p>
           <div class="mem-success-details" id="mem-success-details"></div>
@@ -665,7 +666,7 @@
           <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
           <button class="btn btn-primary" type="submit">Subscribe</button>
         </form>
-        <p class="newsletter-success" id="nl-success" hidden>&#10003; You are subscribed!</p>
+        <p class="newsletter-success" id="nl-success" hidden><span class="material-icons-round mi-check">check</span> You are subscribed!</p>
       </div>
     </div>
     <div class="footer-bottom">
