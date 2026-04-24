@@ -3779,3 +3779,269 @@ body {
   vertical-align: middle;
   color: var(--muted);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   PAYMENT TRUST BAR — fix missing styles
+══════════════════════════════════════════════════════════════ */
+
+.pay-trust-section {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.pay-trust-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.pay-trust-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0;
+}
+
+/* ── Badge grid — horizontal row of fixed-size pills ── */
+.pay-methods-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Each badge is a fixed-size box — SVG fills it */
+.pay-method-badge {
+  width: 96px;
+  height: 38px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  flex-shrink: 0;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  /* Critical: constrain the SVG inside */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-method-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* SVG must fill the badge exactly — no stretching */
+.pay-method-badge svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.pay-trust-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .pay-method-badge {
+    width: 78px;
+    height: 32px;
+  }
+
+  .pay-methods-grid {
+    gap: 0.45rem;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PAYMENT SELECTOR (Step 3 form) — fix missing styles
+══════════════════════════════════════════════════════════════ */
+
+.pay-select-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.1rem;
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.pay-select-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Row of selectable payment pills */
+.pay-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+/* Hide the native radio — the card IS the control */
+.pay-option {
+  cursor: pointer;
+}
+
+.pay-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Each payment card: logo on top, label below */
+.pay-option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.55rem 0.7rem 0.45rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s, transform 0.12s;
+  min-width: 76px;
+  max-width: 90px;
+}
+
+.pay-option-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(17,64,217,0.1);
+}
+
+/* Selected state */
+.pay-option input[type="radio"]:checked + .pay-option-card,
+.pay-option-card--selected {
+  border-color: var(--primary);
+  background: #f0f4ff;
+  box-shadow: 0 0 0 3px rgba(17,64,217,0.14);
+}
+
+/* The SVG logo — fixed size, never stretches */
+.pay-logo {
+  width: 68px;
+  height: 26px;
+  display: block;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* Label text under the logo */
+.pay-option-card > span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ── Payment instructions box ── */
+.pay-instructions {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  font-size: 0.86rem;
+  color: #78350f;
+  animation: fadeSlideIn 0.2s ease;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pay-instr-block strong {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 0.5rem;
+  color: #92400e;
+}
+
+.pay-instr-block ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.pay-instr-block ol li {
+  margin-bottom: 0.3rem;
+  line-height: 1.5;
+}
+
+.pay-instr-block code {
+  background: rgba(0,0,0,0.07);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: monospace;
+}
+
+.pay-instr-block p {
+  margin: 0.4rem 0 0;
+  line-height: 1.6;
+}
+
+/* Bank transfer details table */
+.pay-bank-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.83rem;
+}
+
+.pay-bank-table td {
+  padding: 0.32rem 0.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  vertical-align: top;
+}
+
+.pay-bank-table td:first-child {
+  color: #92400e;
+  font-weight: 600;
+  width: 42%;
+  white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .pay-options {
+    gap: 0.4rem;
+  }
+
+  .pay-option-card {
+    min-width: 64px;
+    max-width: 76px;
+    padding: 0.45rem 0.5rem 0.4rem;
+  }
+
+  .pay-logo {
+    width: 56px;
+    height: 22px;
+  }
+}
