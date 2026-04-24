@@ -1,0 +1,14 @@
+{
+  "name": "bu-alu-portal",
+  "version": "1.0.0",
+  "description": "Bugema University Alumni Portal backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.13",
+    "pdfkit": "^0.15.0"
+  }
+}

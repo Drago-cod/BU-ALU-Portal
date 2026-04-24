@@ -89,7 +89,7 @@
               <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
               <p>Join fellow graduates for an evening of networking, awards, and celebration of BU's legacy.</p>
               <div class="event-actions">
-                <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Annual Alumni Gala 2026')">Register</a>
+                <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Annual Alumni Gala 2026', 'May 10, 2026', 'Kampala Serena Hotel', '6:00 PM EAT')">Register</a>
                 <a class="btn btn-ghost" href="events.html">Learn More</a>
               </div>
             </div>
@@ -193,44 +193,53 @@
           <p>Fill in your details below. Your ticket will be sent to your email address.</p>
         </div>
 
-        <form class="event-reg-form" id="event-reg-form" onsubmit="handleEventRegister(event)" novalidate>
-          <input type="hidden" id="reg-event-name" name="event_name" value="" />
+        <form class="event-reg-form" id="event-reg-form" novalidate>
+          <!-- Hidden event metadata populated by setEventTitle() -->
+          <input type="hidden" id="reg-event-name"     value="" />
+          <input type="hidden" id="reg-event-date"     value="" />
+          <input type="hidden" id="reg-event-location" value="" />
+          <input type="hidden" id="reg-event-time"     value="" />
 
           <div class="form-group">
             <label for="reg-full-name">Full Name <span aria-hidden="true" style="color:var(--primary)">*</span></label>
-            <input type="text" id="reg-full-name" name="full_name" placeholder="e.g. Amara Ssekandi" required autocomplete="name" />
+            <input type="text" id="reg-full-name" placeholder="e.g. Amara Ssekandi" required autocomplete="name" />
           </div>
 
           <div class="form-group">
             <label for="reg-email">Email Address <span aria-hidden="true" style="color:var(--primary)">*</span></label>
-            <input type="email" id="reg-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+            <input type="email" id="reg-email" placeholder="your@email.com" required autocomplete="email" />
+            <span class="field-hint">Your ticket &amp; receipt will be sent here.</span>
           </div>
 
           <div class="form-group">
             <label for="reg-phone">Phone Number <span aria-hidden="true" style="color:var(--primary)">*</span></label>
-            <input type="tel" id="reg-phone" name="phone" placeholder="+256 700 000 000" required autocomplete="tel" />
+            <input type="tel" id="reg-phone" placeholder="+256 700 000 000" required autocomplete="tel" />
           </div>
 
-          <button class="btn btn-primary" type="submit" style="width:100%;margin-top:0.5rem;">
+          <!-- Error message -->
+          <p class="form-error" id="reg-error" hidden></p>
+
+          <button class="btn btn-primary" id="reg-submit-btn" type="button" style="width:100%;margin-top:0.5rem;"
+                  onclick="submitRegistration()">
             Register &amp; Get Ticket
           </button>
         </form>
 
         <!-- Success state -->
         <div class="event-reg-success" id="event-reg-success" hidden>
-          <div class="ticket-card" id="ticket-card">
+          <div class="ticket-card">
             <div class="ticket-header">
               <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="ticket-logo" />
               <span class="ticket-badge">&#10003; Registered</span>
             </div>
             <h3 id="ticket-event-name"></h3>
             <div class="ticket-details">
-              <div><span class="ticket-label">Name</span><span id="ticket-name"></span></div>
-              <div><span class="ticket-label">Email</span><span id="ticket-email"></span></div>
-              <div><span class="ticket-label">Phone</span><span id="ticket-phone"></span></div>
+              <div><span class="ticket-label">Name</span>    <span id="ticket-name"></span></div>
+              <div><span class="ticket-label">Email</span>   <span id="ticket-email"></span></div>
+              <div><span class="ticket-label">Phone</span>   <span id="ticket-phone"></span></div>
               <div><span class="ticket-label">Ticket ID</span><span id="ticket-id"></span></div>
             </div>
-            <p class="ticket-note">A confirmation has been sent to your email. Please present this ticket at the event entrance.</p>
+            <p class="ticket-note" id="ticket-note"></p>
           </div>
           <div style="text-align:center;margin-top:1.5rem;">
             <button class="btn btn-secondary" onclick="resetRegForm()">Register for Another Event</button>
@@ -298,41 +307,85 @@
       emailField.blur();
     }
 
-    function setEventTitle(title) {
+    // Called by each event's Register button — passes event metadata to the form
+    function setEventTitle(title, date, location, time) {
       document.getElementById('register-form-title').textContent = 'Register: ' + title;
-      document.getElementById('reg-event-name').value = title;
+      document.getElementById('reg-event-name').value     = title;
+      document.getElementById('reg-event-date').value     = date     || '';
+      document.getElementById('reg-event-location').value = location || '';
+      document.getElementById('reg-event-time').value     = time     || '';
     }
 
-    function generateTicketId() {
-      return 'BU-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
-    }
+    async function submitRegistration() {
+      const btn       = document.getElementById('reg-submit-btn');
+      const errorEl   = document.getElementById('reg-error');
+      const fullName  = document.getElementById('reg-full-name').value.trim();
+      const email     = document.getElementById('reg-email').value.trim();
+      const phone     = document.getElementById('reg-phone').value.trim();
+      const eventName = document.getElementById('reg-event-name').value.trim() || 'BU Alumni Event';
 
-    function handleEventRegister(e) {
-      e.preventDefault();
-      const form = e.target;
-      const name  = form.full_name.value.trim();
-      const email = form.email.value.trim();
-      const phone = form.phone.value.trim();
-      const eventName = form.event_name.value || 'BU Alumni Event';
+      // Client-side validation
+      errorEl.hidden = true;
+      if (!fullName || !email || !phone) {
+        errorEl.textContent = 'Please fill in all required fields.';
+        errorEl.hidden = false;
+        return;
+      }
 
-      // Populate ticket
-      document.getElementById('ticket-event-name').textContent = eventName;
-      document.getElementById('ticket-name').textContent  = name;
-      document.getElementById('ticket-email').textContent = email;
-      document.getElementById('ticket-phone').textContent = phone;
-      document.getElementById('ticket-id').textContent    = generateTicketId();
+      btn.disabled    = true;
+      btn.textContent = 'Sending…';
 
-      // Swap form for success
-      form.closest('form').hidden = true;
-      document.getElementById('event-reg-success').hidden = false;
+      try {
+        const res = await fetch('/api/register-event', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName,
+            email,
+            phone,
+            eventName,
+            eventDate:     document.getElementById('reg-event-date').value,
+            eventLocation: document.getElementById('reg-event-location').value,
+            eventTime:     document.getElementById('reg-event-time').value,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Registration failed. Please try again.');
+        }
+
+        // Populate ticket card
+        document.getElementById('ticket-event-name').textContent = eventName;
+        document.getElementById('ticket-name').textContent        = fullName;
+        document.getElementById('ticket-email').textContent       = email;
+        document.getElementById('ticket-phone').textContent       = phone;
+        document.getElementById('ticket-id').textContent          = data.ticketId;
+        document.getElementById('ticket-note').textContent        = data.message;
+
+        // Swap form → success
+        document.getElementById('event-reg-form').hidden    = true;
+        document.getElementById('event-reg-success').hidden = false;
+
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.hidden = false;
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Register & Get Ticket';
+      }
     }
 
     function resetRegForm() {
-      document.getElementById('event-reg-form').hidden = false;
-      document.getElementById('event-reg-form').reset();
+      document.getElementById('event-reg-form').hidden    = false;
+      document.getElementById('event-reg-success').hidden = true;
+      document.getElementById('event-reg-form')
+        .querySelectorAll('input[type=text],input[type=email],input[type=tel]')
+        .forEach((el) => { el.value = ''; });
       document.getElementById('register-form-title').textContent = 'Event Registration';
       document.getElementById('reg-event-name').value = '';
-      document.getElementById('event-reg-success').hidden = true;
+      document.getElementById('reg-error').hidden = true;
     }
   </script>
   <script src="animations.js"></script>
