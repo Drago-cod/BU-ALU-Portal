@@ -185,49 +185,404 @@
       </div>
     </section>
 
-    <!-- Signup / Donation Form -->
-    <section class="section" id="signup-form">
-      <div class="container form-wrap">
-        <div class="section-title-wrap fade-up">
-          <h2> Sign Up / Donate</h2>
-          <p>Complete the form below to register your membership or make a one-time donation.</p>
-        </div>
-        <form class="portal-form" onsubmit="handleFormSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="full-name">Full Name</label>
-              <input type="text" id="full-name" name="full-name" placeholder="Your full name" required />
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com" required />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="grad-year">Graduation Year</label>
-              <input type="number" id="grad-year" name="grad-year" placeholder="e.g. 2015" min="1950" max="2026" required />
-            </div>
-            <div class="form-group">
-              <label for="tier">Membership Tier</label>
-              <select id="tier" name="tier" required>
-                <option value="">Select a tier</option>
-                <option value="ordinary">Ordinary � UGX 50,000</option>
-                <option value="vp">VP � UGX 150,000</option>
-                <option value="vvp">VVP � UGX 350,000</option>
-                <option value="donation">One-time Donation</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="feedback">Feedback on Financial Initiatives (optional)</label>
-            <textarea id="feedback" name="feedback" rows="3" placeholder="Share your thoughts on our fundraising and membership programs..."></textarea>
-          </div>
-          <button class="btn btn-primary" type="submit" style="min-width:180px;">Submit</button>
-          <p class="form-success" id="form-success" aria-live="polite" hidden>
-            &#10003; Thank you! Your submission has been received. We'll be in touch shortly.
+    <!-- Payment Methods Trust Bar -->
+    <section class="section pay-trust-section">
+      <div class="container">
+        <div class="pay-trust-wrap fade-up">
+          <p class="pay-trust-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Secure Payment &mdash; We Accept
           </p>
+          <div class="pay-methods-grid">
+
+            <!-- MTN Mobile Money -->
+            <div class="pay-method-badge" title="MTN Mobile Money">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money" role="img">
+                <rect width="120" height="48" rx="8" fill="#FFCC00"/>
+                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13" fill="#000">MTN</text>
+                <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#000">Mobile Money</text>
+              </svg>
+            </div>
+
+            <!-- Airtel Money -->
+            <div class="pay-method-badge" title="Airtel Money">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money" role="img">
+                <rect width="120" height="48" rx="8" fill="#E40000"/>
+                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13" fill="#fff">Airtel</text>
+                <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#fff">Money</text>
+              </svg>
+            </div>
+
+            <!-- Visa -->
+            <div class="pay-method-badge" title="Visa">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Visa" role="img">
+                <rect width="120" height="48" rx="8" fill="#1A1F71"/>
+                <text x="60" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="26" fill="#FFFFFF" letter-spacing="-1">VISA</text>
+              </svg>
+            </div>
+
+            <!-- Mastercard -->
+            <div class="pay-method-badge" title="Mastercard">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard" role="img">
+                <rect width="120" height="48" rx="8" fill="#252525"/>
+                <!-- left circle -->
+                <circle cx="46" cy="24" r="14" fill="#EB001B"/>
+                <!-- right circle -->
+                <circle cx="74" cy="24" r="14" fill="#F79E1B"/>
+                <!-- overlap blend -->
+                <path d="M60 13.2a14 14 0 0 1 0 21.6A14 14 0 0 1 60 13.2z" fill="#FF5F00"/>
+                <text x="60" y="44" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#ccc">Mastercard</text>
+              </svg>
+            </div>
+
+            <!-- Bank Transfer -->
+            <div class="pay-method-badge" title="Bank Transfer">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer" role="img">
+                <rect width="120" height="48" rx="8" fill="#1140d9"/>
+                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="#fff">Bank</text>
+                <text x="60" y="35" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#bfdbfe">Transfer</text>
+              </svg>
+            </div>
+
+            <!-- Stanbic Bank -->
+            <div class="pay-method-badge" title="Stanbic Bank Uganda">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Stanbic Bank" role="img">
+                <rect width="120" height="48" rx="8" fill="#003087"/>
+                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="#fff">Stanbic</text>
+                <text x="60" y="35" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#90b8f8">Bank Uganda</text>
+              </svg>
+            </div>
+
+          </div>
+          <p class="pay-trust-note">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            All transactions are encrypted and processed securely. Your financial data is never stored on our servers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Membership Registration Form -->
+    <section class="section" id="signup-form">
+      <div class="container" style="max-width:680px;">
+
+        <div class="section-title-wrap fade-up" style="text-align:center;margin-bottom:2rem;">
+          <p class="eyebrow">Join the Network</p>
+          <h2>Alumni Membership Registration</h2>
+          <p>Complete the form below to become a registered BU Alumni member. A registration fee of <strong>UGX 10,000</strong> applies to all tiers.</p>
+        </div>
+
+        <!-- Step indicator -->
+        <div class="mem-steps" aria-label="Form steps">
+          <div class="mem-step mem-step--active" id="step-ind-1">
+            <span class="mem-step-num">1</span>
+            <span class="mem-step-label">Personal Info</span>
+          </div>
+          <div class="mem-step-line"></div>
+          <div class="mem-step" id="step-ind-2">
+            <span class="mem-step-num">2</span>
+            <span class="mem-step-label">Membership</span>
+          </div>
+          <div class="mem-step-line"></div>
+          <div class="mem-step" id="step-ind-3">
+            <span class="mem-step-num">3</span>
+            <span class="mem-step-label">Confirm</span>
+          </div>
+        </div>
+
+        <form class="mem-form" id="mem-form" novalidate>
+
+          <!-- ── STEP 1: Personal Info ── -->
+          <fieldset class="mem-fieldset" id="mem-step-1">
+            <legend class="mem-legend">Personal Information</legend>
+
+            <div class="form-group">
+              <label for="mem-name">Full Name <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="mem-name" name="fullName"
+                     placeholder="e.g. Amara Ssekandi"
+                     required autocomplete="name" />
+              <span class="field-error" id="err-name" hidden>Please enter your full name.</span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="mem-email">Email Address <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="mem-email" name="email"
+                       placeholder="you@example.com"
+                       required autocomplete="email" />
+                <span class="field-hint">Your membership card will be sent here.</span>
+                <span class="field-error" id="err-email" hidden>Enter a valid email address.</span>
+              </div>
+              <div class="form-group">
+                <label for="mem-phone">Phone Number <span class="req" aria-hidden="true">*</span></label>
+                <input type="tel" id="mem-phone" name="phone"
+                       placeholder="+256 700 000 000"
+                       required autocomplete="tel" />
+                <span class="field-error" id="err-phone" hidden>Please enter your phone number.</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="mem-profession">Profession <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="mem-profession" name="profession"
+                       placeholder="e.g. Software Engineer"
+                       required />
+                <span class="field-error" id="err-profession" hidden>Please enter your profession.</span>
+              </div>
+              <div class="form-group">
+                <label for="mem-location">Location <span class="mem-optional">(optional)</span></label>
+                <input type="text" id="mem-location" name="location"
+                       placeholder="e.g. Kampala, Uganda"
+                       autocomplete="address-level2" />
+              </div>
+            </div>
+
+            <div class="mem-step-actions">
+              <button type="button" class="btn btn-primary mem-next-btn" onclick="memNext(1)">
+                Continue &rarr;
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- ── STEP 2: Membership Type ── -->
+          <fieldset class="mem-fieldset" id="mem-step-2" hidden>
+            <legend class="mem-legend">Choose Your Membership</legend>
+
+            <p class="mem-fee-note">
+              &#128176; A one-time registration fee of <strong>UGX 10,000</strong> applies to all tiers.
+            </p>
+
+            <div class="mem-tier-picker" role="radiogroup" aria-label="Membership type">
+
+              <label class="mem-tier-option" for="tier-standard">
+                <input type="radio" id="tier-standard" name="membershipType" value="Standard" required />
+                <div class="mem-tier-card">
+                  <div class="mem-tier-top">
+                    <span class="mem-tier-name">Standard</span>
+                    <span class="mem-tier-price">UGX 50,000<span>/yr</span></span>
+                  </div>
+                  <ul class="mem-tier-perks">
+                    <li>&#10003; Portal &amp; directory access</li>
+                    <li>&#10003; Event notifications</li>
+                    <li class="perk-off">&#10007; Networking privileges</li>
+                    <li class="perk-off">&#10007; Insurance benefit</li>
+                  </ul>
+                </div>
+              </label>
+
+              <label class="mem-tier-option" for="tier-premium">
+                <input type="radio" id="tier-premium" name="membershipType" value="Premium" />
+                <div class="mem-tier-card mem-tier-card--popular">
+                  <span class="mem-popular-badge">Most Popular</span>
+                  <div class="mem-tier-top">
+                    <span class="mem-tier-name">Premium</span>
+                    <span class="mem-tier-price">UGX 150,000<span>/yr</span></span>
+                  </div>
+                  <ul class="mem-tier-perks">
+                    <li>&#10003; Everything in Standard</li>
+                    <li>&#10003; Premium networking</li>
+                    <li>&#10003; Business listing</li>
+                    <li class="perk-off">&#10007; Insurance benefit</li>
+                  </ul>
+                </div>
+              </label>
+
+              <label class="mem-tier-option" for="tier-lifetime">
+                <input type="radio" id="tier-lifetime" name="membershipType" value="Lifetime" />
+                <div class="mem-tier-card mem-tier-card--elite">
+                  <span class="mem-elite-badge">&#127956; Includes Insurance</span>
+                  <div class="mem-tier-top">
+                    <span class="mem-tier-name">Lifetime</span>
+                    <span class="mem-tier-price">UGX 350,000<span>once</span></span>
+                  </div>
+                  <ul class="mem-tier-perks">
+                    <li>&#10003; Everything in Premium</li>
+                    <li>&#10003; Mentorship matching</li>
+                    <li>&#10003; Annual recognition</li>
+                    <li>&#10003; <strong>Insurance Certificate</strong></li>
+                  </ul>
+                </div>
+              </label>
+
+            </div>
+            <span class="field-error" id="err-tier" hidden>Please select a membership type.</span>
+
+            <div class="mem-step-actions mem-step-actions--split">
+              <button type="button" class="btn btn-ghost" onclick="memBack(2)">&larr; Back</button>
+              <button type="button" class="btn btn-primary mem-next-btn" onclick="memNext(2)">
+                Review &rarr;
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- ── STEP 3: Review & Confirm ── -->
+          <fieldset class="mem-fieldset" id="mem-step-3" hidden>
+            <legend class="mem-legend">Review &amp; Confirm</legend>
+
+            <div class="mem-review-card">
+              <div class="mem-review-row"><span>Full Name</span>    <strong id="rv-name"></strong></div>
+              <div class="mem-review-row"><span>Email</span>        <strong id="rv-email"></strong></div>
+              <div class="mem-review-row"><span>Phone</span>        <strong id="rv-phone"></strong></div>
+              <div class="mem-review-row"><span>Profession</span>   <strong id="rv-profession"></strong></div>
+              <div class="mem-review-row"><span>Location</span>     <strong id="rv-location"></strong></div>
+              <div class="mem-review-row"><span>Membership</span>   <strong id="rv-tier"></strong></div>
+              <div class="mem-review-row mem-review-row--fee">
+                <span>Registration Fee</span>
+                <strong>UGX 10,000</strong>
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="pay-select-wrap">
+              <p class="pay-select-label">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                Select Payment Method <span class="req" aria-hidden="true">*</span>
+              </p>
+              <div class="pay-options" role="radiogroup" aria-label="Payment method">
+
+                <label class="pay-option" for="pay-mtn">
+                  <input type="radio" id="pay-mtn" name="paymentMethod" value="MTN Mobile Money" required />
+                  <div class="pay-option-card">
+                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
+                      <rect width="80" height="32" rx="5" fill="#FFCC00"/>
+                      <text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="9" fill="#000">MTN</text>
+                      <text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6" fill="#000">Mobile Money</text>
+                    </svg>
+                    <span>MTN MoMo</span>
+                  </div>
+                </label>
+
+                <label class="pay-option" for="pay-airtel">
+                  <input type="radio" id="pay-airtel" name="paymentMethod" value="Airtel Money" />
+                  <div class="pay-option-card">
+                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
+                      <rect width="80" height="32" rx="5" fill="#E40000"/>
+                      <text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="9" fill="#fff">Airtel</text>
+                      <text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6" fill="#ffc0c0">Money</text>
+                    </svg>
+                    <span>Airtel Money</span>
+                  </div>
+                </label>
+
+                <label class="pay-option" for="pay-visa">
+                  <input type="radio" id="pay-visa" name="paymentMethod" value="Visa Card" />
+                  <div class="pay-option-card">
+                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
+                      <rect width="80" height="32" rx="5" fill="#1A1F71"/>
+                      <text x="40" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="17" fill="#FFFFFF" letter-spacing="-1">VISA</text>
+                    </svg>
+                    <span>Visa Card</span>
+                  </div>
+                </label>
+
+                <label class="pay-option" for="pay-mc">
+                  <input type="radio" id="pay-mc" name="paymentMethod" value="Mastercard" />
+                  <div class="pay-option-card">
+                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
+                      <rect width="80" height="32" rx="5" fill="#252525"/>
+                      <circle cx="30" cy="16" r="10" fill="#EB001B"/>
+                      <circle cx="50" cy="16" r="10" fill="#F79E1B"/>
+                      <path d="M40 8.5a10 10 0 0 1 0 15A10 10 0 0 1 40 8.5z" fill="#FF5F00"/>
+                    </svg>
+                    <span>Mastercard</span>
+                  </div>
+                </label>
+
+                <label class="pay-option" for="pay-bank">
+                  <input type="radio" id="pay-bank" name="paymentMethod" value="Bank Transfer" />
+                  <div class="pay-option-card">
+                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
+                      <rect width="80" height="32" rx="5" fill="#1140d9"/>
+                      <text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="8" fill="#fff">Bank</text>
+                      <text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6" fill="#bfdbfe">Transfer</text>
+                    </svg>
+                    <span>Bank Transfer</span>
+                  </div>
+                </label>
+
+              </div>
+              <span class="field-error" id="err-payment" hidden>Please select a payment method.</span>
+
+              <!-- Contextual instructions shown after selection -->
+              <div class="pay-instructions" id="pay-instructions" hidden>
+                <div id="pay-instr-mtn" class="pay-instr-block" hidden>
+                  <strong>MTN Mobile Money</strong>
+                  <ol>
+                    <li>Dial <code>*165#</code> on your MTN line</li>
+                    <li>Select <em>Send Money</em> &rarr; <em>To Phone Number</em></li>
+                    <li>Enter number: <strong>0770 123 456</strong> (BU Alumni)</li>
+                    <li>Amount: <strong>UGX 10,000</strong> (reg. fee) + your tier fee</li>
+                    <li>Use your Member ID as the reference</li>
+                  </ol>
+                </div>
+                <div id="pay-instr-airtel" class="pay-instr-block" hidden>
+                  <strong>Airtel Money</strong>
+                  <ol>
+                    <li>Dial <code>*185#</code> on your Airtel line</li>
+                    <li>Select <em>Send Money</em> &rarr; <em>To Mobile Number</em></li>
+                    <li>Enter number: <strong>0752 123 456</strong> (BU Alumni)</li>
+                    <li>Amount: <strong>UGX 10,000</strong> (reg. fee) + your tier fee</li>
+                    <li>Use your Member ID as the reference</li>
+                  </ol>
+                </div>
+                <div id="pay-instr-card" class="pay-instr-block" hidden>
+                  <strong>Visa / Mastercard</strong>
+                  <p>After submitting, you will be redirected to our secure card payment gateway. Have your card details ready.</p>
+                  <p style="margin:0;font-size:0.8rem;color:var(--muted);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    Secured by 256-bit SSL encryption
+                  </p>
+                </div>
+                <div id="pay-instr-bank" class="pay-instr-block" hidden>
+                  <strong>Bank Transfer — Stanbic Bank Uganda</strong>
+                  <table class="pay-bank-table">
+                    <tr><td>Account Name</td><td><strong>BU Alumni Association</strong></td></tr>
+                    <tr><td>Account No.</td><td><strong>9030012345678</strong></td></tr>
+                    <tr><td>Bank</td><td><strong>Stanbic Bank Uganda</strong></td></tr>
+                    <tr><td>Branch</td><td><strong>Kampala Main</strong></td></tr>
+                    <tr><td>Swift Code</td><td><strong>SBICUGKX</strong></td></tr>
+                  </table>
+                  <p style="margin:0.6rem 0 0;font-size:0.82rem;color:var(--muted);">Use your full name and Member ID as the payment reference. Email proof of payment to <a href="mailto:alumni@bualumni.org">alumni@bualumni.org</a>.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mem-terms-group">
+              <label class="mem-checkbox-label" for="mem-terms">
+                <input type="checkbox" id="mem-terms" name="terms" required />
+                <span>
+                  I have read and agree to the
+                  <a href="legal.html#terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+                  and
+                  <a href="legal.html#privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+                </span>
+              </label>
+              <span class="field-error" id="err-terms" hidden>You must accept the terms to continue.</span>
+            </div>
+
+            <!-- Global error -->
+            <p class="form-error" id="mem-global-error" hidden></p>
+
+            <div class="mem-step-actions mem-step-actions--split">
+              <button type="button" class="btn btn-ghost" onclick="memBack(3)">&larr; Back</button>
+              <button type="submit" class="btn btn-primary" id="mem-submit-btn">
+                Submit Registration
+              </button>
+            </div>
+          </fieldset>
+
         </form>
+
+        <!-- ── Success state ── -->
+        <div class="mem-success" id="mem-success" hidden>
+          <div class="mem-success-icon">&#10003;</div>
+          <h3>Registration Submitted!</h3>
+          <p id="mem-success-msg"></p>
+          <div class="mem-success-details" id="mem-success-details"></div>
+          <a class="btn btn-primary" href="index.html" style="margin-top:1.5rem;">Back to Home</a>
+        </div>
+
       </div>
     </section>
   </main>
@@ -238,9 +593,53 @@
         <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
         <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
         <div class="footer-social">
-          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">in</a>
-          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">f</a>
-          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">&#9679;</a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/256700123400" target="_blank" rel="noopener"
+             aria-label="Chat with BU Alumni on WhatsApp" class="social-icon social-icon--wa">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+              <path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2c-5.5 0-9.97 4.46-9.97 9.97 0 1.75.46 3.46 1.33 4.96L2 22l5.2-1.36a9.93 9.93 0 0 0 4.83 1.23h.01c5.5 0 9.97-4.46 9.97-9.97a9.9 9.9 0 0 0-2.91-7zM12.04 20.18h-.01a8.3 8.3 0 0 1-4.24-1.16l-.3-.18-3.09.81.82-3.01-.2-.31a8.29 8.29 0 0 1-1.28-4.42c0-4.58 3.72-8.3 8.31-8.3 2.22 0 4.3.87 5.86 2.43a8.26 8.26 0 0 1 2.43 5.87c0 4.59-3.73 8.31-8.3 8.31zm4.56-6.23c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.57.12-.17.26-.65.8-.79.96-.15.17-.29.19-.54.07-.25-.13-1.05-.38-2-1.2-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.39.11-.52.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.13-.57-1.38-.78-1.89-.21-.5-.42-.43-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.09s.9 2.43 1.02 2.6c.12.17 1.77 2.7 4.28 3.79.6.26 1.06.42 1.42.54.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.19.21-.59.21-1.09.15-1.19-.06-.11-.23-.17-.48-.3z"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener"
+             aria-label="BU Alumni on Facebook" class="social-icon social-icon--fb">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="https://x.com/BugemaUniversity" target="_blank" rel="noopener"
+             aria-label="BU Alumni on X (Twitter)" class="social-icon social-icon--x">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="15" height="15">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener"
+             aria-label="BU Alumni on LinkedIn" class="social-icon social-icon--li">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener"
+             aria-label="BU Alumni on Instagram" class="social-icon social-icon--ig">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <!-- Email -->
+          <a href="mailto:alumni@bualumni.org"
+             aria-label="Email BU Alumni" class="social-icon social-icon--em">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </a>
         </div>
       </div>
       <div class="footer-links-group">
@@ -289,8 +688,161 @@
       form.reset();
       emailField.blur();
     }
+
+    // ── Multi-step membership form ────────────────────────────────────────────
+
+    function setStep(n) {
+      [1, 2, 3].forEach((i) => {
+        const fs  = document.getElementById('mem-step-' + i);
+        const ind = document.getElementById('step-ind-' + i);
+        if (!fs || !ind) return;
+        fs.hidden = (i !== n);
+        ind.classList.toggle('mem-step--active',    i === n);
+        ind.classList.toggle('mem-step--completed', i < n);
+      });
+      // Scroll form into view smoothly
+      document.getElementById('signup-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showFieldError(id, show) {
+      const el = document.getElementById(id);
+      if (el) el.hidden = !show;
+    }
+
+    function memNext(step) {
+      if (step === 1) {
+        const name       = document.getElementById('mem-name').value.trim();
+        const email      = document.getElementById('mem-email').value.trim();
+        const phone      = document.getElementById('mem-phone').value.trim();
+        const profession = document.getElementById('mem-profession').value.trim();
+
+        let valid = true;
+        showFieldError('err-name',       !name);       if (!name)       valid = false;
+        showFieldError('err-email',      !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) valid = false;
+        showFieldError('err-phone',      !phone);      if (!phone)      valid = false;
+        showFieldError('err-profession', !profession); if (!profession) valid = false;
+
+        if (!valid) return;
+        setStep(2);
+      } else if (step === 2) {
+        const tier = document.querySelector('input[name="membershipType"]:checked');
+        showFieldError('err-tier', !tier);
+        if (!tier) return;
+
+        // Populate review
+        document.getElementById('rv-name').textContent       = document.getElementById('mem-name').value.trim();
+        document.getElementById('rv-email').textContent      = document.getElementById('mem-email').value.trim();
+        document.getElementById('rv-phone').textContent      = document.getElementById('mem-phone').value.trim();
+        document.getElementById('rv-profession').textContent = document.getElementById('mem-profession').value.trim();
+        document.getElementById('rv-location').textContent   = document.getElementById('mem-location').value.trim() || '—';
+        document.getElementById('rv-tier').textContent       = tier.value;
+
+        setStep(3);
+      }
+    }
+
+    function memBack(step) {
+      setStep(step - 1);
+    }
+
+    // Highlight selected tier card
+    document.querySelectorAll('input[name="membershipType"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.mem-tier-card').forEach((c) => c.classList.remove('mem-tier-card--selected'));
+        if (radio.checked) radio.closest('.mem-tier-option').querySelector('.mem-tier-card').classList.add('mem-tier-card--selected');
+      });
+    });
+
+    // Payment method — show contextual instructions
+    document.querySelectorAll('input[name="paymentMethod"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        // Highlight selected card
+        document.querySelectorAll('.pay-option-card').forEach((c) => c.classList.remove('pay-option-card--selected'));
+        if (radio.checked) radio.closest('.pay-option').querySelector('.pay-option-card').classList.add('pay-option-card--selected');
+
+        // Show instructions
+        const instrWrap = document.getElementById('pay-instructions');
+        instrWrap.hidden = false;
+        ['pay-instr-mtn','pay-instr-airtel','pay-instr-card','pay-instr-bank'].forEach((id) => {
+          document.getElementById(id).hidden = true;
+        });
+        const map = {
+          'MTN Mobile Money': 'pay-instr-mtn',
+          'Airtel Money':     'pay-instr-airtel',
+          'Visa Card':        'pay-instr-card',
+          'Mastercard':       'pay-instr-card',
+          'Bank Transfer':    'pay-instr-bank',
+        };
+        const target = map[radio.value];
+        if (target) document.getElementById(target).hidden = false;
+      });
+    });
+
+    // Form submit
+    document.getElementById('mem-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const terms   = document.getElementById('mem-terms');
+      const payment = document.querySelector('input[name="paymentMethod"]:checked');
+
+      showFieldError('err-terms',   !terms.checked);
+      showFieldError('err-payment', !payment);
+      if (!terms.checked || !payment) return;
+
+      const btn = document.getElementById('mem-submit-btn');
+      btn.disabled    = true;
+      btn.textContent = 'Submitting…';
+
+      const payload = {
+        fullName:       document.getElementById('mem-name').value.trim(),
+        email:          document.getElementById('mem-email').value.trim(),
+        phone:          document.getElementById('mem-phone').value.trim(),
+        profession:     document.getElementById('mem-profession').value.trim(),
+        location:       document.getElementById('mem-location').value.trim(),
+        membershipType: document.querySelector('input[name="membershipType"]:checked').value,
+        paymentMethod:  document.querySelector('input[name="paymentMethod"]:checked').value,
+        registrationFee: 'UGX 10,000',
+      };
+
+      try {
+        const res  = await fetch('/api/register-member', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.success) throw new Error(data.error || 'Submission failed.');
+
+        // Show success
+        document.getElementById('mem-form').hidden   = true;
+        document.querySelector('.mem-steps').hidden  = true;
+        const succ = document.getElementById('mem-success');
+        succ.hidden = false;
+
+        document.getElementById('mem-success-msg').textContent =
+          data.message || `Welcome, ${payload.fullName}! Your ${payload.membershipType} membership has been received.`;
+
+        document.getElementById('mem-success-details').innerHTML =
+          `<div class="mem-review-card" style="margin-top:1rem;">
+            <div class="mem-review-row"><span>Member ID</span><strong>${data.memberId || '—'}</strong></div>
+            <div class="mem-review-row"><span>Membership</span><strong>${payload.membershipType}</strong></div>
+            <div class="mem-review-row"><span>Email</span><strong>${payload.email}</strong></div>
+            <div class="mem-review-row mem-review-row--fee"><span>Registration Fee</span><strong>UGX 10,000</strong></div>
+          </div>`;
+
+      } catch (err) {
+        const errEl = document.getElementById('mem-global-error');
+        errEl.textContent = err.message;
+        errEl.hidden = false;
+        btn.disabled    = false;
+        btn.textContent = 'Submit Registration';
+      }
+    });
   </script>
   <script src="animations.js"></script>
+  <script src="share.js"></script>
 </body>
 </html>
 

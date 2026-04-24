@@ -1547,22 +1547,33 @@ h2 {
 }
 
 .social-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   display: grid;
   place-items: center;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 0.8rem;
-  transition: background 0.15s ease;
+  transition: background 0.18s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.social-icon svg {
+  display: block;
 }
 
 .social-icon:hover {
-  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
 }
+
+/* Platform brand colours on hover */
+.social-icon--wa:hover  { background: #25d366; }
+.social-icon--fb:hover  { background: #1877f2; }
+.social-icon--x:hover   { background: #000; }
+.social-icon--li:hover  { background: #0a66c2; }
+.social-icon--ig:hover  { background: radial-gradient(circle at 30% 110%, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+.social-icon--em:hover  { background: var(--primary); }
 
 .footer-links-group {
   display: flex;
@@ -2434,10 +2445,6 @@ body {
   gap: 2.2rem;
 }
 
-.social-icon {
-  backdrop-filter: blur(10px);
-}
-
 .about-page-hero {
   padding: 4.4rem 0 3rem;
 }
@@ -3011,4 +3018,803 @@ body {
   color: var(--muted, #6b7280);
   text-align: center;
   margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MEMBERSHIP REGISTRATION FORM
+══════════════════════════════════════════════════════════════ */
+
+/* ── Step indicator ── */
+.mem-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 2rem;
+}
+
+.mem-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.mem-step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.mem-step-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.mem-step--active .mem-step-num {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.mem-step--active .mem-step-label {
+  color: var(--primary);
+}
+
+.mem-step--completed .mem-step-num {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+.mem-step--completed .mem-step-num::after {
+  content: '✓';
+}
+
+.mem-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  min-width: 48px;
+  margin-bottom: 1.4rem;
+  transition: background 0.2s;
+}
+
+/* ── Form shell ── */
+.mem-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.mem-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.mem-legend {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+  padding: 0;
+}
+
+/* ── Field helpers ── */
+.req {
+  color: var(--primary);
+}
+
+.mem-optional {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.field-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.field-error {
+  font-size: 0.78rem;
+  color: #dc2626;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.form-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ── Registration fee note ── */
+.mem-fee-note {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: #92400e;
+  margin: 0;
+}
+
+/* ── Tier picker ── */
+.mem-tier-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+}
+
+.mem-tier-option {
+  cursor: pointer;
+}
+
+.mem-tier-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mem-tier-card {
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  background: var(--surface);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.mem-tier-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(17, 64, 217, 0.1);
+}
+
+.mem-tier-card--selected,
+.mem-tier-option input[type="radio"]:checked + .mem-tier-card {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(17, 64, 217, 0.15), var(--shadow);
+  background: #f0f4ff;
+}
+
+.mem-tier-card--popular {
+  border-color: var(--primary);
+}
+
+.mem-tier-card--elite {
+  border-color: #f59e0b;
+}
+
+.mem-tier-card--elite.mem-tier-card--selected,
+.mem-tier-option input[type="radio"]:checked + .mem-tier-card--elite {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18), var(--shadow);
+  background: #fffbeb;
+}
+
+.mem-popular-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.18rem 0.55rem;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.mem-elite-badge {
+  display: inline-block;
+  background: #fff8e1;
+  color: #b45309;
+  border: 1px solid #f59e0b;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.18rem 0.55rem;
+  border-radius: 99px;
+  margin-bottom: 0.5rem;
+}
+
+.mem-tier-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
+}
+
+.mem-tier-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.mem-tier-price {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: right;
+  line-height: 1.3;
+}
+
+.mem-tier-price span {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.mem-tier-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.mem-tier-perks li {
+  font-size: 0.78rem;
+  color: var(--text);
+}
+
+.perk-off {
+  color: var(--muted) !important;
+}
+
+/* ── Review card ── */
+.mem-review-card {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.mem-review-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+}
+
+.mem-review-row:last-child {
+  border-bottom: none;
+}
+
+.mem-review-row span {
+  color: var(--muted);
+  font-weight: 600;
+  min-width: 110px;
+}
+
+.mem-review-row strong {
+  color: var(--text);
+  text-align: right;
+  word-break: break-word;
+}
+
+.mem-review-row--fee {
+  background: #fffbeb;
+}
+
+.mem-review-row--fee span,
+.mem-review-row--fee strong {
+  color: #92400e;
+}
+
+/* ── Terms checkbox ── */
+.mem-terms-group {
+  margin-top: 0.4rem;
+}
+
+.mem-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.mem-checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.mem-checkbox-label a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ── Step action buttons ── */
+.mem-step-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.mem-step-actions--split {
+  justify-content: space-between;
+}
+
+.mem-next-btn {
+  min-width: 160px;
+}
+
+/* ── Success state ── */
+.mem-success {
+  text-align: center;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.mem-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 1.8rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.mem-success h3 {
+  font-size: 1.4rem;
+  margin: 0;
+  color: var(--text);
+}
+
+.mem-success p {
+  color: var(--muted);
+  max-width: 48ch;
+  margin: 0;
+}
+
+.mem-success-details {
+  width: 100%;
+  max-width: 480px;
+  text-align: left;
+}
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+  .mem-tier-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .mem-form {
+    padding: 1.4rem 1rem;
+  }
+
+  .mem-step-line {
+    min-width: 28px;
+  }
+
+  .mem-step-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SOCIAL SHARING
+══════════════════════════════════════════════════════════════ */
+
+/* ── Floating Action Button ── */
+.share-fab {
+  position: fixed;
+  bottom: 1.6rem;
+  right: 1.6rem;
+  z-index: 200;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 20px rgba(17, 64, 217, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.15s ease;
+}
+
+.share-fab:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 10px 28px rgba(17, 64, 217, 0.42);
+}
+
+.share-fab:active {
+  transform: scale(0.96);
+}
+
+/* ── Inline share button ── */
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.share-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #f0f4ff;
+}
+
+.share-btn svg {
+  flex-shrink: 0;
+}
+
+/* ── Dropdown menu ── */
+.share-dropdown {
+  position: absolute;
+  z-index: 9999;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 12px 36px rgba(17, 64, 217, 0.14), 0 2px 8px rgba(0,0,0,0.08);
+  padding: 0.4rem;
+  min-width: 190px;
+  animation: shareDropIn 0.18s ease;
+}
+
+@keyframes shareDropIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+.share-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s ease;
+}
+
+.share-dropdown-item:hover {
+  background: var(--bg);
+}
+
+.share-item-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  background: #f3f4f6;
+}
+
+/* Platform accent colours */
+.share-wa  .share-item-icon { background: #e7f9ef; }
+.share-fb  .share-item-icon { background: #e8f0fb; }
+.share-tw  .share-item-icon { background: #e8f4fd; }
+.share-li  .share-item-icon { background: #e8f0fb; }
+.share-em  .share-item-icon { background: #f0f4ff; }
+.share-copy .share-item-icon { background: #f3f4f6; }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .share-fab {
+    bottom: 1.1rem;
+    right: 1.1rem;
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PAYMENT METHODS
+══════════════════════════════════════════════════════════════ */
+
+/* ── Trust bar (standalone section) ── */
+.pay-trust-section {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.pay-trust-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.pay-trust-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0;
+}
+
+.pay-methods-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.pay-method-badge {
+  width: 100px;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+
+.pay-method-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+}
+
+.pay-method-badge svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.pay-trust-note {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Payment selector inside form ── */
+.pay-select-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.2rem;
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.pay-select-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.pay-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.pay-option {
+  cursor: pointer;
+}
+
+.pay-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pay-option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.12s;
+  min-width: 80px;
+}
+
+.pay-option-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.pay-option input[type="radio"]:checked + .pay-option-card,
+.pay-option-card--selected {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(17, 64, 217, 0.14);
+  background: #f0f4ff;
+}
+
+.pay-logo {
+  width: 72px;
+  height: 28px;
+  display: block;
+  border-radius: 4px;
+}
+
+.pay-option-card span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ── Payment instructions ── */
+.pay-instructions {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  font-size: 0.88rem;
+  color: #78350f;
+  animation: fadeSlideIn 0.2s ease;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pay-instr-block strong {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #92400e;
+}
+
+.pay-instr-block ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.pay-instr-block ol li {
+  margin-bottom: 0.3rem;
+  line-height: 1.5;
+}
+
+.pay-instr-block code {
+  background: rgba(0,0,0,0.07);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: monospace;
+}
+
+.pay-instr-block p {
+  margin: 0.4rem 0 0;
+  line-height: 1.6;
+}
+
+/* Bank transfer table */
+.pay-bank-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.pay-bank-table td {
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  vertical-align: top;
+}
+
+.pay-bank-table td:first-child {
+  color: #92400e;
+  font-weight: 600;
+  width: 42%;
+  white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+  .pay-methods-grid {
+    gap: 0.5rem;
+  }
+
+  .pay-method-badge {
+    width: 80px;
+    height: 34px;
+  }
+
+  .pay-options {
+    gap: 0.45rem;
+  }
+
+  .pay-option-card {
+    min-width: 68px;
+    padding: 0.5rem 0.55rem;
+  }
+
+  .pay-logo {
+    width: 60px;
+    height: 24px;
+  }
+}
+
+/* ── Plog post footer (Read more + Share side by side) ── */
+.plog-post-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
 }

@@ -412,6 +412,111 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // ── POST /api/register-member ──────────────────────────────────────────────
+  if (url.pathname === '/api/register-member' && req.method === 'POST') {
+    try {
+      const raw = JSON.parse((await readBody(req)) || '{}');
+
+      const fullName       = (raw.fullName       || '').trim();
+      const email          = (raw.email          || '').trim();
+      const phone          = (raw.phone          || '').trim();
+      const profession     = (raw.profession     || '').trim();
+      const location       = (raw.location       || '').trim();
+      const membershipType = (raw.membershipType || '').trim();
+
+      if (!fullName || !email || !phone || !profession || !membershipType)
+        return sendJson(res, 400, { error: 'fullName, email, phone, profession, and membershipType are required.' });
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+        return sendJson(res, 400, { error: 'Invalid email address.' });
+      if (!['Standard', 'Premium', 'Lifetime'].includes(membershipType))
+        return sendJson(res, 400, { error: 'membershipType must be Standard, Premium, or Lifetime.' });
+
+      const memberId = 'MEM-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+      const record   = {
+        memberId, fullName, email, phone, profession, location,
+        membershipType, registrationFee: 'UGX 10,000',
+        registeredAt: new Date().toISOString(),
+      };
+
+      // Persist to disk
+      const memberDir = path.join(ROOT, 'database', 'members');
+      if (!fs.existsSync(memberDir)) fs.mkdirSync(memberDir, { recursive: true });
+      fs.writeFileSync(path.join(memberDir, `${memberId}.json`), JSON.stringify(record, null, 2));
+
+      // Send confirmation email (best-effort)
+      let emailSent = false;
+      try {
+        if (nodemailer && SMTP.auth.user && SMTP.auth.pass) {
+          const transporter = nodemailer.createTransport(SMTP);
+          const tierPrices  = { Standard: 'UGX 50,000/yr', Premium: 'UGX 150,000/yr', Lifetime: 'UGX 350,000 (once)' };
+          await transporter.sendMail({
+            from:    FROM_ADDR,
+            to:      `"${fullName}" <${email}>`,
+            subject: `Welcome to BU Alumni – Your ${membershipType} Membership [${memberId}]`,
+            html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:32px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0"
+  style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);">
+  <tr><td style="background:#1d4ed8;padding:28px 40px;text-align:center;">
+    <h1 style="color:#fff;margin:0;font-size:22px;font-weight:800;">BU Alumni Portal</h1>
+    <p style="color:#bfdbfe;margin:6px 0 0;font-size:13px;">Membership Registration Confirmation</p>
+  </td></tr>
+  <tr><td style="padding:32px 40px;">
+    <p style="color:#111827;font-size:16px;margin:0 0 8px;">Hi <strong>${fullName}</strong>,</p>
+    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 24px;">
+      Welcome to the BU Alumni network! Your <strong>${membershipType}</strong> membership registration has been received.
+      Our team will verify your details and activate your account within 2 business days.
+    </p>
+    <table width="100%" cellpadding="0" cellspacing="0"
+      style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;margin-bottom:24px;">
+    <tr><td style="padding:20px 24px;">
+      <p style="margin:0 0 12px;font-size:13px;color:#6b7280;font-weight:700;text-transform:uppercase;letter-spacing:.6px;">
+        Membership Summary
+      </p>
+      <table width="100%" cellpadding="4" cellspacing="0" style="font-size:13px;color:#374151;">
+        <tr><td style="width:40%;color:#6b7280;font-weight:600;">Member ID</td><td><strong>${memberId}</strong></td></tr>
+        <tr><td style="color:#6b7280;font-weight:600;">Membership</td><td><strong>${membershipType} — ${tierPrices[membershipType]}</strong></td></tr>
+        <tr><td style="color:#6b7280;font-weight:600;">Reg. Fee</td><td><strong>UGX 10,000</strong></td></tr>
+        <tr><td style="color:#6b7280;font-weight:600;">Email</td><td>${email}</td></tr>
+        <tr><td style="color:#6b7280;font-weight:600;">Phone</td><td>${phone}</td></tr>
+        <tr><td style="color:#6b7280;font-weight:600;">Profession</td><td>${profession}</td></tr>
+        ${location ? `<tr><td style="color:#6b7280;font-weight:600;">Location</td><td>${location}</td></tr>` : ''}
+      </table>
+    </td></tr></table>
+    <p style="color:#6b7280;font-size:12px;margin:0;">
+      Questions? Contact us at <a href="mailto:alumni@bualumni.org" style="color:#1d4ed8;">alumni@bualumni.org</a>
+    </p>
+  </td></tr>
+  <tr><td style="background:#f9fafb;padding:18px 40px;text-align:center;border-top:1px solid #e5e7eb;">
+    <p style="color:#9ca3af;font-size:11px;margin:0;">
+      &copy; 2026 BU Alumni Association &nbsp;&middot;&nbsp; Bugema University, Kampala, Uganda
+    </p>
+  </td></tr>
+</table></td></tr></table></body></html>`,
+          });
+          emailSent = true;
+        }
+      } catch (emailErr) {
+        console.error('[member-email]', emailErr.message);
+      }
+
+      return sendJson(res, 200, {
+        success:  true,
+        memberId,
+        emailSent,
+        message: `Welcome, ${fullName}! Your ${membershipType} membership has been registered (ID: ${memberId}). ${
+          emailSent ? `A confirmation has been sent to ${email}.` : 'Please save your Member ID for reference.'
+        }`,
+      });
+
+    } catch (err) {
+      console.error('[register-member]', err);
+      return sendJson(res, 500, { error: 'Registration failed. Please try again.' });
+    }
+  }
+
   // ── POST /api/register-event ────────────────────────────────────────────────
   if (url.pathname === '/api/register-event' && req.method === 'POST') {
     try {
