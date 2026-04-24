@@ -64,58 +64,41 @@
       </div>
     </section>
 
-    <!-- Live Stats Snapshot -->
-    <section class="stats-bar scale-in" aria-label="Alumni network statistics">
+    <!-- Alumni Experience -->
+    <section class="alumni-hub section scale-in" aria-labelledby="alumni-hub-title">
       <div class="container">
-        <div class="stats-bar-shell">
-          <div class="stats-bar-head">
-            <div>
-              <p class="eyebrow stats-bar-eyebrow">Live Alumni Snapshot</p>
-              <h2>Real-time movement across the BU alumni network</h2>
-              <p class="stats-bar-intro">
-                A quick read on membership growth, jobs, chapters, and mentorship activity from the alumni tracker.
-              </p>
-            </div>
-            <div class="stats-bar-meta">
-              <span class="stats-live-pill">
-                <span class="stats-live-dot" aria-hidden="true"></span>
-                <span data-stats-status>Live sync</span>
-              </span>
-              <p class="stats-updated">Last updated <time id="stats-updated-at" datetime="2026-04-24T00:00:00Z">Apr 24, 2026</time></p>
-            </div>
+        <div class="alumni-hub-shell">
+          <div class="alumni-hub-head">
+            <p class="eyebrow">Alumni Experience</p>
+            <h2 id="alumni-hub-title">Everything you can do from one portal</h2>
+            <p>
+              Reconnect with classmates, discover career opportunities, show up for events, and give back to the next generation of Bugema University leaders.
+            </p>
           </div>
-          <div class="stats-bar-grid">
-            <article class="stat-bar-item">
-              <div class="stat-bar-icon" aria-hidden="true">&#128101;</div>
-              <p class="stat-bar-label">Alumni Members</p>
-              <div class="stat-bar-value">
-                <span class="stat-bar-num" data-stat="alumniMembers" data-target="389000">0</span><span class="stat-bar-suffix">+</span>
-              </div>
-              <p class="stat-bar-note">Verified community profiles on record</p>
+          <div class="alumni-hub-grid stagger-children">
+            <article class="alumni-hub-card">
+              <div class="alumni-hub-icon" aria-hidden="true">&#128101;</div>
+              <h3>Grow Your Network</h3>
+              <p>Join the alumni community, update your details, and stay connected with classmates and chapters.</p>
+              <a class="text-link" href="memberships.html#signup-form">Join the network &rarr;</a>
             </article>
-            <article class="stat-bar-item">
-              <div class="stat-bar-icon" aria-hidden="true">&#128188;</div>
-              <p class="stat-bar-label">Jobs This Year</p>
-              <div class="stat-bar-value">
-                <span class="stat-bar-num" data-stat="jobsThisYear" data-target="2500">0</span><span class="stat-bar-suffix">+</span>
-              </div>
-              <p class="stat-bar-note">Career openings shared with alumni</p>
+            <article class="alumni-hub-card">
+              <div class="alumni-hub-icon" aria-hidden="true">&#128188;</div>
+              <h3>Career Support</h3>
+              <p>Explore jobs, partnerships, and mentorship paths designed for new graduates and experienced alumni alike.</p>
+              <a class="text-link" href="opportunities.html">Explore opportunities &rarr;</a>
             </article>
-            <article class="stat-bar-item">
-              <div class="stat-bar-icon" aria-hidden="true">&#127760;</div>
-              <p class="stat-bar-label">Active Chapters</p>
-              <div class="stat-bar-value">
-                <span class="stat-bar-num" data-stat="activeChapters" data-target="72">0</span>
-              </div>
-              <p class="stat-bar-note">Regional groups currently engaging members</p>
+            <article class="alumni-hub-card">
+              <div class="alumni-hub-icon" aria-hidden="true">&#127915;</div>
+              <h3>Attend Signature Events</h3>
+              <p>Register for reunions, networking days, and community events that keep the BU story active.</p>
+              <a class="text-link" href="#event-registration-section">Open the event form &rarr;</a>
             </article>
-            <article class="stat-bar-item">
-              <div class="stat-bar-icon" aria-hidden="true">&#129309;</div>
-              <p class="stat-bar-label">Mentorship Connections</p>
-              <div class="stat-bar-value">
-                <span class="stat-bar-num" data-stat="mentorshipConnections" data-target="18000">0</span><span class="stat-bar-suffix">+</span>
-              </div>
-              <p class="stat-bar-note">Meaningful mentor-mentee matches created</p>
+            <article class="alumni-hub-card">
+              <div class="alumni-hub-icon" aria-hidden="true">&#10084;&#65039;</div>
+              <h3>Give Back</h3>
+              <p>Support scholarships, volunteer in outreach programs, and help current students thrive.</p>
+              <a class="text-link" href="memberships.html">Support the mission &rarr;</a>
             </article>
           </div>
         </div>
@@ -197,17 +180,16 @@
             <div>
               <h3>Annual Alumni Gala 2026</h3>
               <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
-              <button
+              <a
                 class="text-link event-register-trigger"
-                type="button"
-                data-event-register
+                href="#event-registration-section"
                 data-event-title="Annual Alumni Gala 2026"
                 data-event-date="May 10, 2026"
                 data-event-location="Kampala Serena Hotel"
                 data-event-time="6:00 PM EAT"
               >
                 Register &rarr;
-              </button>
+              </a>
             </div>
           </article>
           <article class="event-strip-card">
@@ -218,17 +200,16 @@
             <div>
               <h3>Career Fair &amp; Networking Day</h3>
               <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
-              <button
+              <a
                 class="text-link event-register-trigger"
-                type="button"
-                data-event-register
+                href="#event-registration-section"
                 data-event-title="Career Fair &amp; Networking Day"
                 data-event-date="June 7, 2026"
                 data-event-location="BU Main Campus"
                 data-event-time="9:00 AM EAT"
               >
                 Register &rarr;
-              </button>
+              </a>
             </div>
           </article>
           <article class="event-strip-card">
@@ -239,22 +220,66 @@
             <div>
               <h3>Charity Run for Education</h3>
               <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
-              <button
+              <a
                 class="text-link event-register-trigger"
-                type="button"
-                data-event-register
+                href="#event-registration-section"
                 data-event-title="Charity Run for Education"
                 data-event-date="July 19, 2026"
                 data-event-location="Kololo Airstrip, Kampala"
                 data-event-time="7:00 AM EAT"
               >
                 Register &rarr;
-              </button>
+              </a>
             </div>
           </article>
         </div>
         <div style="text-align:center;margin-top:1.5rem;">
           <a class="btn btn-secondary" href="events.html">View All Events</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Registration -->
+    <section class="section" id="event-registration-section">
+      <div class="container">
+        <div class="event-registration-shell">
+          <div class="event-registration-panel fade-up">
+            <p class="eyebrow">Event Registration</p>
+            <h2>Reserve your seat</h2>
+            <p class="event-registration-copy">
+              Complete the form below so the team can send your ticket and contact you with any final event updates.
+            </p>
+            <div class="event-registration-selected">
+              <p class="event-registration-selected-label">Selected event</p>
+              <h3 id="event-selected-title">Annual Alumni Gala 2026</h3>
+              <p class="meta" id="event-selected-meta">May 10, 2026 &nbsp;·&nbsp; Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
+            </div>
+            <ul class="event-registration-list">
+              <li>Full name helps us personalize your attendee record.</li>
+              <li>Email address is used for the ticket and confirmation details.</li>
+              <li>Phone number is used if the team needs to contact you quickly.</li>
+            </ul>
+          </div>
+          <form class="portal-form event-registration-form fade-up" id="event-registration-form-home">
+            <input type="hidden" id="event-registration-title" name="event-title" value="Annual Alumni Gala 2026" />
+            <input type="hidden" id="event-registration-meta" name="event-meta" value="May 10, 2026 - Kampala Serena Hotel - 6:00 PM EAT" />
+            <div class="form-row">
+              <div class="form-group">
+                <label for="event-full-name">Full Name</label>
+                <input type="text" id="event-full-name" name="full-name" placeholder="Your full name" required />
+              </div>
+              <div class="form-group">
+                <label for="event-email">Email Address</label>
+                <input type="email" id="event-email" name="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="event-phone">Phone Number</label>
+              <input type="tel" id="event-phone" name="phone" placeholder="+256 7XX XXX XXX" required />
+            </div>
+            <button class="btn btn-primary" type="submit">Submit Registration</button>
+            <p class="form-success" id="event-registration-success" aria-live="polite" hidden></p>
+          </form>
         </div>
       </div>
     </section>
@@ -361,9 +386,7 @@
   </footer>
 
   <script src="animations.js"></script>
-  <script src="database/stats.js"></script>
   <script src="home.js"></script>
-  <script src="event-registration.js"></script>
   <script>
     function handleNewsletter(e) {
       e.preventDefault();
