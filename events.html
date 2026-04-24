@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -64,10 +64,10 @@
         <div class="featured-event-badge">Featured Event</div>
         <div>
           <h2>Annual Alumni Gala 2026</h2>
-          <p class="meta">May 10 &nbsp;�&nbsp; Kampala Serena Hotel &nbsp;�&nbsp; 6:00 PM EAT</p>
+          <p class="meta">May 10 &nbsp;·&nbsp; Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
           <p>The biggest alumni gathering of the year. Awards, networking, and celebration of BU's legacy.</p>
         </div>
-        <a class="btn btn-primary" href="memberships.html#signup-form">Register Now</a>
+        <a class="btn btn-primary" href="#event-register">Register Now</a>
       </div>
     </div>
 
@@ -86,10 +86,10 @@
             </div>
             <div class="event-details">
               <h3>Annual Alumni Gala 2026</h3>
-              <p class="meta">Kampala Serena Hotel &nbsp;�&nbsp; 6:00 PM EAT</p>
+              <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
               <p>Join fellow graduates for an evening of networking, awards, and celebration of BU's legacy.</p>
               <div class="event-actions">
-                <a class="btn btn-primary" href="memberships.html#signup-form">Register (Grads Link)</a>
+                <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Annual Alumni Gala 2026')">Register</a>
                 <a class="btn btn-ghost" href="events.html">Learn More</a>
               </div>
             </div>
@@ -102,10 +102,10 @@
             </div>
             <div class="event-details">
               <h3>Career Fair &amp; Networking Day</h3>
-              <p class="meta">BU Main Campus &nbsp;�&nbsp; 9:00 AM EAT</p>
+              <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
               <p>Connect with recruiters, explore job opportunities, and meet alumni mentors across industries.</p>
               <div class="event-actions">
-                <a class="btn btn-primary" href="memberships.html#signup-form">Register (Grads Link)</a>
+                <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Career Fair &amp; Networking Day')">Register</a>
                 <a class="btn btn-ghost" href="events.html">Learn More</a>
               </div>
             </div>
@@ -118,10 +118,10 @@
             </div>
             <div class="event-details">
               <h3>Charity Run for Education</h3>
-              <p class="meta">Kololo Airstrip, Kampala &nbsp;�&nbsp; 7:00 AM EAT</p>
+              <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
               <p>Participate in our annual 5K run to raise funds for student bursaries and school supplies.</p>
               <div class="event-actions">
-                <a class="btn btn-primary" href="memberships.html#signup-form">Register (Grads Link)</a>
+                <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Charity Run for Education')">Register</a>
                 <a class="btn btn-ghost" href="events.html">Learn More</a>
               </div>
             </div>
@@ -184,6 +184,60 @@
 
       </div>
     </section>
+    <!-- Event Registration Form -->
+    <section class="section section-alt" id="event-register">
+      <div class="container" style="max-width:600px;">
+        <div class="section-title-wrap fade-up" style="text-align:center;margin-bottom:2rem;">
+          <p class="eyebrow">Secure Your Spot</p>
+          <h2 id="register-form-title">Event Registration</h2>
+          <p>Fill in your details below. Your ticket will be sent to your email address.</p>
+        </div>
+
+        <form class="event-reg-form" id="event-reg-form" onsubmit="handleEventRegister(event)" novalidate>
+          <input type="hidden" id="reg-event-name" name="event_name" value="" />
+
+          <div class="form-group">
+            <label for="reg-full-name">Full Name <span aria-hidden="true" style="color:var(--primary)">*</span></label>
+            <input type="text" id="reg-full-name" name="full_name" placeholder="e.g. Amara Ssekandi" required autocomplete="name" />
+          </div>
+
+          <div class="form-group">
+            <label for="reg-email">Email Address <span aria-hidden="true" style="color:var(--primary)">*</span></label>
+            <input type="email" id="reg-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+          </div>
+
+          <div class="form-group">
+            <label for="reg-phone">Phone Number <span aria-hidden="true" style="color:var(--primary)">*</span></label>
+            <input type="tel" id="reg-phone" name="phone" placeholder="+256 700 000 000" required autocomplete="tel" />
+          </div>
+
+          <button class="btn btn-primary" type="submit" style="width:100%;margin-top:0.5rem;">
+            Register &amp; Get Ticket
+          </button>
+        </form>
+
+        <!-- Success state -->
+        <div class="event-reg-success" id="event-reg-success" hidden>
+          <div class="ticket-card" id="ticket-card">
+            <div class="ticket-header">
+              <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="ticket-logo" />
+              <span class="ticket-badge">&#10003; Registered</span>
+            </div>
+            <h3 id="ticket-event-name"></h3>
+            <div class="ticket-details">
+              <div><span class="ticket-label">Name</span><span id="ticket-name"></span></div>
+              <div><span class="ticket-label">Email</span><span id="ticket-email"></span></div>
+              <div><span class="ticket-label">Phone</span><span id="ticket-phone"></span></div>
+              <div><span class="ticket-label">Ticket ID</span><span id="ticket-id"></span></div>
+            </div>
+            <p class="ticket-note">A confirmation has been sent to your email. Please present this ticket at the event entrance.</p>
+          </div>
+          <div style="text-align:center;margin-top:1.5rem;">
+            <button class="btn btn-secondary" onclick="resetRegForm()">Register for Another Event</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
 <footer id="footer" class="site-footer">
@@ -209,7 +263,7 @@
       <div class="footer-links-group">
         <h4 class="footer-heading">Contact</h4>
         <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
-        <a class="footer-link" href="tel:+16173539000">+1 (617) 353-9000</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
         <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
         <a class="footer-link" href="legal.html#terms">Terms of Use</a>
       </div>
@@ -233,10 +287,56 @@
 <script>
     function handleNewsletter(e) {
       e.preventDefault();
-      e.target.hidden = true;
-      document.getElementById('nl-success').hidden = false;
+      const form = e.target;
+      const emailField = form.querySelector('input[type="email"]');
+      const feedback = document.getElementById('nl-success');
+      if (!emailField || !feedback) return;
+      const email = emailField.value.trim();
+      feedback.textContent = 'Thanks. ' + email + ' will now receive BU alumni updates.';
+      feedback.hidden = false;
+      form.reset();
+      emailField.blur();
+    }
+
+    function setEventTitle(title) {
+      document.getElementById('register-form-title').textContent = 'Register: ' + title;
+      document.getElementById('reg-event-name').value = title;
+    }
+
+    function generateTicketId() {
+      return 'BU-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+    }
+
+    function handleEventRegister(e) {
+      e.preventDefault();
+      const form = e.target;
+      const name  = form.full_name.value.trim();
+      const email = form.email.value.trim();
+      const phone = form.phone.value.trim();
+      const eventName = form.event_name.value || 'BU Alumni Event';
+
+      // Populate ticket
+      document.getElementById('ticket-event-name').textContent = eventName;
+      document.getElementById('ticket-name').textContent  = name;
+      document.getElementById('ticket-email').textContent = email;
+      document.getElementById('ticket-phone').textContent = phone;
+      document.getElementById('ticket-id').textContent    = generateTicketId();
+
+      // Swap form for success
+      form.closest('form').hidden = true;
+      document.getElementById('event-reg-success').hidden = false;
+    }
+
+    function resetRegForm() {
+      document.getElementById('event-reg-form').hidden = false;
+      document.getElementById('event-reg-form').reset();
+      document.getElementById('register-form-title').textContent = 'Event Registration';
+      document.getElementById('reg-event-name').value = '';
+      document.getElementById('event-reg-success').hidden = true;
     }
   </script>
   <script src="animations.js"></script>
 </body>
 </html>
+
+

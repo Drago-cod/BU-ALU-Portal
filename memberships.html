@@ -255,7 +255,7 @@
       <div class="footer-links-group">
         <h4 class="footer-heading">Contact</h4>
         <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
-        <a class="footer-link" href="tel:+16173539000">+1 (617) 353-9000</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
         <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
         <a class="footer-link" href="legal.html#terms">Terms of Use</a>
       </div>
@@ -279,10 +279,19 @@
 <script>
     function handleNewsletter(e) {
       e.preventDefault();
-      e.target.hidden = true;
-      document.getElementById('nl-success').hidden = false;
+      const form = e.target;
+      const emailField = form.querySelector('input[type="email"]');
+      const feedback = document.getElementById('nl-success');
+      if (!emailField || !feedback) return;
+      const email = emailField.value.trim();
+      feedback.textContent = 'Thanks. ' + email + ' will now receive BU alumni updates.';
+      feedback.hidden = false;
+      form.reset();
+      emailField.blur();
     }
   </script>
   <script src="animations.js"></script>
 </body>
 </html>
+
+

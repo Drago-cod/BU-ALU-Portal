@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -108,7 +108,7 @@
               <span class="opp-location">&#128205; Kampala</span>
             </div>
             <h3>Software Engineer</h3>
-            <p class="meta">Nakato &amp; Tech Ltd &nbsp;·&nbsp; Full-time</p>
+            <p class="meta">Nakato &amp; Tech Ltd &nbsp;ï¿½&nbsp; Full-time</p>
             <p>Build and maintain scalable web applications for a fast-growing fintech startup founded by BU alumni.</p>
             <div class="opp-actions">
               <a class="btn btn-primary" href="memberships.html#signup-form">Apply</a>
@@ -122,7 +122,7 @@
               <span class="opp-location">&#128205; Kampala</span>
             </div>
             <h3>Marketing Intern</h3>
-            <p class="meta">BU Alumni Media House &nbsp;·&nbsp; 3 months</p>
+            <p class="meta">BU Alumni Media House &nbsp;ï¿½&nbsp; 3 months</p>
             <p>Support digital marketing campaigns, content creation, and social media management for alumni events.</p>
             <div class="opp-actions">
               <a class="btn btn-primary" href="memberships.html#signup-form">Apply</a>
@@ -136,7 +136,7 @@
               <span class="opp-location">&#127758; International</span>
             </div>
             <h3>BU Alumni Scholarship 2026</h3>
-            <p class="meta">BU Alumni Association &nbsp;·&nbsp; UGX 5,000,000</p>
+            <p class="meta">BU Alumni Association &nbsp;ï¿½&nbsp; UGX 5,000,000</p>
             <p>Full bursary for continuing BU students demonstrating academic excellence and financial need.</p>
             <div class="opp-actions">
               <a class="btn btn-primary" href="memberships.html#signup-form">Apply</a>
@@ -150,7 +150,7 @@
               <span class="opp-location">&#128187; Remote</span>
             </div>
             <h3>Data Analyst</h3>
-            <p class="meta">East Africa Alumni Investors &nbsp;·&nbsp; Contract</p>
+            <p class="meta">East Africa Alumni Investors &nbsp;ï¿½&nbsp; Contract</p>
             <p>Analyse investment data and produce reports for a network of alumni-led investment funds across East Africa.</p>
             <div class="opp-actions">
               <a class="btn btn-primary" href="memberships.html#signup-form">Apply</a>
@@ -164,7 +164,7 @@
               <span class="opp-location">&#128187; Remote</span>
             </div>
             <h3>Research Assistant</h3>
-            <p class="meta">BU Health Professionals Network &nbsp;·&nbsp; 6 months</p>
+            <p class="meta">BU Health Professionals Network &nbsp;ï¿½&nbsp; 6 months</p>
             <p>Assist in compiling health data and literature reviews for ongoing community health research projects.</p>
             <div class="opp-actions">
               <a class="btn btn-primary" href="memberships.html#signup-form">Apply</a>
@@ -178,7 +178,7 @@
               <span class="opp-location">&#127758; International</span>
             </div>
             <h3>Project Manager</h3>
-            <p class="meta">UN Alumni Partnership Programme &nbsp;·&nbsp; Full-time</p>
+            <p class="meta">UN Alumni Partnership Programme &nbsp;ï¿½&nbsp; Full-time</p>
             <p>Lead cross-border development projects in partnership with UN agencies. Open to BU graduates with 3+ years experience.</p>
             <div class="opp-actions">
               <a class="btn btn-primary" href="memberships.html#signup-form">Apply</a>
@@ -271,7 +271,7 @@
       <div class="footer-links-group">
         <h4 class="footer-heading">Contact</h4>
         <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
-        <a class="footer-link" href="tel:+16173539000">+1 (617) 353-9000</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
         <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
         <a class="footer-link" href="legal.html#terms">Terms of Use</a>
       </div>
@@ -295,10 +295,19 @@
 <script>
     function handleNewsletter(e) {
       e.preventDefault();
-      e.target.hidden = true;
-      document.getElementById('nl-success').hidden = false;
+      const form = e.target;
+      const emailField = form.querySelector('input[type="email"]');
+      const feedback = document.getElementById('nl-success');
+      if (!emailField || !feedback) return;
+      const email = emailField.value.trim();
+      feedback.textContent = 'Thanks. ' + email + ' will now receive BU alumni updates.';
+      feedback.hidden = false;
+      form.reset();
+      emailField.blur();
     }
   </script>
   <script src="animations.js"></script>
 </body>
 </html>
+
+
