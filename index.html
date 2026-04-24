@@ -64,24 +64,60 @@
       </div>
     </section>
 
-    <!-- Animated Stats Bar -->
+    <!-- Live Stats Snapshot -->
     <section class="stats-bar scale-in" aria-label="Alumni network statistics">
-      <div class="container stats-bar-grid">
-        <div class="stat-bar-item">
-          <span class="stat-bar-num" data-stat="alumniMembers" data-target="389000">0</span><span class="stat-bar-suffix">+</span>
-          <p>Alumni Members</p>
-        </div>
-        <div class="stat-bar-item">
-          <span class="stat-bar-num" data-stat="jobsThisYear" data-target="2500">0</span><span class="stat-bar-suffix">+</span>
-          <p>Jobs This Year</p>
-        </div>
-        <div class="stat-bar-item">
-          <span class="stat-bar-num" data-stat="activeChapters" data-target="72">0</span>
-          <p>Active Chapters</p>
-        </div>
-        <div class="stat-bar-item">
-          <span class="stat-bar-num" data-stat="mentorshipConnections" data-target="18000">0</span><span class="stat-bar-suffix">+</span>
-          <p>Mentorship Connections</p>
+      <div class="container">
+        <div class="stats-bar-shell">
+          <div class="stats-bar-head">
+            <div>
+              <p class="eyebrow stats-bar-eyebrow">Live Alumni Snapshot</p>
+              <h2>Real-time movement across the BU alumni network</h2>
+              <p class="stats-bar-intro">
+                A quick read on membership growth, jobs, chapters, and mentorship activity from the alumni tracker.
+              </p>
+            </div>
+            <div class="stats-bar-meta">
+              <span class="stats-live-pill">
+                <span class="stats-live-dot" aria-hidden="true"></span>
+                <span data-stats-status>Live sync</span>
+              </span>
+              <p class="stats-updated">Last updated <time id="stats-updated-at" datetime="2026-04-24T00:00:00Z">Apr 24, 2026</time></p>
+            </div>
+          </div>
+          <div class="stats-bar-grid">
+            <article class="stat-bar-item">
+              <div class="stat-bar-icon" aria-hidden="true">&#128101;</div>
+              <p class="stat-bar-label">Alumni Members</p>
+              <div class="stat-bar-value">
+                <span class="stat-bar-num" data-stat="alumniMembers" data-target="389000">0</span><span class="stat-bar-suffix">+</span>
+              </div>
+              <p class="stat-bar-note">Verified community profiles on record</p>
+            </article>
+            <article class="stat-bar-item">
+              <div class="stat-bar-icon" aria-hidden="true">&#128188;</div>
+              <p class="stat-bar-label">Jobs This Year</p>
+              <div class="stat-bar-value">
+                <span class="stat-bar-num" data-stat="jobsThisYear" data-target="2500">0</span><span class="stat-bar-suffix">+</span>
+              </div>
+              <p class="stat-bar-note">Career openings shared with alumni</p>
+            </article>
+            <article class="stat-bar-item">
+              <div class="stat-bar-icon" aria-hidden="true">&#127760;</div>
+              <p class="stat-bar-label">Active Chapters</p>
+              <div class="stat-bar-value">
+                <span class="stat-bar-num" data-stat="activeChapters" data-target="72">0</span>
+              </div>
+              <p class="stat-bar-note">Regional groups currently engaging members</p>
+            </article>
+            <article class="stat-bar-item">
+              <div class="stat-bar-icon" aria-hidden="true">&#129309;</div>
+              <p class="stat-bar-label">Mentorship Connections</p>
+              <div class="stat-bar-value">
+                <span class="stat-bar-num" data-stat="mentorshipConnections" data-target="18000">0</span><span class="stat-bar-suffix">+</span>
+              </div>
+              <p class="stat-bar-note">Meaningful mentor-mentee matches created</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -90,7 +126,7 @@
     <section class="section quick-links-section">
       <div class="container">
         <div class="quick-links-grid stagger-children">
-          <a class="quick-link-card" href="opportunities.html">
+          <a class="quick-link-card" href="memberships.html#signup-form">
             <span class="ql-icon">&#128101;</span>
             <span>Join Network</span>
           </a>
@@ -161,7 +197,17 @@
             <div>
               <h3>Annual Alumni Gala 2026</h3>
               <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
-              <a class="text-link" href="events.html">Register &rarr;</a>
+              <button
+                class="text-link event-register-trigger"
+                type="button"
+                data-event-register
+                data-event-title="Annual Alumni Gala 2026"
+                data-event-date="May 10, 2026"
+                data-event-location="Kampala Serena Hotel"
+                data-event-time="6:00 PM EAT"
+              >
+                Register &rarr;
+              </button>
             </div>
           </article>
           <article class="event-strip-card">
@@ -172,7 +218,17 @@
             <div>
               <h3>Career Fair &amp; Networking Day</h3>
               <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
-              <a class="text-link" href="events.html">Register &rarr;</a>
+              <button
+                class="text-link event-register-trigger"
+                type="button"
+                data-event-register
+                data-event-title="Career Fair &amp; Networking Day"
+                data-event-date="June 7, 2026"
+                data-event-location="BU Main Campus"
+                data-event-time="9:00 AM EAT"
+              >
+                Register &rarr;
+              </button>
             </div>
           </article>
           <article class="event-strip-card">
@@ -183,7 +239,17 @@
             <div>
               <h3>Charity Run for Education</h3>
               <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
-              <a class="text-link" href="events.html">Register &rarr;</a>
+              <button
+                class="text-link event-register-trigger"
+                type="button"
+                data-event-register
+                data-event-title="Charity Run for Education"
+                data-event-date="July 19, 2026"
+                data-event-location="Kololo Airstrip, Kampala"
+                data-event-time="7:00 AM EAT"
+              >
+                Register &rarr;
+              </button>
             </div>
           </article>
         </div>
@@ -273,7 +339,7 @@
       <div class="footer-links-group">
         <h4 class="footer-heading">Contact</h4>
         <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
-        <a class="footer-link" href="tel:+16173539000">+1 (617) 353-9000</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
         <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
         <a class="footer-link" href="legal.html#terms">Terms of Use</a>
       </div>
@@ -284,7 +350,7 @@
           <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
           <button class="btn btn-primary" type="submit">Subscribe</button>
         </form>
-        <p class="newsletter-success" id="nl-success" hidden>&#10003; You're subscribed!</p>
+        <p class="newsletter-success" id="nl-success" aria-live="polite" hidden></p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -297,12 +363,19 @@
   <script src="animations.js"></script>
   <script src="database/stats.js"></script>
   <script src="home.js"></script>
+  <script src="event-registration.js"></script>
   <script>
-
     function handleNewsletter(e) {
       e.preventDefault();
-      e.target.hidden = true;
-      document.getElementById('nl-success').hidden = false;
+      const form = e.target;
+      const emailField = form.querySelector('input[type="email"]');
+      const feedback = document.getElementById('nl-success');
+      if (!emailField || !feedback) return;
+      const email = emailField.value.trim();
+      feedback.textContent = "Thanks. " + email + " will now receive BU alumni updates.";
+      feedback.hidden = false;
+      form.reset();
+      emailField.blur();
     }
   </script>
 </body>

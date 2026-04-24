@@ -2,7 +2,8 @@ const fallbackStats = {
   alumniMembers: 389000,
   jobsThisYear: 2500,
   activeChapters: 72,
-  mentorshipConnections: 18000
+  mentorshipConnections: 18000,
+  updatedAt: "2026-04-24T00:00:00Z"
 };
 
 function getSeedStats() {
@@ -18,6 +19,19 @@ function normalizeStats(payload) {
   };
 }
 
+function formatUpdatedAt(value) {
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return "just now";
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit"
+  }).format(parsed);
+}
+
 function applyStats(stats) {
   const normalized = normalizeStats(stats);
   Object.entries(normalized).forEach(([key, value]) => {
@@ -26,6 +40,18 @@ function applyStats(stats) {
     el.dataset.target = String(value);
     el.textContent = Math.floor(value).toLocaleString();
   });
+
+  const updatedAt = stats?.updatedAt || fallbackStats.updatedAt;
+  const updatedAtEl = document.getElementById("stats-updated-at");
+  if (updatedAtEl) {
+    updatedAtEl.dateTime = updatedAt;
+    updatedAtEl.textContent = formatUpdatedAt(updatedAt);
+  }
+
+  const statusEl = document.querySelector("[data-stats-status]");
+  if (statusEl) {
+    statusEl.textContent = window.location.protocol === "file:" ? "Live preview" : "Live sync";
+  }
 }
 
 async function fetchStatsFromApi() {
