@@ -412,6 +412,81 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // ── POST /api/momo-prompt ──────────────────────────────────────────────────
+  // Simulates sending a Mobile Money payment prompt.
+  // In production: replace the simulation block with a real MTN MoMo / Airtel
+  // Money API call using your merchant credentials.
+  if (url.pathname === '/api/momo-prompt' && req.method === 'POST') {
+    try {
+      const raw      = JSON.parse((await readBody(req)) || '{}');
+      const provider = (raw.provider || '').toLowerCase();   // 'mtn' | 'airtel'
+      const phone    = (raw.phone    || '').trim();
+      const amount   = Number(raw.amount)  || 10000;
+      const currency = (raw.currency || 'UGX').trim();
+      const ref      = (raw.reference || 'BU-ALUMNI').trim();
+
+      if (!phone) return sendJson(res, 400, { success: false, message: 'Phone number is required.' });
+
+      // ── Validate phone prefix ──────────────────────────────────────────────
+      const digits = phone.replace(/\D/g, '');
+      const mtnPrefixes    = ['077','078','076','039'];
+      const airtelPrefixes = ['075','070','074'];
+      const local = digits.startsWith('256') ? digits.slice(3) : digits;
+      const prefix3 = local.slice(0, 3);
+
+      if (provider === 'mtn' && !mtnPrefixes.includes(prefix3)) {
+        return sendJson(res, 400, { success: false, message: 'Number does not appear to be an MTN Uganda line (077/078/076/039).' });
+      }
+      if (provider === 'airtel' && !airtelPrefixes.includes(prefix3)) {
+        return sendJson(res, 400, { success: false, message: 'Number does not appear to be an Airtel Uganda line (075/070/074).' });
+      }
+
+      // ── Log the request ────────────────────────────────────────────────────
+      const logEntry = {
+        provider, phone, amount, currency, ref,
+        requestedAt: new Date().toISOString(),
+        status: 'prompt_sent',
+      };
+      const momoLogDir = path.join(ROOT, 'database', 'momo_logs');
+      if (!fs.existsSync(momoLogDir)) fs.mkdirSync(momoLogDir, { recursive: true });
+      const logId = crypto.randomBytes(4).toString('hex').toUpperCase();
+      fs.writeFileSync(path.join(momoLogDir, `${logId}.json`), JSON.stringify(logEntry, null, 2));
+
+      console.log(`[momo] Prompt sent → ${provider.toUpperCase()} ${phone} | ${currency} ${amount} | ref: ${ref}`);
+
+      // ── SIMULATION (replace with real API call in production) ──────────────
+      //
+      // Real MTN MoMo API call would look like:
+      //   POST https://sandbox.momodeveloper.mtn.com/collection/v1_0/requesttopay
+      //   Headers: Authorization: Bearer <token>, X-Reference-Id: <uuid>
+      //   Body: { amount, currency, externalId, payer: { partyIdType:'MSISDN', partyId: phone }, payerMessage, payeeNote }
+      //
+      // Real Airtel Money API call would look like:
+      //   POST https://openapi.airtel.africa/merchant/v1/payments/
+      //   Headers: Authorization: Bearer <token>
+      //   Body: { reference, subscriber: { country:'UG', currency, msisdn: phone }, transaction: { amount, country:'UG', currency, id: ref } }
+      //
+      // For now we simulate a 3-second delay then return success.
+      await new Promise((r) => setTimeout(r, 3000));
+
+      // Update log to confirmed
+      logEntry.status      = 'confirmed';
+      logEntry.confirmedAt = new Date().toISOString();
+      logEntry.transactionId = 'SIM-' + logId;
+      fs.writeFileSync(path.join(momoLogDir, `${logId}.json`), JSON.stringify(logEntry, null, 2));
+
+      return sendJson(res, 200, {
+        success:       true,
+        transactionId: logEntry.transactionId,
+        message:       `Payment of ${currency} ${amount.toLocaleString()} confirmed from ${phone}.`,
+      });
+
+    } catch (err) {
+      console.error('[momo-prompt]', err);
+      return sendJson(res, 500, { success: false, message: 'Failed to send payment prompt. Please try again.' });
+    }
+  }
+
   // ── POST /api/register-member ──────────────────────────────────────────────
   if (url.pathname === '/api/register-member' && req.method === 'POST') {
     try {

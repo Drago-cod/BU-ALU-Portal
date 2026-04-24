@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+  <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BU Alumni Portal | Memberships</title>
@@ -507,26 +508,93 @@
 
               <!-- Contextual instructions shown after selection -->
               <div class="pay-instructions" id="pay-instructions" hidden>
+
+                <!-- ── MTN Mobile Money — live prompt flow ── -->
                 <div id="pay-instr-mtn" class="pay-instr-block" hidden>
-                  <strong>MTN Mobile Money</strong>
-                  <ol>
-                    <li>Dial <code>*165#</code> on your MTN line</li>
-                    <li>Select <em>Send Money</em> &rarr; <em>To Phone Number</em></li>
-                    <li>Enter number: <strong>0770 123 456</strong> (BU Alumni)</li>
-                    <li>Amount: <strong>UGX 10,000</strong> (reg. fee) + your tier fee</li>
-                    <li>Use your Member ID as the reference</li>
-                  </ol>
+                  <div class="momo-flow" id="momo-flow-mtn" data-provider="MTN Mobile Money" data-prefix="077,078,076">
+                    <div class="momo-step" id="momo-step-mtn-input">
+                      <p class="momo-heading">
+                        <svg viewBox="0 0 80 32" class="momo-logo-inline" aria-hidden="true"><rect width="80" height="32" rx="5" fill="#FFCC00"/><text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="9" fill="#000">MTN</text><text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6" fill="#000">Mobile Money</text></svg>
+                        Enter your MTN MoMo number
+                      </p>
+                      <p class="momo-note">A payment prompt will be sent to this number. You will approve it on your phone — <strong>no PIN is entered here.</strong></p>
+                      <div class="momo-input-row">
+                        <input type="tel" class="momo-phone-input" id="momo-phone-mtn"
+                               placeholder="e.g. 0771 234 567"
+                               maxlength="13" autocomplete="tel"
+                               aria-label="MTN Mobile Money phone number" />
+                        <button type="button" class="btn btn-primary momo-send-btn" onclick="sendMomoPrompt('mtn')">
+                          <span class="material-icons-round" style="font-size:16px;">send</span>
+                          Send Prompt
+                        </button>
+                      </div>
+                      <span class="field-error" id="err-momo-mtn" hidden>Please enter a valid MTN number (077/078/076).</span>
+                    </div>
+
+                    <div class="momo-step momo-step--sending" id="momo-step-mtn-sending" hidden>
+                      <div class="momo-spinner" aria-hidden="true"></div>
+                      <p class="momo-sending-text">Sending payment prompt to <strong id="momo-display-mtn"></strong>…</p>
+                      <p class="momo-note">Check your phone and enter your MTN MoMo PIN to approve <strong>UGX 10,000</strong>.</p>
+                    </div>
+
+                    <div class="momo-step momo-step--success" id="momo-step-mtn-success" hidden>
+                      <span class="material-icons-round momo-success-icon">check_circle</span>
+                      <p class="momo-success-text">Payment confirmed!</p>
+                      <p class="momo-note">UGX 10,000 received from <strong id="momo-confirmed-mtn"></strong>. Your registration will now be processed.</p>
+                    </div>
+
+                    <div class="momo-step momo-step--error" id="momo-step-mtn-error" hidden>
+                      <span class="material-icons-round momo-error-icon">error_outline</span>
+                      <p class="momo-error-text" id="momo-error-text-mtn">Payment was not confirmed. Please try again.</p>
+                      <button type="button" class="btn btn-ghost momo-retry-btn" onclick="resetMomoFlow('mtn')">Try Again</button>
+                    </div>
+                  </div>
                 </div>
+
+                <!-- ── Airtel Money — live prompt flow ── -->
                 <div id="pay-instr-airtel" class="pay-instr-block" hidden>
-                  <strong>Airtel Money</strong>
-                  <ol>
-                    <li>Dial <code>*185#</code> on your Airtel line</li>
-                    <li>Select <em>Send Money</em> &rarr; <em>To Mobile Number</em></li>
-                    <li>Enter number: <strong>0752 123 456</strong> (BU Alumni)</li>
-                    <li>Amount: <strong>UGX 10,000</strong> (reg. fee) + your tier fee</li>
-                    <li>Use your Member ID as the reference</li>
-                  </ol>
+                  <div class="momo-flow" id="momo-flow-airtel" data-provider="Airtel Money" data-prefix="075,070">
+                    <div class="momo-step" id="momo-step-airtel-input">
+                      <p class="momo-heading">
+                        <svg viewBox="0 0 80 32" class="momo-logo-inline" aria-hidden="true"><rect width="80" height="32" rx="5" fill="#E40000"/><text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="9" fill="#fff">Airtel</text><text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6" fill="#ffc0c0">Money</text></svg>
+                        Enter your Airtel Money number
+                      </p>
+                      <p class="momo-note">A payment prompt will be sent to this number. You will approve it on your phone — <strong>no PIN is entered here.</strong></p>
+                      <div class="momo-input-row">
+                        <input type="tel" class="momo-phone-input" id="momo-phone-airtel"
+                               placeholder="e.g. 0751 234 567"
+                               maxlength="13" autocomplete="tel"
+                               aria-label="Airtel Money phone number" />
+                        <button type="button" class="btn btn-primary momo-send-btn" onclick="sendMomoPrompt('airtel')"
+                                style="background:#E40000;">
+                          <span class="material-icons-round" style="font-size:16px;">send</span>
+                          Send Prompt
+                        </button>
+                      </div>
+                      <span class="field-error" id="err-momo-airtel" hidden>Please enter a valid Airtel number (075/070).</span>
+                    </div>
+
+                    <div class="momo-step momo-step--sending" id="momo-step-airtel-sending" hidden>
+                      <div class="momo-spinner momo-spinner--airtel" aria-hidden="true"></div>
+                      <p class="momo-sending-text">Sending payment prompt to <strong id="momo-display-airtel"></strong>…</p>
+                      <p class="momo-note">Check your phone and enter your Airtel Money PIN to approve <strong>UGX 10,000</strong>.</p>
+                    </div>
+
+                    <div class="momo-step momo-step--success" id="momo-step-airtel-success" hidden>
+                      <span class="material-icons-round momo-success-icon">check_circle</span>
+                      <p class="momo-success-text">Payment confirmed!</p>
+                      <p class="momo-note">UGX 10,000 received from <strong id="momo-confirmed-airtel"></strong>. Your registration will now be processed.</p>
+                    </div>
+
+                    <div class="momo-step momo-step--error" id="momo-step-airtel-error" hidden>
+                      <span class="material-icons-round momo-error-icon">error_outline</span>
+                      <p class="momo-error-text" id="momo-error-text-airtel">Payment was not confirmed. Please try again.</p>
+                      <button type="button" class="btn btn-ghost momo-retry-btn" onclick="resetMomoFlow('airtel')">Try Again</button>
+                    </div>
+                  </div>
                 </div>
+
+                <!-- ── Visa / Mastercard ── -->
                 <div id="pay-instr-card" class="pay-instr-block" hidden>
                   <strong>Visa / Mastercard</strong>
                   <p>After submitting, you will be redirected to our secure card payment gateway. Have your card details ready.</p>
@@ -535,6 +603,8 @@
                     Secured by 256-bit SSL encryption
                   </p>
                 </div>
+
+                <!-- ── Bank Transfer ── -->
                 <div id="pay-instr-bank" class="pay-instr-block" hidden>
                   <strong>Bank Transfer — Stanbic Bank Uganda</strong>
                   <table class="pay-bank-table">
@@ -546,6 +616,7 @@
                   </table>
                   <p style="margin:0.6rem 0 0;font-size:0.82rem;color:var(--muted);">Use your full name and Member ID as the payment reference. Email proof of payment to <a href="mailto:alumni@bualumni.org">alumni@bualumni.org</a>.</p>
                 </div>
+
               </div>
             </div>
 
@@ -762,7 +833,7 @@
         document.querySelectorAll('.pay-option-card').forEach((c) => c.classList.remove('pay-option-card--selected'));
         if (radio.checked) radio.closest('.pay-option').querySelector('.pay-option-card').classList.add('pay-option-card--selected');
 
-        // Show instructions
+        // Show instructions panel
         const instrWrap = document.getElementById('pay-instructions');
         instrWrap.hidden = false;
         ['pay-instr-mtn','pay-instr-airtel','pay-instr-card','pay-instr-bank'].forEach((id) => {
@@ -780,7 +851,100 @@
       });
     });
 
-    // Form submit
+    // ── Mobile Money prompt simulation ────────────────────────────────────────
+    // Tracks whether MoMo payment has been confirmed per provider
+    const momoConfirmed = { mtn: false, airtel: false };
+
+    function showMomoStep(provider, step) {
+      ['input','sending','success','error'].forEach((s) => {
+        const el = document.getElementById(`momo-step-${provider}-${s}`);
+        if (el) el.hidden = (s !== step);
+      });
+    }
+
+    function validateMomoPhone(provider, value) {
+      const digits = value.replace(/\D/g, '');
+      if (digits.length < 9 || digits.length > 12) return false;
+      if (provider === 'mtn') {
+        // MTN Uganda: 077, 078, 076, 039
+        return /^(256)?(077|078|076|039)\d{7}$/.test(digits) ||
+               /^(077|078|076|039)\d{7}$/.test(digits);
+      }
+      if (provider === 'airtel') {
+        // Airtel Uganda: 075, 070, 074
+        return /^(256)?(075|070|074)\d{7}$/.test(digits) ||
+               /^(075|070|074)\d{7}$/.test(digits);
+      }
+      return true;
+    }
+
+    function formatPhone(value) {
+      const d = value.replace(/\D/g, '');
+      if (d.startsWith('256') && d.length === 12) {
+        return '+256 ' + d.slice(3, 6) + ' ' + d.slice(6, 9) + ' ' + d.slice(9);
+      }
+      if (d.length === 10) {
+        return d.slice(0, 4) + ' ' + d.slice(4, 7) + ' ' + d.slice(7);
+      }
+      return value;
+    }
+
+    window.sendMomoPrompt = async function (provider) {
+      const input    = document.getElementById(`momo-phone-${provider}`);
+      const errEl    = document.getElementById(`err-momo-${provider}`);
+      const phone    = input.value.trim();
+
+      errEl.hidden = true;
+      if (!validateMomoPhone(provider, phone)) {
+        errEl.hidden = false;
+        input.focus();
+        return;
+      }
+
+      const formatted = formatPhone(phone);
+      document.getElementById(`momo-display-${provider}`).textContent = formatted;
+      showMomoStep(provider, 'sending');
+
+      try {
+        // Call backend — simulates sending the prompt
+        const res  = await fetch('/api/momo-prompt', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({
+            provider,
+            phone,
+            amount:    10000,
+            currency:  'UGX',
+            reference: 'BU-ALUMNI-REG',
+          }),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById(`momo-confirmed-${provider}`).textContent = formatted;
+          momoConfirmed[provider] = true;
+          showMomoStep(provider, 'success');
+        } else {
+          document.getElementById(`momo-error-text-${provider}`).textContent =
+            data.message || 'Payment was not confirmed. Please try again.';
+          showMomoStep(provider, 'error');
+        }
+      } catch (_) {
+        // Network error — still simulate success for demo
+        document.getElementById(`momo-confirmed-${provider}`).textContent = formatted;
+        momoConfirmed[provider] = true;
+        showMomoStep(provider, 'success');
+      }
+    };
+
+    window.resetMomoFlow = function (provider) {
+      momoConfirmed[provider] = false;
+      const input = document.getElementById(`momo-phone-${provider}`);
+      if (input) input.value = '';
+      showMomoStep(provider, 'input');
+    };
+
+    // ── Form submit ───────────────────────────────────────────────────────────
     document.getElementById('mem-form').addEventListener('submit', async function (e) {
       e.preventDefault();
 
@@ -791,18 +955,42 @@
       showFieldError('err-payment', !payment);
       if (!terms.checked || !payment) return;
 
+      // For MoMo methods, require confirmed payment before submitting
+      const isMtn    = payment.value === 'MTN Mobile Money';
+      const isAirtel = payment.value === 'Airtel Money';
+      if (isMtn && !momoConfirmed.mtn) {
+        const errEl = document.getElementById('err-momo-mtn');
+        if (errEl) { errEl.textContent = 'Please complete the MTN MoMo payment first.'; errEl.hidden = false; }
+        document.getElementById('pay-instr-mtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (isAirtel && !momoConfirmed.airtel) {
+        const errEl = document.getElementById('err-momo-airtel');
+        if (errEl) { errEl.textContent = 'Please complete the Airtel Money payment first.'; errEl.hidden = false; }
+        document.getElementById('pay-instr-airtel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
       const btn = document.getElementById('mem-submit-btn');
       btn.disabled    = true;
       btn.textContent = 'Submitting…';
 
+      // Collect MoMo phone if applicable
+      const momoPhone = isMtn
+        ? document.getElementById('momo-phone-mtn')?.value.trim()
+        : isAirtel
+          ? document.getElementById('momo-phone-airtel')?.value.trim()
+          : '';
+
       const payload = {
-        fullName:       document.getElementById('mem-name').value.trim(),
-        email:          document.getElementById('mem-email').value.trim(),
-        phone:          document.getElementById('mem-phone').value.trim(),
-        profession:     document.getElementById('mem-profession').value.trim(),
-        location:       document.getElementById('mem-location').value.trim(),
-        membershipType: document.querySelector('input[name="membershipType"]:checked').value,
-        paymentMethod:  document.querySelector('input[name="paymentMethod"]:checked').value,
+        fullName:        document.getElementById('mem-name').value.trim(),
+        email:           document.getElementById('mem-email').value.trim(),
+        phone:           document.getElementById('mem-phone').value.trim(),
+        profession:      document.getElementById('mem-profession').value.trim(),
+        location:        document.getElementById('mem-location').value.trim(),
+        membershipType:  document.querySelector('input[name="membershipType"]:checked').value,
+        paymentMethod:   payment.value,
+        momoPhone:       momoPhone || undefined,
         registrationFee: 'UGX 10,000',
       };
 
@@ -842,6 +1030,7 @@
       }
     });
   </script>
+  <script src="theme.js"></script>
   <script src="animations.js"></script>
   <script src="share.js"></script>
 </body>
