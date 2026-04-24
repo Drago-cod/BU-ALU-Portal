@@ -234,12 +234,21 @@
             </div>
             <h3 id="ticket-event-name"></h3>
             <div class="ticket-details">
-              <div><span class="ticket-label">Name</span>    <span id="ticket-name"></span></div>
-              <div><span class="ticket-label">Email</span>   <span id="ticket-email"></span></div>
-              <div><span class="ticket-label">Phone</span>   <span id="ticket-phone"></span></div>
+              <div><span class="ticket-label">Name</span>     <span id="ticket-name"></span></div>
+              <div><span class="ticket-label">Email</span>    <span id="ticket-email"></span></div>
+              <div><span class="ticket-label">Phone</span>    <span id="ticket-phone"></span></div>
               <div><span class="ticket-label">Ticket ID</span><span id="ticket-id"></span></div>
             </div>
             <p class="ticket-note" id="ticket-note"></p>
+
+            <!-- Download button — href filled by JS after API responds -->
+            <a id="ticket-download-btn"
+               class="btn btn-primary"
+               href="#"
+               download
+               style="width:100%;margin-top:1rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:0.4rem;">
+              &#11015; Download Ticket &amp; Receipt (PDF)
+            </a>
           </div>
           <div style="text-align:center;margin-top:1.5rem;">
             <button class="btn btn-secondary" onclick="resetRegForm()">Register for Another Event</button>
@@ -363,6 +372,11 @@
         document.getElementById('ticket-phone').textContent       = phone;
         document.getElementById('ticket-id').textContent          = data.ticketId;
         document.getElementById('ticket-note').textContent        = data.message;
+
+        // Wire up the download button
+        const dlBtn = document.getElementById('ticket-download-btn');
+        dlBtn.href     = data.downloadUrl;
+        dlBtn.download = `BU-Ticket-${data.ticketId}.pdf`;
 
         // Swap form → success
         document.getElementById('event-reg-form').hidden    = true;
