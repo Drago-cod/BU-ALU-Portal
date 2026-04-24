@@ -1,7 +1,7 @@
 window.BU_STATS_DB = {
-  alumniMembers: 389000,
+  alumniMembers: 3890,
   jobsThisYear: 2500,
   activeChapters: 72,
-  mentorshipConnections: 18000,
+  mentorshipConnections: 180,
   updatedAt: "2026-04-24T00:00:00Z"
 };
