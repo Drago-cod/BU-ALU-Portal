@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -28,7 +28,7 @@
         <a class="btn btn-secondary" href="memberships.html#signup-form">Login / Register</a>
         <a class="btn btn-primary" href="memberships.html">Donate</a>
       </div>
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
       <a href="index.html">Home</a>
@@ -107,7 +107,7 @@
         </ul>
 
         <h3>Intellectual Property</h3>
-        <p>All content on this portal â€” including text, logos, and design â€” is the property of the BU Alumni Association unless otherwise stated. You may not reproduce or redistribute content without written permission.</p>
+        <p>All content on this portal — including text, logos, and design — is the property of the BU Alumni Association unless otherwise stated. You may not reproduce or redistribute content without written permission.</p>
 
         <h3>Memberships &amp; Payments</h3>
         <p>Membership fees are non-refundable once processed. The BU Alumni Association reserves the right to modify tier pricing with 30 days' notice to registered members.</p>
@@ -169,12 +169,6 @@
   </footer>
 
 <script>
-    function toggleNav(btn) {
-      const nav = document.getElementById('mobile-nav');
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-      btn.innerHTML = open ? '&#10005;' : '&#9776;';
-    }
     function handleNewsletter(e) {
       e.preventDefault();
       e.target.hidden = true;

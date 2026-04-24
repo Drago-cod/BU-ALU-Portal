@@ -19,6 +19,23 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+p,
+li,
+.meta,
+.footer-link,
+.text-link {
+  overflow-wrap: anywhere;
 }
 
 .container {
@@ -515,6 +532,15 @@ h2 {
     width: min(1100px, 94%);
   }
 
+  .nav,
+  .nav-actions {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
   .nav-wrap {
     min-height: 64px;
     gap: 0.6rem;
@@ -552,6 +578,36 @@ h2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .event-row {
+    flex-direction: column;
+  }
+
+  .event-date-badge {
+    width: auto;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .event-month { font-size: 0.75rem; }
+  .event-day   { font-size: 1rem; }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group,
+  .filter-group--search {
+    min-width: 100%;
+  }
+
+  .event-actions .btn,
+  .opp-actions .btn {
+    width: 100%;
+  }
+
   .spotlight-image {
     min-height: 200px;
   }
@@ -559,16 +615,6 @@ h2 {
 
 /* ── Responsive: Mobile ── */
 @media (max-width: 680px) {
-  /* Hide desktop nav, show hamburger */
-  .nav,
-  .nav-actions {
-    display: none;
-  }
-
-  .nav-toggle {
-    display: block;
-  }
-
   .container {
     width: min(1100px, 95%);
   }
@@ -1216,16 +1262,9 @@ h2 {
     flex-direction: column;
   }
 
-  .event-date-badge {
-    width: auto;
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
-    padding: 0.3rem 0.6rem;
+  .featured-event-inner .btn {
+    width: 100%;
   }
-
-  .event-month { font-size: 0.75rem; }
-  .event-day   { font-size: 1rem; }
 }
 
 /* ── Legal Page ── */
@@ -1456,11 +1495,13 @@ h2 {
 }
 
 .footer-logo {
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  padding: 0.25rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
 .footer-social {
@@ -1712,6 +1753,16 @@ h2 {
   .newsletter-form   { flex-direction: column; }
   .newsletter-form input { min-width: 100%; }
   .newsletter-form .btn  { width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .stats-bar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-bar-item p {
+    font-size: 0.78rem;
+  }
 }
 
 /* ══════════════════════════════════════

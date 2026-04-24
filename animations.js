@@ -34,6 +34,43 @@ if (header) {
   }, { passive: true });
 }
 
+// Mobile nav toggle (shared across all pages)
+const navToggleButton = document.querySelector('.nav-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+
+function setMobileNavOpen(isOpen) {
+  if (!mobileNav || !navToggleButton) return;
+  mobileNav.classList.toggle('open', isOpen);
+  navToggleButton.setAttribute('aria-expanded', String(isOpen));
+  navToggleButton.innerHTML = isOpen ? '&#10005;' : '&#9776;';
+}
+
+if (navToggleButton && mobileNav) {
+  navToggleButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setMobileNavOpen(!mobileNav.classList.contains('open'));
+  });
+
+  mobileNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMobileNavOpen(false));
+  });
+
+  document.addEventListener('click', (event) => {
+    const clickInsideMenu = event.target.closest('#mobile-nav');
+    const clickOnButton = event.target.closest('.nav-toggle');
+    if (!clickInsideMenu && !clickOnButton && mobileNav.classList.contains('open')) {
+      setMobileNavOpen(false);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 920 && mobileNav.classList.contains('open')) {
+      setMobileNavOpen(false);
+    }
+  });
+}
+
 // Button ripple effect
 document.addEventListener('click', e => {
   const btn = e.target.closest('.btn');
@@ -61,6 +98,8 @@ function animateCounters() {
     }, 16);
   });
 }
+
+window.BUAnimateCounters = animateCounters;
 
 const statsBar = document.querySelector('.stats-bar');
 if (statsBar) {

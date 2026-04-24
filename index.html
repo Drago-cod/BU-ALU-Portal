@@ -28,7 +28,7 @@
         <a class="btn btn-secondary" href="memberships.html#signup-form">Login / Register</a>
         <a class="btn btn-primary" href="memberships.html">Donate</a>
       </div>
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleNav(this)">&#9776;</button>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
       <a class="active" href="index.html">Home</a>
@@ -48,7 +48,7 @@
     <section class="hero home-hero" id="home">
       <div class="container home-hero-grid">
         <div class="hero-visual slide-left" aria-hidden="true">
-          <img src="image/bu-campus.svg" alt="BU Campus" />
+          <img src="image/programs-scaled.jpg" alt="Bugema University students using a laptop together" />
         </div>
         <div>
           <p class="eyebrow">Welcome Home</p>
@@ -68,19 +68,19 @@
     <section class="stats-bar scale-in" aria-label="Alumni network statistics">
       <div class="container stats-bar-grid">
         <div class="stat-bar-item">
-          <span class="stat-bar-num" data-target="389000">0</span><span class="stat-bar-suffix">+</span>
+          <span class="stat-bar-num" data-stat="alumniMembers" data-target="389000">0</span><span class="stat-bar-suffix">+</span>
           <p>Alumni Members</p>
         </div>
         <div class="stat-bar-item">
-          <span class="stat-bar-num" data-target="2500">0</span><span class="stat-bar-suffix">+</span>
+          <span class="stat-bar-num" data-stat="jobsThisYear" data-target="2500">0</span><span class="stat-bar-suffix">+</span>
           <p>Jobs This Year</p>
         </div>
         <div class="stat-bar-item">
-          <span class="stat-bar-num" data-target="72">0</span>
+          <span class="stat-bar-num" data-stat="activeChapters" data-target="72">0</span>
           <p>Active Chapters</p>
         </div>
         <div class="stat-bar-item">
-          <span class="stat-bar-num" data-target="18000">0</span><span class="stat-bar-suffix">+</span>
+          <span class="stat-bar-num" data-stat="mentorshipConnections" data-target="18000">0</span><span class="stat-bar-suffix">+</span>
           <p>Mentorship Connections</p>
         </div>
       </div>
@@ -288,34 +288,9 @@
   </footer>
 
   <script src="animations.js"></script>
+  <script src="database/stats.js"></script>
+  <script src="home.js"></script>
   <script>
-    function toggleNav(btn) {
-      const nav = document.getElementById('mobile-nav');
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-      btn.innerHTML = open ? '&#10005;' : '&#9776;';
-    }
-
-    // Animated stat counters
-    function animateCounters() {
-      document.querySelectorAll('.stat-bar-num').forEach(el => {
-        const target = +el.dataset.target;
-        const duration = 1800;
-        const step = target / (duration / 16);
-        let current = 0;
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target);
-          el.textContent = Math.floor(current).toLocaleString();
-          if (current >= target) clearInterval(timer);
-        }, 16);
-      });
-    }
-
-    const statsBar = document.querySelector('.stats-bar');
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) { animateCounters(); observer.disconnect(); }
-    }, { threshold: 0.3 });
-    if (statsBar) observer.observe(statsBar);
 
     function handleNewsletter(e) {
       e.preventDefault();
@@ -325,3 +300,5 @@
   </script>
 </body>
 </html>
+
+
