@@ -261,6 +261,23 @@ h2 {
   font-weight: 700;
 }
 
+.hero-visual img,
+.charity-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+.hero-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
 /* ── Quick Links ── */
 .quick-links-section {
   padding-top: 1.2rem;

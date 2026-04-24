@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bgMembership" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eff1ff"/>
+      <stop offset="100%" stop-color="#d8e1ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bgMembership)"/>
+  <circle cx="250" cy="220" r="90" fill="#1140d9" opacity="0.92"/>
+  <rect x="420" y="180" width="180" height="190" rx="32" fill="#fff" opacity="0.95"/>
+  <rect x="640" y="260" width="140" height="120" rx="24" fill="#3b69f2" opacity="0.92"/>
+  <text x="450" y="520" font-family="Inter, Arial, sans-serif" font-size="42" fill="#1140d9" text-anchor="middle" font-weight="700">Membership</text>
+</svg>

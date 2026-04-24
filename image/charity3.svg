@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 360">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8f4ff"/>
+      <stop offset="100%" stop-color="#cbdcff"/>
+    </linearGradient>
+  </defs>
+  <rect width="540" height="360" rx="24" fill="url(#bg3)"/>
+  <circle cx="290" cy="175" r="84" fill="#1140d9" opacity="0.9"/>
+  <path d="M240 155h100" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+  <path d="M240 195h100" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+  <rect x="120" y="120" width="90" height="90" rx="18" fill="#3f68e4" opacity="0.9"/>
+  <text x="270" y="320" font-family="Inter, Arial, sans-serif" font-size="24" fill="#1140d9" text-anchor="middle">Education</text>
+</svg>

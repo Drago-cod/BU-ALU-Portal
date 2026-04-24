@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bgOpp" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5f7ff"/>
+      <stop offset="100%" stop-color="#d3dfff"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bgOpp)"/>
+  <path d="M150 440h620v80a24 24 0 0 1-24 24H174a24 24 0 0 1-24-24z" fill="#1140d9" opacity="0.95"/>
+  <rect x="200" y="220" width="180" height="170" rx="28" fill="#fff" opacity="0.92"/>
+  <rect x="430" y="190" width="180" height="200" rx="28" fill="#3d6df0" opacity="0.95"/>
+  <rect x="660" y="240" width="140" height="150" rx="28" fill="#6c8aff" opacity="0.95"/>
+  <text x="450" y="100" font-family="Inter, Arial, sans-serif" font-size="42" fill="#1140d9" text-anchor="middle" font-weight="700">Career &amp; Bursary</text>
+</svg>
