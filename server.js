@@ -4,6 +4,7 @@
  * Endpoints:
  *   GET  /api/stats                  – read alumni stats
  *   POST /api/stats                  – update alumni stats
+ *   POST /api/register-donation      – store donor record and send confirmation
  *   POST /api/register-event         – register, generate PDF ticket+receipt,
  *                                      email to registrant, persist to disk
  *   GET  /api/ticket/:ticketId       – download the PDF ticket by ticket ID
@@ -52,10 +53,14 @@ const ROOT      = __dirname;
 const DB_PATH   = path.join(ROOT, 'database', 'stats.json');
 const LOGO_PATH = path.join(ROOT, 'image', 'Bugema_logo.png');
 const REG_DIR   = path.join(ROOT, 'database', 'registrations');   // ticket store
+const DONATION_DIR = path.join(ROOT, 'database', 'donations');
+const ACCOUNT_DIR  = path.join(ROOT, 'database', 'accounts');
 const BASE_URL  = (process.env.BASE_URL || `http://localhost:${PORT}`).replace(/\/$/, '');
 
 // Ensure registrations folder exists
 if (!fs.existsSync(REG_DIR)) fs.mkdirSync(REG_DIR, { recursive: true });
+if (!fs.existsSync(DONATION_DIR)) fs.mkdirSync(DONATION_DIR, { recursive: true });
+if (!fs.existsSync(ACCOUNT_DIR)) fs.mkdirSync(ACCOUNT_DIR, { recursive: true });
 
 const SMTP = {
   host:   process.env.SMTP_HOST || 'smtp.gmail.com',
@@ -104,6 +109,41 @@ function generateTicketId() {
   return 'BU-' + crypto.randomBytes(4).toString('hex').toUpperCase();
 }
 
+function generateAccountId() {
+  return 'ACC-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+}
+
+function hashPassword(password, salt = crypto.randomBytes(16).toString('hex')) {
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password, storedHash) {
+  const [salt, originalHash] = String(storedHash || '').split(':');
+  if (!salt || !originalHash) return false;
+  const checkHash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return crypto.timingSafeEqual(Buffer.from(originalHash, 'hex'), Buffer.from(checkHash, 'hex'));
+}
+
+function accountPath(accountId) {
+  return path.join(ACCOUNT_DIR, `${accountId}.json`);
+}
+
+function findAccountByEmail(email) {
+  const normalized = String(email || '').trim().toLowerCase();
+  if (!normalized) return null;
+
+  const files = fs.readdirSync(ACCOUNT_DIR).filter((name) => name.endsWith('.json'));
+  for (const file of files) {
+    const fullPath = path.join(ACCOUNT_DIR, file);
+    const record = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+    if (String(record.email || '').trim().toLowerCase() === normalized) {
+      return record;
+    }
+  }
+  return null;
+}
+
 function safeStaticPath(pathname) {
   const req  = decodeURIComponent(pathname === '/' ? '/index.html' : pathname);
   const norm = path.normalize(req).replace(/^(\.\.[/\\])+/, '');
@@ -123,6 +163,10 @@ function readBody(req) {
 /** Path where a ticket PDF is stored on disk */
 function ticketPath(ticketId) {
   return path.join(REG_DIR, `${ticketId}.pdf`);
+}
+
+function donationReceiptPath(donationId) {
+  return path.join(DONATION_DIR, `${donationId}.pdf`);
 }
 
 // ── PDF builder ───────────────────────────────────────────────────────────────
@@ -372,6 +416,176 @@ async function sendRegistrationEmail(data, pdfBuffer) {
   });
 }
 
+function buildDonationReceiptPDF(data) {
+  return new Promise((resolve, reject) => {
+    if (!PDFDocument) return reject(new Error('pdfkit not installed — run: npm install'));
+
+    const doc = new PDFDocument({ size: 'A4', margin: 50 });
+    const chunks = [];
+    doc.on('data', (c) => chunks.push(c));
+    doc.on('end', () => resolve(Buffer.concat(chunks)));
+    doc.on('error', reject);
+
+    const PRIMARY = '#1d4ed8';
+    const MUTED = '#6b7280';
+    const BORDER = '#e5e7eb';
+    const SUCCESS = '#15803d';
+    const W = doc.page.width - 100;
+    const amountText = `UGX ${Number(data.donationAmount || 0).toLocaleString('en-US')}`;
+
+    const hr = (y, col = BORDER) =>
+      doc.moveTo(50, y).lineTo(50 + W, y).strokeColor(col).lineWidth(1).stroke();
+
+    if (fs.existsSync(LOGO_PATH)) doc.image(LOGO_PATH, 50, 45, { height: 40 });
+    doc.fontSize(10).fillColor(MUTED).text('BU Alumni Portal', 100, 50, { align: 'right' });
+    doc.fontSize(8).fillColor(MUTED).text('alumni@bu.edu  ·  Donation Appreciation Receipt', 100, 63, { align: 'right' });
+    doc.moveDown(3);
+    hr(doc.y);
+    doc.moveDown(1);
+
+    doc.fontSize(22).fillColor(PRIMARY).font('Helvetica-Bold')
+      .text('DONATION RECEIPT OF APPRECIATION', { align: 'center' });
+    doc.moveDown(0.35);
+    doc.fontSize(10).fillColor(SUCCESS).font('Helvetica-Bold')
+      .text(`Receipt ID: ${data.donationId}`, { align: 'center' });
+    doc.moveDown(1);
+
+    doc.roundedRect(50, doc.y, W, 112, 10).fillAndStroke('#eff6ff', PRIMARY);
+    const boxY = doc.y;
+    doc.fontSize(12).fillColor(MUTED).font('Helvetica')
+      .text('Presented to', 70, boxY + 16);
+    doc.fontSize(20).fillColor(PRIMARY).font('Helvetica-Bold')
+      .text(data.fullName, 70, boxY + 34, { width: W - 40 });
+    doc.fontSize(12).fillColor('#111827').font('Helvetica')
+      .text(`For your generous contribution of ${amountText}`, 70, boxY + 64, { width: W - 40 });
+    doc.fontSize(10).fillColor(MUTED).font('Helvetica')
+      .text(`Support Area: ${data.supportArea}`, 70, boxY + 84, { width: W - 40 });
+    doc.y = boxY + 130;
+
+    doc.fontSize(13).fillColor('#111827').font('Helvetica-Bold').text('Donation Details');
+    doc.moveDown(0.4);
+
+    const rows = [
+      ['Donation ID', data.donationId],
+      ['Donor Email', data.email],
+      ['Phone', data.phone],
+      ['Donor Type', data.donorType],
+      ['Amount', amountText],
+      ['Payment Method', data.paymentMethodLabel || data.paymentMethod],
+      ['Support Area', data.supportArea],
+      ['Date', new Date(data.donatedAt).toLocaleString('en-UG', { timeZone: 'Africa/Kampala' }) + ' EAT'],
+      ['Anonymous', data.anonymous ? 'Yes' : 'No'],
+    ];
+
+    if (data.transactionReference) rows.push(['Reference', data.transactionReference]);
+    if (data.graduationYear) rows.push(['Graduation Year', data.graduationYear]);
+    if (data.organization) rows.push(['Organization', data.organization]);
+
+    let startY = doc.y;
+    let rowY = startY;
+    for (let i = 0; i < rows.length; i++) {
+      const [label, value] = rows[i];
+      doc.rect(50, rowY, W, 24).fill(i % 2 === 0 ? '#f9fafb' : '#ffffff');
+      doc.fontSize(10).fillColor(MUTED).font('Helvetica')
+        .text(label, 62, rowY + 7, { width: 150 });
+      doc.fillColor('#111827').font('Helvetica-Bold')
+        .text(String(value), 220, rowY + 7, { width: W - 182 });
+      rowY += 24;
+    }
+    doc.rect(50, startY, W, rowY - startY).strokeColor(BORDER).lineWidth(1).stroke();
+    doc.y = rowY + 18;
+
+    doc.fontSize(12).fillColor(SUCCESS).font('Helvetica-Bold')
+      .text('Thank you for investing in the BU alumni community.', { align: 'center' });
+    doc.moveDown(0.45);
+    doc.fontSize(9).fillColor(MUTED).font('Helvetica')
+      .text(
+        'This receipt confirms that your donation details were received by the BU Alumni Portal. Please keep it for your records.',
+        { align: 'center' }
+      );
+    doc.moveDown(0.9);
+    hr(doc.y);
+    doc.moveDown(0.5);
+    doc.fontSize(9).fillColor(MUTED).font('Helvetica')
+      .text('Finance and donor support: alumni@bu.edu  ·  +256 761 365727', { align: 'center' });
+
+    doc.end();
+  });
+}
+
+async function sendDonationReceiptEmail(data, pdfBuffer) {
+  if (!nodemailer) throw new Error('nodemailer not installed — run: npm install');
+  if (!SMTP.auth.user || !SMTP.auth.pass)
+    throw new Error('SMTP credentials not set. Add SMTP_USER and SMTP_PASS to your .env file.');
+
+  const amountText = `UGX ${Number(data.donationAmount || 0).toLocaleString('en-US')}`;
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BU Donation Appreciation Receipt</title></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:32px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0"
+  style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);">
+  <tr><td style="background:#1d4ed8;padding:28px 40px;text-align:center;">
+    <h1 style="color:#fff;margin:0;font-size:22px;font-weight:800;">BU Alumni Portal</h1>
+    <p style="color:#bfdbfe;margin:6px 0 0;font-size:13px;">Receipt of Appreciation</p>
+  </td></tr>
+  <tr><td style="padding:32px 40px 0;">
+    <p style="color:#111827;font-size:16px;margin:0 0 8px;">Hi <strong>${data.fullName}</strong>,</p>
+    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 24px;">
+      Thank you for your contribution to the BU Alumni community. Your donation has been received successfully, and your receipt of appreciation is attached to this email.
+    </p>
+  </td></tr>
+  <tr><td style="padding:0 40px;">
+    <table width="100%" cellpadding="0" cellspacing="0"
+      style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;">
+      <tr><td style="padding:20px 24px;">
+        <p style="margin:0 0 10px;font-size:11px;color:#6b7280;font-weight:700;text-transform:uppercase;letter-spacing:.6px;">Donation Summary</p>
+        <table width="100%" cellpadding="4" cellspacing="0" style="font-size:13px;color:#374151;">
+          <tr><td style="width:40%;color:#6b7280;font-weight:600;">Receipt ID</td><td><strong>${data.donationId}</strong></td></tr>
+          <tr><td style="color:#6b7280;font-weight:600;">Amount</td><td><strong>${amountText}</strong></td></tr>
+          <tr><td style="color:#6b7280;font-weight:600;">Support Area</td><td>${data.supportArea}</td></tr>
+          <tr><td style="color:#6b7280;font-weight:600;">Payment Method</td><td>${data.paymentMethodLabel || data.paymentMethod}</td></tr>
+          <tr><td style="color:#6b7280;font-weight:600;">Reference</td><td>${data.transactionReference || 'Not provided'}</td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </td></tr>
+  <tr><td style="padding:28px 40px 0;">
+    <p style="color:#374151;font-size:13px;line-height:1.6;margin:0 0 8px;">
+      We appreciate your support. Your donation helps sustain scholarships, alumni activities, mentorship, and community outreach.
+    </p>
+    <p style="color:#6b7280;font-size:12px;margin:0 0 24px;">
+      Questions? Contact <a href="mailto:alumni@bu.edu" style="color:#1d4ed8;">alumni@bu.edu</a>.
+    </p>
+  </td></tr>
+  <tr><td style="background:#f9fafb;padding:18px 40px;text-align:center;border-top:1px solid #e5e7eb;">
+    <p style="color:#9ca3af;font-size:11px;margin:0;">
+      &copy; 2026 BU Alumni Association &nbsp;&middot;&nbsp; Bugema University, Kampala, Uganda
+    </p>
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>`;
+
+  const transporter = nodemailer.createTransport(SMTP);
+  await transporter.sendMail({
+    from: FROM_ADDR,
+    to: `"${data.fullName}" <${data.email}>`,
+    subject: `BU Donation Receipt of Appreciation [${data.donationId}]`,
+    html,
+    attachments: [{
+      filename: `BU-Donation-Receipt-${data.donationId}.pdf`,
+      content: pdfBuffer,
+      contentType: 'application/pdf',
+    }],
+  });
+}
+
 // ── HTTP server ───────────────────────────────────────────────────────────────
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
@@ -487,6 +701,114 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // ── POST /api/register-student-account ─────────────────────────────────────
+  if (url.pathname === '/api/register-student-account' && req.method === 'POST') {
+    try {
+      const raw = JSON.parse((await readBody(req)) || '{}');
+
+      const fullName             = (raw.fullName || '').trim();
+      const email                = (raw.email || '').trim().toLowerCase();
+      const phone                = (raw.phone || '').trim();
+      const password             = String(raw.password || '');
+      const program              = (raw.program || '').trim();
+      const studentLevel         = (raw.studentLevel || '').trim();
+      const graduationYear       = (raw.graduationYear || '').toString().trim();
+      const serviceInterest      = (raw.serviceInterest || '').trim();
+      const paymentMethod        = (raw.paymentMethod || '').trim();
+      const transactionReference = (raw.transactionReference || '').trim();
+      const membershipFeeUGX     = Number(raw.membershipFeeUGX || 0);
+      const membershipFeeUSD     = Number(raw.membershipFeeUSD || 0);
+
+      if (!fullName || !email || !phone || !password || !program || !studentLevel || !serviceInterest || !paymentMethod)
+        return sendJson(res, 400, { error: 'fullName, email, phone, password, program, studentLevel, serviceInterest, and paymentMethod are required.' });
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+        return sendJson(res, 400, { error: 'Invalid email address.' });
+      if (password.length < 8)
+        return sendJson(res, 400, { error: 'Password must be at least 8 characters long.' });
+      if (membershipFeeUGX !== 10000)
+        return sendJson(res, 400, { error: 'Membership fee must be UGX 10,000.' });
+
+      const allowedMethods = ['mtn_momo', 'airtel_money', 'visa_mastercard', 'bank_transfer'];
+      if (!allowedMethods.includes(paymentMethod))
+        return sendJson(res, 400, { error: 'Unsupported payment method.' });
+
+      if (findAccountByEmail(email))
+        return sendJson(res, 409, { error: 'An account already exists with that email address.' });
+
+      const paymentLabels = {
+        mtn_momo: 'MTN Mobile Money',
+        airtel_money: 'Airtel Money',
+        visa_mastercard: 'Visa / Mastercard',
+        bank_transfer: 'Bank Transfer'
+      };
+
+      const accountId = generateAccountId();
+      const record = {
+        accountId,
+        fullName,
+        email,
+        phone,
+        passwordHash: hashPassword(password),
+        program,
+        studentLevel,
+        graduationYear,
+        serviceInterest,
+        membershipFeeUGX,
+        membershipFeeUSD,
+        paymentMethod,
+        paymentMethodLabel: paymentLabels[paymentMethod],
+        transactionReference,
+        paymentStatus: 'pending_verification',
+        createdAt: new Date().toISOString()
+      };
+
+      fs.writeFileSync(accountPath(accountId), JSON.stringify(record, null, 2));
+
+      return sendJson(res, 200, {
+        success: true,
+        accountId,
+        paymentStatus: record.paymentStatus,
+        message: `Account created for ${fullName}. Membership fee recorded as UGX 10,000. Payment verification is pending.`
+      });
+    } catch (err) {
+      console.error('[register-student-account]', err);
+      return sendJson(res, 500, { error: 'Account registration failed. Please try again.' });
+    }
+  }
+
+  // ── POST /api/login-student-account ────────────────────────────────────────
+  if (url.pathname === '/api/login-student-account' && req.method === 'POST') {
+    try {
+      const raw = JSON.parse((await readBody(req)) || '{}');
+      const email = (raw.email || '').trim().toLowerCase();
+      const password = String(raw.password || '');
+
+      if (!email || !password)
+        return sendJson(res, 400, { error: 'Email and password are required.' });
+
+      const account = findAccountByEmail(email);
+      if (!account || !verifyPassword(password, account.passwordHash))
+        return sendJson(res, 401, { error: 'Invalid email or password.' });
+
+      return sendJson(res, 200, {
+        success: true,
+        account: {
+          accountId: account.accountId,
+          fullName: account.fullName,
+          email: account.email,
+          program: account.program,
+          studentLevel: account.studentLevel,
+          paymentStatus: account.paymentStatus,
+          serviceInterest: account.serviceInterest
+        },
+        message: `Signed in as ${account.fullName}. Membership payment status: ${account.paymentStatus.replace('_', ' ')}.`
+      });
+    } catch (err) {
+      console.error('[login-student-account]', err);
+      return sendJson(res, 500, { error: 'Sign in failed. Please try again.' });
+    }
+  }
+
   // ── POST /api/register-member ──────────────────────────────────────────────
   if (url.pathname === '/api/register-member' && req.method === 'POST') {
     try {
@@ -589,6 +911,102 @@ const server = http.createServer(async (req, res) => {
     } catch (err) {
       console.error('[register-member]', err);
       return sendJson(res, 500, { error: 'Registration failed. Please try again.' });
+    }
+  }
+
+  // ── POST /api/register-donation ───────────────────────────────────────────
+  if (url.pathname === '/api/register-donation' && req.method === 'POST') {
+    try {
+      const raw = JSON.parse((await readBody(req)) || '{}');
+
+      const fullName             = (raw.fullName || '').trim();
+      const email                = (raw.email || '').trim();
+      const phone                = (raw.phone || '').trim();
+      const donorType            = (raw.donorType || '').trim();
+      const graduationYear       = (raw.graduationYear || '').toString().trim();
+      const organization         = (raw.organization || '').trim();
+      const supportArea          = (raw.supportArea || '').trim();
+      const paymentMethod        = (raw.paymentMethod || '').trim();
+      const transactionReference = (raw.transactionReference || '').trim();
+      const message              = (raw.message || '').trim();
+      const anonymous            = Boolean(raw.anonymous);
+      const donationAmount       = Number(raw.donationAmount || 0);
+
+      if (!fullName || !email || !phone || !donorType || !supportArea || !paymentMethod)
+        return sendJson(res, 400, { error: 'fullName, email, phone, donorType, supportArea, and paymentMethod are required.' });
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+        return sendJson(res, 400, { error: 'Invalid email address.' });
+      if (!Number.isFinite(donationAmount) || donationAmount < 1000)
+        return sendJson(res, 400, { error: 'donationAmount must be at least UGX 1,000.' });
+
+      const allowedMethods = ['mtn_momo', 'airtel_money', 'visa_mastercard', 'bank_transfer'];
+      if (!allowedMethods.includes(paymentMethod))
+        return sendJson(res, 400, { error: 'Unsupported payment method.' });
+
+      const paymentLabels = {
+        mtn_momo: 'MTN Mobile Money',
+        airtel_money: 'Airtel Money',
+        visa_mastercard: 'Visa / Mastercard',
+        bank_transfer: 'Bank Transfer'
+      };
+
+      const donationId = 'DON-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+      const donatedAt = new Date().toISOString();
+      const record = {
+        donationId,
+        fullName,
+        email,
+        phone,
+        donorType,
+        graduationYear,
+        organization,
+        supportArea,
+        donationAmount,
+        currency: 'UGX',
+        paymentMethod,
+        paymentMethodLabel: paymentLabels[paymentMethod],
+        transactionReference,
+        message,
+        anonymous,
+        donatedAt
+      };
+
+      fs.writeFileSync(path.join(DONATION_DIR, `${donationId}.json`), JSON.stringify(record, null, 2));
+
+      let pdfBuffer = null;
+      try {
+        pdfBuffer = await buildDonationReceiptPDF(record);
+        fs.writeFileSync(donationReceiptPath(donationId), pdfBuffer);
+      } catch (pdfErr) {
+        console.error('[donation-receipt-pdf]', pdfErr.message);
+      }
+
+      let emailSent = false;
+      let emailError = null;
+      try {
+        if (pdfBuffer && nodemailer && SMTP.auth.user && SMTP.auth.pass) {
+          await sendDonationReceiptEmail(record, pdfBuffer);
+          emailSent = true;
+        }
+      } catch (emailErr) {
+        emailError = emailErr.message;
+        console.error('[donation-email]', emailErr.message);
+      }
+
+      return sendJson(res, 200, {
+        success: true,
+        donationId,
+        emailSent,
+        emailError: emailError || undefined,
+        message: `Thank you, ${fullName}. Your donation of UGX ${donationAmount.toLocaleString('en-US')} has been recorded under ${donationId}. ${
+          emailSent
+            ? `A receipt of appreciation has been sent to ${email}.`
+            : 'The donation was recorded, but the appreciation receipt email could not be sent. Please keep this donation ID for reference.'
+        }`
+      });
+    } catch (err) {
+      console.error('[register-donation]', err);
+      return sendJson(res, 500, { error: 'Donation submission failed. Please try again.' });
     }
   }
 

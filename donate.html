@@ -1,0 +1,537 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Donate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="auth.html">Login / Register</a>
+        <a class="btn btn-primary" href="donate.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="auth.html">Login / Register</a>
+      <a href="donate.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero about-hero">
+      <div class="container about-hero-grid">
+        <div>
+          <p class="eyebrow">Support BU Alumni</p>
+          <h1>Fund Scholarships, Events, and Alumni Impact</h1>
+          <p class="hero-copy">
+            Your donation supports student scholarships, alumni programs, mentorship, and community outreach across the Bugema University network.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#donation-form">Donate Now</a>
+            <a class="btn btn-ghost" href="activities.html">See Community Work</a>
+          </div>
+        </div>
+        <div class="hero-card slide-right">
+          <img src="image/Charity.png" alt="Students and volunteers gathered for a Bugema University outreach activity" class="hero-card-img" />
+          <h3>Where donations go</h3>
+          <ul>
+            <li>Scholarship support for students in need</li>
+            <li>Alumni activities, reunions, and chapter programs</li>
+            <li>Mentorship and career readiness initiatives</li>
+            <li>Community outreach and emergency support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-title-wrap fade-up">
+          <p class="eyebrow">Giving Impact</p>
+          <h2>How your support is used</h2>
+          <p>Choose a donation destination that matches the impact you want to make.</p>
+        </div>
+        <div class="donation-impact-grid stagger-children">
+          <article class="donation-impact-card">
+            <span class="material-icons-round donation-impact-icon">school</span>
+            <h3>Scholarship Fund</h3>
+            <p>Help cover tuition, books, and essential study costs for students who need financial support.</p>
+          </article>
+          <article class="donation-impact-card">
+            <span class="material-icons-round donation-impact-icon">groups</span>
+            <h3>Alumni Activities</h3>
+            <p>Support networking events, reunions, alumni chapters, and shared community programs.</p>
+          </article>
+          <article class="donation-impact-card">
+            <span class="material-icons-round donation-impact-icon">volunteer_activism</span>
+            <h3>Community Outreach</h3>
+            <p>Strengthen outreach programs, charitable drives, and impact projects led by the alumni body.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pay-trust-section">
+      <div class="container">
+        <div class="pay-trust-wrap fade-up">
+          <p class="pay-trust-label">
+            <span class="material-icons-round">lock</span>
+            Payment Methods Available
+          </p>
+          <div class="pay-methods-grid">
+            <div class="pay-method-badge" title="MTN Mobile Money">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money" role="img">
+                <rect width="120" height="48" rx="8" fill="#FFCC00"/>
+                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13" fill="#000">MTN</text>
+                <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#000">Mobile Money</text>
+              </svg>
+            </div>
+            <div class="pay-method-badge" title="Airtel Money">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money" role="img">
+                <rect width="120" height="48" rx="8" fill="#E40000"/>
+                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13" fill="#fff">Airtel</text>
+                <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#fff">Money</text>
+              </svg>
+            </div>
+            <div class="pay-method-badge" title="Visa">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Visa" role="img">
+                <rect width="120" height="48" rx="8" fill="#1A1F71"/>
+                <text x="60" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="26" fill="#FFFFFF" letter-spacing="-1">VISA</text>
+              </svg>
+            </div>
+            <div class="pay-method-badge" title="Mastercard">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard" role="img">
+                <rect width="120" height="48" rx="8" fill="#252525"/>
+                <circle cx="46" cy="24" r="14" fill="#EB001B"/>
+                <circle cx="74" cy="24" r="14" fill="#F79E1B"/>
+                <path d="M60 13.2a14 14 0 0 1 0 21.6A14 14 0 0 1 60 13.2z" fill="#FF5F00"/>
+                <text x="60" y="44" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#ccc">Mastercard</text>
+              </svg>
+            </div>
+            <div class="pay-method-badge" title="Bank Transfer">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer" role="img">
+                <rect width="120" height="48" rx="8" fill="#1140d9"/>
+                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="#fff">Bank</text>
+                <text x="60" y="35" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#bfdbfe">Transfer</text>
+              </svg>
+            </div>
+          </div>
+          <p class="pay-trust-note">
+            <span class="material-icons-round">verified</span>
+            Payment destination details should be verified by the finance office before production use.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="donation-form">
+      <div class="container donation-layout">
+        <div class="donation-form-panel fade-up">
+          <div class="section-title-wrap donation-title-wrap">
+            <p class="eyebrow">Donation Form</p>
+            <h2>Complete your contribution details</h2>
+            <p>Provide the required donor details below and choose the payment method you want to use.</p>
+          </div>
+
+          <form class="portal-form donation-form" id="donation-form-el" onsubmit="handleDonationSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="donor-name">Full Name</label>
+                <input type="text" id="donor-name" name="fullName" placeholder="Your full name" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="donor-email">Email Address</label>
+                <input type="email" id="donor-email" name="email" placeholder="you@example.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="donor-phone">Phone Number</label>
+                <input type="tel" id="donor-phone" name="phone" placeholder="+256 700 000 000" required autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label for="donor-type">Donor Type</label>
+                <select id="donor-type" name="donorType" required>
+                  <option value="">Select donor type</option>
+                  <option value="Alumnus/Alumna">Alumnus/Alumna</option>
+                  <option value="Parent/Guardian">Parent/Guardian</option>
+                  <option value="Friend of BU">Friend of BU</option>
+                  <option value="Corporate Partner">Corporate Partner</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="graduation-year">Graduation Year</label>
+                <input type="number" id="graduation-year" name="graduationYear" min="1950" max="2035" placeholder="Optional" />
+              </div>
+              <div class="form-group">
+                <label for="organization">Organization / Employer</label>
+                <input type="text" id="organization" name="organization" placeholder="Optional" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="support-area">Support Area</label>
+                <select id="support-area" name="supportArea" required>
+                  <option value="">Choose where your donation goes</option>
+                  <option value="Scholarship Fund">Scholarship Fund</option>
+                  <option value="Alumni Activities and Events">Alumni Activities and Events</option>
+                  <option value="Community Outreach">Community Outreach</option>
+                  <option value="Mentorship and Career Support">Mentorship and Career Support</option>
+                  <option value="General Alumni Fund">General Alumni Fund</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="donation-amount">Donation Amount (UGX)</label>
+                <input type="number" id="donation-amount" name="donationAmount" min="1000" step="1000" placeholder="Enter amount" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Quick Amounts</label>
+              <div class="donation-amount-presets" role="group" aria-label="Donation amount presets">
+                <button type="button" class="donation-preset-btn" data-amount="50000">UGX 50,000</button>
+                <button type="button" class="donation-preset-btn" data-amount="100000">UGX 100,000</button>
+                <button type="button" class="donation-preset-btn" data-amount="250000">UGX 250,000</button>
+                <button type="button" class="donation-preset-btn" data-amount="500000">UGX 500,000</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Payment Method</label>
+              <div class="donation-method-grid">
+                <label class="donation-method-option">
+                  <input type="radio" name="paymentMethod" value="mtn_momo" checked />
+                  <span class="donation-method-card">
+                    <span class="material-icons-round">smartphone</span>
+                    <strong>MTN MoMo</strong>
+                    <small>Mobile Money</small>
+                  </span>
+                </label>
+                <label class="donation-method-option">
+                  <input type="radio" name="paymentMethod" value="airtel_money" />
+                  <span class="donation-method-card">
+                    <span class="material-icons-round">sim_card</span>
+                    <strong>Airtel Money</strong>
+                    <small>Mobile Money</small>
+                  </span>
+                </label>
+                <label class="donation-method-option">
+                  <input type="radio" name="paymentMethod" value="visa_mastercard" />
+                  <span class="donation-method-card">
+                    <span class="material-icons-round">credit_card</span>
+                    <strong>Visa / Mastercard</strong>
+                    <small>Card payment</small>
+                  </span>
+                </label>
+                <label class="donation-method-option">
+                  <input type="radio" name="paymentMethod" value="bank_transfer" />
+                  <span class="donation-method-card">
+                    <span class="material-icons-round">account_balance</span>
+                    <strong>Bank Transfer</strong>
+                    <small>Direct bank payment</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="transaction-reference" id="transaction-reference-label">Transaction Reference</label>
+                <input type="text" id="transaction-reference" name="transactionReference" placeholder="Optional reference or transfer code" />
+              </div>
+              <div class="form-group">
+                <label for="donor-message">Message / Dedication</label>
+                <input type="text" id="donor-message" name="message" placeholder="Optional note" />
+              </div>
+            </div>
+
+            <label class="donation-checkbox">
+              <input type="checkbox" id="anonymous-donation" name="anonymous" />
+              <span>Keep this donation anonymous in public acknowledgements.</span>
+            </label>
+
+            <label class="donation-checkbox donation-checkbox--required">
+              <input type="checkbox" id="donation-consent" name="consent" required />
+              <span>I confirm the donor details and payment method above are correct.</span>
+            </label>
+
+            <button class="btn btn-primary donation-submit-btn" id="donation-submit-btn" type="submit">Submit Donation</button>
+            <p class="form-success" id="donation-success" aria-live="polite" hidden></p>
+          </form>
+        </div>
+
+        <aside class="donation-sidebar slide-right">
+          <div class="donation-summary-card">
+            <p class="eyebrow">Payment Instructions</p>
+            <h3 id="payment-panel-title">MTN Mobile Money</h3>
+            <p class="donation-sidebar-copy" id="payment-panel-copy">
+              Initiate an MTN Mobile Money transfer to the BU Alumni collections line, then record the transaction reference in the form.
+            </p>
+            <div class="donation-payment-panel" data-payment-panel="mtn_momo">
+              <div class="donation-payment-row"><span>Beneficiary</span><strong>BU Alumni Collections</strong></div>
+              <div class="donation-payment-row"><span>Collection Line</span><strong>+256 761 365727</strong></div>
+              <div class="donation-payment-row"><span>Reference Format</span><strong>MTN transaction ID</strong></div>
+            </div>
+            <div class="donation-payment-panel" data-payment-panel="airtel_money" hidden>
+              <div class="donation-payment-row"><span>Beneficiary</span><strong>BU Alumni Collections</strong></div>
+              <div class="donation-payment-row"><span>Collection Line</span><strong>+256 761 365727</strong></div>
+              <div class="donation-payment-row"><span>Reference Format</span><strong>Airtel receipt ID</strong></div>
+            </div>
+            <div class="donation-payment-panel" data-payment-panel="visa_mastercard" hidden>
+              <div class="donation-payment-row"><span>Checkout</span><strong>Secure hosted card page</strong></div>
+              <div class="donation-payment-row"><span>Accepted Cards</span><strong>Visa and Mastercard</strong></div>
+              <div class="donation-payment-row"><span>Reference Format</span><strong>Card payment confirmation</strong></div>
+            </div>
+            <div class="donation-payment-panel" data-payment-panel="bank_transfer" hidden>
+              <div class="donation-payment-row"><span>Bank</span><strong>Stanbic Bank Uganda</strong></div>
+              <div class="donation-payment-row"><span>Account Name</span><strong>BU Alumni Association</strong></div>
+              <div class="donation-payment-row"><span>Account Number</span><strong>9030001234567</strong></div>
+            </div>
+          </div>
+
+          <div class="donation-summary-card donation-summary-card--muted">
+            <p class="eyebrow">Donation Checklist</p>
+            <ul class="donation-checklist">
+              <li>Use your full name, active email, and phone number.</li>
+              <li>Select the support area your contribution should fund.</li>
+              <li>Choose the payment method you plan to use.</li>
+              <li>Keep the payment reference for reconciliation.</li>
+            </ul>
+          </div>
+
+          <div class="donation-summary-card donation-summary-card--help">
+            <p class="eyebrow">Need Help?</p>
+            <h3>Finance and donor support</h3>
+            <p class="donation-sidebar-copy">For payment confirmation or donor assistance, contact the alumni office directly.</p>
+            <a class="text-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
+            <a class="text-link" href="tel:+256761365727">+256 761 365727</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">in</a>
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">f</a>
+          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">&#9679;</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Portal</h4>
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="activities.html">Activities</a>
+        <a class="footer-link" href="events.html">Events</a>
+        <a class="footer-link" href="memberships.html">Memberships</a>
+        <a class="footer-link" href="opportunities.html">Opportunities</a>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Contact</h4>
+        <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
+        <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
+        <a class="footer-link" href="legal.html#terms">Terms of Use</a>
+      </div>
+      <div class="footer-newsletter">
+        <h4 class="footer-heading">Stay Updated</h4>
+        <p class="footer-copy">Get alumni news and events in your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <p class="newsletter-success" id="nl-success" hidden>&#10003; You're subscribed!</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script src="animations.js"></script>
+  <script>
+    const paymentLabels = {
+      mtn_momo: {
+        title: "MTN Mobile Money",
+        copy: "Initiate an MTN Mobile Money transfer to the BU Alumni collections line, then record the transaction reference in the form."
+      },
+      airtel_money: {
+        title: "Airtel Money",
+        copy: "Send the donation through Airtel Money, then add the Airtel receipt or transaction ID so the finance team can reconcile it."
+      },
+      visa_mastercard: {
+        title: "Visa / Mastercard",
+        copy: "Use the hosted card checkout and keep the card payment confirmation or receipt reference for follow-up."
+      },
+      bank_transfer: {
+        title: "Bank Transfer",
+        copy: "Transfer the donation to the alumni account, then enter the bank transfer reference so the team can confirm receipt."
+      }
+    };
+
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const form = e.target;
+      const emailField = form.querySelector('input[type="email"]');
+      const feedback = document.getElementById('nl-success');
+      if (!emailField || !feedback) return;
+      const email = emailField.value.trim();
+      feedback.textContent = 'Thanks. ' + email + ' will now receive BU alumni updates.';
+      feedback.hidden = false;
+      form.reset();
+      emailField.blur();
+    }
+
+    function setDonationPaymentMethod(value) {
+      const title = document.getElementById('payment-panel-title');
+      const copy = document.getElementById('payment-panel-copy');
+      const refLabel = document.getElementById('transaction-reference-label');
+      const refInput = document.getElementById('transaction-reference');
+
+      document.querySelectorAll('[data-payment-panel]').forEach((panel) => {
+        panel.hidden = panel.getAttribute('data-payment-panel') !== value;
+      });
+
+      if (title) title.textContent = paymentLabels[value].title;
+      if (copy) copy.textContent = paymentLabels[value].copy;
+
+      if (refLabel && refInput) {
+        if (value === 'visa_mastercard') {
+          refLabel.textContent = 'Card Payment Reference';
+          refInput.placeholder = 'Optional card confirmation reference';
+        } else if (value === 'bank_transfer') {
+          refLabel.textContent = 'Bank Transfer Reference';
+          refInput.placeholder = 'Enter bank transfer reference';
+        } else {
+          refLabel.textContent = 'Mobile Money Reference';
+          refInput.placeholder = 'Enter payment transaction ID';
+        }
+      }
+    }
+
+    document.querySelectorAll('.donation-preset-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.donation-preset-btn').forEach((item) => item.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        document.getElementById('donation-amount').value = btn.getAttribute('data-amount');
+      });
+    });
+
+    document.querySelectorAll('input[name="paymentMethod"]').forEach((radio) => {
+      radio.addEventListener('change', () => setDonationPaymentMethod(radio.value));
+    });
+
+    setDonationPaymentMethod(document.querySelector('input[name="paymentMethod"]:checked').value);
+
+    async function handleDonationSubmit(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const success = document.getElementById('donation-success');
+      const submitBtn = document.getElementById('donation-submit-btn');
+      const paymentMethod = form.querySelector('input[name="paymentMethod"]:checked').value;
+      const payload = {
+        fullName: form.fullName.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        donorType: form.donorType.value,
+        graduationYear: form.graduationYear.value.trim(),
+        organization: form.organization.value.trim(),
+        supportArea: form.supportArea.value,
+        donationAmount: form.donationAmount.value.trim(),
+        paymentMethod,
+        transactionReference: form.transactionReference.value.trim(),
+        message: form.message.value.trim(),
+        anonymous: form.anonymous.checked
+      };
+
+      success.hidden = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      try {
+        let result;
+
+        if (window.location.protocol === 'file:') {
+          const donationId = 'DON-' + Date.now().toString().slice(-6);
+          const existing = JSON.parse(localStorage.getItem('buDonations') || '[]');
+          existing.unshift({ ...payload, donationId, donatedAt: new Date().toISOString() });
+          localStorage.setItem('buDonations', JSON.stringify(existing));
+          result = {
+            success: true,
+            donationId,
+            message: 'Donation details captured locally for preview. The appreciation receipt email is only sent when the page is submitted through the local server with SMTP configured.'
+          };
+        } else {
+          const response = await fetch('/api/register-donation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          result = await response.json();
+          if (!response.ok || !result.success) {
+            throw new Error(result.error || 'Donation submission failed.');
+          }
+        }
+
+        success.textContent = result.message;
+        success.hidden = false;
+        form.reset();
+        document.querySelectorAll('.donation-preset-btn').forEach((item) => item.classList.remove('is-active'));
+        document.querySelector('input[name="paymentMethod"][value="mtn_momo"]').checked = true;
+        setDonationPaymentMethod('mtn_momo');
+      } catch (err) {
+        success.textContent = err.message;
+        success.hidden = false;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Donation';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
