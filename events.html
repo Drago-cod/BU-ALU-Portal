@@ -50,12 +50,48 @@
     <section class="hero about-hero">
       <div class="container about-hero-grid">
         <div>
-          <p class="eyebrow">4.0 Events &amp; News</p>
           <h1>The Plog</h1>
           <p class="hero-copy">Your portal blog � stay up to date with alumni events, chapter news, and community stories.</p>
         </div>
-        <div class="hero-visual slide-right" aria-hidden="true">
-          <img src="image/event1.png" alt="Attendees listening and taking notes during a major alumni event" />
+        <div class="hero-visual slide-right plog-slideshow" aria-label="Blog image slideshow">
+          <!-- Slides -->
+          <div class="plog-slide plog-slide--active">
+            <img src="image/event1.png" alt="Attendees at a major BU alumni event" />
+            <div class="plog-slide-caption">Annual Alumni Gala</div>
+          </div>
+          <div class="plog-slide">
+            <img src="image/Events.png" alt="BU alumni gathering on campus" />
+            <div class="plog-slide-caption">Campus Gatherings</div>
+          </div>
+          <div class="plog-slide">
+            <img src="image/Charity.png" alt="BU alumni community charity project" />
+            <div class="plog-slide-caption">Community Impact</div>
+          </div>
+          <div class="plog-slide">
+            <img src="image/Alu1.png" alt="BU alumni networking event" />
+            <div class="plog-slide-caption">Alumni Network</div>
+          </div>
+          <div class="plog-slide">
+            <img src="image/programs-scaled.jpg" alt="BU students and alumni collaborating" />
+            <div class="plog-slide-caption">Learning Together</div>
+          </div>
+
+          <!-- Controls -->
+          <button class="plog-prev" aria-label="Previous image" type="button">
+            <span class="material-icons-round">chevron_left</span>
+          </button>
+          <button class="plog-next" aria-label="Next image" type="button">
+            <span class="material-icons-round">chevron_right</span>
+          </button>
+
+          <!-- Dots -->
+          <div class="plog-dots" role="tablist" aria-label="Slide indicators">
+            <button class="plog-dot plog-dot--active" role="tab" aria-label="Slide 1" aria-selected="true" data-index="0" type="button"></button>
+            <button class="plog-dot" role="tab" aria-label="Slide 2" aria-selected="false" data-index="1" type="button"></button>
+            <button class="plog-dot" role="tab" aria-label="Slide 3" aria-selected="false" data-index="2" type="button"></button>
+            <button class="plog-dot" role="tab" aria-label="Slide 4" aria-selected="false" data-index="3" type="button"></button>
+            <button class="plog-dot" role="tab" aria-label="Slide 5" aria-selected="false" data-index="4" type="button"></button>
+          </div>
         </div>
       </div>
     </section>
@@ -500,7 +536,82 @@
   <script src="theme.js"></script>
   <script src="animations.js"></script>
   <script src="share.js"></script>
+  <script>
+    /* ── Plog Hero Slideshow ── */
+    (function () {
+      var slideshow = document.querySelector('.plog-slideshow');
+      if (!slideshow) return;
+
+      var slides  = slideshow.querySelectorAll('.plog-slide');
+      var dots    = slideshow.querySelectorAll('.plog-dot');
+      var current = 0;
+      var timer;
+      var DELAY   = 4500;
+
+      function goTo(n) {
+        slides[current].classList.remove('plog-slide--active');
+        dots[current].classList.remove('plog-dot--active');
+        dots[current].setAttribute('aria-selected', 'false');
+
+        current = (n + slides.length) % slides.length;
+
+        slides[current].classList.add('plog-slide--active');
+        dots[current].classList.add('plog-dot--active');
+        dots[current].setAttribute('aria-selected', 'true');
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(next, DELAY);
+      }
+
+      function stopAuto() { clearInterval(timer); }
+
+      /* Prev / Next buttons */
+      slideshow.querySelector('.plog-prev').addEventListener('click', function () {
+        prev(); stopAuto(); startAuto();
+      });
+      slideshow.querySelector('.plog-next').addEventListener('click', function () {
+        next(); stopAuto(); startAuto();
+      });
+
+      /* Dot buttons */
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          goTo(parseInt(dot.dataset.index, 10));
+          stopAuto(); startAuto();
+        });
+      });
+
+      /* Pause on hover */
+      slideshow.addEventListener('mouseenter', stopAuto);
+      slideshow.addEventListener('mouseleave', startAuto);
+
+      /* Touch / swipe */
+      var touchStartX = 0;
+      slideshow.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      slideshow.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); stopAuto(); startAuto(); }
+      }, { passive: true });
+
+      /* Keyboard */
+      slideshow.setAttribute('tabindex', '0');
+      slideshow.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { next(); stopAuto(); startAuto(); }
+        if (e.key === 'ArrowLeft')  { prev(); stopAuto(); startAuto(); }
+      });
+
+      startAuto();
+    }());
+  </script>
 </body>
+</html>
 </html>
 
 
