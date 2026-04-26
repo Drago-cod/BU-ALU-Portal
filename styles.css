@@ -5804,3 +5804,286 @@ html.page-ready {
     animation: none;
   }
 }
+
+
+/* ══════════════════════════════════════════════════════════════
+   COMPREHENSIVE RESPONSIVE SYSTEM
+   Breakpoints:
+     xs  — 0–359px      (very small phones)
+     sm  — 360–479px    (small phones)
+     md  — 480–679px    (large phones)
+     lg  — 680–919px    (tablets portrait)
+     xl  — 920–1199px   (tablets landscape / small laptops)
+     2xl — 1200–1439px  (laptops)
+     3xl — 1440px+      (desktops)
+══════════════════════════════════════════════════════════════ */
+
+/* ── Fluid typography ── */
+:root {
+  font-size: clamp(14px, 1.1vw + 10px, 18px);
+}
+
+/* ── Fluid container ── */
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+  padding-inline: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+/* ══ 3XL — Large desktops (1440px+) ══════════════════════════ */
+@media (min-width: 1440px) {
+  .container { width: min(1320px, 88%); }
+  .home-hero-grid,
+  .general-info-grid { gap: 3rem; }
+  .alumni-hub-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .events-strip,
+  .testimonials-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .resource-grid { grid-template-columns: repeat(4, 1fr); }
+  .footer-top { grid-template-columns: 1.8fr 1fr 1fr 1.6fr; gap: 3rem; }
+  .tier-grid { gap: 1.5rem; }
+  .plog-layout { grid-template-columns: 1fr 340px; gap: 2.5rem; }
+}
+
+/* ══ 2XL — Laptops (1200–1439px) ════════════════════════════ */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .container { width: min(1160px, 90%); }
+  .alumni-hub-grid { grid-template-columns: repeat(4, 1fr); }
+  .resource-grid   { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ══ XL — Tablets landscape / small laptops (920–1199px) ════ */
+@media (min-width: 920px) and (max-width: 1199px) {
+  .container { width: min(960px, 92%); }
+  .alumni-hub-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .resource-grid { grid-template-columns: repeat(2, 1fr); }
+  .tier-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-top { grid-template-columns: 1.4fr 1fr 1fr 1.3fr; gap: 1.5rem; }
+  .plog-layout { grid-template-columns: 1fr 260px; }
+  .about-mission-grid { grid-template-columns: 1fr 1fr; }
+  .about-page-hero-inner { grid-template-columns: 1fr 1fr; }
+}
+
+/* ══ LG — Tablets portrait (680–919px) ══════════════════════ */
+@media (max-width: 919px) {
+  .nav, .nav-actions { display: none; }
+  .nav-toggle { display: block; }
+  .nav-wrap { min-height: 64px; gap: 0.6rem; }
+
+  .home-hero-grid,
+  .general-info-grid,
+  .about-hero-grid,
+  .about-page-hero-inner,
+  .about-mission-grid,
+  .spotlight,
+  .event-registration-shell { grid-template-columns: 1fr; }
+
+  .alumni-hub-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .stats-bar-grid { grid-template-columns: repeat(2, 1fr); }
+  .events-strip { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .tier-grid { grid-template-columns: repeat(2, 1fr); max-width: none; }
+  .resource-grid { grid-template-columns: repeat(2, 1fr); }
+  .plog-layout { grid-template-columns: 1fr; }
+  .plog-sidebar { position: static; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .leadership-grid { grid-template-columns: 1fr; }
+  .activity-cards { grid-template-columns: 1fr; }
+  .about-focus-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-mission-stats { grid-template-columns: repeat(2, 1fr); }
+  .cta-banner-inner { flex-direction: column; align-items: flex-start; }
+  .featured-event-inner { flex-direction: column; align-items: flex-start; }
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-group, .filter-group--search { min-width: 100%; }
+  .event-row { flex-direction: column; }
+  .event-date-badge { width: auto; display: flex; gap: 0.4rem; align-items: center; }
+  .event-actions .btn, .opp-actions .btn { width: 100%; }
+  .mem-tier-picker { grid-template-columns: repeat(2, 1fr); }
+  .spotlight-grid { grid-template-columns: 1fr; }
+  .hero { padding: 3rem 0 2rem; }
+  .hero-copy { max-width: 100%; }
+  .about-page-hero-visual { min-height: 280px; }
+  .theme-toggle-label { display: none; }
+  .theme-toggle { padding: 0.42rem 0.55rem; }
+}
+
+/* ══ MD — Large phones (480–679px) ══════════════════════════ */
+@media (max-width: 679px) {
+  h1 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+  h2 { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+  h3 { font-size: clamp(1rem, 4vw, 1.2rem); }
+
+  .container { width: min(100%, 95%); padding-inline: 0.75rem; }
+
+  .hero { padding: 2.2rem 0 1.8rem; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { width: 100%; }
+
+  .alumni-hub-grid { grid-template-columns: 1fr; }
+  .events-strip { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; }
+  .tier-grid { grid-template-columns: 1fr; }
+  .resource-grid { grid-template-columns: 1fr; }
+  .stats-grid, .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .quick-links-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-two-col { grid-template-columns: 1fr; }
+  .about-values-grid { grid-template-columns: 1fr; }
+  .about-focus-grid { grid-template-columns: 1fr; }
+  .about-mission-stats { grid-template-columns: 1fr; }
+  .charity-gallery { grid-template-columns: repeat(2, 1fr); }
+  .charity-gallery--feature { grid-template-columns: 1fr; }
+  .spotlight-grid { grid-template-columns: 1fr; }
+  .mem-tier-picker { grid-template-columns: 1fr; }
+
+  .footer-top { grid-template-columns: 1fr; gap: 1.2rem; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-form input { min-width: 100%; }
+  .newsletter-form .btn { width: 100%; }
+
+  .form-row { grid-template-columns: 1fr; }
+  .mem-form { padding: 1.2rem 1rem; }
+  .mem-step-line { min-width: 24px; }
+  .mem-step-label { font-size: 0.62rem; }
+
+  .activity-card { flex-direction: column; }
+  .leader-card { flex-direction: column; align-items: center; text-align: center; }
+  .leader-links { justify-content: center; }
+
+  .event-row { flex-direction: column; }
+  .section { padding: 2rem 0; }
+
+  .cta-banner-inner { padding: 1.4rem; }
+  .cta-banner-inner .hero-actions { flex-direction: column; align-items: stretch; }
+  .cta-banner-inner .hero-actions .btn { width: 100%; }
+  .featured-event-inner .btn { width: 100%; }
+
+  .plog-prev, .plog-next { opacity: 1; width: 30px; height: 30px; }
+
+  .pay-options { gap: 0.4rem; }
+  .pay-option-card { min-width: 60px; max-width: 72px; padding: 0.4rem 0.45rem; }
+  .pay-logo { width: 52px; height: 20px; }
+  .momo-input-row { flex-direction: column; }
+  .momo-send-btn { width: 100%; justify-content: center; }
+
+  .sfb-wrap--fab { bottom: 1rem; right: 1rem; }
+  .sfb-wrap:not(.sfb-wrap--fab) .sfb-pills {
+    right: auto; left: 0; top: calc(100% + 0.5rem);
+    transform: none; flex-direction: row; flex-wrap: wrap;
+  }
+
+  .about-page-hero-visual { min-height: 240px; }
+  .about-page-hero-text { padding: 1.2rem; }
+  .ahc--main { right: 1.2rem; }
+  .ahc--stat-1 { top: auto; bottom: 6rem; right: 1.2rem; }
+  .ahc--stat-2 { left: 1.2rem; bottom: 1.2rem; }
+
+  .event-registration-shell { padding: 1rem; }
+  .event-registration-panel,
+  .event-registration-form { padding: 1rem; }
+  .alumni-hub-shell { padding: 1rem; }
+
+  .pay-methods-grid { gap: 0.5rem; }
+  .pay-method-badge { width: 78px; height: 32px; }
+
+  .opp-actions { flex-direction: column; }
+  .opp-actions .btn { width: 100%; }
+
+  .resource-actions { flex-direction: column; }
+  .resource-actions .btn { width: 100%; }
+
+  .mem-step-actions--split { flex-direction: column-reverse; gap: 0.5rem; }
+  .mem-step-actions--split .btn { width: 100%; }
+}
+
+/* ══ SM — Small phones (360–479px) ══════════════════════════ */
+@media (max-width: 479px) {
+  .container { padding-inline: 0.6rem; }
+
+  h1 { font-size: clamp(1.5rem, 8vw, 1.9rem); }
+  h2 { font-size: clamp(1.2rem, 6vw, 1.5rem); }
+
+  .brand span { display: none; }
+  .brand-logo { width: 32px; height: 32px; }
+  .nav-wrap { min-height: 58px; }
+
+  .hero { padding: 1.8rem 0 1.4rem; }
+  .hero-card { padding: 0.9rem; }
+
+  .stats-bar-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .stat-bar-num { font-size: 1.4rem; }
+
+  .quick-links-grid { grid-template-columns: 1fr; }
+
+  .tier-features li { font-size: 0.82rem; }
+
+  .pay-methods-grid { gap: 0.4rem; }
+  .pay-method-badge { width: 72px; height: 30px; }
+
+  .mem-steps { gap: 0; }
+  .mem-step-num { width: 30px; height: 30px; font-size: 0.8rem; }
+
+  .ticket-card { padding: 1.2rem; }
+
+  .sfb-trigger { padding: 0.5rem 0.7rem; font-size: 0.78rem; }
+
+  .footer-top { gap: 1rem; }
+  .footer-logo { width: 40px; height: 40px; }
+
+  .event-strip-card { flex-direction: column; }
+  .event-strip-date { width: auto; display: flex; gap: 0.4rem; align-items: center; }
+
+  .plog-layout { gap: 1.2rem; }
+
+  .about-focus-grid { grid-template-columns: 1fr; }
+}
+
+/* ══ XS — Very small phones (< 360px) ═══════════════════════ */
+@media (max-width: 359px) {
+  .container { padding-inline: 0.5rem; }
+
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1.15rem; }
+
+  .btn { padding: 0.6rem 0.75rem; font-size: 0.82rem; }
+
+  .stats-bar-grid { grid-template-columns: 1fr; }
+
+  .event-date-badge { padding: 0.25rem 0.4rem; }
+  .event-day { font-size: 1.2rem; }
+
+  .mem-form { padding: 0.9rem 0.75rem; }
+
+  .pay-method-badge { width: 60px; height: 26px; }
+
+  .leader-avatar { width: 42px; height: 42px; font-size: 1rem; }
+
+  .quick-links-grid { grid-template-columns: 1fr; }
+
+  .alumni-hub-grid { grid-template-columns: 1fr; }
+}
+
+/* ══ Touch devices — always-visible controls ════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  .plog-prev, .plog-next { opacity: 1; }
+  .sfb-wrap--fab .sfb-trigger { box-shadow: 0 4px 16px rgba(17,64,217,0.3); }
+  .btn:hover { transform: none; }
+  .quick-link-card:hover { transform: none; }
+}
+
+/* ══ Print ═══════════════════════════════════════════════════ */
+@media print {
+  .site-header,
+  .site-footer,
+  .sfb-wrap,
+  #scroll-progress,
+  .nav-toggle,
+  .mobile-nav,
+  .cta-banner,
+  .share-btn { display: none !important; }
+
+  body { background: #fff; color: #000; font-size: 12pt; }
+  .container { width: 100%; max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .btn { border: 1px solid #000; background: none; color: #000; }
+}
