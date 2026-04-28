@@ -13,10 +13,10 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="enhancements.css" />
   <style>
-    /* ── Community Layout ── */
-    .community-layout{display:grid;grid-template-columns:260px 1fr 280px;gap:1.5rem;padding:2rem 0;align-items:start;}
-    .comm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;box-shadow:var(--shadow);margin-bottom:1rem;}
-    .feed-post{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem;margin-bottom:1rem;box-shadow:var(--shadow);}
+    /* -- Community Layout -- */
+    .community-layout{display:grid;grid-template-columns:260px 1fr 300px;gap:2rem;padding:2.5rem 0 4rem;align-items:start;}
+    .comm-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.3rem;box-shadow:var(--shadow-card);margin-bottom:1.2rem;}
+    .feed-post{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.4rem;margin-bottom:1.2rem;box-shadow:var(--shadow-card);transition:box-shadow 0.2s;}.feed-post:hover{box-shadow:var(--shadow-card-hover);}
     /* Sidebar nav */
     .comm-nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.55rem 0.8rem;border-radius:10px;color:var(--text);text-decoration:none;font-size:0.9rem;font-weight:500;transition:background 0.15s,color 0.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
     .comm-nav-item:hover,.comm-nav-item.active{background:var(--surface-alt);color:var(--primary);}
@@ -58,15 +58,23 @@
     .comment-bubble{background:var(--surface-alt);border-radius:10px;padding:0.5rem 0.75rem;flex:1;}
     .comment-author{font-weight:700;font-size:0.78rem;color:var(--text);}
     .comment-text{font-size:0.82rem;color:var(--text);margin-top:0.1rem;}
+    /* Course card thumbnail */
+    .course-card-thumb{width:100%;height:130px;object-fit:cover;display:block;border-bottom:1px solid var(--border);}
+    .course-card-thumb-wrap{position:relative;overflow:hidden;height:130px;background:var(--surface-alt);}
+    .course-card-thumb-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.35s ease;}
+    .course-card:hover .course-card-thumb-wrap img{transform:scale(1.05);}
+    .course-card-thumb-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.45) 100%);}
+    .course-card-thumb-badges{position:absolute;top:0.6rem;left:0.6rem;display:flex;gap:0.3rem;flex-wrap:wrap;}
+    .course-card-thumb-price{position:absolute;top:0.6rem;right:0.6rem;}
     /* Course cards */
     .course-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s;}
     .course-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(17,64,217,0.14);}
-    .course-card-header{padding:1rem 1.1rem 0.8rem;display:flex;align-items:center;justify-content:space-between;}
-    .course-card-body{padding:0 1.1rem 0.8rem;flex:1;display:flex;flex-direction:column;gap:0.35rem;}
+    .course-card-header{padding:1rem 1.1rem 0.9rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+    .course-card-body{padding:0.8rem 1.1rem 0.8rem;flex:1;display:flex;flex-direction:column;gap:0.4rem;}
     .course-card-footer{padding:0.8rem 1.1rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;align-items:center;}
     .course-apply-btn{flex:1;font-size:0.82rem;padding:0.5rem 0.8rem;display:inline-flex;align-items:center;gap:0.3rem;justify-content:center;border-radius:8px;background:var(--primary);color:#fff;text-decoration:none;font-weight:700;transition:background 0.15s;}
     .course-apply-btn:hover{background:var(--primary-dark,#0c30a6);}
-    .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+    .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
     .provider-logo{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
     .course-title{font-weight:700;font-size:0.88rem;color:var(--text);line-height:1.35;}
     .course-provider{font-size:0.75rem;font-weight:600;}
@@ -166,14 +174,46 @@
     .notif-time{font-size:0.72rem;color:var(--muted);margin-top:0.15rem;}
     /* Responsive */
     @media(max-width:1100px){.community-layout{grid-template-columns:240px 1fr;}.comm-right-sidebar{display:none;}}
+    @media(max-width:860px){.community-layout{grid-template-columns:220px 1fr;}.comm-right-sidebar{display:none;}}
     @media(max-width:720px){.community-layout{grid-template-columns:1fr;}.comm-left-sidebar{display:none;}.learn-grid{grid-template-columns:1fr;}}
     @media(max-width:920px){.learn-grid{grid-template-columns:repeat(2,1fr);}}
     /* Page hero */
-    .comm-hero{background:linear-gradient(135deg,#0c30a6 0%,#1140d9 60%,#3a5fe8 100%);color:#fff;padding:2.5rem 0 2rem;}
-    .comm-hero h1{font-size:2rem;font-weight:800;margin-bottom:0.4rem;color:#fff !important;}
-    .comm-hero p{font-size:1rem;opacity:0.85;color:#fff !important;}
-    /* Section headings — ensure visibility */
-    .section-h2{font-size:1.4rem;font-weight:800;color:var(--text) !important;margin-bottom:0.3rem;}
+    .comm-tab-bar{background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:72px;z-index:90;box-shadow:0 4px 12px rgba(17,64,217,0.07);}.comm-tab-bar .container{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}.comm-tab-bar .container::-webkit-scrollbar{display:none;}.comm-tab{display:inline-flex;align-items:center;gap:0.4rem;padding:0.85rem 1.3rem;border:none;background:none;color:var(--muted);font-size:0.83rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.18s;white-space:nowrap;text-decoration:none;font-family:inherit;letter-spacing:0.01em;}.comm-tab:hover{color:var(--text);background:var(--surface-alt);}.comm-tab.active{color:var(--primary);border-bottom-color:var(--primary);background:rgba(17,64,217,0.04);}.comm-tab .material-icons-round{font-size:1.05rem;}@media(max-width:720px){.comm-tab span.material-icons-round{display:none;}.comm-tab{padding:0.75rem 1rem;font-size:0.8rem;}}
+    /* -- Community Hero -- */
+    .comm-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#071a6e 0%,#0c30a6 35%,#1140d9 65%,#1e55f0 100%);color:#fff;padding:3.5rem 0 0;}
+    .comm-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(99,140,255,0.22) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 10% 80%,rgba(0,200,180,0.12) 0%,transparent 60%);pointer-events:none;}
+    .comm-hero::after{content:"";position:absolute;top:-60px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);pointer-events:none;}
+    .comm-hero-inner{position:relative;z-index:1;padding-bottom:2.8rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;}
+    .comm-hero-text{}
+    .comm-hero-eyebrow{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:999px;padding:0.3rem 0.85rem;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-bottom:1rem;backdrop-filter:blur(4px);}
+    .comm-hero-eyebrow .material-icons-round{font-size:0.85rem;}
+    .comm-hero-actions{display:flex;gap:0.7rem;margin-top:1.4rem;flex-wrap:wrap;}
+    .comm-hero-btn-primary{display:inline-flex;align-items:center;gap:0.4rem;padding:0.65rem 1.4rem;border-radius:10px;background:#fff;color:#0c30a6;font-weight:700;font-size:0.88rem;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.18);}
+    .comm-hero-btn-primary:hover{background:#f0f4ff;transform:translateY(-1px);}
+    .comm-hero-btn-ghost{display:inline-flex;align-items:center;gap:0.4rem;padding:0.65rem 1.4rem;border-radius:10px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);color:#fff;font-weight:600;font-size:0.88rem;text-decoration:none;transition:all 0.2s;backdrop-filter:blur(4px);}
+    .comm-hero-btn-ghost:hover{background:rgba(255,255,255,0.2);}
+    .comm-hero-visual{position:relative;z-index:1;display:flex;flex-direction:column;gap:0.6rem;min-width:220px;}
+    .comm-hero-badge{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:0.8rem 1rem;backdrop-filter:blur(8px);display:flex;align-items:center;gap:0.7rem;}
+    .comm-hero-badge .material-icons-round{font-size:1.3rem;color:rgba(255,255,255,0.85);}
+    .comm-hero-badge-text{font-size:0.78rem;color:rgba(255,255,255,0.9);font-weight:600;line-height:1.3;}
+    .comm-hero-badge-val{font-size:1.1rem;font-weight:800;color:#fff;line-height:1;}
+    /* Stats bar */
+    .comm-hero-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,0.15);margin-top:0;}
+    .comm-hero-stat{padding:1.1rem 1.5rem;border-right:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;gap:0.75rem;}
+    .comm-hero-stat:last-child{border-right:none;}
+    .comm-hero-stat-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .comm-hero-stat-icon .material-icons-round{font-size:1.1rem;color:rgba(255,255,255,0.85);}
+    .comm-hero-stat-val{font-size:1.5rem;font-weight:800;color:#fff;line-height:1;}
+    .comm-hero-stat-lbl{font-size:0.72rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;font-weight:500;}
+    @media(max-width:900px){.comm-hero-inner{grid-template-columns:1fr;}.comm-hero-visual{display:none;}}
+    @media(max-width:680px){.comm-hero h1{font-size:1.8rem;}.comm-hero-stats{grid-template-columns:repeat(2,1fr);}.comm-hero-stat{border-bottom:1px solid rgba(255,255,255,0.1);}}
+    .comm-hero h1{font-size:2.6rem;font-weight:800;margin-bottom:0.6rem;color:#fff !important;line-height:1.12;letter-spacing:-0.02em;}
+    .comm-hero p{font-size:1rem;color:rgba(255,255,255,0.82) !important;max-width:50ch;line-height:1.65;margin:0;}
+    .comm-hero-dot-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0;}
+    @keyframes pulse-ring{0%{transform:scale(1);opacity:0.6;}50%{transform:scale(1.08);opacity:1;}100%{transform:scale(1);opacity:0.6;}}
+    .comm-hero-eyebrow{animation:pulse-ring 3s ease-in-out infinite;}
+    /* Section headings ? ensure visibility */
+    .section-h2{font-size:1.6rem;font-weight:800;color:var(--text) !important;margin-bottom:0.4rem;}
     .section-eyebrow{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary) !important;margin-bottom:0.3rem;}
     .section-subtitle{font-size:0.88rem;color:var(--muted) !important;margin-bottom:1.2rem;}
     /* Sidebar headings */
@@ -250,20 +290,105 @@
 
   <!-- Page Hero -->
   <section class="comm-hero">
+    <div class="comm-hero-dot-grid" aria-hidden="true"></div>
     <div class="container">
-      <h1>Alumni Community</h1>
-      <p>Connect, share, and grow with thousands of BU graduates around the world.</p>
+      <div class="comm-hero-inner">
+        <!-- Left: text content -->
+        <div class="comm-hero-text">
+          <div class="comm-hero-eyebrow">
+            <span class="material-icons-round">groups</span>
+            BU Alumni Network
+          </div>
+          <h1>Alumni Community</h1>
+          <p>Connect, share, and grow with thousands of BU graduates around the world. Access courses, events, and career opportunities.</p>
+          <div class="comm-hero-actions">
+            <a href="login.html" class="comm-hero-btn-primary">
+              <span class="material-icons-round" style="font-size:1rem;">login</span>
+              Sign In to Join
+            </a>
+            <a href="register.html" class="comm-hero-btn-ghost">
+              <span class="material-icons-round" style="font-size:1rem;">person_add</span>
+              Create Account
+            </a>
+          </div>
+        </div>
+        <!-- Right: floating info badges -->
+        <div class="comm-hero-visual">
+          <div class="comm-hero-badge">
+            <span class="material-icons-round">trending_up</span>
+            <div>
+              <div class="comm-hero-badge-val">4,200+</div>
+              <div class="comm-hero-badge-text">Active alumni worldwide</div>
+            </div>
+          </div>
+          <div class="comm-hero-badge">
+            <span class="material-icons-round">school</span>
+            <div>
+              <div class="comm-hero-badge-val">22 Courses</div>
+              <div class="comm-hero-badge-text">Free certified learning</div>
+            </div>
+          </div>
+          <div class="comm-hero-badge">
+            <span class="material-icons-round">emoji_events</span>
+            <div>
+              <div class="comm-hero-badge-val">50+ Events</div>
+              <div class="comm-hero-badge-text">Networking &amp; career fairs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="comm-hero-stats">
+        <div class="comm-hero-stat">
+          <div class="comm-hero-stat-icon"><span class="material-icons-round">people</span></div>
+          <div>
+            <div class="comm-hero-stat-val">4,200+</div>
+            <div class="comm-hero-stat-lbl">Alumni Members</div>
+          </div>
+        </div>
+        <div class="comm-hero-stat">
+          <div class="comm-hero-stat-icon"><span class="material-icons-round">school</span></div>
+          <div>
+            <div class="comm-hero-stat-val">22</div>
+            <div class="comm-hero-stat-lbl">Free Courses</div>
+          </div>
+        </div>
+        <div class="comm-hero-stat">
+          <div class="comm-hero-stat-icon"><span class="material-icons-round">groups</span></div>
+          <div>
+            <div class="comm-hero-stat-val">15+</div>
+            <div class="comm-hero-stat-lbl">Active Groups</div>
+          </div>
+        </div>
+        <div class="comm-hero-stat">
+          <div class="comm-hero-stat-icon"><span class="material-icons-round">event</span></div>
+          <div>
+            <div class="comm-hero-stat-val">50+</div>
+            <div class="comm-hero-stat-lbl">Events / Year</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <nav class="comm-tab-bar" aria-label="Community sections">
+    <div class="container">
+      <button class="comm-tab active" onclick="scrollToFeed();setActiveTab(this)"><span class="material-icons-round">home</span>Feed</button>
+      <button class="comm-tab" onclick="scrollToLearning();setActiveTab(this)"><span class="material-icons-round">school</span>Learning</button>
+      <a class="comm-tab" href="events.html"><span class="material-icons-round">event</span>Events</a>
+      <a class="comm-tab" href="auth.html"><span class="material-icons-round">people</span>Directory</a>
+      <a class="comm-tab" href="donate.html"><span class="material-icons-round">volunteer_activism</span>Support</a>
+    </div>
+  </nav>
   <main>
     <div class="container">
       <div class="community-layout">
 
-        <!-- ═══════════════════════════════════════════════════════════════
+        <!-- ---------------------------------------------------------------
              LEFT SIDEBAR
-        ═══════════════════════════════════════════════════════════════ -->
-        <aside class="comm-left-sidebar" id="comm-left-sidebar">
+        --------------------------------------------------------------- -->
+        <aside class="comm-left-sidebar" id="comm-left-sidebar" style="position:sticky;top:88px;">
 
           <!-- Profile card (shown when signed in) -->
           <div class="comm-card" id="profile-card" style="display:none;">
@@ -292,23 +417,23 @@
           </div>
 
           <!-- Join card (shown when signed out) -->
-          <div class="comm-card" id="join-card">
+          <div class="comm-card" id="join-card" style="background:linear-gradient(135deg,#0c30a6,#1e55f0);border:none;padding:1.4rem;">
             <div style="text-align:center;">
-              <span class="material-icons-round" style="font-size:2.5rem;color:var(--primary);margin-bottom:0.5rem;">groups</span>
-              <div style="font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.3rem;">Join the Community</div>
-              <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.9rem;">Sign in to post, connect, and access all features.</div>
+              <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 0.7rem;">
+                <span class="material-icons-round" style="font-size:1.6rem;color:#fff;">groups</span>
+              </div>
+              <div style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:0.3rem;">Join the Community</div>
+              <div style="font-size:0.8rem;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.5;">Sign in to post, connect, and access all features.</div>
               <div style="display:flex;flex-direction:column;gap:0.5rem;">
-                <a href="login.html" class="btn btn-primary" style="text-align:center;font-size:0.85rem;">Sign In</a>
-                <a href="register.html" class="btn btn-ghost" style="text-align:center;font-size:0.85rem;">Sign Up</a>
+                <a href="login.html" class="btn" style="text-align:center;font-size:0.85rem;background:#fff;color:#0c30a6;font-weight:700;">Sign In</a>
+                <a href="register.html" class="btn" style="text-align:center;font-size:0.85rem;background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.3);">Sign Up</a>
               </div>
             </div>
           </div>
 
           <!-- Navigation menu -->
-          <div class="comm-card" style="padding:0.6rem;">
-            <button class="comm-nav-item active" onclick="scrollToFeed()">
-              <span class="material-icons-round">home</span> Feed
-            </button>
+          <div class="comm-card" style="padding:0.5rem;">
+            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);padding:0.4rem 0.8rem 0.3rem;">Navigation</div>
             <a class="comm-nav-item" href="auth.html">
               <span class="material-icons-round">people</span> Directory
             </a>
@@ -319,43 +444,18 @@
             <a class="comm-nav-item" href="#">
               <span class="material-icons-round">groups</span> Groups
             </a>
-            <button class="comm-nav-item" onclick="scrollToLearning()">
-              <span class="material-icons-round">school</span> Learning
-            </button>
-            <a class="comm-nav-item" href="#">
-              <span class="material-icons-round">campaign</span> Announcements
-            </a>
-            <a class="comm-nav-item" href="events.html">
-              <span class="material-icons-round">event</span> Events
-            </a>
-            <div style="position:relative;">
-              <button class="comm-nav-item" onclick="toggleNotifications()">
-                <span class="material-icons-round">notifications</span> Notifications
-                <span class="comm-badge">5</span>
-              </button>
-              <div class="notif-dropdown" id="notif-dropdown">
-                <div class="notif-header">
-                  <span class="notif-title">Notifications</span>
-                  <button onclick="markAllRead()" style="font-size:0.75rem;color:var(--primary);background:none;border:none;cursor:pointer;font-weight:600;">Mark all read</button>
-                </div>
-                <div id="notif-list"></div>
-              </div>
-            </div>
             <a class="comm-nav-item" href="auth.html">
               <span class="material-icons-round">account_circle</span> My Profile
-            </a>
-            <a class="comm-nav-item" href="donate.html">
-              <span class="material-icons-round">volunteer_activism</span> Support Fund
             </a>
           </div>
         </aside>
 
-        <!-- ═══════════════════════════════════════════════════════════════
+        <!-- ---------------------------------------------------------------
              MAIN CONTENT
-        ═══════════════════════════════════════════════════════════════ -->
+        --------------------------------------------------------------- -->
         <main class="comm-main-col" id="feed-section">
 
-          <!-- ── Post Composer ── -->
+          <!-- -- Post Composer -- -->
           <div class="comm-card" id="composer-card">
             <div id="composer-signed-in" style="display:none;">
               <div class="composer-wrap">
@@ -380,18 +480,21 @@
                 </div>
               </div>
             </div>
-            <div id="composer-signed-out" class="sign-in-prompt">
-              <span class="material-icons-round" style="font-size:2rem;color:var(--muted);display:block;margin-bottom:0.4rem;">edit_note</span>
-              <p>Sign in to share updates, achievements, and questions with the BU alumni community.</p>
-              <a href="login.html" class="btn btn-primary" style="font-size:0.85rem;">Sign In to Post</a>
+            <div id="composer-signed-out" class="sign-in-prompt" style="padding:1.5rem;border-radius:14px;">
+              <span class="material-icons-round" style="font-size:2.5rem;color:var(--primary);display:block;margin-bottom:0.6rem;">edit_note</span>
+              <p style="font-size:0.9rem;font-weight:500;margin-bottom:0.9rem;">Sign in to share updates, achievements, and questions with the BU alumni community.</p>
+              <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;">
+                <a href="login.html" class="btn btn-primary" style="font-size:0.85rem;padding:0.55rem 1.4rem;">Sign In to Post</a>
+                <a href="register.html" class="btn btn-ghost" style="font-size:0.85rem;padding:0.55rem 1.4rem;">Create Account</a>
+              </div>
             </div>
           </div>
 
-          <!-- ── Social Feed ── -->
+          <!-- -- Social Feed -- -->
           <div id="feed-container"></div>
 
-          <!-- ── Learning Opportunities ── -->
-          <div id="learning-section" style="margin-top:2rem;">
+          <!-- -- Learning Opportunities -- -->
+          <div id="learning-section" style="margin-top:2.5rem;padding-top:2rem;border-top:2px solid var(--border);">
             <div class="learn-section-header">
               <div>
                 <div class="section-eyebrow">Free &amp; Paid Certified Courses</div>
@@ -412,7 +515,7 @@
             </div>
 
             <!-- Filter bar -->
-            <div class="filter-bar">
+            <div class="filter-bar" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;box-shadow:var(--shadow);">
               <select class="filter-select" id="cat-filter" onchange="filterCourses()">
                 <option value="">All Categories</option>
                 <option value="cybersecurity">Cybersecurity</option>
@@ -449,15 +552,15 @@
 
         </main>
 
-        <!-- ═══════════════════════════════════════════════════════════════
+        <!-- ---------------------------------------------------------------
              RIGHT SIDEBAR
-        ═══════════════════════════════════════════════════════════════ -->
-        <aside class="comm-right-sidebar">
+        --------------------------------------------------------------- -->
+        <aside class="comm-right-sidebar" style="position:sticky;top:88px;">
 
           <!-- Alumni Directory mini -->
           <div class="comm-card">
             <div class="flex-between mb-1">
-              <span style="font-weight:700;font-size:0.9rem;color:var(--text);">Alumni Directory</span>
+              <span style="font-weight:800;font-size:0.92rem;color:var(--text);display:flex;align-items:center;gap:0.4rem;"><span class="material-icons-round" style="font-size:1rem;color:var(--primary);">people</span>Alumni Directory</span>
               <button onclick="openDirectory()" style="font-size:0.75rem;color:var(--primary);background:none;border:none;cursor:pointer;font-weight:600;">View All</button>
             </div>
             <input type="search" placeholder="Search alumni..." style="width:100%;padding:0.4rem 0.7rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.8rem;font-family:inherit;margin-bottom:0.7rem;" oninput="filterDirectoryMini(this.value)" />
@@ -466,7 +569,7 @@
                 <div class="avatar-circle sm" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">BM</div>
                 <div class="alumni-mini-info">
                   <div class="alumni-mini-name">Brian Mugisha</div>
-                  <div class="alumni-mini-role">Fintech · Class of 2019</div>
+                  <div class="alumni-mini-role">Fintech  Class of 2019</div>
                 </div>
                 <button class="connect-btn">Connect</button>
               </div>
@@ -474,7 +577,7 @@
                 <div class="avatar-circle sm" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">GA</div>
                 <div class="alumni-mini-info">
                   <div class="alumni-mini-name">Grace Auma</div>
-                  <div class="alumni-mini-role">HR Manager · Class of 2020</div>
+                  <div class="alumni-mini-role">HR Manager  Class of 2020</div>
                 </div>
                 <button class="connect-btn">Connect</button>
               </div>
@@ -482,7 +585,7 @@
                 <div class="avatar-circle sm" style="background:linear-gradient(135deg,#dc2626,#f87171);">AN</div>
                 <div class="alumni-mini-info">
                   <div class="alumni-mini-name">Alice Nakayiza</div>
-                  <div class="alumni-mini-role">Lawyer · Class of 2015</div>
+                  <div class="alumni-mini-role">Lawyer  Class of 2015</div>
                 </div>
                 <button class="connect-btn">Connect</button>
               </div>
@@ -490,7 +593,7 @@
                 <div class="avatar-circle sm" style="background:linear-gradient(135deg,#d97706,#fbbf24);">JO</div>
                 <div class="alumni-mini-info">
                   <div class="alumni-mini-name">James Okello</div>
-                  <div class="alumni-mini-role">Data Scientist · Class of 2022</div>
+                  <div class="alumni-mini-role">Data Scientist  Class of 2022</div>
                 </div>
                 <button class="connect-btn">Connect</button>
               </div>
@@ -499,7 +602,7 @@
 
           <!-- Active Groups -->
           <div class="comm-card">
-            <div style="font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:0.7rem;">Active Groups</div>
+            <div style="font-weight:800;font-size:0.92rem;color:var(--text);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.4rem;"><span class="material-icons-round" style="font-size:1rem;color:var(--primary);">groups</span>Active Groups</div>
             <div class="group-card">
               <div class="group-icon"><span class="material-icons-round">computer</span></div>
               <div class="group-info">
@@ -529,7 +632,7 @@
           <!-- Upcoming Events -->
           <div class="comm-card">
             <div class="flex-between mb-1">
-              <span style="font-weight:700;font-size:0.9rem;color:var(--text);">Upcoming Events</span>
+              <span style="font-weight:800;font-size:0.92rem;color:var(--text);display:flex;align-items:center;gap:0.4rem;"><span class="material-icons-round" style="font-size:1rem;color:var(--primary);">event</span>Upcoming Events</span>
               <a href="events.html" style="font-size:0.75rem;color:var(--primary);font-weight:600;text-decoration:none;">See all</a>
             </div>
             <div class="mini-event">
@@ -556,16 +659,19 @@
 
           <!-- Support Fund -->
           <div class="comm-card">
-            <div style="font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:0.3rem;">Support Fund</div>
-            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.6rem;">Help fellow alumni in need. Goal: UGX 50M</div>
-            <div class="progress-bar-wrap">
+            <div style="font-weight:800;font-size:0.92rem;color:var(--text);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;"><span class="material-icons-round" style="font-size:1rem;color:var(--primary);">volunteer_activism</span>Support Fund</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem;line-height:1.5;">Help fellow alumni in need. Every contribution matters.</div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+              <span style="font-size:1rem;font-weight:800;color:var(--text);">UGX 1.5M</span>
+              <span style="font-size:0.72rem;font-weight:700;color:var(--primary);background:rgba(17,64,217,0.08);padding:0.15rem 0.5rem;border-radius:999px;">63%</span>
+            </div>
+            <div class="progress-bar-wrap" style="height:10px;margin-bottom:0.4rem;">
               <div class="progress-bar-fill" style="width:63%;"></div>
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--muted);margin-bottom:0.7rem;">
-              <span>UGX 31.5M raised</span>
-              <span>63%</span>
-            </div>
-            <a href="donate.html" class="btn btn-primary" style="width:100%;text-align:center;font-size:0.82rem;display:block;">Donate Now</a>
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.9rem;">Goal: UGX 5M &nbsp;&middot;&nbsp; 240 donors</div>
+            <a href="donate.html" class="btn btn-primary" style="width:100%;text-align:center;font-size:0.85rem;display:block;padding:0.65rem;font-weight:700;">
+              <span style="display:flex;align-items:center;justify-content:center;gap:0.4rem;"><span class="material-icons-round" style="font-size:1rem;">favorite</span>Donate Now</span>
+            </a>
           </div>
 
         </aside>
@@ -707,43 +813,43 @@
   <script src="auth-nav.js"></script>
   <script src="share.js"></script>
   <script>
-  /* ── Auth ── */
+  /* -- Auth -- */
   var user = (function(){ try{ return JSON.parse(localStorage.getItem('buCurrentUser')||'null'); }catch(e){ return null; } })();
   function ini(n){ if(!n) return 'BU'; var p=n.trim().split(/\s+/); return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():p[0].slice(0,2).toUpperCase(); }
 
-  /* ── Feed data ── */
+  /* -- Feed data -- */
   var POSTS=[
-    {id:'p1',author:'Amara Ssekandi',profession:'Software Engineer · Class of 2018',time:'2 hours ago',content:'Excited to share that I just joined XYZ Tech as a Senior Engineer! Grateful for the BU Alumni network — the mentorship connections here made all the difference.',type:'achievement',badge:'New Job',likes:47,comments:[{a:'Dr. Sarah Nakato',t:'Congratulations! Well deserved!'},{a:'Moses Byaruhanga',t:'Amazing news!'}]},
-    {id:'p2',author:'Dr. Sarah Nakato',profession:'Health Professional · Class of 2008',time:'5 hours ago',content:'Just returned from the WHO Regional Health Summit in Nairobi. Proud to represent BU graduates on the continental stage. If anyone is interested in global health careers, feel free to reach out!',type:'update',likes:89,comments:[{a:'Faith Nakato',t:'So inspiring!'},{a:'Robert Ssali',t:'BU pride!'}]},
-    {id:'p3',author:'Moses Byaruhanga',profession:'Entrepreneur · Class of 2016',time:'Yesterday',content:'Question for the network: Any alumni working in fintech or impact investing in East Africa? Looking to connect and explore partnership opportunities for my startup.',type:'question',likes:34,comments:[{a:'Brian Mugisha',t:'I work in fintech! Sending you a message now.'}]},
-    {id:'p4',author:'Faith Nakato',profession:'Marketing Manager · Class of 2021',time:'2 days ago',content:'Sharing this amazing resource — the BU Career Guide library has CV templates and interview prep materials that actually work. Check it out!',type:'link',link:{text:'BU Career Resource Library',url:'career-guide.html'},likes:56,comments:[{a:'Grace Auma',t:'This helped me land my current role!'}]},
-    {id:'p5',author:'Robert Ssali',profession:'VVP Member · Class of 2010',time:'3 days ago',content:'Congratulations to all Class of 2026 graduates! The BU Alumni network is here for you — mentorship, jobs, and community. Welcome home!',type:'update',likes:124,comments:[{a:'Alice Nakayiza',t:'Welcome to the family!'},{a:'Amara Ssekandi',t:'Reach out anytime!'}]}
+    {id:'p1',author:'Amara Ssekandi',profession:'Software Engineer ? Class of 2018',time:'2 hours ago',content:'Excited to share that I just joined XYZ Tech as a Senior Engineer! Grateful for the BU Alumni network ? the mentorship connections here made all the difference.',type:'achievement',badge:'New Job',likes:47,comments:[{a:'Dr. Sarah Nakato',t:'Congratulations! Well deserved!'},{a:'Moses Byaruhanga',t:'Amazing news!'}]},
+    {id:'p2',author:'Dr. Sarah Nakato',profession:'Health Professional ? Class of 2008',time:'5 hours ago',content:'Just returned from the WHO Regional Health Summit in Nairobi. Proud to represent BU graduates on the continental stage. If anyone is interested in global health careers, feel free to reach out!',type:'update',likes:89,comments:[{a:'Faith Nakato',t:'So inspiring!'},{a:'Robert Ssali',t:'BU pride!'}]},
+    {id:'p3',author:'Moses Byaruhanga',profession:'Entrepreneur ? Class of 2016',time:'Yesterday',content:'Question for the network: Any alumni working in fintech or impact investing in East Africa? Looking to connect and explore partnership opportunities for my startup.',type:'question',likes:34,comments:[{a:'Brian Mugisha',t:'I work in fintech! Sending you a message now.'}]},
+    {id:'p4',author:'Faith Nakato',profession:'Marketing Manager ? Class of 2021',time:'2 days ago',content:'Sharing this amazing resource ? the BU Career Guide library has CV templates and interview prep materials that actually work. Check it out!',type:'link',link:{text:'BU Career Resource Library',url:'career-guide.html'},likes:56,comments:[{a:'Grace Auma',t:'This helped me land my current role!'}]},
+    {id:'p5',author:'Robert Ssali',profession:'VVP Member ? Class of 2010',time:'3 days ago',content:'Congratulations to all Class of 2026 graduates! The BU Alumni network is here for you ? mentorship, jobs, and community. Welcome home!',type:'update',likes:124,comments:[{a:'Alice Nakayiza',t:'Welcome to the family!'},{a:'Amara Ssekandi',t:'Reach out anytime!'}]}
   ];
 
-  /* ── Course data ── */
+  /* -- Course data -- */
   var COURSES=[
-    {id:'c1',title:'Introduction to Linux',provider:'linux-foundation',providerName:'Linux Foundation',category:'linux',price:'free',duration:'60 hours',badge:'popular',desc:'A comprehensive introduction to the Linux OS covering command line, file systems, and scripting.',url:'https://training.linuxfoundation.org/training/introduction-to-linux/'},
-    {id:'c2',title:'Introduction to Kubernetes',provider:'linux-foundation',providerName:'Linux Foundation',category:'devops',price:'free',duration:'14 hours',badge:'trending',desc:'Learn Kubernetes container orchestration and cloud-native application deployment fundamentals.',url:'https://training.linuxfoundation.org/training/introduction-to-kubernetes/'},
-    {id:'c3',title:'Introduction to Cloud Infrastructure Technologies',provider:'linux-foundation',providerName:'Linux Foundation',category:'cloud',price:'free',duration:'14 hours',badge:'new',desc:'Explore cloud computing concepts, IaaS, PaaS, SaaS, and leading cloud providers.',url:'https://training.linuxfoundation.org/training/introduction-to-cloud-infrastructure-technologies/'},
-    {id:'c4',title:'Open Source Software Development, Linux and Git',provider:'linux-foundation',providerName:'Linux Foundation',category:'linux',price:'free',duration:'30 hours',badge:'',desc:'Master open source development workflows, Linux fundamentals, and Git version control.',url:'https://www.edx.org/professional-certificate/linuxfoundationx-open-source-software-development-linux-and-git'},
-    {id:'c5',title:'Introduction to Cybersecurity',provider:'cisco',providerName:'Cisco Networking Academy',category:'cybersecurity',price:'free',duration:'6 hours',badge:'popular',desc:'Explore the world of cybersecurity and learn how to protect yourself and your organisation online.',url:'https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity'},
-    {id:'c6',title:'Networking Basics',provider:'cisco',providerName:'Cisco Networking Academy',category:'networking',price:'free',duration:'22 hours',badge:'trending',desc:'Learn the fundamentals of computer networking, IP addressing, and network protocols.',url:'https://www.netacad.com/courses/networking/networking-basics'},
-    {id:'c7',title:'Python Essentials 1',provider:'cisco',providerName:'Cisco Networking Academy',category:'web-dev',price:'free',duration:'25 hours',badge:'new',desc:'Start your Python programming journey with this beginner-friendly course from Cisco.',url:'https://www.netacad.com/courses/programming/pcap-programming-essentials-python'},
-    {id:'c8',title:'Cybersecurity Essentials',provider:'cisco',providerName:'Cisco Networking Academy',category:'cybersecurity',price:'free',duration:'30 hours',badge:'',desc:'Deepen your cybersecurity knowledge with threat analysis, cryptography, and network security.',url:'https://www.netacad.com/courses/cybersecurity/cybersecurity-essentials'},
-    {id:'c9',title:'CCNA: Introduction to Networks',provider:'cisco',providerName:'Cisco Networking Academy',category:'networking',price:'free',duration:'70 hours',badge:'popular',desc:'The first CCNA course — covers network fundamentals, Ethernet, and IPv4/IPv6.',url:'https://www.netacad.com/courses/networking/ccna-introduction-networks'},
-    {id:'c10',title:'Google IT Support Professional Certificate',provider:'google',providerName:'Google',category:'networking',price:'free',duration:'6 months',badge:'trending',desc:'Prepare for a career in IT support with this beginner-level professional certificate from Google.',url:'https://grow.google/certificates/it-support/'},
-    {id:'c11',title:'Google Cybersecurity Certificate',provider:'google',providerName:'Google',category:'cybersecurity',price:'free',duration:'6 months',badge:'new',desc:'Build job-ready cybersecurity skills with hands-on labs and real-world scenarios.',url:'https://grow.google/certificates/cybersecurity/'},
-    {id:'c12',title:'Google Data Analytics Certificate',provider:'google',providerName:'Google',category:'data',price:'free',duration:'6 months',badge:'popular',desc:'Learn data analytics tools including SQL, R, Tableau, and spreadsheets.',url:'https://grow.google/certificates/data-analytics/'},
-    {id:'c13',title:'IBM AI Foundations for Business',provider:'ibm',providerName:'IBM',category:'data',price:'free',duration:'6 hours',badge:'trending',desc:'Understand AI concepts, machine learning, and how AI is transforming business.',url:'https://www.edx.org/professional-certificate/ibm-applied-ai'},
-    {id:'c14',title:'IBM Cybersecurity Analyst Professional Certificate',provider:'ibm',providerName:'IBM',category:'cybersecurity',price:'free',duration:'8 months',badge:'new',desc:'Develop skills for a cybersecurity analyst role with IBM professional certificate.',url:'https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst'},
-    {id:'c15',title:'IBM Full Stack Software Developer',provider:'ibm',providerName:'IBM',category:'web-dev',price:'free',duration:'4 months',badge:'popular',desc:'Build full-stack web apps using React, Node.js, Python, Django, and cloud platforms.',url:'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer'},
-    {id:'c16',title:'Meta Front-End Developer Certificate',provider:'meta',providerName:'Meta',category:'web-dev',price:'free',duration:'7 months',badge:'trending',desc:'Learn HTML, CSS, JavaScript, React, and UI/UX principles from Meta engineers.',url:'https://www.coursera.org/professional-certificates/meta-front-end-developer'},
-    {id:'c17',title:'Meta Back-End Developer Certificate',provider:'meta',providerName:'Meta',category:'web-dev',price:'free',duration:'8 months',badge:'',desc:'Build back-end web applications with Python, Django, REST APIs, and databases.',url:'https://www.coursera.org/professional-certificates/meta-back-end-developer'},
-    {id:'c18',title:'AWS Cloud Practitioner Essentials',provider:'aws',providerName:'AWS',category:'cloud',price:'free',duration:'6 hours',badge:'popular',desc:'Build foundational AWS cloud knowledge and prepare for the AWS Cloud Practitioner exam.',url:'https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/'},
-    {id:'c19',title:'AWS Cloud Technical Essentials',provider:'aws',providerName:'AWS',category:'cloud',price:'free',duration:'12 hours',badge:'new',desc:'Explore core AWS services including compute, storage, databases, and networking.',url:'https://www.coursera.org/learn/aws-cloud-technical-essentials'},
-    {id:'c20',title:'CS50: Introduction to Computer Science',provider:'edx',providerName:'edX (Harvard)',category:'web-dev',price:'free',duration:'12 weeks',badge:'trending',desc:'Harvard legendary intro to CS — algorithms, data structures, C, Python, SQL, and web development.',url:'https://www.edx.org/course/introduction-computer-science-harvardx-cs50x'},
-    {id:'c21',title:'Introduction to Networking and Cloud Computing',provider:'coursera',providerName:'Coursera (Microsoft)',category:'networking',price:'free',duration:'4 weeks',badge:'',desc:'Learn networking fundamentals and cloud computing concepts from Microsoft.',url:'https://www.coursera.org/learn/introduction-to-networking-and-cloud-computing'},
-    {id:'c22',title:'Google UX Design Certificate',provider:'google',providerName:'Google',category:'web-dev',price:'free',duration:'6 months',badge:'',desc:'Design user-centred products and build a professional UX portfolio with Google.',url:'https://grow.google/certificates/ux-design/'}
+    {id:'c1',title:'Introduction to Linux',provider:'linux-foundation',providerName:'Linux Foundation',category:'linux',price:'free',duration:'60 hours',badge:'popular',desc:'A comprehensive introduction to the Linux OS covering command line, file systems, and scripting.',url:'https://training.linuxfoundation.org/training/introduction-to-linux/',img:'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=400&h=200&fit=crop&auto=format'},
+    {id:'c2',title:'Introduction to Kubernetes',provider:'linux-foundation',providerName:'Linux Foundation',category:'devops',price:'free',duration:'14 hours',badge:'trending',desc:'Learn Kubernetes container orchestration and cloud-native application deployment fundamentals.',url:'https://training.linuxfoundation.org/training/introduction-to-kubernetes/',img:'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=200&fit=crop&auto=format'},
+    {id:'c3',title:'Introduction to Cloud Infrastructure Technologies',provider:'linux-foundation',providerName:'Linux Foundation',category:'cloud',price:'free',duration:'14 hours',badge:'new',desc:'Explore cloud computing concepts, IaaS, PaaS, SaaS, and leading cloud providers.',url:'https://training.linuxfoundation.org/training/introduction-to-cloud-infrastructure-technologies/',img:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=200&fit=crop&auto=format'},
+    {id:'c4',title:'Open Source Software Development, Linux and Git',provider:'linux-foundation',providerName:'Linux Foundation',category:'linux',price:'free',duration:'30 hours',badge:'',desc:'Master open source development workflows, Linux fundamentals, and Git version control.',url:'https://www.edx.org/professional-certificate/linuxfoundationx-open-source-software-development-linux-and-git',img:'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=400&h=200&fit=crop&auto=format'},
+    {id:'c5',title:'Introduction to Cybersecurity',provider:'cisco',providerName:'Cisco Networking Academy',category:'cybersecurity',price:'free',duration:'6 hours',badge:'popular',desc:'Explore the world of cybersecurity and learn how to protect yourself and your organisation online.',url:'https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity',img:'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop&auto=format'},
+    {id:'c6',title:'Networking Basics',provider:'cisco',providerName:'Cisco Networking Academy',category:'networking',price:'free',duration:'22 hours',badge:'trending',desc:'Learn the fundamentals of computer networking, IP addressing, and network protocols.',url:'https://www.netacad.com/courses/networking/networking-basics',img:'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=200&fit=crop&auto=format'},
+    {id:'c7',title:'Python Essentials 1',provider:'cisco',providerName:'Cisco Networking Academy',category:'web-dev',price:'free',duration:'25 hours',badge:'new',desc:'Start your Python programming journey with this beginner-friendly course from Cisco.',url:'https://www.netacad.com/courses/programming/pcap-programming-essentials-python',img:'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=200&fit=crop&auto=format'},
+    {id:'c8',title:'Cybersecurity Essentials',provider:'cisco',providerName:'Cisco Networking Academy',category:'cybersecurity',price:'free',duration:'30 hours',badge:'',desc:'Deepen your cybersecurity knowledge with threat analysis, cryptography, and network security.',url:'https://www.netacad.com/courses/cybersecurity/cybersecurity-essentials',img:'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&h=200&fit=crop&auto=format'},
+    {id:'c9',title:'CCNA: Introduction to Networks',provider:'cisco',providerName:'Cisco Networking Academy',category:'networking',price:'free',duration:'70 hours',badge:'popular',desc:'The first CCNA course ? covers network fundamentals, Ethernet, and IPv4/IPv6.',url:'https://www.netacad.com/courses/networking/ccna-introduction-networks',img:'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=200&fit=crop&auto=format'},
+    {id:'c10',title:'Google IT Support Professional Certificate',provider:'google',providerName:'Google',category:'networking',price:'free',duration:'6 months',badge:'trending',desc:'Prepare for a career in IT support with this beginner-level professional certificate from Google.',url:'https://grow.google/certificates/it-support/',img:'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=200&fit=crop&auto=format'},
+    {id:'c11',title:'Google Cybersecurity Certificate',provider:'google',providerName:'Google',category:'cybersecurity',price:'free',duration:'6 months',badge:'new',desc:'Build job-ready cybersecurity skills with hands-on labs and real-world scenarios.',url:'https://grow.google/certificates/cybersecurity/',img:'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=200&fit=crop&auto=format'},
+    {id:'c12',title:'Google Data Analytics Certificate',provider:'google',providerName:'Google',category:'data',price:'free',duration:'6 months',badge:'popular',desc:'Learn data analytics tools including SQL, R, Tableau, and spreadsheets.',url:'https://grow.google/certificates/data-analytics/',img:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop&auto=format'},
+    {id:'c13',title:'IBM AI Foundations for Business',provider:'ibm',providerName:'IBM',category:'data',price:'free',duration:'6 hours',badge:'trending',desc:'Understand AI concepts, machine learning, and how AI is transforming business.',url:'https://www.edx.org/professional-certificate/ibm-applied-ai',img:'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=400&h=200&fit=crop&auto=format'},
+    {id:'c14',title:'IBM Cybersecurity Analyst Professional Certificate',provider:'ibm',providerName:'IBM',category:'cybersecurity',price:'free',duration:'8 months',badge:'new',desc:'Develop skills for a cybersecurity analyst role with IBM professional certificate.',url:'https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst',img:'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=400&h=200&fit=crop&auto=format'},
+    {id:'c15',title:'IBM Full Stack Software Developer',provider:'ibm',providerName:'IBM',category:'web-dev',price:'free',duration:'4 months',badge:'popular',desc:'Build full-stack web apps using React, Node.js, Python, Django, and cloud platforms.',url:'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer',img:'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop&auto=format'},
+    {id:'c16',title:'Meta Front-End Developer Certificate',provider:'meta',providerName:'Meta',category:'web-dev',price:'free',duration:'7 months',badge:'trending',desc:'Learn HTML, CSS, JavaScript, React, and UI/UX principles from Meta engineers.',url:'https://www.coursera.org/professional-certificates/meta-front-end-developer',img:'https://images.unsplash.com/photo-1547658719-da2b51169166?w=400&h=200&fit=crop&auto=format'},
+    {id:'c17',title:'Meta Back-End Developer Certificate',provider:'meta',providerName:'Meta',category:'web-dev',price:'free',duration:'8 months',badge:'',desc:'Build back-end web applications with Python, Django, REST APIs, and databases.',url:'https://www.coursera.org/professional-certificates/meta-back-end-developer',img:'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=200&fit=crop&auto=format'},
+    {id:'c18',title:'AWS Cloud Practitioner Essentials',provider:'aws',providerName:'AWS',category:'cloud',price:'free',duration:'6 hours',badge:'popular',desc:'Build foundational AWS cloud knowledge and prepare for the AWS Cloud Practitioner exam.',url:'https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/',img:'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=400&h=200&fit=crop&auto=format'},
+    {id:'c19',title:'AWS Cloud Technical Essentials',provider:'aws',providerName:'AWS',category:'cloud',price:'free',duration:'12 hours',badge:'new',desc:'Explore core AWS services including compute, storage, databases, and networking.',url:'https://www.coursera.org/learn/aws-cloud-technical-essentials',img:'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=400&h=200&fit=crop&auto=format'},
+    {id:'c20',title:'CS50: Introduction to Computer Science',provider:'edx',providerName:'edX (Harvard)',category:'web-dev',price:'free',duration:'12 weeks',badge:'trending',desc:'Harvard legendary intro to CS ? algorithms, data structures, C, Python, SQL, and web development.',url:'https://www.edx.org/course/introduction-computer-science-harvardx-cs50x',img:'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=400&h=200&fit=crop&auto=format'},
+    {id:'c21',title:'Introduction to Networking and Cloud Computing',provider:'coursera',providerName:'Coursera (Microsoft)',category:'networking',price:'free',duration:'4 weeks',badge:'',desc:'Learn networking fundamentals and cloud computing concepts from Microsoft.',url:'https://www.coursera.org/learn/introduction-to-networking-and-cloud-computing',img:'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?w=400&h=200&fit=crop&auto=format'},
+    {id:'c22',title:'Google UX Design Certificate',provider:'google',providerName:'Google',category:'web-dev',price:'free',duration:'6 months',badge:'',desc:'Design user-centred products and build a professional UX portfolio with Google.',url:'https://grow.google/certificates/ux-design/',img:'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=200&fit=crop&auto=format'}
   ];
 
   var PROV_CFG={
@@ -760,24 +866,31 @@
   var priceFilter='all', viewMode='grid';
   var savedCourses=JSON.parse(localStorage.getItem('buSavedCourses')||'[]');
 
-  /* ── Provider logo SVG ── */
+  /* -- Provider logo SVG -- */
   function provLogo(pid){
     var p=PROV_CFG[pid]||{color:'#374151',bg:'#f3f4f6',abbr:'?'};
     return '<div class="provider-logo" style="background:'+p.bg+'"><svg viewBox="0 0 40 40" width="40" height="40"><rect width="40" height="40" rx="8" fill="'+p.color+'"/><text x="20" y="26" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="'+(p.abbr.length>3?7:p.abbr.length>2?9:12)+'" fill="#fff">'+p.abbr+'</text></svg></div>';
   }
 
-  /* ── Render course card ── */
+  /* -- Render course card -- */
   function courseCard(c){
     var p=PROV_CFG[c.provider]||{color:'#374151',bg:'#f3f4f6',abbr:'?'};
     var badge=c.badge?'<span class="badge-'+c.badge+'">'+c.badge.charAt(0).toUpperCase()+c.badge.slice(1)+'</span>':'';
     var isSaved=savedCourses.indexOf(c.id)!==-1;
+    var thumb=c.img
+      ? '<div class="course-card-thumb-wrap">'+
+          '<img src="'+c.img+'" alt="'+c.title+' course thumbnail" loading="lazy" onerror="this.parentElement.style.display=\'none\'">'+
+          '<div class="course-card-thumb-overlay"></div>'+
+          '<div class="course-card-thumb-badges">'+badge+'</div>'+
+          '<div class="course-card-thumb-price"><span class="price-'+c.price+'">'+c.price.charAt(0).toUpperCase()+c.price.slice(1)+'</span></div>'+
+        '</div>'
+      : '';
+    var badgeInBody=c.img?'':''+badge+'<span class="price-'+c.price+'">'+c.price.charAt(0).toUpperCase()+c.price.slice(1)+'</span>';
     return '<article class="course-card">'+
-      '<div class="course-card-header" style="background:'+p.bg+'">'+
+      thumb+
+      '<div class="course-card-header" style="background:'+p.bg+';'+(c.img?'border-top:none;':'')+'">'+
         provLogo(c.provider)+
-        '<div style="display:flex;gap:0.3rem;flex-wrap:wrap;justify-content:flex-end;">'+
-          badge+
-          '<span class="price-'+c.price+'">'+c.price.charAt(0).toUpperCase()+c.price.slice(1)+'</span>'+
-        '</div>'+
+        (c.img?'':'<div style="display:flex;gap:0.3rem;flex-wrap:wrap;justify-content:flex-end;">'+badge+'<span class="price-'+c.price+'">'+c.price.charAt(0).toUpperCase()+c.price.slice(1)+'</span></div>')+
       '</div>'+
       '<div class="course-card-body">'+
         '<span style="display:inline-block;background:rgba(17,64,217,0.08);color:var(--primary);font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;text-transform:uppercase;letter-spacing:0.05em;width:fit-content;">'+c.category+'</span>'+
@@ -796,8 +909,7 @@
       '</div>'+
     '</article>';
   }
-
-  /* ── Filter & render courses ── */
+  /* -- Filter & render courses -- */
   function filterCourses(){
     var cat=document.getElementById('cat-filter').value;
     var prov=document.getElementById('prov-filter').value;
@@ -840,8 +952,9 @@
 
   function scrollToLearning(){document.getElementById('learning-section').scrollIntoView({behavior:'smooth',block:'start'});}
   function scrollToFeed(){document.getElementById('feed-section').scrollIntoView({behavior:'smooth',block:'start'});}
+  function setActiveTab(el){document.querySelectorAll('.comm-tab').forEach(function(t){t.classList.remove('active');});if(el)el.classList.add('active');}
 
-  /* ── Render feed ── */
+  /* -- Render feed -- */
   function renderFeed(){
     var likes=JSON.parse(localStorage.getItem('buPostLikes')||'{}');
     var html=POSTS.map(function(p){
@@ -900,7 +1013,7 @@
     else if(navigator.clipboard){navigator.clipboard.writeText(url);}
   }
 
-  /* ── Post composer ── */
+  /* -- Post composer -- */
   function togglePostBtn(){
     var ta=document.getElementById('post-textarea');
     var btn=document.getElementById('post-btn');
@@ -924,7 +1037,7 @@
     ta.value=''; togglePostBtn();
   }
 
-  /* ── Messages ── */
+  /* -- Messages -- */
   function openMessages(){document.getElementById('msg-panel').classList.add('open');}
   function closeMessages(){document.getElementById('msg-panel').classList.remove('open');}
   function sendMessage(){
@@ -933,7 +1046,7 @@
     inp.value=''; inp.focus();
   }
 
-  /* ── Notifications ── */
+  /* -- Notifications -- */
   var NOTIFS=[
     {text:'Amara Ssekandi commented on your post',time:'2 hours ago'},
     {text:'Dr. Sarah Nakato liked your post',time:'5 hours ago'},
@@ -961,7 +1074,7 @@
     if(dd&&dd.classList.contains('open')&&!dd.closest('.comm-nav-item')&&!e.target.closest('#notif-dropdown')&&!e.target.closest('[onclick="toggleNotifications()"]')){dd.classList.remove('open');}
   });
 
-  /* ── Directory ── */
+  /* -- Directory -- */
   var DIR_ALUMNI=[
     {name:'Amara Ssekandi',role:'Software Engineer',year:'2018',ini:'AS',color:'#1140d9'},
     {name:'Dr. Sarah Nakato',role:'Health Professional',year:'2008',ini:'SN',color:'#0f766e'},
@@ -989,7 +1102,7 @@
       return '<div style="background:var(--surface-alt);border-radius:12px;padding:1rem;text-align:center;">'+
         '<div class="avatar-circle lg" style="background:'+a.color+';margin:0 auto 0.5rem;">'+a.ini+'</div>'+
         '<div style="font-weight:700;font-size:0.88rem;color:var(--text);">'+a.name+'</div>'+
-        '<div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;">'+a.role+' · Class of '+a.year+'</div>'+
+        '<div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;">'+a.role+' ? Class of '+a.year+'</div>'+
         '<button class="connect-btn" onclick="this.textContent=this.textContent===\'Connect\'?\'Connected\':\'Connect\'">Connect</button>'+
       '</div>';
     }).join('');
@@ -1001,7 +1114,7 @@
     });
   }
 
-  /* ── Group join ── */
+  /* -- Group join -- */
   document.querySelectorAll('.join-btn').forEach(function(b){
     b.addEventListener('click',function(){this.textContent=this.textContent==='Join'?'Joined':'Join';});
   });
@@ -1009,7 +1122,7 @@
     b.addEventListener('click',function(){this.textContent=this.textContent==='Connect'?'Connected':'Connect';});
   });
 
-  /* ── Newsletter ── */
+  /* -- Newsletter -- */
   function handleNewsletter(e){
     e.preventDefault();
     var f=e.target,em=f.querySelector('input[type="email"]'),fb=document.getElementById('nl-success');
@@ -1018,7 +1131,7 @@
     fb.hidden=false; f.reset();
   }
 
-  /* ── Init ── */
+  /* -- Init -- */
   document.addEventListener('DOMContentLoaded',function(){
     // Auth state
     if(user){
