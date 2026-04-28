@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
@@ -27,7 +27,8 @@
         <a href="opportunities.html">Opportunities</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-secondary" href="auth.html">Login / Register</a>
+        <a class="btn btn-ghost" href="auth.html">Sign In</a>
+        <a class="btn btn-secondary" href="register.html">Sign Up</a>
         <a class="btn btn-primary" href="donate.html">Donate</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
@@ -40,7 +41,8 @@
       <a href="memberships.html">Memberships</a>
       <a href="opportunities.html">Opportunities</a>
       <div class="mobile-nav-divider"></div>
-      <a href="auth.html">Login / Register</a>
+      <a href="auth.html">Sign In</a>
+      <a href="register.html">Sign Up</a>
       <a href="donate.html">Donate</a>
     </nav>
   </header>
@@ -51,7 +53,7 @@
       <div class="container about-hero-grid">
         <div>
           <h1>The Plog</h1>
-          <p class="hero-copy">Your portal blog — stay up to date with alumni events, chapter news, and community stories.</p>
+          <p class="hero-copy">Your portal blog � stay up to date with alumni events, chapter news, and community stories.</p>
         </div>
         <div class="hero-visual slide-right plog-slideshow" aria-label="Blog image slideshow">
           <!-- Slides -->
@@ -102,7 +104,7 @@
         <div class="featured-event-badge">Featured Event</div>
         <div>
           <h2>Annual Alumni Gala 2026</h2>
-          <p class="meta">May 10 &nbsp;·&nbsp; Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
+          <p class="meta">May 10 &nbsp;�&nbsp; Kampala Serena Hotel &nbsp;�&nbsp; 6:00 PM EAT</p>
           <p>The biggest alumni gathering of the year. Awards, networking, and celebration of BU's legacy.</p>
         </div>
         <a class="btn btn-primary" href="#event-register">Register Now</a>
@@ -124,7 +126,7 @@
             </div>
             <div class="event-details">
               <h3>Annual Alumni Gala 2026</h3>
-              <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
+              <p class="meta">Kampala Serena Hotel &nbsp;�&nbsp; 6:00 PM EAT</p>
               <p>Join fellow graduates for an evening of networking, awards, and celebration of BU's legacy.</p>
               <div class="event-actions">
                 <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Annual Alumni Gala 2026', 'May 10, 2026', 'Kampala Serena Hotel', '6:00 PM EAT')">Register</a>
@@ -147,7 +149,7 @@
             </div>
             <div class="event-details">
               <h3>Career Fair &amp; Networking Day</h3>
-              <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
+              <p class="meta">BU Main Campus &nbsp;�&nbsp; 9:00 AM EAT</p>
               <p>Connect with recruiters, explore job opportunities, and meet alumni mentors across industries.</p>
               <div class="event-actions">
                 <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Career Fair &amp; Networking Day')">Register</a>
@@ -170,7 +172,7 @@
             </div>
             <div class="event-details">
               <h3>Charity Run for Education</h3>
-              <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
+              <p class="meta">Kololo Airstrip, Kampala &nbsp;�&nbsp; 7:00 AM EAT</p>
               <p>Participate in our annual 5K run to raise funds for student bursaries and school supplies.</p>
               <div class="event-actions">
                 <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Charity Run for Education')">Register</a>
@@ -327,7 +329,7 @@
             </div>
             <p class="ticket-note" id="ticket-note"></p>
 
-            <!-- Download button — href filled by JS after API responds -->
+            <!-- Download button � href filled by JS after API responds -->
             <a id="ticket-download-btn"
                class="btn btn-primary"
                href="#"
@@ -447,7 +449,7 @@
       emailField.blur();
     }
 
-    // Called by each event's Register button — passes event metadata to the form
+    // Called by each event's Register button � passes event metadata to the form
     function setEventTitle(title, date, location, time) {
       document.getElementById('register-form-title').textContent = 'Register: ' + title;
       document.getElementById('reg-event-name').value     = title;
@@ -473,7 +475,7 @@
       }
 
       btn.disabled    = true;
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending�';
 
       try {
         const res = await fetch('/api/register-event', {
@@ -509,7 +511,7 @@
         dlBtn.href     = data.downloadUrl;
         dlBtn.download = `BU-Ticket-${data.ticketId}.pdf`;
 
-        // Swap form → success
+        // Swap form ? success
         document.getElementById('event-reg-form').hidden    = true;
         document.getElementById('event-reg-success').hidden = false;
 
@@ -535,9 +537,10 @@
   </script>
   <script src="theme.js"></script>
   <script src="animations.js"></script>
+  <script src="auth-nav.js"></script>
   <script src="share.js"></script>
   <script>
-    /* ── Plog Hero Slideshow ── */
+    /* -- Plog Hero Slideshow -- */
     (function () {
       var slideshow = document.querySelector('.plog-slideshow');
       if (!slideshow) return;
@@ -613,6 +616,7 @@
 </body>
 </html>
 </html>
+
 
 
 

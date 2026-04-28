@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BU Alumni Portal | Student Access</title>
+  <title>BU Alumni Portal | Sign Up / Sign In</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -27,7 +27,8 @@
         <a href="opportunities.html">Opportunities</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-secondary" href="auth.html">Login / Register</a>
+        <a class="btn btn-ghost" href="auth.html">Sign In</a>
+        <a class="btn btn-secondary" href="register.html">Sign Up</a>
         <a class="btn btn-primary" href="donate.html">Donate</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
@@ -40,7 +41,8 @@
       <a href="memberships.html">Memberships</a>
       <a href="opportunities.html">Opportunities</a>
       <div class="mobile-nav-divider"></div>
-      <a href="auth.html">Login / Register</a>
+      <a href="auth.html">Sign In</a>
+      <a href="register.html">Sign Up</a>
       <a href="donate.html">Donate</a>
     </nav>
   </header>
@@ -49,14 +51,14 @@
     <section class="hero about-hero">
       <div class="container about-hero-grid">
         <div>
-          <p class="eyebrow">Student Access</p>
+          <p class="eyebrow">Alumni Access</p>
           <h1>Sign Up for Alumni Services or Sign In</h1>
           <p class="hero-copy">
-            Students and recent graduates can create an account, choose a service interest, and record the membership fee payment to access BU alumni services.
+            Create an account or sign in to access BU alumni services, networking opportunities, events, and career resources.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#student-signup">Create Account</a>
-            <a class="btn btn-ghost" href="#student-signin">Sign In</a>
+            <a class="btn btn-primary" href="#signup">Create Account</a>
+            <a class="btn btn-ghost" href="#signin">Sign In</a>
           </div>
         </div>
         <div class="hero-card slide-right auth-hero-card">
@@ -124,16 +126,16 @@
       </div>
     </section>
 
-    <section class="section" id="student-signup">
+    <section class="section" id="signup">
       <div class="container auth-layout">
         <div class="auth-card fade-up">
           <div class="section-title-wrap auth-title-wrap">
             <p class="eyebrow">Create Account</p>
-            <h2>Student sign-up</h2>
-            <p>Register your account, select the service you want, and submit the membership access fee details.</p>
+            <h2>Sign Up</h2>
+            <p>Create your BU Alumni account, choose a service, and complete the membership access fee to get started.</p>
           </div>
 
-          <form class="portal-form auth-form" id="student-signup-form" onsubmit="handleStudentSignup(event)">
+          <form class="portal-form auth-form" id="signup-form" onsubmit="handleSignup(event)">
             <div class="form-row">
               <div class="form-group">
                 <label for="signup-name">Full Name</label>
@@ -151,25 +153,22 @@
                 <input type="tel" id="signup-phone" name="phone" placeholder="+256 700 000 000" required autocomplete="tel" />
               </div>
               <div class="form-group">
-                <label for="signup-level">Student Level</label>
+                <label for="signup-level">Account Type</label>
                 <select id="signup-level" name="studentLevel" required>
-                  <option value="">Select level</option>
+                  <option value="">Select type</option>
                   <option value="Current Student">Current Student</option>
                   <option value="Final Year Student">Final Year Student</option>
+                  <option value="Alumni">Alumni</option>
                   <option value="Recent Graduate">Recent Graduate</option>
+                  <option value="Staff">Staff / Faculty</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="signup-program">Program / Course</label>
-                <input type="text" id="signup-program" name="program" placeholder="e.g. BSc Computer Science" required />
-              </div>
-              <div class="form-group">
-                <label for="signup-grad-year">Expected Graduation Year</label>
-                <input type="number" id="signup-grad-year" name="graduationYear" min="2024" max="2035" placeholder="e.g. 2027" />
-              </div>
+            <div class="form-group">
+              <label for="signup-program">Program / Course <span style="font-weight:400;color:#6b7280">(optional)</span></label>
+              <input type="text" id="signup-program" name="program" placeholder="e.g. BSc Computer Science" />
             </div>
 
             <div class="form-group">
@@ -263,14 +262,14 @@
           </form>
         </div>
 
-        <aside class="auth-card auth-card--signin slide-right" id="student-signin">
+        <aside class="auth-card auth-card--signin slide-right" id="signin">
           <div class="section-title-wrap auth-title-wrap">
             <p class="eyebrow">Sign In</p>
-            <h2>Access your student account</h2>
-            <p>Use the email and password you created during sign-up.</p>
+            <h2>Sign In to Your Account</h2>
+            <p>Use the email and password you registered with.</p>
           </div>
 
-          <form class="portal-form auth-form" id="student-signin-form" onsubmit="handleStudentSignin(event)">
+          <form class="portal-form auth-form" id="signin-form" onsubmit="handleSignin(event)">
             <div class="form-group">
               <label for="signin-email">Email Address</label>
               <input type="email" id="signin-email" name="email" placeholder="you@example.com" required autocomplete="email" />
@@ -343,6 +342,7 @@
 
   <script src="theme.js"></script>
   <script src="animations.js"></script>
+  <script src="auth-nav.js"></script>
   <script>
     const MEMBERSHIP_FEE_UGX = 10000;
     const MEMBERSHIP_FEE_USD = 2.70;
@@ -411,7 +411,7 @@
     });
     updateAuthPaymentPanel(document.querySelector('input[name="paymentMethod"]:checked').value);
 
-    async function handleStudentSignup(event) {
+    async function handleSignup(event) {
       event.preventDefault();
 
       const form = event.target;
@@ -448,7 +448,7 @@
       try {
         let result;
         if (window.location.protocol === 'file:') {
-          const existing = JSON.parse(localStorage.getItem('buStudentAccounts') || '[]');
+          const existing = JSON.parse(localStorage.getItem('buAlumniAccounts') || '[]');
           if (existing.some((item) => item.email.toLowerCase() === payload.email.toLowerCase())) {
             throw new Error('An account already exists with that email address.');
           }
@@ -459,14 +459,14 @@
             createdAt: new Date().toISOString()
           };
           existing.unshift(account);
-          localStorage.setItem('buStudentAccounts', JSON.stringify(existing));
+          localStorage.setItem('buAlumniAccounts', JSON.stringify(existing));
           result = {
             success: true,
             accountId: account.accountId,
             message: 'Account created in preview mode. Payment verification remains pending.'
           };
         } else {
-          const response = await fetch('/api/register-student-account', {
+          const response = await fetch('/api/register-account', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -489,7 +489,7 @@
       }
     }
 
-    async function handleStudentSignin(event) {
+    async function handleSignin(event) {
       event.preventDefault();
 
       const form = event.target;
@@ -505,7 +505,7 @@
       try {
         let result;
         if (window.location.protocol === 'file:') {
-          const existing = JSON.parse(localStorage.getItem('buStudentAccounts') || '[]');
+          const existing = JSON.parse(localStorage.getItem('buAlumniAccounts') || '[]');
           const account = existing.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
           if (!account) throw new Error('Invalid email or password.');
           result = {
@@ -519,7 +519,7 @@
             message: `Signed in as ${account.fullName}. Membership payment status: ${account.paymentStatus.replace('_', ' ')}.`
           };
         } else {
-          const response = await fetch('/api/login-student-account', {
+          const response = await fetch('/api/login-account', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -528,7 +528,7 @@
           if (!response.ok || !result.success) throw new Error(result.error || 'Sign in failed.');
         }
 
-        localStorage.setItem('buCurrentStudent', JSON.stringify(result.account));
+        localStorage.setItem('buCurrentUser', JSON.stringify(result.account));
         success.textContent = result.message;
         success.hidden = false;
         form.reset();
@@ -543,4 +543,5 @@
   </script>
 </body>
 </html>
+
 

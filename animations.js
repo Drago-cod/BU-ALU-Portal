@@ -165,12 +165,14 @@ if (!reducedMotion) {
       const rect   = btn.getBoundingClientRect();
       const cx     = rect.left + rect.width  / 2;
       const cy     = rect.top  + rect.height / 2;
-      const dx     = (e.clientX - cx) * 0.28;
-      const dy     = (e.clientY - cy) * 0.28;
-      btn.style.transform = `translate(${dx}px, ${dy}px)`;
+      const dx     = (e.clientX - cx) * 0.35;
+      const dy     = (e.clientY - cy) * 0.35;
+      btn.style.transform = `translate(${dx}px, ${dy}px) scale(1.05)`;
+      btn.style.transition = 'transform 0.1s ease-out';
     });
     btn.addEventListener('mouseleave', () => {
       btn.style.transform = '';
+      btn.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     });
   });
 }
@@ -179,7 +181,7 @@ if (!reducedMotion) {
 if (!reducedMotion) {
   const TILT_CARDS = [
     '.alumni-hub-card', '.event-strip-card', '.testimonial-card',
-    '.value-card', '.resource-card', '.tier-card', '.leader-card',
+    '.value-card', '.resource-card', '.tier-card', '.leader-card', '.stat-card', '.content-card', '.hero-card'
   ].join(', ');
 
   document.querySelectorAll(TILT_CARDS).forEach((card) => {
@@ -187,15 +189,15 @@ if (!reducedMotion) {
       const rect  = card.getBoundingClientRect();
       const x     = (e.clientX - rect.left) / rect.width  - 0.5;
       const y     = (e.clientY - rect.top)  / rect.height - 0.5;
-      const rotX  = clamp(-y * 8, -6, 6);
-      const rotY  = clamp( x * 8, -6, 6);
+      const rotX  = clamp(-y * 12, -10, 10);
+      const rotY  = clamp( x * 12, -10, 10);
       card.style.transform =
-        `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
-      card.style.transition = 'transform 0.1s ease';
+        `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px) scale(1.02)`;
+      card.style.transition = 'transform 0.1s ease-out';
     });
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
-      card.style.transition = 'transform 0.4s ease, box-shadow 0.4s ease';
+      card.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease';
     });
   });
 }

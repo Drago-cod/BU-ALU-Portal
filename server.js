@@ -626,6 +626,60 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // ── POST /api/post-job ─────────────────────────────────────────────────────
+  if (url.pathname === '/api/post-job' && req.method === 'POST') {
+    try {
+      const raw = JSON.parse((await readBody(req)) || '{}');
+
+      const title       = (raw.title       || '').trim();
+      const company     = (raw.company     || '').trim();
+      const type        = (raw.type        || '').trim();
+      const location    = (raw.location    || '').trim();
+      const description = (raw.description || '').trim();
+      const contactEmail= (raw.contactEmail|| '').trim();
+
+      if (!title || !company || !type || !location || !description || !contactEmail)
+        return sendJson(res, 400, { error: 'title, company, type, location, description, and contactEmail are required.' });
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail))
+        return sendJson(res, 400, { error: 'Invalid contact email address.' });
+
+      const jobId = 'JOB-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+      const record = {
+        jobId,
+        title,
+        company,
+        type,
+        location,
+        salary:       (raw.salary       || '').trim(),
+        deadline:     (raw.deadline     || '').trim(),
+        description,
+        requirements: (raw.requirements || '').trim(),
+        contactEmail,
+        website:      (raw.website      || '').trim(),
+        postedBy:     (raw.postedBy     || 'Anonymous').trim(),
+        postedAt:     new Date().toISOString(),
+        status:       'pending_review',
+      };
+
+      // Persist to disk
+      const jobsDir = path.join(ROOT, 'database', 'jobs');
+      if (!fs.existsSync(jobsDir)) fs.mkdirSync(jobsDir, { recursive: true });
+      fs.writeFileSync(path.join(jobsDir, `${jobId}.json`), JSON.stringify(record, null, 2));
+
+      console.log(`[post-job] ${jobId} — "${title}" by ${company} (${record.postedBy})`);
+
+      return sendJson(res, 200, {
+        success: true,
+        jobId,
+        message: `Job "${title}" posted successfully (ID: ${jobId}). It will appear on the board after review.`,
+      });
+
+    } catch (err) {
+      console.error('[post-job]', err);
+      return sendJson(res, 500, { error: 'Failed to post job. Please try again.' });
+    }
+  }
+
   // ── POST /api/momo-prompt ──────────────────────────────────────────────────
   // Simulates sending a Mobile Money payment prompt.
   // In production: replace the simulation block with a real MTN MoMo / Airtel
