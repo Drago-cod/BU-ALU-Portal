@@ -122,6 +122,35 @@
           </div>
         </div>
 
+        <div class="form-group scroll-reveal fade-in-up">
+          <label class="form-label">How would you rate your experience finding us?</label>
+          <div class="rating-wrapper" id="ratingWrapper">
+            <div class="rating-stars" id="ratingStars">
+              <button type="button" class="star-btn" data-rating="1" aria-label="Rate 1 star">
+                <span class="material-icons-round">star_border</span>
+              </button>
+              <button type="button" class="star-btn" data-rating="2" aria-label="Rate 2 stars">
+                <span class="material-icons-round">star_border</span>
+              </button>
+              <button type="button" class="star-btn" data-rating="3" aria-label="Rate 3 stars">
+                <span class="material-icons-round">star_border</span>
+              </button>
+              <button type="button" class="star-btn" data-rating="4" aria-label="Rate 4 stars">
+                <span class="material-icons-round">star_border</span>
+              </button>
+              <button type="button" class="star-btn" data-rating="5" aria-label="Rate 5 stars">
+                <span class="material-icons-round">star_border</span>
+              </button>
+            </div>
+            <div class="rating-text" id="ratingText">Please rate your experience</div>
+            <input type="hidden" id="rating" name="rating" value="">
+          </div>
+          <div class="field-error" id="ratingError" hidden>
+            <span class="material-icons-round" style="font-size: 16px;">error</span>
+            Please provide a rating
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-submit scroll-reveal fade-in-up" style="width: 100%; margin-top: 1.5rem;">Start using BU Alumni Portal now</button>
 
         <div class="auth-links">
@@ -142,6 +171,9 @@
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');
     const referralSource = document.getElementById('referralSource');
+    const rating = document.getElementById('rating');
+    const ratingStars = document.getElementById('ratingStars');
+    const ratingText = document.getElementById('ratingText');
     
     const strengthPanel = document.getElementById('strengthPanel');
     const pwdPopup = document.getElementById('pwdPopup');
@@ -151,13 +183,15 @@
       username: document.getElementById('usernameWrapper'),
       password: document.getElementById('passwordWrapper'),
       confirm: document.getElementById('confirmWrapper'),
-      referral: document.getElementById('referralWrapper')
+      referral: document.getElementById('referralWrapper'),
+      rating: document.getElementById('ratingWrapper')
     };
     const errors = {
       username: document.getElementById('usernameError'),
       password: document.getElementById('passwordError'),
       confirm: document.getElementById('confirmError'),
-      referral: document.getElementById('referralError')
+      referral: document.getElementById('referralError'),
+      rating: document.getElementById('ratingError')
     };
 
     // Rules logic
@@ -298,6 +332,67 @@
     referralSource.addEventListener('change', validateReferralSource);
     referralSource.addEventListener('blur', validateReferralSource);
 
+    // Rating functionality
+    let selectedRating = 0;
+    const ratingLabels = {
+      1: 'Poor',
+      2: 'Fair', 
+      3: 'Good',
+      4: 'Very Good',
+      5: 'Excellent'
+    };
+
+    // Rating star click handlers
+    const starButtons = ratingStars.querySelectorAll('.star-btn');
+    starButtons.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        selectedRating = index + 1;
+        rating.value = selectedRating;
+        updateRatingDisplay(selectedRating);
+        validateRating();
+      });
+
+      btn.addEventListener('mouseenter', () => {
+        updateRatingDisplay(index + 1);
+      });
+    });
+
+    ratingStars.addEventListener('mouseleave', () => {
+      updateRatingDisplay(selectedRating);
+    });
+
+    function updateRatingDisplay(ratingValue) {
+      starButtons.forEach((btn, index) => {
+        const icon = btn.querySelector('.material-icons-round');
+        if (index < ratingValue) {
+          icon.textContent = 'star';
+          btn.classList.add('filled');
+        } else {
+          icon.textContent = 'star_border';
+          btn.classList.remove('filled');
+        }
+      });
+
+      if (ratingValue > 0) {
+        ratingText.textContent = ratingLabels[ratingValue];
+        ratingText.classList.add('has-rating');
+      } else {
+        ratingText.textContent = 'Please rate your experience';
+        ratingText.classList.remove('has-rating');
+      }
+    }
+
+    function validateRating() {
+      const ratingValue = parseInt(rating.value);
+      if (ratingValue < 1 || ratingValue > 5) {
+        showError('rating', errors.rating, true);
+        return false;
+      } else {
+        showError('rating', errors.rating, false);
+        return true;
+      }
+    }
+
     function setupToggle(btnId, inputId) {
       const btn = document.getElementById(btnId);
       const input = document.getElementById(inputId);
@@ -338,8 +433,9 @@
       const isPwdValid = validatePassword();
       const isPwdMatch = validateConfirmPassword();
       const isReferralValid = validateReferralSource();
+      const isRatingValid = validateRating();
 
-      if (isUserValid && isPwdValid && isPwdMatch && isReferralValid) {
+      if (isUserValid && isPwdValid && isPwdMatch && isReferralValid && isRatingValid) {
         // Show loading state
         const submitBtn = document.querySelector('.btn-submit');
         const originalText = submitBtn.textContent;
@@ -353,6 +449,7 @@
           const email = username + domain;
           const password = document.getElementById('password').value;
           const referralSource = document.getElementById('referralSource').value;
+          const ratingValue = document.getElementById('rating').value;
 
           // Send registration request
           const response = await fetch('/api/register-account', {
@@ -363,7 +460,8 @@
             body: JSON.stringify({
               email,
               password,
-              referralSource
+              referralSource,
+              rating: ratingValue
             })
           });
 
@@ -386,6 +484,66 @@
       }
     });
   </script>
+  <style>
+    /* Rating Component Styles */
+    .rating-wrapper {
+      text-align: center;
+    }
+
+    .rating-stars {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #d1d5db;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .star-btn:hover {
+      color: #fbbf24;
+      transform: scale(1.1);
+    }
+
+    .star-btn.active {
+      color: #f59e0b;
+    }
+
+    .star-btn.filled {
+      color: #f59e0b;
+    }
+
+    .rating-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      transition: color 0.2s ease;
+    }
+
+    .rating-text.has-rating {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Responsive rating stars */
+    @media (max-width: 480px) {
+      .star-btn {
+        font-size: 1.5rem;
+      }
+      
+      .rating-stars {
+        gap: 0.3rem;
+      }
+    }
+  </style>
   <script src="animations-enhanced.js"></script>
 </body>
 </html>

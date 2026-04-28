@@ -162,8 +162,6 @@
 .comm-mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; color: var(--muted); font-size: 0.65rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.5rem; border-radius: 8px; transition: color 0.15s; position: relative; }
 .comm-mobile-nav-item:hover, .comm-mobile-nav-item.active { color: var(--primary); }
 .comm-mobile-nav-item .material-icons-round { font-size: 22px; }
-@media (max-width: 1100px) { .community-layout { grid-template-columns: 240px 1fr; } .comm-right-sidebar { display: none; } }
-@media (max-width: 720px) { .community-layout { grid-template-columns: 1fr; } .comm-left-sidebar { display: none; } .comm-mobile-nav { display: flex; } body { padding-bottom: 70px; } }
   </style>
 </head>
 <body>
@@ -433,6 +431,8 @@
           </div>
         </aside>
       </div><!-- end community-layout -->
+
+    
     </div><!-- end container -->
   </main>
   <!-- Mobile bottom nav -->
@@ -1173,6 +1173,7 @@
     form.reset();
   }
 
+  
   // ── Init ────────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function() {
     initSidebar();
