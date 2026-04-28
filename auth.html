@@ -174,6 +174,16 @@
             </div>
 
             <div class="form-group">
+              <label for="signup-tier">Membership Tier</label>
+              <select id="signup-tier" name="membershipType" required>
+                <option value="">Select membership tier</option>
+                <option value="Ordinary">Ordinary - UGX 50,000/year</option>
+                <option value="VP">VP - UGX 150,000/year (Most Popular)</option>
+                <option value="VVP">VVP - UGX 350,000/year (Includes Insurance)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
               <label for="signup-interest">Service Interest</label>
               <select id="signup-interest" name="serviceInterest" required>
                 <option value="">Choose primary service</option>
@@ -421,6 +431,7 @@
         program: form.program.value.trim(),
         studentLevel: form.studentLevel.value,
         graduationYear: form.graduationYear.value.trim(),
+        membershipType: form.membershipType.value,
         serviceInterest: form.serviceInterest.value,
         referralSource: form.referralSource.value,
         password,

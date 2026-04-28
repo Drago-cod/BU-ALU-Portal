@@ -469,6 +469,23 @@
       const phone     = document.getElementById('reg-phone').value.trim();
       const eventName = document.getElementById('reg-event-name').value.trim() || 'BU Alumni Event';
 
+      // Determine event type based on event name
+      function determineEventType(eventName) {
+        const name = eventName.toLowerCase();
+        if (name.includes('tech') || name.includes('ai') || name.includes('machine learning') || name.includes('programming')) {
+          return 'Tech';
+        } else if (name.includes('conference') || name.includes('summit') || name.includes('forum')) {
+          return 'Conference';
+        } else if (name.includes('networking') || name.includes('meet') || name.includes('connect')) {
+          return 'Networking';
+        } else if (name.includes('workshop') || name.includes('training') || name.includes('seminar')) {
+          return 'Workshop';
+        }
+        return 'General';
+      }
+
+      const eventType = determineEventType(eventName);
+
       // Client-side validation
       errorEl.hidden = true;
       if (!fullName || !email || !phone) {
@@ -478,7 +495,7 @@
       }
 
       btn.disabled    = true;
-      btn.textContent = 'Sending�';
+      btn.textContent = 'Sending…';
 
       try {
         const res = await fetch('/api/register-event', {
@@ -489,6 +506,7 @@
             email,
             phone,
             eventName,
+            eventType,
             eventDate:     document.getElementById('reg-event-date').value,
             eventLocation: document.getElementById('reg-event-location').value,
             eventTime:     document.getElementById('reg-event-time').value,

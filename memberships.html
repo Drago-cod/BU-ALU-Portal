@@ -586,8 +586,7 @@
                           Send Prompt
                         </button>
                       </div>
-                      <span class="field-error" id="err-momo-mtn" hidden>Please enter a valid MTN number
-                        (077/078/076).</span>
+                      <span class="field-error" id="err-momo-mtn" hidden>Please enter a valid MTN Uganda number (077/078/076/039).</span>
                     </div>
 
                     <div class="momo-step momo-step--sending" id="momo-step-mtn-sending" hidden>
@@ -596,6 +595,12 @@
                       </p>
                       <p class="momo-note">Check your phone and enter your MTN MoMo PIN to approve <strong>UGX
                           10,000</strong>.</p>
+                    </div>
+
+                    <div class="momo-step momo-step--pending" id="momo-step-mtn-pending" hidden>
+                      <div class="momo-spinner" aria-hidden="true"></div>
+                      <p class="momo-sending-text">Payment prompt sent to <strong id="momo-display-mtn"></strong></p>
+                      <p class="momo-note">Waiting for payment confirmation... Please check your phone and enter your MTN MoMo PIN to approve <strong>UGX 10,000</strong>.</p>
                     </div>
 
                     <div class="momo-step momo-step--success" id="momo-step-mtn-success" hidden>
@@ -640,8 +645,7 @@
                           Send Prompt
                         </button>
                       </div>
-                      <span class="field-error" id="err-momo-airtel" hidden>Please enter a valid Airtel number
-                        (075/070).</span>
+                      <span class="field-error" id="err-momo-airtel" hidden>Please enter a valid Airtel Uganda number (075/070/074).</span>
                     </div>
 
                     <div class="momo-step momo-step--sending" id="momo-step-airtel-sending" hidden>
@@ -650,6 +654,12 @@
                       </p>
                       <p class="momo-note">Check your phone and enter your Airtel Money PIN to approve <strong>UGX
                           10,000</strong>.</p>
+                    </div>
+
+                    <div class="momo-step momo-step--pending" id="momo-step-airtel-pending" hidden>
+                      <div class="momo-spinner momo-spinner--airtel" aria-hidden="true"></div>
+                      <p class="momo-sending-text">Payment prompt sent to <strong id="momo-display-airtel"></strong></p>
+                      <p class="momo-note">Waiting for payment confirmation... Please check your phone and enter your Airtel Money PIN to approve <strong>UGX 10,000</strong>.</p>
                     </div>
 
                     <div class="momo-step momo-step--success" id="momo-step-airtel-success" hidden>
@@ -959,7 +969,7 @@
     const momoConfirmed = { mtn: false, airtel: false };
 
     function showMomoStep(provider, step) {
-      ['input', 'sending', 'success', 'error'].forEach((s) => {
+      ['input', 'sending', 'pending', 'success', 'error'].forEach((s) => {
         const el = document.getElementById(`momo-step-${provider}-${s}`);
         if (el) el.hidden = (s !== step);
       });
@@ -967,16 +977,31 @@
 
     function validateMomoPhone(provider, value) {
       const digits = value.replace(/\D/g, '');
-      if (digits.length < 9 || digits.length > 12) return false;
+      if (digits.length < 9 || digits.length > 15) return false;
+      
+      // Handle different number formats
+      let local;
+      if (digits.startsWith('256')) {
+        local = digits.slice(3); // Remove 256 country code
+      } else if (digits.startsWith('0')) {
+        local = digits; // Keep local format
+      } else if (digits.length === 9) {
+        local = '0' + digits; // Add leading 0 if missing
+      } else {
+        return false;
+      }
+      
+      if (local.length !== 10) return false;
+      
+      const prefix3 = local.slice(0, 3);
+      
       if (provider === 'mtn') {
         // MTN Uganda: 077, 078, 076, 039
-        return /^(256)?(077|078|076|039)\d{7}$/.test(digits) ||
-          /^(077|078|076|039)\d{7}$/.test(digits);
+        return ['077', '078', '076', '039'].includes(prefix3);
       }
       if (provider === 'airtel') {
         // Airtel Uganda: 075, 070, 074
-        return /^(256)?(075|070|074)\d{7}$/.test(digits) ||
-          /^(075|070|074)\d{7}$/.test(digits);
+        return ['075', '070', '074'].includes(prefix3);
       }
       return true;
     }
@@ -1009,7 +1034,7 @@
       showMomoStep(provider, 'sending');
 
       try {
-        // Call backend � simulates sending the prompt
+        // Call backend to send payment prompt
         const res = await fetch('/api/momo-prompt', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1024,19 +1049,64 @@
         const data = await res.json();
 
         if (data.success) {
+          // Start polling for payment status
           document.getElementById(`momo-confirmed-${provider}`).textContent = formatted;
-          momoConfirmed[provider] = true;
-          showMomoStep(provider, 'success');
+          showMomoStep(provider, 'pending');
+          
+          // Poll payment status every 3 seconds for up to 2 minutes
+          const maxAttempts = 40; // 40 attempts * 3 seconds = 2 minutes
+          let attempts = 0;
+          
+          const checkPaymentStatus = async () => {
+            try {
+              const statusRes = await fetch(`/api/payment-status/${data.logId}`);
+              const statusData = await statusRes.json();
+              
+              if (statusData.success && statusData.status === 'confirmed') {
+                momoConfirmed[provider] = true;
+                showMomoStep(provider, 'success');
+                return;
+              } else if (statusData.success && statusData.status === 'failed') {
+                document.getElementById(`momo-error-text-${provider}`).textContent =
+                  'Payment failed. Please try again.';
+                showMomoStep(provider, 'error');
+                return;
+              }
+              
+              attempts++;
+              if (attempts < maxAttempts) {
+                setTimeout(checkPaymentStatus, 3000);
+              } else {
+                document.getElementById(`momo-error-text-${provider}`).textContent =
+                  'Payment confirmation timed out. Please check your phone and try again.';
+                showMomoStep(provider, 'error');
+              }
+            } catch (err) {
+              console.error('Payment status check failed:', err);
+              attempts++;
+              if (attempts < maxAttempts) {
+                setTimeout(checkPaymentStatus, 3000);
+              } else {
+                document.getElementById(`momo-error-text-${provider}`).textContent =
+                  'Unable to confirm payment status. Please try again.';
+                showMomoStep(provider, 'error');
+              }
+            }
+          };
+          
+          // Start checking after 3 seconds
+          setTimeout(checkPaymentStatus, 3000);
+          
         } else {
           document.getElementById(`momo-error-text-${provider}`).textContent =
             data.message || 'Payment was not confirmed. Please try again.';
           showMomoStep(provider, 'error');
         }
-      } catch (_) {
-        // Network error � still simulate success for demo
-        document.getElementById(`momo-confirmed-${provider}`).textContent = formatted;
-        momoConfirmed[provider] = true;
-        showMomoStep(provider, 'success');
+      } catch (err) {
+        console.error('Payment prompt failed:', err);
+        document.getElementById(`momo-error-text-${provider}`).textContent =
+          'Failed to send payment prompt. Please try again.';
+        showMomoStep(provider, 'error');
       }
     };
 
