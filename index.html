@@ -10,14 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
 </head>
 <body>
-  <!-- Animated Background Blobs -->
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-  </div>
-  <header class="site-header">
+    <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="index.html" aria-label="Go to homepage">
         <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
@@ -56,18 +52,18 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero home-hero" id="home">
+    <section class="hero home-hero parallax-section" id="home">
       <div class="container home-hero-grid">
-        <div class="hero-visual slide-left" aria-hidden="true">
+        <div class="hero-image slide-left scroll-reveal">
           <img src="image/programs-scaled.jpg" alt="Bugema University students using a laptop together" />
         </div>
-        <div>
-          <p class="eyebrow">Welcome Home</p>
-          <h1>Connecting Our Past to Your Future.</h1>
-          <p class="hero-copy">
+        <div class="hero-content">
+          <p class="eyebrow fade-in-up">Welcome Home</p>
+          <h1 class="hero-title fade-in-up">Connecting Our Past to Your Future.</h1>
+          <p class="hero-copy fade-in-up">
             Explore alumni opportunities, reconnect with classmates, and support the next generation of BU leaders.
           </p>
-          <div class="hero-actions">
+          <div class="hero-actions fade-in-up">
             <a class="btn btn-primary" href="auth.html">Join the Network</a>
             <a class="btn btn-ghost" href="about.html">Learn More</a>
           </div>
@@ -76,10 +72,10 @@
     </section>
 
     <!-- Alumni Experience -->
-    <section class="alumni-hub section scale-in" aria-labelledby="alumni-hub-title">
+    <section class="alumni-hub section scroll-reveal" aria-labelledby="alumni-hub-title">
       <div class="container">
         <div class="alumni-hub-shell">
-          <div class="alumni-hub-head">
+          <div class="alumni-hub-head fade-in-up">
             <p class="eyebrow">Alumni Experience</p>
             <h2 id="alumni-hub-title">Everything you can do from one portal</h2>
             <p>
@@ -87,26 +83,26 @@
             </p>
           </div>
           <div class="alumni-hub-grid stagger-children">
-            <article class="alumni-hub-card">
+            <article class="alumni-hub-card scroll-reveal">
               <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">group</span></div>
               <h3>Grow Your Network</h3>
               <p>Join the alumni community, update your details, and stay connected with classmates and chapters.</p>
               <a class="text-link" href="auth.html">Join the network &rarr;</a>
             </article>
-            <article class="alumni-hub-card">
+            <article class="alumni-hub-card scroll-reveal">
               <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">work</span></div>
               <h3>Career Support</h3>
               <p>Explore jobs, partnerships, and mentorship paths designed for new graduates and experienced alumni alike.</p>
               <a class="text-link" href="opportunities.html">Explore opportunities &rarr;</a>
               <a class="text-link" href="career-guide.html">Career resources &rarr;</a>
             </article>
-            <article class="alumni-hub-card">
+            <article class="alumni-hub-card scroll-reveal">
               <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">event</span></div>
               <h3>Attend Signature Events</h3>
               <p>Register for reunions, networking days, and community events that keep the BU story active.</p>
               <a class="text-link" href="#event-registration-section">Open the event form &rarr;</a>
             </article>
-            <article class="alumni-hub-card">
+            <article class="alumni-hub-card scroll-reveal">
               <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">favorite</span></div>
               <h3>Give Back</h3>
               <p>Support scholarships, volunteer in outreach programs, and help current students thrive.</p>
@@ -118,18 +114,18 @@
     </section>
 
     <!-- Quick Links -->
-    <section class="section quick-links-section">
+    <section class="section quick-links-section scroll-reveal">
       <div class="container">
         <div class="quick-links-grid stagger-children">
-          <a class="quick-link-card" href="auth.html">
+          <a class="quick-link-card hover-lift" href="auth.html">
             <span class="ql-icon"><span class="material-icons-round">group</span></span>
             <span>Join Network</span>
           </a>
-          <a class="quick-link-card" href="events.html">
+          <a class="quick-link-card hover-lift" href="events.html">
             <span class="ql-icon"><span class="material-icons-round">newspaper</span></span>
             <span>Latest News</span>
           </a>
-          <a class="quick-link-card" href="donate.html">
+          <a class="quick-link-card hover-lift" href="donate.html">
             <span class="ql-icon"><span class="material-icons-round">favorite</span></span>
             <span>Give Back</span>
           </a>
@@ -140,9 +136,9 @@
     <!-- Welcome + Stats -->
     <section id="general-info" class="section">
       <div class="container general-info-grid">
-        <article class="community-story-card slide-left">
+        <article class="community-story-card scroll-reveal fade-in-left">
           <p class="eyebrow">Our Community</p>
-          <h2>Welcome to the BU Alumni Portal</h2>
+          <h2 class="text-gradient">Welcome to the BU Alumni Portal</h2>
           <figure class="community-media">
             <img src="image/Events.png" alt="Bugema University students gathered at a campus community event" />
             <figcaption class="community-media-caption">
@@ -161,15 +157,15 @@
             <a class="btn btn-secondary" href="activities.html">Explore Activities</a>
           </div>
         </article>
-        <aside class="stats-feature-box slide-right" aria-label="BU Alumni Stats">
+        <aside class="stats-feature-box scroll-reveal fade-in-right" aria-label="BU Alumni Stats">
           <h3>BU Alumni at a Glance</h3>
           <ul class="stats-feature-list">
-            <li><strong>389,000+</strong> registered alumni members</li>
-            <li><strong>2,500+</strong> jobs posted this year</li>
-            <li><strong>72</strong> active alumni chapters</li>
-            <li><strong>18,000+</strong> mentorship connections made</li>
-            <li><strong>UGX 31.5M</strong> raised for scholarships</li>
-            <li><strong>120+</strong> partner recruiters</li>
+            <li><strong data-counter="389000">389,000+</strong> registered alumni members</li>
+            <li><strong data-counter="2500">2,500+</strong> jobs posted this year</li>
+            <li><strong data-counter="72">72</strong> active alumni chapters</li>
+            <li><strong data-counter="18000">18,000+</strong> mentorship connections made</li>
+            <li><strong data-counter="31500000">UGX 31.5M</strong> raised for scholarships</li>
+            <li><strong data-counter="120">120+</strong> partner recruiters</li>
           </ul>
           <a class="btn btn-primary stats-feature-cta" href="memberships.html">Become a Member</a>
         </aside>
@@ -177,14 +173,14 @@
     </section>
 
     <!-- Featured Events Strip -->
-    <section class="section section-alt">
+    <section class="section section-alt scroll-reveal">
       <div class="container">
-        <div class="section-title-wrap fade-up">
-          <h2>Upcoming Events</h2>
+        <div class="section-title-wrap fade-in-up">
+          <h2 class="text-gradient">Upcoming Events</h2>
           <p>Don't miss what's happening in the BU alumni community.</p>
         </div>
         <div class="events-strip stagger-children">
-          <article class="event-strip-card">
+          <article class="event-strip-card scroll-reveal hover-lift">
             <div class="event-strip-date">
               <span>MAY</span>
               <strong>10</strong>
@@ -445,6 +441,7 @@
 
   <script src="theme.js"></script>
   <script src="animations.js"></script>
+  <script src="animations-enhanced.js"></script>
   <script src="auth-nav.js"></script>
   <script src="share.js"></script>
   <script src="home.js"></script>
