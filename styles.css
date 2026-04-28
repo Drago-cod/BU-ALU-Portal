@@ -3429,6 +3429,8 @@ body {
 @media (max-width: 680px) {
   .auth-card {
     padding: 1.2rem;
+    margin: 0 auto;
+    max-width: 100%;
   }
 
   .auth-fee-banner,
@@ -3440,6 +3442,37 @@ body {
 
   .auth-payment-line strong {
     text-align: left;
+  }
+
+  .auth-method-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .auth-fee-summary {
+    margin-bottom: 1rem;
+  }
+
+  .auth-payment-panel {
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  .auth-hero-card {
+    padding: 1.5rem;
+  }
+
+  .auth-hero-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .auth-benefits-list {
+    font-size: 0.9rem;
   }
 }
 
@@ -6002,6 +6035,62 @@ html.page-ready {
   .container { padding-inline: 0.6rem; }
 
   h1 { font-size: clamp(1.5rem, 8vw, 1.9rem); }
+
+  .auth-card {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+
+  .auth-method-grid {
+    gap: 0.6rem;
+  }
+
+  .donation-method-card {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .donation-method-card .material-icons-round {
+    font-size: 1.2rem;
+  }
+
+  .auth-payment-panel {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .auth-fee-banner strong {
+    font-size: 1.1rem;
+  }
+
+  .auth-hero-card {
+    padding: 1rem;
+  }
+
+  .auth-hero-card img {
+    height: 120px;
+  }
+
   h2 { font-size: clamp(1.2rem, 6vw, 1.5rem); }
 
   .brand span { display: none; }
@@ -6012,6 +6101,7 @@ html.page-ready {
   .hero-card { padding: 0.9rem; }
 
   .stats-bar-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+}
   .stat-bar-num { font-size: 1.4rem; }
 
   .quick-links-grid { grid-template-columns: 1fr; }

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a href="community.html">Community</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="login.html">Sign In</a>
+        <a class="btn btn-secondary" href="auth.html">Sign Up</a>
+        <a class="btn btn-primary" href="donate.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="community.html">Community</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="login.html">Sign In</a>
+      <a href="auth.html">Sign Up</a>
+      <a href="donate.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero about-hero">
+      <div class="container about-hero-grid">
+        <div>
+          <p class="eyebrow">Alumni Access</p>
+          <h1>Sign In to Your Account</h1>
+          <p class="hero-copy">
+            Access your BU alumni services, networking opportunities, events, and career resources.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#signin">Sign In</a>
+            <a class="btn btn-ghost" href="auth.html">Create Account</a>
+          </div>
+        </div>
+        <div class="hero-card slide-right auth-hero-card">
+          <img src="image/programs-scaled.jpg" alt="Students reviewing Bugema University information on a laptop" class="hero-card-img" />
+          <h3>Welcome Back</h3>
+          <p>Sign in to continue accessing your alumni benefits and connect with fellow graduates.</p>
+          <ul class="auth-benefits-list">
+            <li>Access alumni services and member communications</li>
+            <li>Track opportunities and service updates</li>
+            <li>Register interest in mentorship and events</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container auth-layout">
+        <div class="auth-card fade-up">
+          <div class="section-title-wrap auth-title-wrap">
+            <p class="eyebrow">Sign In</p>
+            <h2>Sign In to Your Account</h2>
+            <p>Use the email and password you registered with.</p>
+          </div>
+
+          <form class="portal-form auth-form" id="signin-form" onsubmit="handleSignin(event)">
+            <div class="form-group">
+              <label for="signin-email">Email Address</label>
+              <input type="email" id="signin-email" name="email" placeholder="you@example.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="signin-password">Password</label>
+              <input type="password" id="signin-password" name="password" placeholder="Your password" required autocomplete="current-password" />
+            </div>
+            <button class="btn btn-primary" id="signin-submit-btn" type="submit">Sign In</button>
+            <p class="form-success" id="signin-success" aria-live="polite" hidden></p>
+          </form>
+
+          <div class="auth-side-note">
+            <h3>Don't have an account yet?</h3>
+            <p>Create a BU Alumni account to access exclusive services and connect with fellow graduates.</p>
+            <a href="auth.html" class="btn btn-secondary">Create Account</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon">in</a>
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">f</a>
+          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">&#9679;</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Portal</h4>
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="activities.html">Activities</a>
+        <a href="community.html">Community</a>
+        <a class="footer-link" href="events.html">Events</a>
+        <a class="footer-link" href="memberships.html">Memberships</a>
+        <a class="footer-link" href="opportunities.html">Opportunities</a>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Contact</h4>
+        <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
+        <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
+        <a class="footer-link" href="legal.html#terms">Terms of Use</a>
+      </div>
+      <div class="footer-newsletter">
+        <h4 class="footer-heading">Stay Updated</h4>
+        <p class="footer-copy">Get alumni news and events in your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <p class="newsletter-success" id="nl-success" hidden></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script src="animations.js"></script>
+  <script src="auth-nav.js"></script>
+  <script>
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const form = e.target;
+      const emailField = form.querySelector('input[type="email"]');
+      const feedback = document.getElementById('nl-success');
+      if (!emailField || !feedback) return;
+      const email = emailField.value.trim();
+      feedback.textContent = 'Thanks. ' + email + ' will now receive BU alumni updates.';
+      feedback.hidden = false;
+      form.reset();
+      emailField.blur();
+    }
+
+    async function handleSignin(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const success = document.getElementById('signin-success');
+      const submitBtn = document.getElementById('signin-submit-btn');
+      const email = form.email.value.trim();
+      const password = form.password.value;
+
+      success.hidden = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing in...';
+
+      try {
+        let result;
+        if (window.location.protocol === 'file:') {
+          const existing = JSON.parse(localStorage.getItem('buAlumniAccounts') || '[]');
+          const account = existing.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
+          if (!account) throw new Error('Invalid email or password.');
+          result = {
+            success: true,
+            account: {
+              accountId: account.accountId,
+              fullName: account.fullName,
+              email: account.email,
+              paymentStatus: account.paymentStatus
+            },
+            message: `Signed in as ${account.fullName}. Membership payment status: ${account.paymentStatus.replace('_', ' ')}.`
+          };
+        } else {
+          const response = await fetch('/api/login-account', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+          result = await response.json();
+          if (!response.ok || !result.success) throw new Error(result.error || 'Sign in failed.');
+        }
+
+        localStorage.setItem('buCurrentUser', JSON.stringify(result.account));
+        success.textContent = result.message;
+        success.hidden = false;
+        form.reset();
+      } catch (err) {
+        success.textContent = err.message;
+        success.hidden = false;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign In';
+      }
+    }
+  </script>
+</body>
+</html>

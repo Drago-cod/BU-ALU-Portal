@@ -332,6 +332,107 @@
       }
       .form-card { padding: 1.5rem; }
     }
+
+    @media (max-width: 680px) {
+      .form-card {
+        padding: 1.2rem;
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-group label {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .input-wrapper input,
+      .input-wrapper select {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      .domain-select {
+        padding: 0 0.5rem;
+        font-size: 0.85rem;
+      }
+
+      .btn-submit {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        margin-top: 1rem;
+      }
+
+      .toggle-password {
+        padding: 0 0.8rem;
+      }
+
+      .strength-panel {
+        padding: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .strength-title {
+        font-size: 0.9rem;
+      }
+
+      .rule-item {
+        font-size: 0.8rem;
+        gap: 0.4rem;
+      }
+
+      .pwd-popup {
+        width: 280px;
+        padding: 1rem;
+      }
+
+      .pwd-popup-header {
+        font-size: 0.85rem;
+      }
+
+      .btn-popup {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-card {
+        padding: 1rem;
+        margin: 0.25rem;
+        max-width: calc(100% - 0.5rem);
+      }
+
+      .form-group label {
+        font-size: 0.8rem;
+      }
+
+      .input-wrapper input,
+      .input-wrapper select {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+      }
+
+      .btn-submit {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+      }
+
+      .strength-panel {
+        padding: 0.8rem;
+      }
+
+      .pwd-popup {
+        width: 260px;
+      }
+
+      .domain-select {
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -421,6 +522,27 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label for="referralSource">How did you get to know about us?</label>
+          <div class="input-wrapper" id="referralWrapper">
+            <select id="referralSource" required style="width: 100%; padding: 0.85rem 1rem; border: none; background: transparent; outline: none; font-size: 0.95rem; color: var(--text-main);">
+              <option value="">Please select an option</option>
+              <option value="social_media">Social Media</option>
+              <option value="friend">Friend or Colleague</option>
+              <option value="search_engine">Search Engine</option>
+              <option value="advertisement">Advertisement</option>
+              <option value="event">University Event</option>
+              <option value="email">Email Newsletter</option>
+              <option value="website">Another Website</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="error-msg" id="referralError">
+            <span class="material-icons-round" style="font-size: 16px;">error</span>
+            Please select how you heard about us
+          </div>
+        </div>
+
         <button type="submit" class="btn-submit">Start using BU Alumni Portal now</button>
 
         <div class="auth-links">
@@ -440,6 +562,7 @@
     const username = document.getElementById('username');
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');
+    const referralSource = document.getElementById('referralSource');
     
     const strengthPanel = document.getElementById('strengthPanel');
     const pwdPopup = document.getElementById('pwdPopup');
@@ -448,12 +571,14 @@
     const wrappers = {
       username: document.getElementById('usernameWrapper'),
       password: document.getElementById('passwordWrapper'),
-      confirm: document.getElementById('confirmWrapper')
+      confirm: document.getElementById('confirmWrapper'),
+      referral: document.getElementById('referralWrapper')
     };
     const errors = {
       username: document.getElementById('usernameError'),
       password: document.getElementById('passwordError'),
-      confirm: document.getElementById('confirmError')
+      confirm: document.getElementById('confirmError'),
+      referral: document.getElementById('referralError')
     };
 
     // Rules logic
@@ -508,6 +633,14 @@
       const isMatch = password.value === confirmPassword.value;
       showError('confirm', errors.confirm, !isMatch, 'Passwords do not match');
       return isMatch;
+    }
+
+    function validateReferralSource() {
+      const isValid = referralSource.value.trim().length > 0;
+      showError('referral', errors.referral, !isValid, 'Please select how you heard about us');
+      if(isValid) wrappers.referral.classList.add('valid');
+      else wrappers.referral.classList.remove('valid');
+      return isValid;
     }
 
     function generateStrongPassword() {
@@ -583,6 +716,8 @@
     password.addEventListener('input', validatePasswordStrength);
     confirmPassword.addEventListener('input', validateConfirmPassword);
     confirmPassword.addEventListener('blur', validateConfirmPassword);
+    referralSource.addEventListener('change', validateReferralSource);
+    referralSource.addEventListener('blur', validateReferralSource);
 
     function setupToggle(btnId, inputId) {
       const btn = document.getElementById(btnId);
@@ -623,8 +758,9 @@
       const isUserValid = validateUsername();
       const isPwdValid = validatePassword();
       const isPwdMatch = validateConfirmPassword();
+      const isReferralValid = validateReferralSource();
 
-      if (isUserValid && isPwdValid && isPwdMatch) {
+      if (isUserValid && isPwdValid && isPwdMatch && isReferralValid) {
         alert('Success! Form is valid.');
       }
     });
