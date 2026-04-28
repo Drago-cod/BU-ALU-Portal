@@ -276,6 +276,9 @@
               <a href="memberships.html" class="comm-nav-item">
                 <span class="material-icons-round" aria-hidden="true">volunteer_activism</span> Support Fund
               </a>
+              <a href="#learning" class="comm-nav-item" onclick="scrollToSection(event,'learning')">
+                <span class="material-icons-round" aria-hidden="true">school</span> Learning
+              </a>
             </nav>
           </div>
         </aside>
@@ -431,6 +434,225 @@
           </div>
         </aside>
       </div><!-- end community-layout -->
+
+      <!-- ══════════════════════════════════════════════════════
+           LEARNING OPPORTUNITIES SECTION
+      ══════════════════════════════════════════════════════ -->
+      <section class="learn-section" id="learning" aria-labelledby="learn-heading">
+
+        <!-- Section header -->
+        <div class="learn-header">
+          <div class="learn-header-text">
+            <p class="eyebrow">Free Certified Courses</p>
+            <h2 id="learn-heading">Learning Opportunities</h2>
+            <p class="learn-subtitle">Discover free, certified courses from the world's most trusted platforms — hand-picked for BU alumni.</p>
+          </div>
+          <div class="learn-header-actions">
+            <!-- Search -->
+            <div class="learn-search-wrap">
+              <span class="material-icons-round learn-search-icon" aria-hidden="true">search</span>
+              <input type="search" id="learn-search" class="learn-search"
+                     placeholder="Search courses…" aria-label="Search courses"
+                     oninput="filterCourses()" />
+            </div>
+            <!-- Alert bell -->
+            <button class="learn-alert-btn" id="learn-alert-btn"
+                    onclick="toggleCourseAlert(this)"
+                    aria-label="Get notified when new courses are added"
+                    title="Alert me when new courses are added">
+              <span class="material-icons-round" aria-hidden="true">notifications_none</span>
+              <span class="learn-alert-label">Notify Me</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="learn-filters" role="group" aria-label="Filter courses">
+          <div class="learn-filter-group">
+            <label for="filter-cat" class="learn-filter-label">Category</label>
+            <select id="filter-cat" class="learn-filter-select" onchange="filterCourses()" aria-label="Filter by category">
+              <option value="all">All Categories</option>
+              <option value="cybersecurity">Cybersecurity</option>
+              <option value="networking">Networking</option>
+              <option value="web-dev">Web Development</option>
+              <option value="cloud">Cloud Computing</option>
+              <option value="data">Data & AI</option>
+              <option value="linux">Linux & Open Source</option>
+              <option value="business">Business & Leadership</option>
+              <option value="devops">DevOps & Containers</option>
+            </select>
+          </div>
+          <div class="learn-filter-group">
+            <label for="filter-provider" class="learn-filter-label">Provider</label>
+            <select id="filter-provider" class="learn-filter-select" onchange="filterCourses()" aria-label="Filter by provider">
+              <option value="all">All Providers</option>
+              <option value="linux-foundation">Linux Foundation</option>
+              <option value="cisco">Cisco Networking Academy</option>
+              <option value="google">Google</option>
+              <option value="ibm">IBM</option>
+              <option value="meta">Meta</option>
+              <option value="coursera">Coursera</option>
+              <option value="edx">edX</option>
+              <option value="aws">AWS</option>
+            </select>
+          </div>
+          <div class="learn-filter-group">
+            <label for="filter-price" class="learn-filter-label">Price</label>
+            <select id="filter-price" class="learn-filter-select" onchange="filterCourses()" aria-label="Filter by price">
+              <option value="all">All</option>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+            </select>
+          </div>
+          <button class="learn-clear-btn" onclick="clearFilters()" aria-label="Clear all filters">
+            <span class="material-icons-round" aria-hidden="true">filter_alt_off</span> Clear
+          </button>
+        </div>
+
+        <!-- Recommended strip (shown when signed in) -->
+        <div class="learn-recommended" id="learn-recommended" hidden>
+          <h3 class="learn-strip-title">
+            <span class="material-icons-round" aria-hidden="true">auto_awesome</span>
+            Recommended for You
+          </h3>
+          <div class="learn-strip-grid" id="recommended-grid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Results count -->
+        <div class="learn-results-bar">
+          <span id="learn-count" class="learn-count"></span>
+          <div class="learn-view-toggle" role="group" aria-label="View mode">
+            <button class="learn-view-btn active" id="view-grid-btn" onclick="setView('grid')" aria-label="Grid view" aria-pressed="true">
+              <span class="material-icons-round" aria-hidden="true">grid_view</span>
+            </button>
+            <button class="learn-view-btn" id="view-list-btn" onclick="setView('list')" aria-label="List view" aria-pressed="false">
+              <span class="material-icons-round" aria-hidden="true">view_list</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Course grid -->
+        <div class="learn-grid" id="learn-grid" aria-live="polite" aria-label="Course listings">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- No results -->
+        <div class="learn-no-results" id="learn-no-results" hidden>
+          <span class="material-icons-round" aria-hidden="true">search_off</span>
+          <p>No courses match your filters. <button class="learn-inline-btn" onclick="clearFilters()">Clear filters</button></p>
+        </div>
+
+        <!-- Admin panel (shown only when admin flag set in localStorage) -->
+        <div class="learn-admin-panel" id="learn-admin-panel" hidden>
+          <div class="learn-admin-header">
+            <h3><span class="material-icons-round" aria-hidden="true">admin_panel_settings</span> Course Admin</h3>
+            <button class="learn-admin-close" onclick="closeAdminPanel()" aria-label="Close admin panel">
+              <span class="material-icons-round" aria-hidden="true">close</span>
+            </button>
+          </div>
+          <form class="learn-admin-form" id="learn-admin-form" onsubmit="adminAddCourse(event)">
+            <div class="learn-admin-grid">
+              <div class="form-group">
+                <label for="adm-title">Course Title *</label>
+                <input type="text" id="adm-title" required placeholder="e.g. Introduction to Linux" />
+              </div>
+              <div class="form-group">
+                <label for="adm-provider">Provider *</label>
+                <select id="adm-provider" required>
+                  <option value="">Select provider</option>
+                  <option value="linux-foundation">Linux Foundation</option>
+                  <option value="cisco">Cisco Networking Academy</option>
+                  <option value="google">Google</option>
+                  <option value="ibm">IBM</option>
+                  <option value="meta">Meta</option>
+                  <option value="coursera">Coursera</option>
+                  <option value="edx">edX</option>
+                  <option value="aws">AWS</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="adm-category">Category *</label>
+                <select id="adm-category" required>
+                  <option value="">Select category</option>
+                  <option value="cybersecurity">Cybersecurity</option>
+                  <option value="networking">Networking</option>
+                  <option value="web-dev">Web Development</option>
+                  <option value="cloud">Cloud Computing</option>
+                  <option value="data">Data & AI</option>
+                  <option value="linux">Linux & Open Source</option>
+                  <option value="business">Business & Leadership</option>
+                  <option value="devops">DevOps & Containers</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="adm-price">Price</label>
+                <select id="adm-price">
+                  <option value="free">Free</option>
+                  <option value="paid">Paid</option>
+                </select>
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label for="adm-desc">Description *</label>
+                <textarea id="adm-desc" rows="2" required placeholder="Short course description…"></textarea>
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label for="adm-url">Official Course URL *</label>
+                <input type="url" id="adm-url" required placeholder="https://…" />
+              </div>
+              <div class="form-group">
+                <label for="adm-duration">Duration</label>
+                <input type="text" id="adm-duration" placeholder="e.g. 14 hours" />
+              </div>
+              <div class="form-group">
+                <label for="adm-badge">Badge</label>
+                <select id="adm-badge">
+                  <option value="">None</option>
+                  <option value="new">New</option>
+                  <option value="trending">Trending</option>
+                  <option value="popular">Popular</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
+              <button class="btn btn-primary" type="submit">Add Course</button>
+              <button class="btn btn-ghost" type="button" onclick="closeAdminPanel()">Cancel</button>
+            </div>
+            <p class="form-success" id="adm-success" hidden>
+              <span class="material-icons-round mi-check">check</span> Course added successfully!
+            </p>
+          </form>
+        </div>
+
+        <!-- Admin trigger (visible only to signed-in members) -->
+        <div style="text-align:center;margin-top:1.5rem;" id="learn-admin-trigger-wrap" hidden>
+          <button class="learn-admin-trigger" id="learn-admin-trigger"
+                  onclick="openAdminPanel()"
+                  aria-label="Open course admin panel">
+            <span class="material-icons-round" aria-hidden="true">admin_panel_settings</span>
+            Manage Courses
+          </button>
+        </div>
+
+        <!-- Members-only gate (shown when non-member clicks manage) -->
+        <div class="learn-member-gate" id="learn-member-gate" hidden>
+          <span class="material-icons-round" aria-hidden="true">lock</span>
+          <h3>Members Only</h3>
+          <p>You need to be a registered BU Alumni member to manage courses.</p>
+          <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;">
+            <a class="btn btn-primary" href="memberships.html#signup-form">
+              <span class="material-icons-round" style="font-size:16px;">card_membership</span>
+              Become a Member
+            </a>
+            <a class="btn btn-secondary" href="auth.html">
+              <span class="material-icons-round" style="font-size:16px;">login</span>
+              Sign In
+            </a>
+          </div>
+        </div>
+
+      </section><!-- /learning -->
 
     
     </div><!-- end container -->
@@ -1173,12 +1395,330 @@
     form.reset();
   }
 
+  // ══════════════════════════════════════════════════════════════════════════
+  // LEARNING OPPORTUNITIES
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // ── Course data ────────────────────────────────────────────────────────────
+  var COURSES = [
+    // Linux Foundation
+    { id:'c1',  title:'Introduction to Linux',                    provider:'linux-foundation', providerName:'Linux Foundation',       category:'linux',         price:'free',  duration:'60 hours',  badge:'popular',  description:'A comprehensive introduction to the Linux operating system, covering command line, file systems, and scripting.', url:'https://training.linuxfoundation.org/training/introduction-to-linux/', tags:['linux','open source','command line'] },
+    { id:'c2',  title:'Introduction to Kubernetes',               provider:'linux-foundation', providerName:'Linux Foundation',       category:'devops',        price:'free',  duration:'14 hours',  badge:'trending', description:'Learn the fundamentals of Kubernetes container orchestration and cloud-native application deployment.', url:'https://training.linuxfoundation.org/training/introduction-to-kubernetes/', tags:['kubernetes','containers','devops'] },
+    { id:'c3',  title:'Introduction to Cloud Infrastructure Technologies', provider:'linux-foundation', providerName:'Linux Foundation', category:'cloud', price:'free', duration:'14 hours', badge:'new', description:'Explore cloud computing concepts, IaaS, PaaS, SaaS, and leading cloud providers.', url:'https://training.linuxfoundation.org/training/introduction-to-cloud-infrastructure-technologies/', tags:['cloud','infrastructure','devops'] },
+    { id:'c4',  title:'Open Source Software Development, Linux and Git', provider:'linux-foundation', providerName:'Linux Foundation', category:'linux', price:'free', duration:'30 hours', badge:'', description:'Master open source development workflows, Linux fundamentals, and Git version control.', url:'https://www.edx.org/professional-certificate/linuxfoundationx-open-source-software-development-linux-and-git', tags:['linux','git','open source'] },
+    // Cisco Networking Academy
+    { id:'c5',  title:'Introduction to Cybersecurity',            provider:'cisco',            providerName:'Cisco Networking Academy', category:'cybersecurity', price:'free',  duration:'6 hours',   badge:'popular',  description:'Explore the world of cybersecurity and learn how to protect yourself and your organisation online.', url:'https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity', tags:['cybersecurity','security','beginner'] },
+    { id:'c6',  title:'Networking Basics',                        provider:'cisco',            providerName:'Cisco Networking Academy', category:'networking',    price:'free',  duration:'22 hours',  badge:'trending', description:'Learn the fundamentals of computer networking, IP addressing, and network protocols.', url:'https://www.netacad.com/courses/networking/networking-basics', tags:['networking','tcp/ip','cisco'] },
+    { id:'c7',  title:'Python Essentials 1',                      provider:'cisco',            providerName:'Cisco Networking Academy', category:'web-dev',       price:'free',  duration:'25 hours',  badge:'new',      description:'Start your Python programming journey with this beginner-friendly course from Cisco.', url:'https://www.netacad.com/courses/programming/pcap-programming-essentials-python', tags:['python','programming','beginner'] },
+    { id:'c8',  title:'Cybersecurity Essentials',                 provider:'cisco',            providerName:'Cisco Networking Academy', category:'cybersecurity', price:'free',  duration:'30 hours',  badge:'',         description:'Deepen your cybersecurity knowledge with threat analysis, cryptography, and network security.', url:'https://www.netacad.com/courses/cybersecurity/cybersecurity-essentials', tags:['cybersecurity','encryption','network security'] },
+    { id:'c9',  title:'CCNA: Introduction to Networks',           provider:'cisco',            providerName:'Cisco Networking Academy', category:'networking',    price:'free',  duration:'70 hours',  badge:'popular',  description:'The first course in the CCNA curriculum — covers network fundamentals, Ethernet, and IPv4/IPv6.', url:'https://www.netacad.com/courses/networking/ccna-introduction-networks', tags:['ccna','networking','cisco','certification'] },
+    // Google
+    { id:'c10', title:'Google IT Support Professional Certificate', provider:'google',          providerName:'Google',                 category:'networking',    price:'free',  duration:'6 months',  badge:'trending', description:'Prepare for a career in IT support with this beginner-level professional certificate from Google.', url:'https://grow.google/certificates/it-support/', tags:['it support','networking','google','certification'] },
+    { id:'c11', title:'Google Cybersecurity Certificate',          provider:'google',           providerName:'Google',                 category:'cybersecurity', price:'free',  duration:'6 months',  badge:'new',      description:'Build job-ready cybersecurity skills with hands-on labs and real-world scenarios.', url:'https://grow.google/certificates/cybersecurity/', tags:['cybersecurity','google','certification','siem'] },
+    { id:'c12', title:'Google Data Analytics Certificate',         provider:'google',           providerName:'Google',                 category:'data',          price:'free',  duration:'6 months',  badge:'popular',  description:'Learn data analytics tools and techniques including SQL, R, Tableau, and spreadsheets.', url:'https://grow.google/certificates/data-analytics/', tags:['data analytics','sql','tableau','google'] },
+    { id:'c13', title:'Google UX Design Certificate',              provider:'google',           providerName:'Google',                 category:'web-dev',       price:'free',  duration:'6 months',  badge:'',         description:'Design user-centred products and build a professional UX portfolio with Google.', url:'https://grow.google/certificates/ux-design/', tags:['ux','design','figma','google'] },
+    // IBM
+    { id:'c14', title:'IBM AI Foundations for Business',           provider:'ibm',              providerName:'IBM',                    category:'data',          price:'free',  duration:'6 hours',   badge:'trending', description:'Understand AI concepts, machine learning, and how AI is transforming business.', url:'https://www.edx.org/professional-certificate/ibm-applied-ai', tags:['ai','machine learning','ibm','business'] },
+    { id:'c15', title:'IBM Cybersecurity Analyst Professional Certificate', provider:'ibm',     providerName:'IBM',                    category:'cybersecurity', price:'free',  duration:'8 months',  badge:'new',      description:'Develop skills for a cybersecurity analyst role with IBM\'s professional certificate program.', url:'https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst', tags:['cybersecurity','siem','ibm','certification'] },
+    { id:'c16', title:'IBM Full Stack Software Developer',         provider:'ibm',              providerName:'IBM',                    category:'web-dev',       price:'free',  duration:'4 months',  badge:'popular',  description:'Build full-stack web applications using React, Node.js, Python, Django, and cloud platforms.', url:'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer', tags:['full stack','react','nodejs','ibm'] },
+    // Meta
+    { id:'c17', title:'Meta Front-End Developer Certificate',      provider:'meta',             providerName:'Meta',                   category:'web-dev',       price:'free',  duration:'7 months',  badge:'trending', description:'Learn HTML, CSS, JavaScript, React, and UI/UX principles from Meta engineers.', url:'https://www.coursera.org/professional-certificates/meta-front-end-developer', tags:['html','css','javascript','react','meta'] },
+    { id:'c18', title:'Meta Back-End Developer Certificate',       provider:'meta',             providerName:'Meta',                   category:'web-dev',       price:'free',  duration:'8 months',  badge:'',         description:'Build back-end web applications with Python, Django, REST APIs, and databases.', url:'https://www.coursera.org/professional-certificates/meta-back-end-developer', tags:['python','django','api','meta'] },
+    // AWS
+    { id:'c19', title:'AWS Cloud Practitioner Essentials',         provider:'aws',              providerName:'AWS',                    category:'cloud',         price:'free',  duration:'6 hours',   badge:'popular',  description:'Build foundational AWS cloud knowledge and prepare for the AWS Certified Cloud Practitioner exam.', url:'https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/', tags:['aws','cloud','certification','amazon'] },
+    { id:'c20', title:'AWS Cloud Technical Essentials',            provider:'aws',              providerName:'AWS',                    category:'cloud',         price:'free',  duration:'12 hours',  badge:'new',      description:'Explore core AWS services including compute, storage, databases, and networking.', url:'https://www.coursera.org/learn/aws-cloud-technical-essentials', tags:['aws','cloud','s3','ec2'] },
+    // edX / Coursera
+    { id:'c21', title:'CS50: Introduction to Computer Science',    provider:'edx',              providerName:'edX (Harvard)',           category:'web-dev',       price:'free',  duration:'12 weeks',  badge:'trending', description:'Harvard\'s legendary intro to computer science — algorithms, data structures, C, Python, SQL, and web development.', url:'https://www.edx.org/course/introduction-computer-science-harvardx-cs50x', tags:['computer science','python','c','harvard'] },
+    { id:'c22', title:'Introduction to Networking and Cloud Computing', provider:'coursera',    providerName:'Coursera (Microsoft)',    category:'networking',    price:'free',  duration:'4 weeks',   badge:'',         description:'Learn networking fundamentals and cloud computing concepts from Microsoft on Coursera.', url:'https://www.coursera.org/learn/introduction-to-networking-and-cloud-computing', tags:['networking','cloud','microsoft'] },
+  ];
+
+  // ── Provider config (logos / colours) ─────────────────────────────────────
+  var PROVIDERS = {
+    'linux-foundation': { name:'Linux Foundation',        color:'#003366', bg:'#e8f0fb', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#003366"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="#fff">LF</text></svg>' },
+    'cisco':            { name:'Cisco Networking Academy', color:'#1ba0d7', bg:'#e0f4fd', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#1ba0d7"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="9" fill="#fff">CISCO</text></svg>' },
+    'google':           { name:'Google',                   color:'#4285f4', bg:'#e8f0fe', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#fff" stroke="#e5e7eb"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="10" fill="#4285f4">G</text></svg>' },
+    'ibm':              { name:'IBM',                      color:'#0f62fe', bg:'#edf5ff', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0f62fe"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="#fff">IBM</text></svg>' },
+    'meta':             { name:'Meta',                     color:'#0082fb', bg:'#e7f3ff', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0082fb"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="9" fill="#fff">META</text></svg>' },
+    'coursera':         { name:'Coursera',                 color:'#0056d2', bg:'#e8f0fb', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0056d2"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="7" fill="#fff">COURSERA</text></svg>' },
+    'edx':              { name:'edX',                      color:'#02262b', bg:'#e6f4f1', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#02262b"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="#fff">edX</text></svg>' },
+    'aws':              { name:'AWS',                      color:'#ff9900', bg:'#fff8e1', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#232f3e"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="9" fill="#ff9900">AWS</text></svg>' },
+  };
+
+  var BADGE_CONFIG = {
+    'new':      { label:'New',      cls:'badge-new' },
+    'trending': { label:'Trending', cls:'badge-trending' },
+    'popular':  { label:'Popular',  cls:'badge-popular' },
+  };
+
+  var CAT_LABELS = {
+    'cybersecurity':'Cybersecurity','networking':'Networking','web-dev':'Web Dev',
+    'cloud':'Cloud','data':'Data & AI','linux':'Linux','business':'Business','devops':'DevOps',
+  };
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  var allCourses   = COURSES.slice();   // mutable (admin can add)
+  var currentView  = 'grid';
+  var alertEnabled = false;
+
+  // ── Render a course card ───────────────────────────────────────────────────
+  function renderCourseCard(course, compact) {
+    var prov  = PROVIDERS[course.provider] || { name: course.providerName, color:'#374151', bg:'#f3f4f6', icon:'' };
+    var badge = course.badge ? BADGE_CONFIG[course.badge] : null;
+    var catLabel = CAT_LABELS[course.category] || course.category;
+
+    var badgeHtml = badge
+      ? '<span class="course-badge ' + badge.cls + '" aria-label="' + badge.label + '">' + badge.label + '</span>'
+      : '';
+
+    var priceHtml = course.price === 'free'
+      ? '<span class="course-price-free">Free</span>'
+      : '<span class="course-price-paid">Paid</span>';
+
+    if (compact) {
+      return '<div class="course-card course-card--compact" data-id="' + course.id + '">' +
+        '<div class="course-card-logo" style="background:' + prov.bg + ';">' + prov.icon + '</div>' +
+        '<div class="course-card-body">' +
+          '<div class="course-card-meta-row">' +
+            '<span class="course-cat-tag">' + catLabel + '</span>' +
+            priceHtml + badgeHtml +
+          '</div>' +
+          '<h4 class="course-card-title">' + course.title + '</h4>' +
+          '<p class="course-card-provider">' + prov.name + '</p>' +
+        '</div>' +
+        '<a class="btn btn-primary course-apply-btn" href="' + course.url + '" target="_blank" rel="noopener noreferrer" aria-label="Apply for ' + course.title + '">Apply</a>' +
+      '</div>';
+    }
+
+    return '<article class="course-card" data-id="' + course.id + '" data-category="' + course.category + '" data-provider="' + course.provider + '" data-price="' + course.price + '">' +
+      '<div class="course-card-header" style="background:' + prov.bg + ';">' +
+        '<div class="course-card-logo-wrap">' + prov.icon + '</div>' +
+        '<div class="course-card-badges">' + badgeHtml + priceHtml + '</div>' +
+      '</div>' +
+      '<div class="course-card-body">' +
+        '<span class="course-cat-tag">' + catLabel + '</span>' +
+        '<h3 class="course-card-title">' + course.title + '</h3>' +
+        '<p class="course-card-provider" style="color:' + prov.color + ';">' + prov.name + '</p>' +
+        '<p class="course-card-desc">' + course.description + '</p>' +
+        (course.duration ? '<div class="course-card-duration"><span class="material-icons-round" aria-hidden="true">schedule</span>' + course.duration + '</div>' : '') +
+      '</div>' +
+      '<div class="course-card-footer">' +
+        '<a class="btn btn-primary course-apply-btn" href="' + course.url + '" target="_blank" rel="noopener noreferrer" aria-label="Apply for ' + course.title + '">' +
+          '<span class="material-icons-round" aria-hidden="true">open_in_new</span> Apply Now' +
+        '</a>' +
+        '<button class="course-save-btn" onclick="saveCourse(\'' + course.id + '\', this)" aria-label="Save course" title="Save for later">' +
+          '<span class="material-icons-round" aria-hidden="true">bookmark_border</span>' +
+        '</button>' +
+      '</div>' +
+    '</article>';
+  }
+
+  // ── Filter & render ────────────────────────────────────────────────────────
+  function filterCourses() {
+    var cat      = document.getElementById('filter-cat').value;
+    var provider = document.getElementById('filter-provider').value;
+    var price    = document.getElementById('filter-price').value;
+    var query    = (document.getElementById('learn-search').value || '').toLowerCase().trim();
+
+    var filtered = allCourses.filter(function(c) {
+      var matchCat  = cat      === 'all' || c.category === cat;
+      var matchProv = provider === 'all' || c.provider === provider;
+      var matchPrice= price    === 'all' || c.price    === price;
+      var matchQ    = !query   || query === 'admin' ||
+        c.title.toLowerCase().includes(query) ||
+        c.description.toLowerCase().includes(query) ||
+        (c.tags || []).some(function(t){ return t.includes(query); }) ||
+        (PROVIDERS[c.provider] || {}).name.toLowerCase().includes(query);
+      return matchCat && matchProv && matchPrice && matchQ;
+    });
+
+    renderCourseGrid(filtered);
+  }
+
+  function renderCourseGrid(courses) {
+    var grid    = document.getElementById('learn-grid');
+    var noRes   = document.getElementById('learn-no-results');
+    var countEl = document.getElementById('learn-count');
+
+    if (!courses.length) {
+      grid.innerHTML = '';
+      noRes.hidden   = false;
+      countEl.textContent = '0 courses found';
+      return;
+    }
+
+    noRes.hidden = true;
+    countEl.textContent = courses.length + ' course' + (courses.length !== 1 ? 's' : '') + ' found';
+
+    grid.className = 'learn-grid' + (currentView === 'list' ? ' learn-grid--list' : '');
+    grid.innerHTML = courses.map(function(c){ return renderCourseCard(c, false); }).join('');
+  }
+
+  function clearFilters() {
+    document.getElementById('filter-cat').value      = 'all';
+    document.getElementById('filter-provider').value = 'all';
+    document.getElementById('filter-price').value    = 'all';
+    document.getElementById('learn-search').value    = '';
+    filterCourses();
+  }
+
+  // ── View toggle ────────────────────────────────────────────────────────────
+  function setView(mode) {
+    currentView = mode;
+    document.getElementById('view-grid-btn').classList.toggle('active', mode === 'grid');
+    document.getElementById('view-list-btn').classList.toggle('active', mode === 'list');
+    document.getElementById('view-grid-btn').setAttribute('aria-pressed', mode === 'grid');
+    document.getElementById('view-list-btn').setAttribute('aria-pressed', mode === 'list');
+    filterCourses();
+  }
+
+  // ── Recommended strip ──────────────────────────────────────────────────────
+  function renderRecommended() {
+    if (!user) return;
+    var strip = document.getElementById('learn-recommended');
+    var grid  = document.getElementById('recommended-grid');
+    // Pick 3 trending/popular courses
+    var picks = allCourses.filter(function(c){ return c.badge === 'trending' || c.badge === 'popular'; }).slice(0, 3);
+    if (!picks.length) return;
+    grid.innerHTML = picks.map(function(c){ return renderCourseCard(c, true); }).join('');
+    strip.hidden = false;
+  }
+
+  // ── Save course ────────────────────────────────────────────────────────────
+  function saveCourse(courseId, btn) {
+    var saved = JSON.parse(localStorage.getItem('buSavedCourses') || '[]');
+    var idx   = saved.indexOf(courseId);
+    var icon  = btn.querySelector('.material-icons-round');
+    if (idx === -1) {
+      saved.push(courseId);
+      if (icon) icon.textContent = 'bookmark';
+      btn.style.color = 'var(--primary)';
+      btn.setAttribute('aria-label', 'Unsave course');
+    } else {
+      saved.splice(idx, 1);
+      if (icon) icon.textContent = 'bookmark_border';
+      btn.style.color = '';
+      btn.setAttribute('aria-label', 'Save course');
+    }
+    localStorage.setItem('buSavedCourses', JSON.stringify(saved));
+  }
+
+  // ── Alert toggle ───────────────────────────────────────────────────────────
+  function toggleCourseAlert(btn) {
+    alertEnabled = !alertEnabled;
+    localStorage.setItem('buCourseAlert', alertEnabled ? '1' : '0');
+    var icon  = btn.querySelector('.material-icons-round');
+    var label = btn.querySelector('.learn-alert-label');
+    if (alertEnabled) {
+      if (icon)  icon.textContent  = 'notifications_active';
+      if (label) label.textContent = 'Alerts On';
+      btn.classList.add('alert-active');
+      btn.setAttribute('aria-label', 'Disable course alerts');
+    } else {
+      if (icon)  icon.textContent  = 'notifications_none';
+      if (label) label.textContent = 'Notify Me';
+      btn.classList.remove('alert-active');
+      btn.setAttribute('aria-label', 'Get notified when new courses are added');
+    }
+  }
+
+  // ── Admin panel — members only ─────────────────────────────────────────────
+  function isMember() {
+    // User is a member if they are signed in AND have a membership record
+    // We check buCurrentUser (signed in) + buAlumniAccounts or memberId in their record
+    if (!user) return false;
+    // Check if they have a memberId stored (set after membership registration)
+    var memberId = user.memberId || user.member_id || null;
+    if (memberId) return true;
+    // Fallback: check if any member record exists for their email in localStorage
+    var members = JSON.parse(localStorage.getItem('buMemberRecords') || '[]');
+    return members.some(function(m) {
+      return m.email && m.email.toLowerCase() === (user.email || '').toLowerCase();
+    });
+  }
+
+  function openAdminPanel() {
+    var gate  = document.getElementById('learn-member-gate');
+    var panel = document.getElementById('learn-admin-panel');
+
+    if (!user) {
+      // Not signed in at all
+      gate.hidden  = false;
+      panel.hidden = true;
+      gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    if (!isMember()) {
+      // Signed in but not a member
+      gate.hidden  = false;
+      panel.hidden = true;
+      gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Verified member — show the panel
+    gate.hidden  = true;
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function closeAdminPanel() {
+    document.getElementById('learn-admin-panel').hidden = true;
+    document.getElementById('adm-success').hidden = true;
+    document.getElementById('learn-admin-form').reset();
+  }
+  function adminAddCourse(e) {
+    e.preventDefault();
+    var newCourse = {
+      id:          'c' + Date.now(),
+      title:       document.getElementById('adm-title').value.trim(),
+      provider:    document.getElementById('adm-provider').value,
+      providerName:(PROVIDERS[document.getElementById('adm-provider').value] || {}).name || '',
+      category:    document.getElementById('adm-category').value,
+      price:       document.getElementById('adm-price').value,
+      duration:    document.getElementById('adm-duration').value.trim(),
+      description: document.getElementById('adm-desc').value.trim(),
+      url:         document.getElementById('adm-url').value.trim(),
+      badge:       document.getElementById('adm-badge').value,
+      tags:        [],
+    };
+    allCourses.unshift(newCourse);
+    // Persist to localStorage
+    localStorage.setItem('buAdminCourses', JSON.stringify(allCourses));
+    filterCourses();
+    document.getElementById('adm-success').hidden = false;
+    document.getElementById('learn-admin-form').reset();
+    setTimeout(function(){ document.getElementById('adm-success').hidden = true; }, 3000);
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────
+  function initLearning() {
+    // Restore admin-added courses
+    var stored = localStorage.getItem('buAdminCourses');
+    if (stored) {
+      try { allCourses = JSON.parse(stored); } catch(_) {}
+    }
+    // Restore alert state
+    alertEnabled = localStorage.getItem('buCourseAlert') === '1';
+    if (alertEnabled) {
+      var btn = document.getElementById('learn-alert-btn');
+      if (btn) toggleCourseAlert(btn);
+    }
+    // Show "Manage Courses" button only to signed-in members
+    var triggerWrap = document.getElementById('learn-admin-trigger-wrap');
+    if (triggerWrap) {
+      triggerWrap.hidden = !isMember();
+    }
+    filterCourses();
+    renderRecommended();
+  }
+
   
   // ── Init ────────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function() {
     initSidebar();
     initComposer();
     renderFeed();
+    initLearning();
   });
   </script>
 </body>
