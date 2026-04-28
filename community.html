@@ -561,10 +561,36 @@
   <script src="auth-nav.js"></script>
   <script src="share.js"></script>
   <script type="module">
-  // ══════════════════════════════════════════════════════════════
-  // FIREBASE CONFIG — replace ALL placeholder values with yours
-  // from Firebase Console → Project Settings → Your apps → Web
-  // ══════════════════════════════════════════════════════════════
+  // ── IMPORTANT: This page requires an HTTP server ──────────────────────────
+  // Open via: http://localhost:8080/community.html  (run: node server.js)
+  // Opening as file:// will block Firebase module imports.
+  // ─────────────────────────────────────────────────────────────────────────
+  if (window.location.protocol === 'file:') {
+    document.body.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,Arial,sans-serif;background:#f6f8fc;padding:2rem;text-align:center">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" style="width:64px;height:64px;border-radius:50%;margin-bottom:1.5rem;background:#fff;padding:.5rem;box-shadow:0 4px 16px rgba(0,0,0,.1)" />
+        <h1 style="font-size:1.6rem;font-weight:800;color:#1b2234;margin:0 0 .75rem">Server Required</h1>
+        <p style="color:#5f6a85;max-width:44ch;margin:0 0 1.5rem;line-height:1.6">
+          The Community page uses Firebase real-time features that require an HTTP server.<br>
+          You're currently opening the file directly (<code style="background:#e8eeff;padding:.1rem .4rem;border-radius:4px;font-size:.9em">file://</code>).
+        </p>
+        <div style="background:#fff;border:1px solid #dbe2f1;border-radius:16px;padding:1.5rem 2rem;max-width:480px;text-align:left;box-shadow:0 8px 24px rgba(17,64,217,.08)">
+          <p style="font-weight:800;color:#1b2234;margin:0 0 .75rem">Start the server:</p>
+          <code style="display:block;background:#0f1a3a;color:#e5eafc;padding:1rem;border-radius:10px;font-size:.9rem;margin-bottom:1rem">
+            cd "BU ALU Portal"<br>
+            node server.js
+          </code>
+          <p style="color:#5f6a85;font-size:.88rem;margin:0 0 .5rem">Then open in your browser:</p>
+          <a href="http://localhost:8080/community.html" style="display:block;background:#1140d9;color:#fff;text-decoration:none;padding:.75rem 1rem;border-radius:10px;font-weight:700;text-align:center;font-size:.9rem">
+            http://localhost:8080/community.html
+          </a>
+        </div>
+        <p style="margin-top:1.5rem;font-size:.82rem;color:#5f6a85">
+          All other pages work without a server. <a href="index.html" style="color:#1140d9;font-weight:700">← Back to Home</a>
+        </p>
+      </div>`;
+    throw new Error('file:// protocol — server required');
+  }
   import { initializeApp }                                    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
   import { getAuth, createUserWithEmailAndPassword,
            signInWithEmailAndPassword, signOut,
