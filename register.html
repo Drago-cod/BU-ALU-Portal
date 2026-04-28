@@ -14,6 +14,94 @@
 </head>
 <body>
 
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a href="community.html">Community</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="login.html">Sign In</a>
+        <a class="btn btn-secondary active" href="register.html">Sign Up</a>
+        <a class="btn btn-primary" href="donate.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="community.html">Community</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="login.html">Sign In</a>
+      <a class="active" href="register.html">Sign Up</a>
+      <a href="donate.html">Donate</a>
+    </nav>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-dot-grid" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="page-hero-eyebrow">
+            <span class="material-icons-round">person_add</span>
+            Join the Network
+          </div>
+          <h1>Create Your Account</h1>
+          <p class="hero-copy">Join thousands of BU graduates. Access career resources, events, mentorship, and the alumni community.</p>
+          <div class="page-hero-actions">
+            <a class="page-hero-btn-ghost" href="login.html">
+              <span class="material-icons-round" style="font-size:1rem;">login</span>
+              Already have an account?
+            </a>
+          </div>
+        </div>
+        <div class="page-hero-badges">
+          <div class="page-hero-badge">
+            <span class="material-icons-round">groups</span>
+            <div><div class="page-hero-badge-val">4,200+</div><div class="page-hero-badge-text">Alumni members</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">school</span>
+            <div><div class="page-hero-badge-val">Free</div><div class="page-hero-badge-text">22 certified courses</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="page-hero-stats">
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">people</span></div>
+          <div><div class="page-hero-stat-val">4,200+</div><div class="page-hero-stat-lbl">Members</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">school</span></div>
+          <div><div class="page-hero-stat-val">22</div><div class="page-hero-stat-lbl">Free Courses</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">work</span></div>
+          <div><div class="page-hero-stat-val">500+</div><div class="page-hero-stat-lbl">Job Listings</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">event</span></div>
+          <div><div class="page-hero-stat-val">50+</div><div class="page-hero-stat-lbl">Events / Year</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <div class="container">
     <!-- Main Form -->
     <div class="form-card scroll-reveal scale-in">
@@ -545,6 +633,12 @@
     }
   </style>
   <script src="animations-enhanced.js"></script>
+
+  
+
+  <script src="theme.js"></script>
+  <script src="animations.js"></script>
+  <script src="auth-nav.js"></script>
 </body>
 </html>
 

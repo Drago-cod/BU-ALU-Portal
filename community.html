@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,7 +180,7 @@
     /* Page hero */
     .comm-tab-bar{background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:72px;z-index:90;box-shadow:0 4px 12px rgba(17,64,217,0.07);}.comm-tab-bar .container{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}.comm-tab-bar .container::-webkit-scrollbar{display:none;}.comm-tab{display:inline-flex;align-items:center;gap:0.4rem;padding:0.85rem 1.3rem;border:none;background:none;color:var(--muted);font-size:0.83rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.18s;white-space:nowrap;text-decoration:none;font-family:inherit;letter-spacing:0.01em;}.comm-tab:hover{color:var(--text);background:var(--surface-alt);}.comm-tab.active{color:var(--primary);border-bottom-color:var(--primary);background:rgba(17,64,217,0.04);}.comm-tab .material-icons-round{font-size:1.05rem;}@media(max-width:720px){.comm-tab span.material-icons-round{display:none;}.comm-tab{padding:0.75rem 1rem;font-size:0.8rem;}}
     /* -- Community Hero -- */
-    .comm-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#071a6e 0%,#0c30a6 35%,#1140d9 65%,#1e55f0 100%);color:#fff;padding:3.5rem 0 0;}
+    .comm-hero{position:relative;overflow:hidden;background:var(--cta-bg);color:#fff;padding:3.5rem 0 0;}
     .comm-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(99,140,255,0.22) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 10% 80%,rgba(0,200,180,0.12) 0%,transparent 60%);pointer-events:none;z-index:0;}
     .comm-hero::after{content:"";position:absolute;top:-60px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;}
     .comm-hero-inner{position:relative;z-index:3;padding-bottom:2.8rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;}
@@ -417,7 +417,7 @@
           </div>
 
           <!-- Join card (shown when signed out) -->
-          <div class="comm-card" id="join-card" style="background:linear-gradient(135deg,#0c30a6,#1e55f0);border:none;padding:1.4rem;">
+          <div class="comm-card" id="join-card" style="background:var(--cta-bg);border:none;padding:1.4rem;">
             <div style="text-align:center;">
               <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 0.7rem;">
                 <span class="material-icons-round" style="font-size:1.6rem;color:#fff;">groups</span>

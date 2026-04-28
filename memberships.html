@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
 </head>
 
 <body>
@@ -55,29 +56,64 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero about-hero">
-      <div class="container about-hero-grid">
-        <div>
-          <p class="eyebrow">Memberships</p>
+    <section class="page-hero">
+    <div class="page-hero-dot-grid" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="page-hero-eyebrow">
+            <span class="material-icons-round">card_membership</span>
+            Memberships
+          </div>
           <h1>Choose Your Tier</h1>
-          <p class="hero-copy">
-            Your membership sustains the BU Alumni network and unlocks exclusive benefits. Every tier makes a
-            difference.
-          </p>
+          <p class="hero-copy">Your membership sustains the BU Alumni network and unlocks exclusive benefits. Every tier makes a difference.</p>
+          <div class="page-hero-actions">
+            <a class="page-hero-btn-primary" href="#tiers">
+              <span class="material-icons-round" style="font-size:1rem;">card_membership</span>
+              View Plans
+            </a>
+            <a class="page-hero-btn-ghost" href="register.html">
+              <span class="material-icons-round" style="font-size:1rem;">person_add</span>
+              Create Account
+            </a>
+          </div>
         </div>
-        <div class="hero-card slide-right">
-          <img src="image/Events.png" alt="Bugema University students attending an alumni gathering"
-            class="hero-card-img" />
-          <h3>Why Join?</h3>
-          <ul>
-            <li>Access exclusive networking events</li>
-            <li>Support student scholarships</li>
-            <li>Unlock career opportunities</li>
-            <li>VVP members qualify for insurance</li>
-          </ul>
+        <div class="page-hero-badges">
+          <img src="image/Events.png" alt="BU Alumni Memberships" class="page-hero-image" />
+          <div class="page-hero-badge">
+            <span class="material-icons-round">star</span>
+            <div><div class="page-hero-badge-val">3 Tiers</div><div class="page-hero-badge-text">Basic, Premium &amp; Elite</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">health_and_safety</span>
+            <div><div class="page-hero-badge-val">Insurance</div><div class="page-hero-badge-text">Included in Elite tier</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">groups</span>
+            <div><div class="page-hero-badge-val">4,200+</div><div class="page-hero-badge-text">Active members</div></div>
+          </div>
         </div>
       </div>
-    </section>
+      <div class="page-hero-stats">
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">people</span></div>
+          <div><div class="page-hero-stat-val">4,200+</div><div class="page-hero-stat-lbl">Active Members</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">card_membership</span></div>
+          <div><div class="page-hero-stat-val">3</div><div class="page-hero-stat-lbl">Membership Tiers</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">work</span></div>
+          <div><div class="page-hero-stat-val">500+</div><div class="page-hero-stat-lbl">Job Opportunities</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">school</span></div>
+          <div><div class="page-hero-stat-val">22</div><div class="page-hero-stat-lbl">Free Courses</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- Tier Cards -->
     <section class="section section-alt">
@@ -563,7 +599,7 @@
               <!-- Contextual instructions shown after selection -->
               <div class="pay-instructions" id="pay-instructions" hidden>
 
-                <!-- -- MTN Mobile Money � live prompt flow -- -->
+                <!-- -- MTN Mobile Money ? live prompt flow -- -->
                 <div id="pay-instr-mtn" class="pay-instr-block" hidden>
                   <div class="momo-flow" id="momo-flow-mtn" data-provider="MTN Mobile Money" data-prefix="077,078,076">
                     <div class="momo-step" id="momo-step-mtn-input">
@@ -577,7 +613,7 @@
                         Enter your MTN MoMo number
                       </p>
                       <p class="momo-note">A payment prompt will be sent to this number. You will approve it on your
-                        phone � <strong>no PIN is entered here.</strong></p>
+                        phone ? <strong>no PIN is entered here.</strong></p>
                       <div class="momo-input-row">
                         <input type="tel" class="momo-phone-input" id="momo-phone-mtn" placeholder="e.g. 0771 234 567"
                           maxlength="13" autocomplete="tel" aria-label="MTN Mobile Money phone number" />
@@ -591,7 +627,7 @@
 
                     <div class="momo-step momo-step--sending" id="momo-step-mtn-sending" hidden>
                       <div class="momo-spinner" aria-hidden="true"></div>
-                      <p class="momo-sending-text">Sending payment prompt to <strong id="momo-display-mtn"></strong>�
+                      <p class="momo-sending-text">Sending payment prompt to <strong id="momo-display-mtn"></strong>?
                       </p>
                       <p class="momo-note">Check your phone and enter your MTN MoMo PIN to approve <strong>UGX
                           10,000</strong>.</p>
@@ -620,7 +656,7 @@
                   </div>
                 </div>
 
-                <!-- -- Airtel Money � live prompt flow -- -->
+                <!-- -- Airtel Money ? live prompt flow -- -->
                 <div id="pay-instr-airtel" class="pay-instr-block" hidden>
                   <div class="momo-flow" id="momo-flow-airtel" data-provider="Airtel Money" data-prefix="075,070">
                     <div class="momo-step" id="momo-step-airtel-input">
@@ -634,7 +670,7 @@
                         Enter your Airtel Money number
                       </p>
                       <p class="momo-note">A payment prompt will be sent to this number. You will approve it on your
-                        phone � <strong>no PIN is entered here.</strong></p>
+                        phone ? <strong>no PIN is entered here.</strong></p>
                       <div class="momo-input-row">
                         <input type="tel" class="momo-phone-input" id="momo-phone-airtel"
                           placeholder="e.g. 0751 234 567" maxlength="13" autocomplete="tel"
@@ -650,7 +686,7 @@
 
                     <div class="momo-step momo-step--sending" id="momo-step-airtel-sending" hidden>
                       <div class="momo-spinner momo-spinner--airtel" aria-hidden="true"></div>
-                      <p class="momo-sending-text">Sending payment prompt to <strong id="momo-display-airtel"></strong>�
+                      <p class="momo-sending-text">Sending payment prompt to <strong id="momo-display-airtel"></strong>?
                       </p>
                       <p class="momo-note">Check your phone and enter your Airtel Money PIN to approve <strong>UGX
                           10,000</strong>.</p>
@@ -696,7 +732,7 @@
 
                 <!-- -- Bank Transfer -- -->
                 <div id="pay-instr-bank" class="pay-instr-block" hidden>
-                  <strong>Bank Transfer � Stanbic Bank Uganda</strong>
+                  <strong>Bank Transfer ? Stanbic Bank Uganda</strong>
                   <table class="pay-bank-table">
                     <tr>
                       <td>Account Name</td>
@@ -920,7 +956,7 @@
         document.getElementById('rv-email').textContent = document.getElementById('mem-email').value.trim();
         document.getElementById('rv-phone').textContent = document.getElementById('mem-phone').value.trim();
         document.getElementById('rv-profession').textContent = document.getElementById('mem-profession').value.trim();
-        document.getElementById('rv-location').textContent = document.getElementById('mem-location').value.trim() || '�';
+        document.getElementById('rv-location').textContent = document.getElementById('mem-location').value.trim() || '?';
         document.getElementById('rv-tier').textContent = tier.value;
 
         setStep(3);
@@ -939,7 +975,7 @@
       });
     });
 
-    // Payment method � show contextual instructions
+    // Payment method ? show contextual instructions
     document.querySelectorAll('input[name="paymentMethod"]').forEach((radio) => {
       radio.addEventListener('change', () => {
         // Highlight selected card
@@ -1146,7 +1182,7 @@
 
       const btn = document.getElementById('mem-submit-btn');
       btn.disabled = true;
-      btn.textContent = 'Submitting�';
+      btn.textContent = 'Submitting?';
 
       // Collect MoMo phone if applicable
       const momoPhone = isMtn
@@ -1188,7 +1224,7 @@
 
         document.getElementById('mem-success-details').innerHTML =
           `<div class="mem-review-card" style="margin-top:1rem;">
-            <div class="mem-review-row"><span>Member ID</span><strong>${data.memberId || '�'}</strong></div>
+            <div class="mem-review-row"><span>Member ID</span><strong>${data.memberId || '?'}</strong></div>
             <div class="mem-review-row"><span>Membership</span><strong>${payload.membershipType}</strong></div>
             <div class="mem-review-row"><span>Email</span><strong>${payload.email}</strong></div>
             <div class="mem-review-row mem-review-row--fee"><span>Registration Fee</span><strong>UGX 10,000</strong></div>

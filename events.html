@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
 </head>
 <body>
   <header class="site-header">
@@ -51,54 +52,64 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero about-hero">
-      <div class="container about-hero-grid">
-        <div>
-          <h1>The Plog</h1>
-          <p class="hero-copy">Your portal blog  stay up to date with alumni events, chapter news, and community stories.</p>
+    <section class="page-hero">
+    <div class="page-hero-dot-grid" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="page-hero-eyebrow">
+            <span class="material-icons-round">event</span>
+            The Plog
+          </div>
+          <h1>Events &amp; News</h1>
+          <p class="hero-copy">Stay up to date with alumni events, chapter news, and community stories from across the BU network.</p>
+          <div class="page-hero-actions">
+            <a class="page-hero-btn-primary" href="#events-list">
+              <span class="material-icons-round" style="font-size:1rem;">event</span>
+              Browse Events
+            </a>
+            <a class="page-hero-btn-ghost" href="register.html">
+              <span class="material-icons-round" style="font-size:1rem;">person_add</span>
+              Register Now
+            </a>
+          </div>
         </div>
-        <div class="hero-visual slide-right plog-slideshow" aria-label="Blog image slideshow">
-          <!-- Slides -->
-          <div class="plog-slide plog-slide--active">
-            <img src="image/event1.png" alt="Attendees at a major BU alumni event" />
-            <div class="plog-slide-caption">Annual Alumni Gala</div>
+        <div class="page-hero-badges">
+          <img src="image/event1.png" alt="BU Alumni Events" class="page-hero-image" />
+          <div class="page-hero-badge">
+            <span class="material-icons-round">calendar_month</span>
+            <div><div class="page-hero-badge-val">50+</div><div class="page-hero-badge-text">Events per year</div></div>
           </div>
-          <div class="plog-slide">
-            <img src="image/Events.png" alt="BU alumni gathering on campus" />
-            <div class="plog-slide-caption">Campus Gatherings</div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">location_on</span>
+            <div><div class="page-hero-badge-val">Global</div><div class="page-hero-badge-text">In-person &amp; virtual</div></div>
           </div>
-          <div class="plog-slide">
-            <img src="image/Charity.png" alt="BU alumni community charity project" />
-            <div class="plog-slide-caption">Community Impact</div>
-          </div>
-          <div class="plog-slide">
-            <img src="image/Alu1.png" alt="BU alumni networking event" />
-            <div class="plog-slide-caption">Alumni Network</div>
-          </div>
-          <div class="plog-slide">
-            <img src="image/programs-scaled.jpg" alt="BU students and alumni collaborating" />
-            <div class="plog-slide-caption">Learning Together</div>
-          </div>
-
-          <!-- Controls -->
-          <button class="plog-prev" aria-label="Previous image" type="button">
-            <span class="material-icons-round">chevron_left</span>
-          </button>
-          <button class="plog-next" aria-label="Next image" type="button">
-            <span class="material-icons-round">chevron_right</span>
-          </button>
-
-          <!-- Dots -->
-          <div class="plog-dots" role="tablist" aria-label="Slide indicators">
-            <button class="plog-dot plog-dot--active" role="tab" aria-label="Slide 1" aria-selected="true" data-index="0" type="button"></button>
-            <button class="plog-dot" role="tab" aria-label="Slide 2" aria-selected="false" data-index="1" type="button"></button>
-            <button class="plog-dot" role="tab" aria-label="Slide 3" aria-selected="false" data-index="2" type="button"></button>
-            <button class="plog-dot" role="tab" aria-label="Slide 4" aria-selected="false" data-index="3" type="button"></button>
-            <button class="plog-dot" role="tab" aria-label="Slide 5" aria-selected="false" data-index="4" type="button"></button>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">groups</span>
+            <div><div class="page-hero-badge-val">4,200+</div><div class="page-hero-badge-text">Alumni attendees</div></div>
           </div>
         </div>
       </div>
-    </section>
+      <div class="page-hero-stats">
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">event</span></div>
+          <div><div class="page-hero-stat-val">50+</div><div class="page-hero-stat-lbl">Events / Year</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">groups</span></div>
+          <div><div class="page-hero-stat-val">4,200+</div><div class="page-hero-stat-lbl">Attendees</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">location_on</span></div>
+          <div><div class="page-hero-stat-val">15+</div><div class="page-hero-stat-lbl">Countries</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">mic</span></div>
+          <div><div class="page-hero-stat-val">30+</div><div class="page-hero-stat-lbl">Speakers / Year</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- Featured Event Banner -->
     <div class="featured-event-banner">
@@ -106,7 +117,7 @@
         <div class="featured-event-badge">Featured Event</div>
         <div>
           <h2>Annual Alumni Gala 2026</h2>
-          <p class="meta">May 10 &nbsp;�&nbsp; Kampala Serena Hotel &nbsp;�&nbsp; 6:00 PM EAT</p>
+          <p class="meta">May 10 &nbsp;?&nbsp; Kampala Serena Hotel &nbsp;?&nbsp; 6:00 PM EAT</p>
           <p>The biggest alumni gathering of the year. Awards, networking, and celebration of BU's legacy.</p>
         </div>
         <a class="btn btn-primary" href="#event-register">Register Now</a>
@@ -128,7 +139,7 @@
             </div>
             <div class="event-details">
               <h3>Annual Alumni Gala 2026</h3>
-              <p class="meta">Kampala Serena Hotel &nbsp;�&nbsp; 6:00 PM EAT</p>
+              <p class="meta">Kampala Serena Hotel &nbsp;?&nbsp; 6:00 PM EAT</p>
               <p>Join fellow graduates for an evening of networking, awards, and celebration of BU's legacy.</p>
               <div class="event-actions">
                 <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Annual Alumni Gala 2026', 'May 10, 2026', 'Kampala Serena Hotel', '6:00 PM EAT')">Register</a>
@@ -151,7 +162,7 @@
             </div>
             <div class="event-details">
               <h3>Career Fair &amp; Networking Day</h3>
-              <p class="meta">BU Main Campus &nbsp;�&nbsp; 9:00 AM EAT</p>
+              <p class="meta">BU Main Campus &nbsp;?&nbsp; 9:00 AM EAT</p>
               <p>Connect with recruiters, explore job opportunities, and meet alumni mentors across industries.</p>
               <div class="event-actions">
                 <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Career Fair &amp; Networking Day')">Register</a>
@@ -174,7 +185,7 @@
             </div>
             <div class="event-details">
               <h3>Charity Run for Education</h3>
-              <p class="meta">Kololo Airstrip, Kampala &nbsp;�&nbsp; 7:00 AM EAT</p>
+              <p class="meta">Kololo Airstrip, Kampala &nbsp;?&nbsp; 7:00 AM EAT</p>
               <p>Participate in our annual 5K run to raise funds for student bursaries and school supplies.</p>
               <div class="event-actions">
                 <a class="btn btn-primary" href="#event-register" onclick="setEventTitle('Charity Run for Education')">Register</a>
@@ -331,7 +342,7 @@
             </div>
             <p class="ticket-note" id="ticket-note"></p>
 
-            <!-- Download button � href filled by JS after API responds -->
+            <!-- Download button ? href filled by JS after API responds -->
             <a id="ticket-download-btn"
                class="btn btn-primary"
                href="#"
@@ -452,7 +463,7 @@
       emailField.blur();
     }
 
-    // Called by each event's Register button � passes event metadata to the form
+    // Called by each event's Register button ? passes event metadata to the form
     function setEventTitle(title, date, location, time) {
       document.getElementById('register-form-title').textContent = 'Register: ' + title;
       document.getElementById('reg-event-name').value     = title;
@@ -495,7 +506,7 @@
       }
 
       btn.disabled    = true;
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending�';
 
       try {
         const res = await fetch('/api/register-event', {

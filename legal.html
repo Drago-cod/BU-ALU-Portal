@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
 </head>
 <body>
   <header class="site-header">
@@ -50,18 +51,60 @@
   </header>
 
   <main>
-    <section class="hero about-hero">
-      <div class="container about-hero-grid">
-        <div>
-          <p class="eyebrow">Legal</p>
+    <section class="page-hero">
+    <div class="page-hero-dot-grid" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="page-hero-eyebrow">
+            <span class="material-icons-round">gavel</span>
+            Legal
+          </div>
           <h1>Privacy &amp; Terms</h1>
-          <p class="hero-copy">Our commitment to your privacy and the terms governing use of the BU Alumni Portal.</p>
+          <p class="hero-copy">Our commitment to your privacy and the terms governing use of the BU Alumni Portal. Your data, your rights.</p>
+          <div class="page-hero-actions">
+            <a class="page-hero-btn-primary" href="#privacy">
+              <span class="material-icons-round" style="font-size:1rem;">privacy_tip</span>
+              Privacy Policy
+            </a>
+            <a class="page-hero-btn-ghost" href="#terms">
+              <span class="material-icons-round" style="font-size:1rem;">description</span>
+              Terms of Use
+            </a>
+          </div>
         </div>
-        <div class="hero-visual slide-right" aria-hidden="true">
-          <img src="image/legal-hero.svg" alt="Privacy and terms illustration" />
+        <div class="page-hero-badges">
+          <img src="image/Bugema_logo.png" alt="BU Alumni Legal" class="page-hero-image" style="background: rgba(255,255,255,0.95); padding: 1.5rem; max-width: 200px;" />
+          <div class="page-hero-badge">
+            <span class="material-icons-round">lock</span>
+            <div><div class="page-hero-badge-val">Secure</div><div class="page-hero-badge-text">Your data is protected</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">privacy_tip</span>
+            <div><div class="page-hero-badge-val">GDPR</div><div class="page-hero-badge-text">Compliant data practices</div></div>
+          </div>
         </div>
       </div>
-    </section>
+      <div class="page-hero-stats">
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">lock</span></div>
+          <div><div class="page-hero-stat-val">256-bit</div><div class="page-hero-stat-lbl">SSL Encryption</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">privacy_tip</span></div>
+          <div><div class="page-hero-stat-val">GDPR</div><div class="page-hero-stat-lbl">Compliant</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">delete_forever</span></div>
+          <div><div class="page-hero-stat-val">Right to</div><div class="page-hero-stat-lbl">Erasure</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">support_agent</span></div>
+          <div><div class="page-hero-stat-val">24/7</div><div class="page-hero-stat-lbl">Support</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <section class="section" id="privacy">
       <div class="container legal-content">

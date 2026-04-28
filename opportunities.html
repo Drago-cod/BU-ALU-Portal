@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
 </head>
 
 <body>
@@ -55,27 +56,64 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero about-hero">
-      <div class="container about-hero-grid">
-        <div>
+    <section class="page-hero">
+    <div class="page-hero-dot-grid" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="page-hero-eyebrow">
+            <span class="material-icons-round">work</span>
+            Career Opportunities
+          </div>
           <h1>Jobs, Internships &amp; Bursaries</h1>
-          <p class="hero-copy">
-            Explore career opportunities posted by alumni and partner organisations. Filter by type and location to find
-            your next step.
-          </p>
+          <p class="hero-copy">Explore career opportunities posted by alumni and partner organisations. Filter by type and location to find your next step.</p>
+          <div class="page-hero-actions">
+            <a class="page-hero-btn-primary" href="#opportunities-list">
+              <span class="material-icons-round" style="font-size:1rem;">search</span>
+              Browse Opportunities
+            </a>
+            <a class="page-hero-btn-ghost" href="register.html">
+              <span class="material-icons-round" style="font-size:1rem;">post_add</span>
+              Post a Job
+            </a>
+          </div>
         </div>
-        <div class="hero-card slide-right">
-          <img src="image/Connect.jpg" alt="Opportunity spotlight illustration" class="hero-card-img" />
-          <h3>Quick Stats</h3>
-          <ul>
-            <li><strong>2,500+</strong> jobs posted this year</li>
-            <li><strong>340</strong> active internships</li>
-            <li><strong>85</strong> bursaries available</li>
-            <li><strong>120+</strong> partner recruiters</li>
-          </ul>
+        <div class="page-hero-badges">
+          <img src="image/Connect.jpg" alt="BU Alumni Opportunities" class="page-hero-image" />
+          <div class="page-hero-badge">
+            <span class="material-icons-round">work</span>
+            <div><div class="page-hero-badge-val">500+</div><div class="page-hero-badge-text">Active job listings</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">school</span>
+            <div><div class="page-hero-badge-val">Bursaries</div><div class="page-hero-badge-text">Funding for alumni students</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">handshake</span>
+            <div><div class="page-hero-badge-val">200+</div><div class="page-hero-badge-text">Partner organisations</div></div>
+          </div>
         </div>
       </div>
-    </section>
+      <div class="page-hero-stats">
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">work</span></div>
+          <div><div class="page-hero-stat-val">500+</div><div class="page-hero-stat-lbl">Job Listings</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">business_center</span></div>
+          <div><div class="page-hero-stat-val">120+</div><div class="page-hero-stat-lbl">Internships</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">payments</span></div>
+          <div><div class="page-hero-stat-val">30+</div><div class="page-hero-stat-lbl">Bursaries</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">handshake</span></div>
+          <div><div class="page-hero-stat-val">200+</div><div class="page-hero-stat-lbl">Partner Orgs</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- Filter bar -->
     <section class="section" style="padding-bottom:0;">
@@ -124,7 +162,7 @@
               <a class="btn btn-primary" href="auth.html">Apply</a>
               <a class="btn btn-ghost" href="auth.html">Grads Link</a>
 
-              <button class="share-btn" data-share-title="Software Engineer � Nakato &amp; Tech Ltd"
+              <button class="share-btn" data-share-title="Software Engineer ? Nakato &amp; Tech Ltd"
                 data-share-text="BU alumni job: Software Engineer at Nakato &amp; Tech Ltd, Kampala. Full-time."
                 aria-label="Share this opportunity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"
@@ -150,7 +188,7 @@
               <a class="btn btn-primary" href="auth.html">Apply</a>
               <a class="btn btn-ghost" href="auth.html">Grads Link</a>
 
-              <button class="share-btn" data-share-title="Marketing Intern � BU Alumni Media House"
+              <button class="share-btn" data-share-title="Marketing Intern ? BU Alumni Media House"
                 data-share-text="BU alumni internship: Marketing Intern at BU Alumni Media House, Kampala. 3-month contract."
                 aria-label="Share this opportunity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"
@@ -176,7 +214,7 @@
               <a class="btn btn-primary" href="auth.html">Apply</a>
               <a class="btn btn-ghost" href="auth.html">Grads Link</a>
 
-              <button class="share-btn" data-share-title="BU Alumni Scholarship 2026 � UGX 5,000,000"
+              <button class="share-btn" data-share-title="BU Alumni Scholarship 2026 ? UGX 5,000,000"
                 data-share-text="Full bursary for BU students with academic excellence and financial need. Apply now!"
                 aria-label="Share this opportunity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"
@@ -203,7 +241,7 @@
               <a class="btn btn-primary" href="auth.html">Apply</a>
               <a class="btn btn-ghost" href="auth.html">Grads Link</a>
 
-              <button class="share-btn" data-share-title="Data Analyst � East Africa Alumni Investors"
+              <button class="share-btn" data-share-title="Data Analyst ? East Africa Alumni Investors"
                 data-share-text="Remote contract: Data Analyst at East Africa Alumni Investors. BU alumni network opportunity."
                 aria-label="Share this opportunity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"
@@ -230,7 +268,7 @@
               <a class="btn btn-primary" href="auth.html">Apply</a>
               <a class="btn btn-ghost" href="auth.html">Grads Link</a>
 
-              <button class="share-btn" data-share-title="Research Assistant � BU Health Professionals Network"
+              <button class="share-btn" data-share-title="Research Assistant ? BU Health Professionals Network"
                 data-share-text="Remote 6-month internship: Research Assistant at BU Health Professionals Network."
                 aria-label="Share this opportunity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"
@@ -257,7 +295,7 @@
               <a class="btn btn-primary" href="auth.html">Apply</a>
               <a class="btn btn-ghost" href="auth.html">Grads Link</a>
 
-              <button class="share-btn" data-share-title="Project Manager � UN Alumni Partnership Programme"
+              <button class="share-btn" data-share-title="Project Manager ? UN Alumni Partnership Programme"
                 data-share-text="International full-time role: Project Manager with the UN Alumni Partnership Programme."
                 aria-label="Share this opportunity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"
@@ -298,7 +336,7 @@
           <p>Members can post jobs, internships, and bursaries directly to the BU Alumni talent board.</p>
         </div>
 
-        <!-- ── Gate: shown when NOT signed in or not a member ── -->
+        <!-- -- Gate: shown when NOT signed in or not a member -- -->
         <div class="jg-gate" id="jg-gate">
           <div class="jg-gate-icon">
             <span class="material-icons-round">lock</span>
@@ -317,7 +355,7 @@
           </div>
         </div>
 
-        <!-- ── Post a Job form: shown when signed in as member ── -->
+        <!-- -- Post a Job form: shown when signed in as member -- -->
         <div class="jg-form-wrap" id="jg-form-wrap" hidden>
 
           <!-- Member badge -->
@@ -555,7 +593,7 @@
       emailField.blur();
     }
 
-    /* ── Filter opportunities ── */
+    /* -- Filter opportunities -- */
     function filterOpps() {
       const type     = document.getElementById('filter-type').value;
       const location = document.getElementById('filter-location').value;
@@ -573,7 +611,7 @@
       document.getElementById('no-results').hidden = visible > 0;
     }
 
-    /* ── Job Givers Portal — member gate ── */
+    /* -- Job Givers Portal � member gate -- */
     (function initJobGivers() {
       var user = null;
       try { user = JSON.parse(localStorage.getItem('buCurrentUser') || 'null'); } catch (_) {}
@@ -584,19 +622,19 @@
       var nameEl   = document.getElementById('jg-member-name');
 
       if (user) {
-        // Signed in — show form
+        // Signed in � show form
         gate.hidden     = true;
         formWrap.hidden = false;
         var name = user.fullName || user.name || user.email || 'Member';
         if (nameEl) nameEl.textContent = name;
       } else {
-        // Not signed in — show gate
+        // Not signed in � show gate
         gate.hidden     = false;
         formWrap.hidden = true;
       }
     }());
 
-    /* ── Post a Job form submit ── */
+    /* -- Post a Job form submit -- */
     document.getElementById('jg-post-form').addEventListener('submit', async function (e) {
       e.preventDefault();
 
@@ -625,7 +663,7 @@
 
       var btn = document.getElementById('jg-submit-btn');
       btn.disabled    = true;
-      btn.textContent = 'Posting…';
+      btn.textContent = 'Posting�';
 
       var user = null;
       try { user = JSON.parse(localStorage.getItem('buCurrentUser') || 'null'); } catch (_) {}
@@ -700,8 +738,8 @@
           '<span class="opp-new-badge">New</span>' +
         '</div>' +
         '<h3>' + job.title + '</h3>' +
-        '<p class="meta">' + job.company + (job.salary ? ' &nbsp;·&nbsp; ' + job.salary : '') + '</p>' +
-        '<p>' + job.description.slice(0, 160) + (job.description.length > 160 ? '…' : '') + '</p>' +
+        '<p class="meta">' + job.company + (job.salary ? ' &nbsp;�&nbsp; ' + job.salary : '') + '</p>' +
+        '<p>' + job.description.slice(0, 160) + (job.description.length > 160 ? '�' : '') + '</p>' +
         '<div class="opp-actions">' +
           '<a class="btn btn-primary" href="mailto:' + job.contactEmail + '">Apply</a>' +
           (job.website ? '<a class="btn btn-ghost" href="' + job.website + '" target="_blank" rel="noopener">Website</a>' : '') +

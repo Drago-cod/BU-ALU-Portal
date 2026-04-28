@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
 </head>
 <body>
   <header class="site-header">
@@ -51,26 +52,63 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero about-hero">
-      <div class="container about-hero-grid">
-        <div>
-          <h1>Get Involved</h1>
-          <p class="hero-copy">
-            From career resources to community charity, there are many ways to engage with the BU alumni network and make a lasting impact.
-          </p>
+    <section class="page-hero">
+    <div class="page-hero-dot-grid" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="page-hero-eyebrow">
+            <span class="material-icons-round">volunteer_activism</span>
+            Get Involved
+          </div>
+          <h1>Activities &amp; Engagement</h1>
+          <p class="hero-copy">From career resources to community charity, there are many ways to engage with the BU alumni network and make a lasting impact.</p>
+          <div class="page-hero-actions">
+            <a class="page-hero-btn-primary" href="#activities">
+              <span class="material-icons-round" style="font-size:1rem;">explore</span>
+              Explore Activities
+            </a>
+            <a class="page-hero-btn-ghost" href="memberships.html">
+              <span class="material-icons-round" style="font-size:1rem;">card_membership</span>
+              Become a Member
+            </a>
+          </div>
         </div>
-        <div class="hero-card slide-right">
-          <img src="image/Charity.png" alt="BU alumni volunteering together in a community cleanup" class="hero-card-img" />
-          <h3>What's Available</h3>
-          <ul>
-            <li>Career Guide &amp; PDF resources</li>
-            <li>Fundraising campaigns</li>
-            <li>Charity &amp; community projects</li>
-            <li>Alumni chapter events</li>
-          </ul>
+        <div class="page-hero-badges">
+          <div class="page-hero-badge">
+            <span class="material-icons-round">work</span>
+            <div><div class="page-hero-badge-val">Career Hub</div><div class="page-hero-badge-text">CV templates &amp; job boards</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">favorite</span>
+            <div><div class="page-hero-badge-val">Charity</div><div class="page-hero-badge-text">Community outreach programs</div></div>
+          </div>
+          <div class="page-hero-badge">
+            <span class="material-icons-round">groups</span>
+            <div><div class="page-hero-badge-val">Chapters</div><div class="page-hero-badge-text">72 active alumni chapters</div></div>
+          </div>
         </div>
       </div>
-    </section>
+      <div class="page-hero-stats">
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">work</span></div>
+          <div><div class="page-hero-stat-val">500+</div><div class="page-hero-stat-lbl">Jobs Posted</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">school</span></div>
+          <div><div class="page-hero-stat-val">200+</div><div class="page-hero-stat-lbl">Mentors Available</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">favorite</span></div>
+          <div><div class="page-hero-stat-val">UGX 31M</div><div class="page-hero-stat-lbl">Charity Raised</div></div>
+        </div>
+        <div class="page-hero-stat">
+          <div class="page-hero-stat-icon"><span class="material-icons-round">location_on</span></div>
+          <div><div class="page-hero-stat-val">72</div><div class="page-hero-stat-lbl">Active Chapters</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- Impact Showcase -->
     <section class="section impact-showcase scale-in">
@@ -161,7 +199,7 @@
             <div>
               <h3>Charity &amp; Community</h3>
               <p class="meta">Community Impact</p>
-              <p>See how BU alumni are giving back � from school supply drives to medical outreaches and environmental projects.</p>
+              <p>See how BU alumni are giving back ? from school supply drives to medical outreaches and environmental projects.</p>
               <div class="charity-gallery charity-gallery--feature">
                 <div class="charity-img charity-img--landscape" aria-label="Charity photo"><img src="image/Charity.png" alt="BU alumni environmental cleanup project" /></div>
                 <div class="charity-img" aria-label="Community event photo"><img src="image/event1.png" alt="BU alumni gathering during a community outreach event" /></div>
