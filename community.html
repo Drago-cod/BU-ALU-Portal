@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,198 +11,203 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
   <style>
-/* ── Community layout ── */
-.community-layout{display:grid;grid-template-columns:280px 1fr 300px;gap:1.5rem;align-items:start;padding:2rem 0}
-.comm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;box-shadow:var(--shadow);margin-bottom:1rem}
-.feed-post{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem;margin-bottom:1rem;box-shadow:var(--shadow);transition:box-shadow .2s}
-.post-composer{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;margin-bottom:1rem;box-shadow:var(--shadow)}
-.reaction-bar{display:flex;gap:.5rem;padding-top:.8rem;border-top:1px solid var(--border);margin-top:.8rem}
-.reaction-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem .8rem;border-radius:8px;border:none;background:none;color:var(--muted);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
-.reaction-btn:hover{background:var(--bg);color:var(--primary)}
-.reaction-btn.liked{color:var(--primary)}
-.post-badge{display:inline-flex;align-items:center;gap:.3rem;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;font-size:.72rem;font-weight:700;padding:.2rem .6rem;margin-bottom:.5rem}
-.post-author-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
-.post-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.85rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
-.post-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.post-author-name{font-weight:700;font-size:.95rem;color:var(--text)}
-.post-author-meta{font-size:.78rem;color:var(--muted)}
-.post-content{font-size:.93rem;color:var(--text);line-height:1.6;margin-bottom:.5rem;white-space:pre-wrap}
-.post-image{width:100%;border-radius:12px;margin:.5rem 0;max-height:400px;object-fit:cover}
-.post-link-card{display:flex;align-items:center;gap:.5rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.65rem .9rem;margin:.5rem 0;text-decoration:none;color:var(--primary);font-size:.85rem;font-weight:600;transition:background .15s}
-.post-link-card:hover{background:var(--surface-alt,#edf2ff)}
-.comments-section{margin-top:.8rem;display:none}
-.comments-section.open{display:block}
-.comment-item{display:flex;gap:.5rem;margin-bottom:.6rem}
-.comment-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#34d399);color:#fff;font-size:.65rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
-.comment-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.comment-bubble{background:var(--bg);border-radius:10px;padding:.45rem .75rem;font-size:.82rem;color:var(--text);flex:1}
-.comment-author{font-weight:700;font-size:.78rem;margin-bottom:.15rem}
-.comment-input-row{display:flex;gap:.5rem;margin-top:.5rem;align-items:center}
-.comment-input{flex:1;border:1px solid var(--border);border-radius:20px;padding:.45rem .9rem;font-size:.82rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;transition:border-color .15s}
-.comment-input:focus{border-color:var(--primary)}
-.comment-send-btn{background:var(--primary);color:#fff;border:none;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
-.composer-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.82rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
-.composer-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.composer-row{display:flex;gap:.75rem;align-items:flex-start}
-.composer-textarea{flex:1;border:1px solid var(--border);border-radius:12px;padding:.7rem 1rem;font-size:.9rem;background:var(--bg);color:var(--text);font-family:inherit;resize:none;outline:none;min-height:60px;transition:border-color .15s}
-.composer-textarea:focus{border-color:var(--primary)}
-.composer-actions{display:flex;gap:.5rem;margin-top:.75rem;align-items:center;flex-wrap:wrap}
-.composer-attach-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .7rem;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--muted);font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
-.composer-attach-btn:hover{background:var(--surface-alt,#edf2ff);color:var(--primary)}
-.composer-attach-btn .material-icons-round{font-size:16px}
-.composer-post-btn{margin-left:auto}
-.profile-card-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:1.3rem;font-weight:800;display:grid;place-items:center;margin:0 auto .6rem;overflow:hidden;cursor:pointer;position:relative}
-.profile-card-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.profile-card-avatar .avatar-edit-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);border-radius:50%;display:none;place-items:center;color:#fff}
-.profile-card-avatar:hover .avatar-edit-overlay{display:grid}
-.profile-stats-row{display:flex;gap:0;border-top:1px solid var(--border);margin-top:.8rem;padding-top:.8rem}
-.profile-stat{flex:1;text-align:center}
-.profile-stat strong{display:block;font-size:1.1rem;font-weight:800;color:var(--primary)}
-.profile-stat span{font-size:.72rem;color:var(--muted);font-weight:600}
-.profile-stat+.profile-stat{border-left:1px solid var(--border)}
-.comm-nav-item{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;border-radius:10px;color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:600;transition:background .15s,color .15s;cursor:pointer;border:none;background:none;font-family:inherit;width:100%}
-.comm-nav-item:hover,.comm-nav-item.active{background:var(--bg);color:var(--primary)}
-.comm-nav-item .material-icons-round{font-size:20px}
-.comm-nav-badge{margin-left:auto;background:var(--primary);color:#fff;font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:999px;min-width:18px;text-align:center}
-/* Online dot */
-.online-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;border:2px solid var(--surface);position:absolute;bottom:1px;right:1px}
-.avatar-wrap{position:relative;display:inline-block}
-/* Typing indicator */
-.typing-indicator{display:flex;gap:4px;align-items:center;padding:.4rem .8rem}
-.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:typingBounce 1.2s infinite}
-.typing-dot:nth-child(2){animation-delay:.2s}
-.typing-dot:nth-child(3){animation-delay:.4s}
-@keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
-/* Messages modal */
-.comm-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-end;justify-content:flex-end;pointer-events:none}
-.comm-modal.open{pointer-events:auto}
-.comm-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.3);opacity:0;transition:opacity .2s}
-.comm-modal.open .comm-modal-backdrop{opacity:1}
-.comm-modal-panel{position:relative;width:380px;height:540px;background:var(--surface);border-radius:16px 16px 0 0;box-shadow:0 -8px 32px rgba(0,0,0,.18);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;margin-right:1.5rem}
-.comm-modal.open .comm-modal-panel{transform:translateY(0)}
-.msg-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--border)}
-.msg-modal-header h3{font-size:1rem;font-weight:800}
-.msg-modal-close{background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem}
-.msg-modal-close:hover{background:var(--bg)}
-.msg-conv-list{flex:1;overflow-y:auto}
-.msg-conv-item{display:flex;gap:.65rem;padding:.8rem 1.2rem;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border);align-items:center}
-.msg-conv-item:hover,.msg-conv-item.active{background:var(--bg)}
-.msg-conv-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.78rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
-.msg-conv-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.msg-conv-info{flex:1;min-width:0}
-.msg-conv-name{font-weight:700;font-size:.88rem;color:var(--text)}
-.msg-conv-preview{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.msg-unread-badge{background:var(--primary);color:#fff;font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:999px;flex-shrink:0}
-.msg-chat-area{flex:1;overflow-y:auto;padding:.8rem 1.2rem;display:flex;flex-direction:column;gap:.5rem}
-.msg-bubble{max-width:75%;padding:.55rem .85rem;border-radius:14px;font-size:.85rem;line-height:1.4;word-break:break-word}
-.msg-bubble.sent{background:var(--primary);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.msg-bubble.recv{background:var(--bg);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px}
-.msg-bubble-meta{font-size:.68rem;opacity:.7;margin-top:.2rem;text-align:right}
-.msg-input-row{display:flex;gap:.5rem;padding:.8rem 1.2rem;border-top:1px solid var(--border)}
-.msg-input{flex:1;border:1px solid var(--border);border-radius:20px;padding:.5rem .9rem;font-size:.85rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none}
-.msg-input:focus{border-color:var(--primary)}
-.msg-send-btn{background:var(--primary);color:#fff;border:none;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
-/* Notifications */
-.notif-wrap{position:relative}
-.notif-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:340px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 36px rgba(17,64,217,.14);z-index:500;max-height:420px;overflow-y:auto}
-.notif-item{display:flex;gap:.65rem;padding:.85rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
-.notif-item:hover{background:var(--bg)}
-.notif-item.unread{background:rgba(17,64,217,.04)}
-.notif-item:last-child{border-bottom:none}
-.notif-icon{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
-.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0;margin-top:4px}
-.notif-badge-count{position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:.6rem;font-weight:800;padding:.1rem .35rem;border-radius:999px;min-width:16px;text-align:center}
-/* Auth modal */
-.auth-modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
-.auth-modal-overlay.open{opacity:1;pointer-events:auto}
-.auth-modal-box{background:var(--surface);border-radius:20px;width:min(440px,95vw);box-shadow:0 24px 64px rgba(0,0,0,.22);transform:scale(.96);transition:transform .25s cubic-bezier(.22,1,.36,1);overflow:hidden}
-.auth-modal-overlay.open .auth-modal-box{transform:scale(1)}
-.auth-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
-.auth-modal-header h2{font-size:1.1rem;font-weight:800;margin:0}
-.auth-modal-close{background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem}
-.auth-tabs{display:flex;border-bottom:1px solid var(--border)}
-.auth-tab{flex:1;padding:.85rem;text-align:center;font-weight:700;font-size:.9rem;cursor:pointer;border:none;background:none;font-family:inherit;color:var(--muted);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
-.auth-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
-.auth-form-wrap{padding:1.5rem}
-.auth-form{display:flex;flex-direction:column;gap:.9rem}
-.auth-error{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:8px;padding:.6rem .9rem;font-size:.82rem;font-weight:600}
-/* Profile edit modal */
-.profile-modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
-.profile-modal-overlay.open{opacity:1;pointer-events:auto}
-.profile-modal-box{background:var(--surface);border-radius:20px;width:min(500px,95vw);max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.22);transform:scale(.96);transition:transform .25s cubic-bezier(.22,1,.36,1)}
-.profile-modal-overlay.open .profile-modal-box{transform:scale(1)}
-.profile-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1}
-/* Groups */
-.group-card{display:flex;align-items:center;gap:.65rem;padding:.6rem 0;border-bottom:1px solid var(--border)}
-.group-card:last-child{border-bottom:none}
-.group-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(17,64,217,.12),rgba(15,118,110,.12));display:grid;place-items:center;flex-shrink:0}
-.join-btn{margin-left:auto;flex-shrink:0;padding:.3rem .7rem;border-radius:8px;border:1.5px solid var(--primary);background:none;color:var(--primary);font-size:.75rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
-.join-btn:hover,.join-btn.joined{background:var(--primary);color:#fff}
-/* Online users */
-.online-user-item{display:flex;align-items:center;gap:.6rem;padding:.4rem 0}
-.online-user-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.7rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;position:relative}
-/* Search */
-.comm-search-wrap{position:relative;flex:1;max-width:320px}
-.comm-search-input{width:100%;border:1.5px solid var(--border);border-radius:999px;padding:.5rem .9rem .5rem 2.4rem;font-size:.88rem;font-family:inherit;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
-.comm-search-input:focus{border-color:var(--primary)}
-.comm-search-icon{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:18px!important;color:var(--muted);pointer-events:none}
-.search-results-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 36px rgba(17,64,217,.14);z-index:400;max-height:360px;overflow-y:auto;display:none}
-.search-results-dropdown.open{display:block}
-.search-result-item{display:flex;align-items:center;gap:.65rem;padding:.7rem 1rem;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border)}
-.search-result-item:hover{background:var(--bg)}
-.search-result-item:last-child{border-bottom:none}
-/* Firebase setup banner */
-.firebase-setup-banner{display:flex;align-items:flex-start;gap:.75rem;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem}
-.firebase-setup-banner .material-icons-round{color:#f59e0b;flex-shrink:0;margin-top:2px}
-.firebase-setup-banner strong{display:block;font-size:.9rem;color:#92400e;margin-bottom:.2rem}
-.firebase-setup-banner p{font-size:.82rem;color:#78350f;margin:0}
-.firebase-setup-banner a{color:#b45309;font-weight:700}
-.firebase-setup-banner button{margin-left:auto;background:none;border:none;cursor:pointer;color:#92400e;flex-shrink:0;display:grid;place-items:center;border-radius:6px;padding:.2rem}
-.firebase-setup-banner button:hover{background:rgba(0,0,0,.06)}
-/* Setup guide modal */
-.setup-modal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
-.setup-modal-overlay.open{opacity:1;pointer-events:auto}
-.setup-modal-box{background:var(--surface);border-radius:20px;width:min(600px,95vw);max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.22)}
-.setup-step{display:flex;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
-.setup-step:last-child{border-bottom:none}
-.setup-step-num{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:.8rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;margin-top:2px}
-/* Support fund */
-.support-progress-bar{background:var(--border);border-radius:999px;height:8px;margin:.5rem 0;overflow:hidden}
-.support-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#0f766e);border-radius:999px;transition:width .6s ease}
-/* Event mini */
-.event-mini-item{display:flex;gap:.65rem;padding:.6rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
-.event-mini-item:last-child{border-bottom:none}
-.event-mini-date{background:var(--primary);color:#fff;border-radius:8px;padding:.3rem .5rem;text-align:center;font-size:.7rem;font-weight:800;min-width:38px;flex-shrink:0;line-height:1.3}
-.event-mini-date span{display:block;font-size:.6rem;font-weight:600;opacity:.85}
-/* Page title */
-.comm-page-title{padding:1.5rem 0 0}
-.comm-page-title h1{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:.2rem}
-.comm-page-title p{color:var(--muted);font-size:.9rem}
-/* View all link */
-.view-all-link{display:block;text-align:center;font-size:.82rem;font-weight:700;color:var(--primary);text-decoration:none;margin-top:.75rem;padding:.4rem;border-radius:8px;transition:background .15s;background:none;border:none;cursor:pointer;font-family:inherit;width:100%}
-.view-all-link:hover{background:var(--bg)}
-/* Mobile nav */
-.comm-mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:200;padding:.5rem 0;justify-content:space-around}
-.comm-mobile-nav-item{display:flex;flex-direction:column;align-items:center;gap:.15rem;color:var(--muted);font-size:.65rem;font-weight:600;text-decoration:none;padding:.3rem .5rem;border-radius:8px;transition:color .15s;position:relative;background:none;border:none;cursor:pointer;font-family:inherit}
-.comm-mobile-nav-item:hover,.comm-mobile-nav-item.active{color:var(--primary)}
-.comm-mobile-nav-item .material-icons-round{font-size:22px}
-/* Image preview */
-.img-preview-wrap{position:relative;margin-top:.5rem}
-.img-preview-wrap img{width:100%;max-height:200px;object-fit:cover;border-radius:10px}
-.img-preview-remove{position:absolute;top:.4rem;right:.4rem;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;cursor:pointer}
-/* Load more */
-.load-more-btn{display:block;width:100%;padding:.75rem;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--primary);font-weight:700;font-size:.88rem;cursor:pointer;font-family:inherit;transition:background .15s;margin-bottom:1rem}
-.load-more-btn:hover{background:var(--bg)}
-/* Spinner */
-.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:1rem auto}
-@keyframes spin{to{transform:rotate(360deg)}}
-/* Dark mode */
-[data-theme="dark"] .comm-modal-panel,[data-theme="dark"] .auth-modal-box,[data-theme="dark"] .profile-modal-box,[data-theme="dark"] .setup-modal-box,[data-theme="dark"] .notif-dropdown,[data-theme="dark"] .search-results-dropdown{background:var(--card-bg);border-color:var(--border)}
-[data-theme="dark"] .firebase-setup-banner{background:#1c1a0a;border-color:#78350f;color:#fde68a}
-/* Responsive */
-@media(max-width:1100px){.community-layout{grid-template-columns:240px 1fr}.comm-right-sidebar{display:none}}
-@media(max-width:720px){.community-layout{grid-template-columns:1fr}.comm-left-sidebar{display:none}.comm-mobile-nav{display:flex}body{padding-bottom:70px}}
+    /* ── Community Layout ── */
+    .community-layout{display:grid;grid-template-columns:260px 1fr 280px;gap:1.5rem;padding:2rem 0;align-items:start;}
+    .comm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;box-shadow:var(--shadow);margin-bottom:1rem;}
+    .feed-post{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem;margin-bottom:1rem;box-shadow:var(--shadow);}
+    /* Sidebar nav */
+    .comm-nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.55rem 0.8rem;border-radius:10px;color:var(--text);text-decoration:none;font-size:0.9rem;font-weight:500;transition:background 0.15s,color 0.15s;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
+    .comm-nav-item:hover,.comm-nav-item.active{background:var(--surface-alt);color:var(--primary);}
+    .comm-nav-item .material-icons-round{font-size:1.15rem;color:var(--muted);}
+    .comm-nav-item:hover .material-icons-round,.comm-nav-item.active .material-icons-round{color:var(--primary);}
+    .comm-badge{background:var(--primary);color:#fff;font-size:0.65rem;font-weight:800;padding:0.1rem 0.42rem;border-radius:999px;margin-left:auto;}
+    /* Avatar */
+    .avatar-circle{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#3a5fe8);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;}
+    .avatar-circle.lg{width:56px;height:56px;font-size:1.1rem;}
+    .avatar-circle.sm{width:32px;height:32px;font-size:0.75rem;}
+    /* Post composer */
+    .composer-wrap{display:flex;gap:0.8rem;align-items:flex-start;}
+    .composer-textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:0.75rem 1rem;font-family:inherit;font-size:0.9rem;resize:none;background:var(--input-bg,#fff);color:var(--text);transition:border-color 0.15s;min-height:80px;}
+    .composer-textarea:focus{outline:none;border-color:var(--primary);}
+    .composer-actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.7rem;align-items:center;}
+    .composer-btn{display:inline-flex;align-items:center;gap:0.3rem;padding:0.4rem 0.75rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.15s;}
+    .composer-btn:hover{border-color:var(--primary);color:var(--primary);}
+    .composer-btn .material-icons-round{font-size:1rem;}
+    .post-btn{margin-left:auto;padding:0.45rem 1.2rem;border-radius:8px;background:var(--primary);color:#fff;border:none;font-weight:700;font-size:0.85rem;cursor:pointer;transition:background 0.15s;}
+    .post-btn:disabled{opacity:0.45;cursor:not-allowed;}
+    .post-btn:not(:disabled):hover{background:var(--primary-dark);}
+    /* Feed post */
+    .post-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;}
+    .post-meta{flex:1;}
+    .post-author{font-weight:700;font-size:0.92rem;color:var(--text);}
+    .post-profession{font-size:0.78rem;color:var(--muted);}
+    .post-time{font-size:0.75rem;color:var(--muted);}
+    .post-content{font-size:0.9rem;line-height:1.6;color:var(--text);margin-bottom:0.8rem;}
+    .achievement-badge{display:inline-flex;align-items:center;gap:0.3rem;background:#fef3c7;color:#92400e;font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:999px;margin-bottom:0.6rem;}
+    .post-link-card{border:1px solid var(--border);border-radius:10px;padding:0.7rem 1rem;display:flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--primary);font-size:0.85rem;font-weight:600;margin-bottom:0.7rem;transition:background 0.15s;}
+    .post-link-card:hover{background:var(--surface-alt);}
+    .post-link-card .material-icons-round{font-size:1rem;}
+    .reaction-bar{display:flex;gap:0.3rem;padding-top:0.7rem;border-top:1px solid var(--border);}
+    .reaction-btn{display:inline-flex;align-items:center;gap:0.3rem;padding:0.35rem 0.7rem;border-radius:8px;border:none;background:none;color:var(--muted);font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.15s;}
+    .reaction-btn:hover,.reaction-btn.liked{background:var(--surface-alt);color:var(--primary);}
+    .reaction-btn .material-icons-round{font-size:1rem;}
+    .comments-section{margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--border);}
+    .comment-item{display:flex;gap:0.6rem;margin-bottom:0.6rem;align-items:flex-start;}
+    .comment-bubble{background:var(--surface-alt);border-radius:10px;padding:0.5rem 0.75rem;flex:1;}
+    .comment-author{font-weight:700;font-size:0.78rem;color:var(--text);}
+    .comment-text{font-size:0.82rem;color:var(--text);margin-top:0.1rem;}
+    /* Course cards */
+    .course-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s;}
+    .course-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(17,64,217,0.14);}
+    .course-card-header{padding:1rem 1.1rem 0.8rem;display:flex;align-items:center;justify-content:space-between;}
+    .course-card-body{padding:0 1.1rem 0.8rem;flex:1;display:flex;flex-direction:column;gap:0.35rem;}
+    .course-card-footer{padding:0.8rem 1.1rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;align-items:center;}
+    .course-apply-btn{flex:1;font-size:0.82rem;padding:0.5rem 0.8rem;display:inline-flex;align-items:center;gap:0.3rem;justify-content:center;border-radius:8px;background:var(--primary);color:#fff;text-decoration:none;font-weight:700;transition:background 0.15s;}
+    .course-apply-btn:hover{background:var(--primary-dark,#0c30a6);}
+    .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+    .provider-logo{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .course-title{font-weight:700;font-size:0.88rem;color:var(--text);line-height:1.35;}
+    .course-provider{font-size:0.75rem;font-weight:600;}
+    .course-desc{font-size:0.78rem;color:var(--muted);line-height:1.5;flex:1;}
+    .course-duration{font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:0.25rem;}
+    .course-duration .material-icons-round{font-size:0.85rem;}
+    .bookmark-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s;flex-shrink:0;}
+    .bookmark-btn:hover,.bookmark-btn.saved{border-color:var(--primary);color:var(--primary);}
+    .bookmark-btn .material-icons-round{font-size:1rem;color:var(--muted);}
+    .bookmark-btn.saved .material-icons-round{color:var(--primary);}
+    /* Badges */
+    .badge-new{background:#dcfce7;color:#15803d;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
+    .badge-trending{background:#fef3c7;color:#92400e;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
+    .badge-popular{background:#ede9fe;color:#6d28d9;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
+    .price-free{background:#dcfce7;color:#15803d;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
+    .price-paid{background:#f3f4f6;color:#374151;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
+    /* Filter bar */
+    .filter-bar{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.2rem;align-items:center;}
+    .filter-select{padding:0.45rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.82rem;font-family:inherit;cursor:pointer;}
+    .filter-search{flex:1;min-width:160px;padding:0.45rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.82rem;font-family:inherit;}
+    .filter-search:focus,.filter-select:focus{outline:none;border-color:var(--primary);}
+    .price-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+    .price-toggle button{padding:0.4rem 0.75rem;border:none;background:var(--surface);color:var(--muted);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.15s;}
+    .price-toggle button.active{background:var(--primary);color:#fff;}
+    /* Right sidebar */
+    .alumni-mini-card{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+    .alumni-mini-card:last-child{border-bottom:none;}
+    .alumni-mini-info{flex:1;}
+    .alumni-mini-name{font-weight:600;font-size:0.82rem;color:var(--text);}
+    .alumni-mini-role{font-size:0.73rem;color:var(--muted);}
+    .connect-btn{padding:0.3rem 0.7rem;border-radius:6px;border:1px solid var(--primary);background:none;color:var(--primary);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+    .connect-btn:hover{background:var(--primary);color:#fff;}
+    .group-card{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+    .group-card:last-child{border-bottom:none;}
+    .group-icon{width:36px;height:36px;border-radius:8px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .group-icon .material-icons-round{font-size:1.1rem;color:var(--primary);}
+    .group-info{flex:1;}
+    .group-name{font-weight:600;font-size:0.82rem;color:var(--text);}
+    .group-members{font-size:0.72rem;color:var(--muted);}
+    .join-btn{padding:0.28rem 0.65rem;border-radius:6px;border:1px solid var(--border);background:none;color:var(--muted);font-size:0.73rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+    .join-btn:hover{border-color:var(--primary);color:var(--primary);}
+    .mini-event{display:flex;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+    .mini-event:last-child{border-bottom:none;}
+    .event-date-box{width:38px;height:38px;border-radius:8px;background:var(--primary);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+    .event-date-box .day{font-size:1rem;font-weight:800;line-height:1;}
+    .event-date-box .mon{font-size:0.55rem;font-weight:600;text-transform:uppercase;}
+    .event-info{flex:1;}
+    .event-name{font-weight:600;font-size:0.82rem;color:var(--text);}
+    .event-loc{font-size:0.72rem;color:var(--muted);}
+    /* Progress bar */
+    .progress-bar-wrap{background:var(--border);border-radius:999px;height:8px;overflow:hidden;margin:0.5rem 0;}
+    .progress-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--primary),#3a5fe8);}
+    /* Section header */
+    .section-eyebrow{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary);margin-bottom:0.3rem;}
+    .section-h2{font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:0.3rem;}
+    .section-subtitle{font-size:0.88rem;color:var(--muted);margin-bottom:1.2rem;}
+    /* View toggle */
+    .view-toggle{display:flex;gap:0.3rem;}
+    .view-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s;}
+    .view-btn.active,.view-btn:hover{border-color:var(--primary);background:var(--primary);color:#fff;}
+    .view-btn .material-icons-round{font-size:1rem;}
+    /* Modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+    .modal-box{background:var(--surface);border-radius:20px;padding:1.5rem;width:90%;max-width:560px;max-height:80vh;overflow-y:auto;transform:translateY(20px);transition:transform 0.2s;box-shadow:0 24px 60px rgba(0,0,0,0.2);}
+    .modal-overlay.open .modal-box{transform:translateY(0);}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+    .modal-title{font-weight:800;font-size:1.1rem;color:var(--text);}
+    .modal-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);}
+    .modal-close:hover{background:var(--surface-alt);}
+    /* Messages panel */
+    .msg-panel{position:fixed;bottom:1.5rem;right:1.5rem;width:340px;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,0.18);z-index:900;display:none;flex-direction:column;max-height:480px;}
+    .msg-panel.open{display:flex;}
+    .msg-panel-header{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 1rem;border-bottom:1px solid var(--border);}
+    .msg-panel-title{font-weight:700;font-size:0.95rem;color:var(--text);}
+    .msg-list{flex:1;overflow-y:auto;padding:0.5rem;}
+    .msg-item{display:flex;gap:0.6rem;padding:0.6rem 0.5rem;border-radius:10px;cursor:pointer;transition:background 0.15s;}
+    .msg-item:hover{background:var(--surface-alt);}
+    .msg-info{flex:1;}
+    .msg-name{font-weight:600;font-size:0.85rem;color:var(--text);}
+    .msg-preview{font-size:0.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+    .msg-unread{background:var(--primary);color:#fff;font-size:0.65rem;font-weight:800;padding:0.1rem 0.42rem;border-radius:999px;}
+    .msg-input-wrap{padding:0.7rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+    .msg-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.7rem;font-size:0.85rem;font-family:inherit;background:var(--input-bg,#fff);color:var(--text);}
+    .msg-input:focus{outline:none;border-color:var(--primary);}
+    .msg-send-btn{padding:0.45rem 0.8rem;border-radius:8px;background:var(--primary);color:#fff;border:none;font-weight:700;font-size:0.82rem;cursor:pointer;}
+    /* Notif dropdown */
+    .notif-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:320px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,0.15);z-index:800;display:none;}
+    .notif-dropdown.open{display:block;}
+    .notif-header{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;border-bottom:1px solid var(--border);}
+    .notif-title{font-weight:700;font-size:0.9rem;color:var(--text);}
+    .notif-item{display:flex;gap:0.6rem;padding:0.7rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;}
+    .notif-item:hover{background:var(--surface-alt);}
+    .notif-item:last-child{border-bottom:none;}
+    .notif-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0;margin-top:5px;}
+    .notif-text{font-size:0.82rem;color:var(--text);line-height:1.4;}
+    .notif-time{font-size:0.72rem;color:var(--muted);margin-top:0.15rem;}
+    /* Responsive */
+    @media(max-width:1100px){.community-layout{grid-template-columns:240px 1fr;}.comm-right-sidebar{display:none;}}
+    @media(max-width:720px){.community-layout{grid-template-columns:1fr;}.comm-left-sidebar{display:none;}.learn-grid{grid-template-columns:1fr;}}
+    @media(max-width:920px){.learn-grid{grid-template-columns:repeat(2,1fr);}}
+    /* Page hero */
+    .comm-hero{background:linear-gradient(135deg,#0c30a6 0%,#1140d9 60%,#3a5fe8 100%);color:#fff;padding:2.5rem 0 2rem;}
+    .comm-hero h1{font-size:2rem;font-weight:800;margin-bottom:0.4rem;color:#fff !important;}
+    .comm-hero p{font-size:1rem;opacity:0.85;color:#fff !important;}
+    /* Section headings — ensure visibility */
+    .section-h2{font-size:1.4rem;font-weight:800;color:var(--text) !important;margin-bottom:0.3rem;}
+    .section-eyebrow{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary) !important;margin-bottom:0.3rem;}
+    .section-subtitle{font-size:0.88rem;color:var(--muted) !important;margin-bottom:1.2rem;}
+    /* Sidebar headings */
+    .comm-card h3, .comm-card > div > span[style*="font-weight:700"]{color:var(--text) !important;}
+    /* Post text */
+    .post-author{font-weight:700;font-size:0.92rem;color:var(--text) !important;}
+    .post-profession{font-size:0.78rem;color:var(--muted) !important;}
+    .post-content{font-size:0.9rem;line-height:1.6;color:var(--text) !important;margin-bottom:0.8rem;}
+    /* Course card text */
+    .course-title{font-weight:700;font-size:0.88rem;color:var(--text) !important;line-height:1.35;}
+    .course-desc{font-size:0.78rem;color:var(--muted) !important;line-height:1.5;flex:1;}
+    .course-duration{font-size:0.75rem;color:var(--muted) !important;display:flex;align-items:center;gap:0.25rem;}
+    /* Right sidebar text */
+    .alumni-mini-name{font-weight:600;font-size:0.82rem;color:var(--text) !important;}
+    .alumni-mini-role{font-size:0.73rem;color:var(--muted) !important;}
+    .group-name{font-weight:600;font-size:0.82rem;color:var(--text) !important;}
+    .group-members{font-size:0.72rem;color:var(--muted) !important;}
+    .event-name{font-weight:600;font-size:0.82rem;color:var(--text) !important;}
+    .event-loc{font-size:0.72rem;color:var(--muted) !important;}
+    /* Sidebar nav text */
+    .comm-nav-item{color:var(--text) !important;}
+    .comm-nav-item:hover,.comm-nav-item.active{color:var(--primary) !important;}
+    /* Utility */
+    .flex-between{display:flex;align-items:center;justify-content:space-between;}
+    .flex-center{display:flex;align-items:center;gap:0.5rem;}
+    .text-muted{color:var(--muted);font-size:0.82rem;}
+    .mt-1{margin-top:0.5rem;}
+    .mt-2{margin-top:1rem;}
+    .mb-1{margin-bottom:0.5rem;}
+    .sign-in-prompt{text-align:center;padding:1.2rem;background:var(--surface-alt);border-radius:12px;border:1px dashed var(--border);}
+    .sign-in-prompt p{color:var(--muted);font-size:0.88rem;margin-bottom:0.7rem;}
+    .no-results{text-align:center;padding:2rem;color:var(--muted);font-size:0.9rem;}
+    .learn-section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;}
+    .results-count{font-size:0.8rem;color:var(--muted);}
   </style>
 </head>
 <body>
@@ -222,26 +227,8 @@
         <a href="opportunities.html">Opportunities</a>
       </nav>
       <div class="nav-actions">
-        <div class="comm-search-wrap" style="display:none" id="header-search-wrap">
-          <span class="material-icons-round comm-search-icon" aria-hidden="true">search</span>
-          <input type="search" class="comm-search-input" id="header-search" placeholder="Search community..." aria-label="Search community" oninput="handleSearch(this.value)" />
-          <div class="search-results-dropdown" id="search-dropdown"></div>
-        </div>
-        <div class="notif-wrap" id="notif-wrap" style="display:none">
-          <button class="btn btn-ghost" id="notif-btn" onclick="toggleNotifications(event)" aria-label="Notifications" style="position:relative;padding:.5rem .6rem;">
-            <span class="material-icons-round" aria-hidden="true">notifications</span>
-            <span class="notif-badge-count" id="notif-badge" style="display:none">0</span>
-          </button>
-          <div class="notif-dropdown" id="notif-dropdown" style="display:none" role="dialog" aria-label="Notifications">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;border-bottom:1px solid var(--border)">
-              <h4 style="font-size:.9rem;font-weight:800;margin:0">Notifications</h4>
-              <button onclick="markAllRead()" style="background:none;border:none;color:var(--primary);font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit">Mark all read</button>
-            </div>
-            <div id="notif-list"><p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No notifications yet</p></div>
-          </div>
-        </div>
-        <a class="btn btn-ghost" href="auth.html" id="nav-signin-btn">Sign In</a>
-        <a class="btn btn-secondary" href="register.html" id="nav-signup-btn">Sign Up</a>
+        <a class="btn btn-ghost" href="login.html">Sign In</a>
+        <a class="btn btn-secondary" href="register.html">Sign Up</a>
         <a class="btn btn-primary" href="donate.html">Donate</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
@@ -255,274 +242,429 @@
       <a href="memberships.html">Memberships</a>
       <a href="opportunities.html">Opportunities</a>
       <div class="mobile-nav-divider"></div>
-      <a href="auth.html" id="mobile-signin-btn">Sign In</a>
-      <a href="register.html" id="mobile-signup-btn">Sign Up</a>
+      <a href="login.html">Sign In</a>
+      <a href="register.html">Sign Up</a>
       <a href="donate.html">Donate</a>
     </nav>
   </header>
-  <!-- Auth Modal -->
-  <div class="auth-modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-label="Sign in or sign up">
-    <div class="auth-modal-box">
-      <div class="auth-modal-header">
-        <h2>Join the Community</h2>
-        <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close"><span class="material-icons-round">close</span></button>
-      </div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="tab-signin" onclick="switchAuthTab('signin')">Sign In</button>
-        <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
-      </div>
-      <div class="auth-form-wrap">
-        <!-- Sign In -->
-        <form class="auth-form" id="signin-form" onsubmit="handleSignIn(event)">
-          <p id="signin-error" class="auth-error" style="display:none"></p>
-          <div class="form-group"><label for="si-email">Email</label><input type="email" id="si-email" required placeholder="you@example.com" autocomplete="email" /></div>
-          <div class="form-group"><label for="si-password">Password</label><input type="password" id="si-password" required placeholder="Your password" autocomplete="current-password" /></div>
-          <button class="btn btn-primary" type="submit" id="signin-btn" style="width:100%">Sign In</button>
-          <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-top:.5rem">Don't have an account? <button type="button" onclick="switchAuthTab('signup')" style="background:none;border:none;color:var(--primary);font-weight:700;cursor:pointer;font-family:inherit">Sign Up</button></p>
-        </form>
-        <!-- Sign Up -->
-        <form class="auth-form" id="signup-form" style="display:none" onsubmit="handleSignUp(event)">
-          <p id="signup-error" class="auth-error" style="display:none"></p>
-          <div class="form-row">
-            <div class="form-group"><label for="su-name">Full Name *</label><input type="text" id="su-name" required placeholder="Amara Ssekandi" autocomplete="name" /></div>
-            <div class="form-group"><label for="su-email">Email *</label><input type="email" id="su-email" required placeholder="you@example.com" autocomplete="email" /></div>
-          </div>
-          <div class="form-group"><label for="su-password">Password *</label><input type="password" id="su-password" required placeholder="Min 8 characters" autocomplete="new-password" /></div>
-          <div class="form-row">
-            <div class="form-group"><label for="su-profession">Profession</label><input type="text" id="su-profession" placeholder="e.g. Software Engineer" /></div>
-            <div class="form-group"><label for="su-year">Class Year</label><input type="text" id="su-year" placeholder="e.g. 2022" /></div>
-          </div>
-          <div class="form-group"><label for="su-bio">Bio</label><textarea id="su-bio" rows="2" placeholder="Tell the community about yourself..."></textarea></div>
-          <button class="btn btn-primary" type="submit" id="signup-btn" style="width:100%">Create Account</button>
-          <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-top:.5rem">Already have an account? <button type="button" onclick="switchAuthTab('signin')" style="background:none;border:none;color:var(--primary);font-weight:700;cursor:pointer;font-family:inherit">Sign In</button></p>
-        </form>
-      </div>
-    </div>
-  </div>
 
-  <!-- Profile Edit Modal -->
-  <div class="profile-modal-overlay" id="profile-modal" role="dialog" aria-modal="true" aria-label="Edit profile">
-    <div class="profile-modal-box">
-      <div class="profile-modal-header">
-        <h2 style="font-size:1.1rem;font-weight:800;margin:0">Edit Profile</h2>
-        <button onclick="closeProfileModal()" style="background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem"><span class="material-icons-round">close</span></button>
-      </div>
-      <form class="auth-form" id="profile-edit-form" onsubmit="saveProfile(event)" style="padding:1.5rem">
-        <div style="text-align:center;margin-bottom:1rem">
-          <div class="profile-card-avatar" id="profile-edit-avatar" onclick="document.getElementById('avatar-upload').click()" style="margin:0 auto .5rem;cursor:pointer">
-            <span id="profile-edit-initials">BU</span>
-            <div class="avatar-edit-overlay"><span class="material-icons-round" style="font-size:20px">photo_camera</span></div>
-          </div>
-          <input type="file" id="avatar-upload" accept="image/*" style="display:none" onchange="previewAvatar(this)" />
-          <p style="font-size:.75rem;color:var(--muted)">Click to change photo</p>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label for="pe-name">Full Name</label><input type="text" id="pe-name" required /></div>
-          <div class="form-group"><label for="pe-profession">Profession</label><input type="text" id="pe-profession" /></div>
-        </div>
-        <div class="form-group"><label for="pe-bio">Bio</label><textarea id="pe-bio" rows="3" placeholder="Tell the community about yourself..."></textarea></div>
-        <div class="form-row">
-          <div class="form-group"><label for="pe-skills">Skills (comma-separated)</label><input type="text" id="pe-skills" placeholder="Python, React, Leadership" /></div>
-          <div class="form-group"><label for="pe-interests">Interests</label><input type="text" id="pe-interests" placeholder="AI, Entrepreneurship" /></div>
-        </div>
-        <div class="form-group"><label for="pe-location">Location</label><input type="text" id="pe-location" placeholder="Kampala, Uganda" /></div>
-        <div style="display:flex;gap:.75rem;margin-top:.5rem">
-          <button class="btn btn-primary" type="submit" id="save-profile-btn">Save Changes</button>
-          <button class="btn btn-ghost" type="button" onclick="closeProfileModal()">Cancel</button>
-        </div>
-      </form>
+  <!-- Page Hero -->
+  <section class="comm-hero">
+    <div class="container">
+      <h1>Alumni Community</h1>
+      <p>Connect, share, and grow with thousands of BU graduates around the world.</p>
     </div>
-  </div>
-
-  <!-- Firebase Setup Guide Modal -->
-  <div class="setup-modal-overlay" id="setup-modal" role="dialog" aria-modal="true" aria-label="Firebase setup guide">
-    <div class="setup-modal-box">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)">
-        <h2 style="font-size:1.1rem;font-weight:800;margin:0">Firebase Setup Guide</h2>
-        <button onclick="document.getElementById('setup-modal').classList.remove('open')" style="background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem"><span class="material-icons-round">close</span></button>
-      </div>
-      <div style="padding:1.5rem">
-        <p style="color:var(--muted);font-size:.88rem;margin-bottom:1.2rem">Follow these steps to connect your Firebase project and enable real-time features.</p>
-        <div class="setup-step"><div class="setup-step-num">1</div><div><strong style="font-size:.9rem">Create a Firebase project</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener" style="color:var(--primary)">console.firebase.google.com</a> and click "Add project".</p></div></div>
-        <div class="setup-step"><div class="setup-step-num">2</div><div><strong style="font-size:.9rem">Enable Authentication</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">In your project → Build → Authentication → Sign-in method → Enable Email/Password.</p></div></div>
-        <div class="setup-step"><div class="setup-step-num">3</div><div><strong style="font-size:.9rem">Create Firestore Database</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Build → Firestore Database → Create database → Start in test mode.</p></div></div>
-        <div class="setup-step"><div class="setup-step-num">4</div><div><strong style="font-size:.9rem">Enable Realtime Database</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Build → Realtime Database → Create database → Start in test mode.</p></div></div>
-        <div class="setup-step"><div class="setup-step-num">5</div><div><strong style="font-size:.9rem">Enable Storage</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Build → Storage → Get started → Start in test mode.</p></div></div>
-        <div class="setup-step"><div class="setup-step-num">6</div><div><strong style="font-size:.9rem">Copy your config</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Project Settings → Your apps → Web app → Copy the firebaseConfig object and replace the placeholder values in community.html.</p></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Messages Modal -->
-  <div class="comm-modal" id="messages-modal" role="dialog" aria-modal="true" aria-label="Messages" aria-hidden="true">
-    <div class="comm-modal-backdrop" onclick="closeMessages()"></div>
-    <div class="comm-modal-panel">
-      <div class="msg-modal-header">
-        <h3 id="msg-panel-title">Messages</h3>
-        <button class="msg-modal-close" onclick="closeMessages()" aria-label="Close messages"><span class="material-icons-round">close</span></button>
-      </div>
-      <div id="msg-conv-list" class="msg-conv-list">
-        <p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No conversations yet</p>
-      </div>
-      <div id="msg-chat-area" class="msg-chat-area" style="display:none"></div>
-      <div id="msg-typing" style="display:none;padding:.3rem 1.2rem"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>
-      <div class="msg-input-row" id="msg-input-row" style="display:none">
-        <input type="text" class="msg-input" id="msg-input" placeholder="Type a message..." aria-label="Type a message" onkeydown="msgKeydown(event)" oninput="handleTyping()" />
-        <button class="msg-send-btn" onclick="sendMessage()" aria-label="Send"><span class="material-icons-round" style="font-size:18px">send</span></button>
-      </div>
-    </div>
-  </div>
+  </section>
 
   <main>
     <div class="container">
-      <div class="comm-page-title">
-        <h1>Alumni Community</h1>
-        <p>Connect, share, and grow with the BU alumni network.</p>
-      </div>
-
-      <!-- Firebase setup banner -->
-      <div class="firebase-setup-banner" id="firebase-setup-banner">
-        <span class="material-icons-round">settings</span>
-        <div>
-          <strong>Firebase Setup Required</strong>
-          <p>Replace the placeholder values in the Firebase config to enable real-time features. <button onclick="showFirebaseSetupGuide()" style="background:none;border:none;color:#b45309;font-weight:700;cursor:pointer;font-family:inherit;font-size:inherit;text-decoration:underline">Setup Guide</button></p>
-        </div>
-        <button onclick="this.parentElement.hidden=true" aria-label="Dismiss"><span class="material-icons-round">close</span></button>
-      </div>
-
       <div class="community-layout">
-        <!-- LEFT SIDEBAR -->
-        <aside class="comm-left-sidebar" aria-label="Community sidebar">
-          <!-- Profile card -->
-          <div class="comm-card" id="profile-card" style="text-align:center;display:none">
-            <div class="avatar-wrap" style="display:inline-block;margin:0 auto .6rem">
-              <div class="profile-card-avatar" id="sidebar-avatar" onclick="openProfileModal()">
-                <span id="sidebar-initials">BU</span>
-                <div class="avatar-edit-overlay"><span class="material-icons-round" style="font-size:16px">edit</span></div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             LEFT SIDEBAR
+        ═══════════════════════════════════════════════════════════════ -->
+        <aside class="comm-left-sidebar" id="comm-left-sidebar">
+
+          <!-- Profile card (shown when signed in) -->
+          <div class="comm-card" id="profile-card" style="display:none;">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.5rem;">
+              <div class="avatar-circle lg" id="sidebar-avatar">AU</div>
+              <div>
+                <div style="font-weight:700;font-size:0.95rem;color:var(--text);" id="sidebar-name">Alumni User</div>
+                <div style="font-size:0.78rem;color:var(--muted);" id="sidebar-email">user@bu.edu</div>
               </div>
-              <div class="online-dot" id="sidebar-online-dot"></div>
-            </div>
-            <div style="font-weight:800;font-size:.95rem;color:var(--text)" id="sidebar-name">Member</div>
-            <div style="font-size:.78rem;color:var(--muted);margin-bottom:.3rem" id="sidebar-profession">BU Alumni</div>
-            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.5rem;font-style:italic" id="sidebar-bio"></div>
-            <button onclick="openProfileModal()" style="font-size:.8rem;font-weight:700;color:var(--primary);background:none;border:none;cursor:pointer;font-family:inherit">Edit Profile</button>
-            <div class="profile-stats-row">
-              <div class="profile-stat"><strong id="stat-posts">0</strong><span>Posts</span></div>
-              <div class="profile-stat"><strong id="stat-connections">0</strong><span>Connections</span></div>
-              <div class="profile-stat"><strong id="stat-groups">0</strong><span>Groups</span></div>
+              <a href="auth.html" style="font-size:0.78rem;color:var(--primary);font-weight:600;text-decoration:none;">Edit Profile</a>
+              <div style="display:flex;gap:1.2rem;margin-top:0.3rem;width:100%;justify-content:center;">
+                <div style="text-align:center;">
+                  <div style="font-weight:800;font-size:1rem;color:var(--text);">12</div>
+                  <div style="font-size:0.7rem;color:var(--muted);">Posts</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-weight:800;font-size:1rem;color:var(--text);">84</div>
+                  <div style="font-size:0.7rem;color:var(--muted);">Connections</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-weight:800;font-size:1rem;color:var(--text);">5</div>
+                  <div style="font-size:0.7rem;color:var(--muted);">Groups</div>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- Join card -->
-          <div class="comm-card" id="join-card" style="text-align:center;padding:1.5rem 1rem">
-            <span class="material-icons-round" style="font-size:40px;color:var(--primary);display:block;margin-bottom:.5rem">people</span>
-            <h3 style="font-size:1rem;margin:0 0 .4rem">Join the Community</h3>
-            <p style="font-size:.82rem;color:var(--muted);margin:0 0 1rem">Sign in to post, connect, and chat with alumni.</p>
-            <button class="btn btn-primary" onclick="openAuthModal('signin')" style="display:block;margin-bottom:.5rem;width:100%">Sign In</button>
-            <button class="btn btn-secondary" onclick="openAuthModal('signup')" style="display:block;width:100%">Sign Up</button>
+
+          <!-- Join card (shown when signed out) -->
+          <div class="comm-card" id="join-card">
+            <div style="text-align:center;">
+              <span class="material-icons-round" style="font-size:2.5rem;color:var(--primary);margin-bottom:0.5rem;">groups</span>
+              <div style="font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.3rem;">Join the Community</div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.9rem;">Sign in to post, connect, and access all features.</div>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                <a href="login.html" class="btn btn-primary" style="text-align:center;font-size:0.85rem;">Sign In</a>
+                <a href="register.html" class="btn btn-ghost" style="text-align:center;font-size:0.85rem;">Sign Up</a>
+              </div>
+            </div>
           </div>
-          <!-- Nav -->
-          <div class="comm-card" style="padding:.6rem">
-            <nav aria-label="Community navigation">
-              <a href="#feed" class="comm-nav-item active" onclick="scrollToFeed(event)"><span class="material-icons-round">home</span> Feed</a>
-              <button class="comm-nav-item" onclick="openMessages()"><span class="material-icons-round">chat</span> Messages<span class="comm-nav-badge" id="msg-badge" style="display:none">0</span></button>
-              <a href="#groups-section" class="comm-nav-item" onclick="scrollToSection(event,'groups-section')"><span class="material-icons-round">groups</span> Groups</a>
-              <a href="events.html" class="comm-nav-item"><span class="material-icons-round">event</span> Events</a>
-              <a href="#learning" class="comm-nav-item" onclick="scrollToSection(event,'learning')"><span class="material-icons-round">school</span> Learning</a>
-              <button class="comm-nav-item" id="notif-nav-btn" onclick="toggleNotifications(event)"><span class="material-icons-round">notifications</span> Notifications<span class="comm-nav-badge" id="notif-nav-badge" style="display:none">0</span></button>
-              <a href="memberships.html" class="comm-nav-item"><span class="material-icons-round">volunteer_activism</span> Support Fund</a>
-            </nav>
+
+          <!-- Navigation menu -->
+          <div class="comm-card" style="padding:0.6rem;">
+            <button class="comm-nav-item active" onclick="scrollToFeed()">
+              <span class="material-icons-round">home</span> Feed
+            </button>
+            <a class="comm-nav-item" href="auth.html">
+              <span class="material-icons-round">people</span> Directory
+            </a>
+            <button class="comm-nav-item" onclick="openMessages()">
+              <span class="material-icons-round">chat</span> Messages
+              <span class="comm-badge">3</span>
+            </button>
+            <a class="comm-nav-item" href="#">
+              <span class="material-icons-round">groups</span> Groups
+            </a>
+            <button class="comm-nav-item" onclick="scrollToLearning()">
+              <span class="material-icons-round">school</span> Learning
+            </button>
+            <a class="comm-nav-item" href="#">
+              <span class="material-icons-round">campaign</span> Announcements
+            </a>
+            <a class="comm-nav-item" href="events.html">
+              <span class="material-icons-round">event</span> Events
+            </a>
+            <div style="position:relative;">
+              <button class="comm-nav-item" onclick="toggleNotifications()">
+                <span class="material-icons-round">notifications</span> Notifications
+                <span class="comm-badge">5</span>
+              </button>
+              <div class="notif-dropdown" id="notif-dropdown">
+                <div class="notif-header">
+                  <span class="notif-title">Notifications</span>
+                  <button onclick="markAllRead()" style="font-size:0.75rem;color:var(--primary);background:none;border:none;cursor:pointer;font-weight:600;">Mark all read</button>
+                </div>
+                <div id="notif-list"></div>
+              </div>
+            </div>
+            <a class="comm-nav-item" href="auth.html">
+              <span class="material-icons-round">account_circle</span> My Profile
+            </a>
+            <a class="comm-nav-item" href="donate.html">
+              <span class="material-icons-round">volunteer_activism</span> Support Fund
+            </a>
           </div>
         </aside>
 
-        <!-- MAIN FEED -->
-        <section class="comm-main-feed" id="feed" aria-label="Community feed">
-          <!-- Post composer -->
-          <div class="post-composer" id="post-composer">
-            <div id="composer-auth" style="display:none">
-              <div class="composer-row">
-                <div class="composer-avatar" id="composer-avatar"><span id="composer-initials">BU</span></div>
-                <textarea class="composer-textarea" id="composer-text" placeholder="What's on your mind?" rows="2" aria-label="Write a post"></textarea>
-              </div>
-              <div id="composer-img-preview" class="img-preview-wrap" style="display:none">
-                <img id="composer-img-el" src="" alt="Preview" />
-                <button class="img-preview-remove" onclick="removeComposerImage()" aria-label="Remove image"><span class="material-icons-round" style="font-size:14px">close</span></button>
-              </div>
-              <div class="composer-actions">
-                <label class="composer-attach-btn" for="post-img-upload" style="cursor:pointer"><span class="material-icons-round">photo_camera</span> Photo<input type="file" id="post-img-upload" accept="image/*" style="display:none" onchange="handlePostImage(this)" /></label>
-                <button class="composer-attach-btn" onclick="setPostType('achievement')"><span class="material-icons-round">emoji_events</span> Achievement</button>
-                <button class="composer-attach-btn" onclick="setPostType('question')"><span class="material-icons-round">help_outline</span> Question</button>
-                <select id="post-type-select" style="border:1px solid var(--border);border-radius:8px;padding:.3rem .6rem;font-size:.78rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;cursor:pointer">
-                  <option value="update">Update</option>
-                  <option value="achievement">Achievement</option>
-                  <option value="question">Question</option>
-                  <option value="link">Link</option>
-                </select>
-                <button class="btn btn-primary composer-post-btn" id="post-submit-btn" type="button" disabled onclick="submitPost()">Post</button>
-              </div>
-            </div>
-            <div id="composer-guest" style="text-align:center;padding:1.2rem">
-              <span class="material-icons-round" style="font-size:36px;color:var(--primary);display:block;margin-bottom:.5rem">edit_note</span>
-              <p style="color:var(--muted);font-size:.9rem;margin:0 0 .75rem">Sign in to share updates with the alumni community.</p>
-              <button class="btn btn-primary" onclick="openAuthModal('signin')">Sign In to Post</button>
-            </div>
-          </div>
-          <!-- Feed -->
-          <div id="feed-posts" aria-live="polite" aria-label="Feed posts"></div>
-          <button class="load-more-btn" id="load-more-btn" onclick="loadMorePosts()" style="display:none">Load more posts</button>
-        </section>
+        <!-- ═══════════════════════════════════════════════════════════════
+             MAIN CONTENT
+        ═══════════════════════════════════════════════════════════════ -->
+        <main class="comm-main-col" id="feed-section">
 
-        <!-- RIGHT SIDEBAR -->
-        <aside class="comm-right-sidebar" aria-label="Right sidebar">
-          <!-- Online now -->
-          <div class="comm-card" id="online-card">
-            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.75rem"><span class="material-icons-round" style="font-size:16px;color:#22c55e;vertical-align:middle">circle</span> Online Now</h3>
-            <div id="online-users-list"><p style="font-size:.8rem;color:var(--muted)">No one online yet</p></div>
+          <!-- ── Post Composer ── -->
+          <div class="comm-card" id="composer-card">
+            <div id="composer-signed-in" style="display:none;">
+              <div class="composer-wrap">
+                <div class="avatar-circle" id="composer-avatar">AU</div>
+                <div style="flex:1;">
+                  <textarea class="composer-textarea" id="post-textarea" placeholder="What's on your mind?" rows="3" oninput="togglePostBtn()"></textarea>
+                  <div class="composer-actions">
+                    <button class="composer-btn" onclick="insertTag('Photo')">
+                      <span class="material-icons-round">photo_camera</span> Photo
+                    </button>
+                    <button class="composer-btn" onclick="insertTag('Achievement')">
+                      <span class="material-icons-round">emoji_events</span> Achievement
+                    </button>
+                    <button class="composer-btn" onclick="insertTag('Question')">
+                      <span class="material-icons-round">help_outline</span> Question
+                    </button>
+                    <button class="composer-btn" onclick="insertTag('Link')">
+                      <span class="material-icons-round">link</span> Link
+                    </button>
+                    <button class="post-btn" id="post-btn" disabled onclick="submitPost()">Post</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="composer-signed-out" class="sign-in-prompt">
+              <span class="material-icons-round" style="font-size:2rem;color:var(--muted);display:block;margin-bottom:0.4rem;">edit_note</span>
+              <p>Sign in to share updates, achievements, and questions with the BU alumni community.</p>
+              <a href="login.html" class="btn btn-primary" style="font-size:0.85rem;">Sign In to Post</a>
+            </div>
           </div>
-          <!-- Groups -->
-          <div class="comm-card" id="groups-section">
-            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.75rem">Active Groups</h3>
-            <div id="groups-list"><div class="spinner"></div></div>
+
+          <!-- ── Social Feed ── -->
+          <div id="feed-container"></div>
+
+          <!-- ── Learning Opportunities ── -->
+          <div id="learning-section" style="margin-top:2rem;">
+            <div class="learn-section-header">
+              <div>
+                <div class="section-eyebrow">Free &amp; Paid Certified Courses</div>
+                <h2 class="section-h2">Learning Opportunities</h2>
+                <p class="section-subtitle">Discover certified courses from the world's most trusted platforms. Click Apply Now to go directly to the official website.</p>
+              </div>
+              <div style="display:flex;gap:0.5rem;align-items:center;">
+                <span class="results-count" id="results-count"></span>
+                <div class="view-toggle">
+                  <button class="view-btn active" id="grid-btn" onclick="setView('grid')" title="Grid view">
+                    <span class="material-icons-round">grid_view</span>
+                  </button>
+                  <button class="view-btn" id="list-btn" onclick="setView('list')" title="List view">
+                    <span class="material-icons-round">view_list</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filter bar -->
+            <div class="filter-bar">
+              <select class="filter-select" id="cat-filter" onchange="filterCourses()">
+                <option value="">All Categories</option>
+                <option value="cybersecurity">Cybersecurity</option>
+                <option value="networking">Networking</option>
+                <option value="web-dev">Web Development</option>
+                <option value="cloud">Cloud</option>
+                <option value="data">Data &amp; AI</option>
+                <option value="linux">Linux</option>
+                <option value="devops">DevOps</option>
+              </select>
+              <select class="filter-select" id="prov-filter" onchange="filterCourses()">
+                <option value="">All Providers</option>
+                <option value="linux-foundation">Linux Foundation</option>
+                <option value="cisco">Cisco</option>
+                <option value="google">Google</option>
+                <option value="ibm">IBM</option>
+                <option value="meta">Meta</option>
+                <option value="aws">AWS</option>
+                <option value="edx">edX</option>
+                <option value="coursera">Coursera</option>
+              </select>
+              <div class="price-toggle">
+                <button class="active" id="price-all" onclick="setPriceFilter('all')">All</button>
+                <button id="price-free" onclick="setPriceFilter('free')">Free</button>
+                <button id="price-paid" onclick="setPriceFilter('paid')">Paid</button>
+              </div>
+              <input class="filter-search" type="search" id="course-search" placeholder="Search courses..." oninput="filterCourses()" />
+            </div>
+
+            <!-- Course grid -->
+            <div class="learn-grid" id="course-grid"></div>
+            <div class="no-results" id="no-results" style="display:none;">No courses match your filters. Try adjusting your search.</div>
           </div>
-          <!-- Events -->
+
+        </main>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             RIGHT SIDEBAR
+        ═══════════════════════════════════════════════════════════════ -->
+        <aside class="comm-right-sidebar">
+
+          <!-- Alumni Directory mini -->
           <div class="comm-card">
-            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.75rem">Upcoming Events</h3>
-            <div class="event-mini-item"><div class="event-mini-date"><span>MAY</span>10</div><div><div style="font-weight:700;font-size:.82rem;color:var(--text)">Annual Alumni Gala 2026</div><div style="font-size:.72rem;color:var(--muted)">Kampala Serena Hotel</div><a href="events.html" style="font-size:.75rem;font-weight:700;color:var(--primary);text-decoration:none">Register &rarr;</a></div></div>
-            <div class="event-mini-item"><div class="event-mini-date"><span>JUN</span>7</div><div><div style="font-weight:700;font-size:.82rem;color:var(--text)">Career Fair &amp; Networking Day</div><div style="font-size:.72rem;color:var(--muted)">BU Main Campus</div><a href="events.html" style="font-size:.75rem;font-weight:700;color:var(--primary);text-decoration:none">Register &rarr;</a></div></div>
-            <a href="events.html" class="view-all-link">View All Events &rarr;</a>
+            <div class="flex-between mb-1">
+              <span style="font-weight:700;font-size:0.9rem;color:var(--text);">Alumni Directory</span>
+              <button onclick="openDirectory()" style="font-size:0.75rem;color:var(--primary);background:none;border:none;cursor:pointer;font-weight:600;">View All</button>
+            </div>
+            <input type="search" placeholder="Search alumni..." style="width:100%;padding:0.4rem 0.7rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.8rem;font-family:inherit;margin-bottom:0.7rem;" oninput="filterDirectoryMini(this.value)" />
+            <div id="alumni-mini-list">
+              <div class="alumni-mini-card">
+                <div class="avatar-circle sm" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">BM</div>
+                <div class="alumni-mini-info">
+                  <div class="alumni-mini-name">Brian Mugisha</div>
+                  <div class="alumni-mini-role">Fintech · Class of 2019</div>
+                </div>
+                <button class="connect-btn">Connect</button>
+              </div>
+              <div class="alumni-mini-card">
+                <div class="avatar-circle sm" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">GA</div>
+                <div class="alumni-mini-info">
+                  <div class="alumni-mini-name">Grace Auma</div>
+                  <div class="alumni-mini-role">HR Manager · Class of 2020</div>
+                </div>
+                <button class="connect-btn">Connect</button>
+              </div>
+              <div class="alumni-mini-card">
+                <div class="avatar-circle sm" style="background:linear-gradient(135deg,#dc2626,#f87171);">AN</div>
+                <div class="alumni-mini-info">
+                  <div class="alumni-mini-name">Alice Nakayiza</div>
+                  <div class="alumni-mini-role">Lawyer · Class of 2015</div>
+                </div>
+                <button class="connect-btn">Connect</button>
+              </div>
+              <div class="alumni-mini-card">
+                <div class="avatar-circle sm" style="background:linear-gradient(135deg,#d97706,#fbbf24);">JO</div>
+                <div class="alumni-mini-info">
+                  <div class="alumni-mini-name">James Okello</div>
+                  <div class="alumni-mini-role">Data Scientist · Class of 2022</div>
+                </div>
+                <button class="connect-btn">Connect</button>
+              </div>
+            </div>
           </div>
+
+          <!-- Active Groups -->
+          <div class="comm-card">
+            <div style="font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:0.7rem;">Active Groups</div>
+            <div class="group-card">
+              <div class="group-icon"><span class="material-icons-round">computer</span></div>
+              <div class="group-info">
+                <div class="group-name">Tech &amp; Innovation</div>
+                <div class="group-members">1,240 members</div>
+              </div>
+              <button class="join-btn">Join</button>
+            </div>
+            <div class="group-card">
+              <div class="group-icon"><span class="material-icons-round">business_center</span></div>
+              <div class="group-info">
+                <div class="group-name">Entrepreneurs Hub</div>
+                <div class="group-members">876 members</div>
+              </div>
+              <button class="join-btn">Join</button>
+            </div>
+            <div class="group-card">
+              <div class="group-icon"><span class="material-icons-round">health_and_safety</span></div>
+              <div class="group-info">
+                <div class="group-name">Health Professionals</div>
+                <div class="group-members">543 members</div>
+              </div>
+              <button class="join-btn">Join</button>
+            </div>
+          </div>
+
+          <!-- Upcoming Events -->
+          <div class="comm-card">
+            <div class="flex-between mb-1">
+              <span style="font-weight:700;font-size:0.9rem;color:var(--text);">Upcoming Events</span>
+              <a href="events.html" style="font-size:0.75rem;color:var(--primary);font-weight:600;text-decoration:none;">See all</a>
+            </div>
+            <div class="mini-event">
+              <div class="event-date-box">
+                <span class="day">14</span>
+                <span class="mon">Feb</span>
+              </div>
+              <div class="event-info">
+                <div class="event-name">Alumni Networking Night</div>
+                <div class="event-loc">Kampala Serena Hotel</div>
+              </div>
+            </div>
+            <div class="mini-event">
+              <div class="event-date-box">
+                <span class="day">28</span>
+                <span class="mon">Feb</span>
+              </div>
+              <div class="event-info">
+                <div class="event-name">Career Fair 2026</div>
+                <div class="event-loc">BU Main Campus</div>
+              </div>
+            </div>
+          </div>
+
           <!-- Support Fund -->
           <div class="comm-card">
-            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.4rem">Alumni Support Fund</h3>
-            <p style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Help fund scholarships for the next generation.</p>
-            <div style="display:flex;justify-content:space-between;font-size:.75rem;font-weight:700;margin-bottom:.3rem"><span style="color:var(--primary)">UGX 31.5M raised</span><span style="color:var(--muted)">Goal: UGX 50M</span></div>
-            <div class="support-progress-bar"><div class="support-progress-fill" style="width:63%"></div></div>
-            <div style="font-size:.72rem;color:var(--muted);margin-bottom:.75rem">63% of goal reached</div>
-            <a class="btn btn-primary" href="memberships.html" style="display:block;text-align:center;font-size:.85rem">Contribute Now</a>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:0.3rem;">Support Fund</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.6rem;">Help fellow alumni in need. Goal: UGX 50M</div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width:63%;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--muted);margin-bottom:0.7rem;">
+              <span>UGX 31.5M raised</span>
+              <span>63%</span>
+            </div>
+            <a href="donate.html" class="btn btn-primary" style="width:100%;text-align:center;font-size:0.82rem;display:block;">Donate Now</a>
           </div>
+
         </aside>
       </div>
     </div>
   </main>
 
-  <!-- Mobile bottom nav -->
-  <nav class="comm-mobile-nav" aria-label="Mobile community navigation">
-    <a href="#feed" class="comm-mobile-nav-item active" onclick="scrollToFeed(event)"><span class="material-icons-round">home</span>Feed</a>
-    <button class="comm-mobile-nav-item" onclick="openMessages()" style="position:relative"><span class="material-icons-round">chat</span><span style="font-size:.65rem;font-weight:600">Messages</span><span class="notif-badge-count" id="msg-badge-mobile" style="display:none">0</span></button>
-    <button class="comm-mobile-nav-item" onclick="toggleNotifications(event)" style="position:relative"><span class="material-icons-round">notifications</span><span style="font-size:.65rem;font-weight:600">Alerts</span><span class="notif-badge-count" id="notif-badge-mobile" style="display:none">0</span></button>
-    <a href="auth.html#profile" class="comm-mobile-nav-item"><span class="material-icons-round">account_circle</span>Profile</a>
-  </nav>
+  <!-- Messages Panel -->
+  <div class="msg-panel" id="msg-panel">
+    <div class="msg-panel-header">
+      <span class="msg-panel-title">Messages</span>
+      <button onclick="closeMessages()" class="modal-close"><span class="material-icons-round">close</span></button>
+    </div>
+    <div class="msg-list" id="msg-list">
+      <div class="msg-item">
+        <div class="avatar-circle sm" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">BM</div>
+        <div class="msg-info">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="msg-name">Brian Mugisha</span>
+            <span class="msg-unread">2</span>
+          </div>
+          <div class="msg-preview">I work in fintech! Let's connect...</div>
+        </div>
+      </div>
+      <div class="msg-item">
+        <div class="avatar-circle sm" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">SN</div>
+        <div class="msg-info">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="msg-name">Dr. Sarah Nakato</span>
+            <span class="msg-unread">1</span>
+          </div>
+          <div class="msg-preview">Great to see you at the summit!</div>
+        </div>
+      </div>
+      <div class="msg-item">
+        <div class="avatar-circle sm" style="background:linear-gradient(135deg,#1140d9,#3a5fe8);">RS</div>
+        <div class="msg-info">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="msg-name">Robert Ssali</span>
+            <span class="msg-unread">0</span>
+          </div>
+          <div class="msg-preview">Welcome to the VVP programme!</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg-input-wrap">
+      <input class="msg-input" type="text" placeholder="Type a message..." id="msg-input" />
+      <button class="msg-send-btn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
 
+  <!-- Directory Modal -->
+  <div class="modal-overlay" id="dir-modal" onclick="closeDirModal(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Alumni Directory</span>
+        <button class="modal-close" onclick="closeDirModalBtn()"><span class="material-icons-round">close</span></button>
+      </div>
+      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
+        <input type="search" placeholder="Search by name, profession..." style="flex:1;min-width:160px;padding:0.45rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.85rem;font-family:inherit;" oninput="filterDirectory(this.value)" />
+        <select style="padding:0.45rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.82rem;font-family:inherit;">
+          <option>All Classes</option>
+          <option>Class of 2024</option>
+          <option>Class of 2022</option>
+          <option>Class of 2020</option>
+          <option>Class of 2018</option>
+          <option>Class of 2015</option>
+          <option>Class of 2010</option>
+        </select>
+      </div>
+      <div id="dir-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.8rem;"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer id="footer" class="site-footer">
     <div class="container footer-top">
       <div class="footer-brand">
         <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
         <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
         <div class="footer-social">
-          <a href="https://wa.me/256761365727" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-icon social-icon--wa"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2c-5.5 0-9.97 4.46-9.97 9.97 0 1.75.46 3.46 1.33 4.96L2 22l5.2-1.36a9.93 9.93 0 0 0 4.83 1.23h.01c5.5 0 9.97-4.46 9.97-9.97a9.9 9.9 0 0 0-2.91-7z"/></svg></a>
-          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon social-icon--fb"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a href="https://x.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="X" class="social-icon social-icon--x"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon social-icon--li"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <a href="mailto:alumni@bualumni.org" aria-label="Email" class="social-icon social-icon--em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+          <a href="https://wa.me/256761365727" target="_blank" rel="noopener" aria-label="Chat with BU Alumni on WhatsApp" class="social-icon social-icon--wa">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2c-5.5 0-9.97 4.46-9.97 9.97 0 1.75.46 3.46 1.33 4.96L2 22l5.2-1.36a9.93 9.93 0 0 0 4.83 1.23h.01c5.5 0 9.97-4.46 9.97-9.97a9.9 9.9 0 0 0-2.91-7zM12.04 20.18h-.01a8.3 8.3 0 0 1-4.24-1.16l-.3-.18-3.09.81.82-3.01-.2-.31a8.29 8.29 0 0 1-1.28-4.42c0-4.58 3.72-8.3 8.31-8.3 2.22 0 4.3.87 5.86 2.43a8.26 8.26 0 0 1 2.43 5.87c0 4.59-3.73 8.31-8.3 8.31zm4.56-6.23c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.57.12-.17.26-.65.8-.79.96-.15.17-.29.19-.54.07-.25-.13-1.05-.38-2-1.2-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.39.11-.52.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.13-.57-1.38-.78-1.89-.21-.5-.42-.43-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.09s.9 2.43 1.02 2.6c.12.17 1.77 2.7 4.28 3.79.6.26 1.06.42 1.42.54.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.19.21-.59.21-1.09.15-1.19-.06-.11-.23-.17-.48-.3z"/></svg>
+          </a>
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="BU Alumni on Facebook" class="social-icon social-icon--fb">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://x.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="BU Alumni on X (Twitter)" class="social-icon social-icon--x">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="15" height="15"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="BU Alumni on LinkedIn" class="social-icon social-icon--li">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://instagram.com/bugema_university" target="_blank" rel="noopener" aria-label="BU Alumni on Instagram" class="social-icon social-icon--ig">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="mailto:alumni@bualumni.org" aria-label="Email BU Alumni" class="social-icon social-icon--em">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
         </div>
       </div>
       <div class="footer-links-group">
@@ -553,868 +695,351 @@
         <p class="newsletter-success" id="nl-success" aria-live="polite" hidden></p>
       </div>
     </div>
-    <div class="footer-bottom"><div class="container"><p>&copy; 2026 BU Alumni Association. All rights reserved.</p></div></div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
   <script src="theme.js"></script>
   <script src="animations.js"></script>
   <script src="auth-nav.js"></script>
   <script src="share.js"></script>
-  <script type="module">
-  // ── IMPORTANT: This page requires an HTTP server ──────────────────────────
-  // Open via: http://localhost:8080/community.html  (run: node server.js)
-  // Opening as file:// will block Firebase module imports.
-  // ─────────────────────────────────────────────────────────────────────────
-  if (window.location.protocol === 'file:') {
-    document.body.innerHTML = `
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,Arial,sans-serif;background:#f6f8fc;padding:2rem;text-align:center">
-        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" style="width:64px;height:64px;border-radius:50%;margin-bottom:1.5rem;background:#fff;padding:.5rem;box-shadow:0 4px 16px rgba(0,0,0,.1)" />
-        <h1 style="font-size:1.6rem;font-weight:800;color:#1b2234;margin:0 0 .75rem">Server Required</h1>
-        <p style="color:#5f6a85;max-width:44ch;margin:0 0 1.5rem;line-height:1.6">
-          The Community page uses Firebase real-time features that require an HTTP server.<br>
-          You're currently opening the file directly (<code style="background:#e8eeff;padding:.1rem .4rem;border-radius:4px;font-size:.9em">file://</code>).
-        </p>
-        <div style="background:#fff;border:1px solid #dbe2f1;border-radius:16px;padding:1.5rem 2rem;max-width:480px;text-align:left;box-shadow:0 8px 24px rgba(17,64,217,.08)">
-          <p style="font-weight:800;color:#1b2234;margin:0 0 .75rem">Start the server:</p>
-          <code style="display:block;background:#0f1a3a;color:#e5eafc;padding:1rem;border-radius:10px;font-size:.9rem;margin-bottom:1rem">
-            cd "BU ALU Portal"<br>
-            node server.js
-          </code>
-          <p style="color:#5f6a85;font-size:.88rem;margin:0 0 .5rem">Then open in your browser:</p>
-          <a href="http://localhost:8080/community.html" style="display:block;background:#1140d9;color:#fff;text-decoration:none;padding:.75rem 1rem;border-radius:10px;font-weight:700;text-align:center;font-size:.9rem">
-            http://localhost:8080/community.html
-          </a>
-        </div>
-        <p style="margin-top:1.5rem;font-size:.82rem;color:#5f6a85">
-          All other pages work without a server. <a href="index.html" style="color:#1140d9;font-weight:700">← Back to Home</a>
-        </p>
-      </div>`;
-    throw new Error('file:// protocol — server required');
-  }
-  import { initializeApp }                                    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-  import { getAuth, createUserWithEmailAndPassword,
-           signInWithEmailAndPassword, signOut,
-           onAuthStateChanged, updateProfile }                from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-  import { getFirestore, collection, doc, addDoc, getDoc,
-           setDoc, updateDoc, query, where, orderBy, limit,
-           onSnapshot, serverTimestamp, arrayUnion,
-           arrayRemove, increment, startAfter, getDocs }     from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-  import { getDatabase, ref, set, push, onValue,
-           onDisconnect, serverTimestamp as rtTS,
-           get as rtGet }                                     from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
-  import { getStorage, ref as sRef,
-           uploadBytes, getDownloadURL }                      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+  <script>
+  /* ── Auth ── */
+  var user = (function(){ try{ return JSON.parse(localStorage.getItem('buCurrentUser')||'null'); }catch(e){ return null; } })();
+  function ini(n){ if(!n) return 'BU'; var p=n.trim().split(/\s+/); return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():p[0].slice(0,2).toUpperCase(); }
 
-  const firebaseConfig = {
-    apiKey:            "REPLACE_WITH_YOUR_API_KEY",
-    authDomain:        "REPLACE_WITH_YOUR_AUTH_DOMAIN",
-    projectId:         "REPLACE_WITH_YOUR_PROJECT_ID",
-    storageBucket:     "REPLACE_WITH_YOUR_STORAGE_BUCKET",
-    messagingSenderId: "REPLACE_WITH_YOUR_MESSAGING_SENDER_ID",
-    appId:             "REPLACE_WITH_YOUR_APP_ID",
-    databaseURL:       "REPLACE_WITH_YOUR_DATABASE_URL"
+  /* ── Feed data ── */
+  var POSTS=[
+    {id:'p1',author:'Amara Ssekandi',profession:'Software Engineer · Class of 2018',time:'2 hours ago',content:'Excited to share that I just joined XYZ Tech as a Senior Engineer! Grateful for the BU Alumni network — the mentorship connections here made all the difference.',type:'achievement',badge:'New Job',likes:47,comments:[{a:'Dr. Sarah Nakato',t:'Congratulations! Well deserved!'},{a:'Moses Byaruhanga',t:'Amazing news!'}]},
+    {id:'p2',author:'Dr. Sarah Nakato',profession:'Health Professional · Class of 2008',time:'5 hours ago',content:'Just returned from the WHO Regional Health Summit in Nairobi. Proud to represent BU graduates on the continental stage. If anyone is interested in global health careers, feel free to reach out!',type:'update',likes:89,comments:[{a:'Faith Nakato',t:'So inspiring!'},{a:'Robert Ssali',t:'BU pride!'}]},
+    {id:'p3',author:'Moses Byaruhanga',profession:'Entrepreneur · Class of 2016',time:'Yesterday',content:'Question for the network: Any alumni working in fintech or impact investing in East Africa? Looking to connect and explore partnership opportunities for my startup.',type:'question',likes:34,comments:[{a:'Brian Mugisha',t:'I work in fintech! Sending you a message now.'}]},
+    {id:'p4',author:'Faith Nakato',profession:'Marketing Manager · Class of 2021',time:'2 days ago',content:'Sharing this amazing resource — the BU Career Guide library has CV templates and interview prep materials that actually work. Check it out!',type:'link',link:{text:'BU Career Resource Library',url:'career-guide.html'},likes:56,comments:[{a:'Grace Auma',t:'This helped me land my current role!'}]},
+    {id:'p5',author:'Robert Ssali',profession:'VVP Member · Class of 2010',time:'3 days ago',content:'Congratulations to all Class of 2026 graduates! The BU Alumni network is here for you — mentorship, jobs, and community. Welcome home!',type:'update',likes:124,comments:[{a:'Alice Nakayiza',t:'Welcome to the family!'},{a:'Amara Ssekandi',t:'Reach out anytime!'}]}
+  ];
+
+  /* ── Course data ── */
+  var COURSES=[
+    {id:'c1',title:'Introduction to Linux',provider:'linux-foundation',providerName:'Linux Foundation',category:'linux',price:'free',duration:'60 hours',badge:'popular',desc:'A comprehensive introduction to the Linux OS covering command line, file systems, and scripting.',url:'https://training.linuxfoundation.org/training/introduction-to-linux/'},
+    {id:'c2',title:'Introduction to Kubernetes',provider:'linux-foundation',providerName:'Linux Foundation',category:'devops',price:'free',duration:'14 hours',badge:'trending',desc:'Learn Kubernetes container orchestration and cloud-native application deployment fundamentals.',url:'https://training.linuxfoundation.org/training/introduction-to-kubernetes/'},
+    {id:'c3',title:'Introduction to Cloud Infrastructure Technologies',provider:'linux-foundation',providerName:'Linux Foundation',category:'cloud',price:'free',duration:'14 hours',badge:'new',desc:'Explore cloud computing concepts, IaaS, PaaS, SaaS, and leading cloud providers.',url:'https://training.linuxfoundation.org/training/introduction-to-cloud-infrastructure-technologies/'},
+    {id:'c4',title:'Open Source Software Development, Linux and Git',provider:'linux-foundation',providerName:'Linux Foundation',category:'linux',price:'free',duration:'30 hours',badge:'',desc:'Master open source development workflows, Linux fundamentals, and Git version control.',url:'https://www.edx.org/professional-certificate/linuxfoundationx-open-source-software-development-linux-and-git'},
+    {id:'c5',title:'Introduction to Cybersecurity',provider:'cisco',providerName:'Cisco Networking Academy',category:'cybersecurity',price:'free',duration:'6 hours',badge:'popular',desc:'Explore the world of cybersecurity and learn how to protect yourself and your organisation online.',url:'https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity'},
+    {id:'c6',title:'Networking Basics',provider:'cisco',providerName:'Cisco Networking Academy',category:'networking',price:'free',duration:'22 hours',badge:'trending',desc:'Learn the fundamentals of computer networking, IP addressing, and network protocols.',url:'https://www.netacad.com/courses/networking/networking-basics'},
+    {id:'c7',title:'Python Essentials 1',provider:'cisco',providerName:'Cisco Networking Academy',category:'web-dev',price:'free',duration:'25 hours',badge:'new',desc:'Start your Python programming journey with this beginner-friendly course from Cisco.',url:'https://www.netacad.com/courses/programming/pcap-programming-essentials-python'},
+    {id:'c8',title:'Cybersecurity Essentials',provider:'cisco',providerName:'Cisco Networking Academy',category:'cybersecurity',price:'free',duration:'30 hours',badge:'',desc:'Deepen your cybersecurity knowledge with threat analysis, cryptography, and network security.',url:'https://www.netacad.com/courses/cybersecurity/cybersecurity-essentials'},
+    {id:'c9',title:'CCNA: Introduction to Networks',provider:'cisco',providerName:'Cisco Networking Academy',category:'networking',price:'free',duration:'70 hours',badge:'popular',desc:'The first CCNA course — covers network fundamentals, Ethernet, and IPv4/IPv6.',url:'https://www.netacad.com/courses/networking/ccna-introduction-networks'},
+    {id:'c10',title:'Google IT Support Professional Certificate',provider:'google',providerName:'Google',category:'networking',price:'free',duration:'6 months',badge:'trending',desc:'Prepare for a career in IT support with this beginner-level professional certificate from Google.',url:'https://grow.google/certificates/it-support/'},
+    {id:'c11',title:'Google Cybersecurity Certificate',provider:'google',providerName:'Google',category:'cybersecurity',price:'free',duration:'6 months',badge:'new',desc:'Build job-ready cybersecurity skills with hands-on labs and real-world scenarios.',url:'https://grow.google/certificates/cybersecurity/'},
+    {id:'c12',title:'Google Data Analytics Certificate',provider:'google',providerName:'Google',category:'data',price:'free',duration:'6 months',badge:'popular',desc:'Learn data analytics tools including SQL, R, Tableau, and spreadsheets.',url:'https://grow.google/certificates/data-analytics/'},
+    {id:'c13',title:'IBM AI Foundations for Business',provider:'ibm',providerName:'IBM',category:'data',price:'free',duration:'6 hours',badge:'trending',desc:'Understand AI concepts, machine learning, and how AI is transforming business.',url:'https://www.edx.org/professional-certificate/ibm-applied-ai'},
+    {id:'c14',title:'IBM Cybersecurity Analyst Professional Certificate',provider:'ibm',providerName:'IBM',category:'cybersecurity',price:'free',duration:'8 months',badge:'new',desc:'Develop skills for a cybersecurity analyst role with IBM professional certificate.',url:'https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst'},
+    {id:'c15',title:'IBM Full Stack Software Developer',provider:'ibm',providerName:'IBM',category:'web-dev',price:'free',duration:'4 months',badge:'popular',desc:'Build full-stack web apps using React, Node.js, Python, Django, and cloud platforms.',url:'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer'},
+    {id:'c16',title:'Meta Front-End Developer Certificate',provider:'meta',providerName:'Meta',category:'web-dev',price:'free',duration:'7 months',badge:'trending',desc:'Learn HTML, CSS, JavaScript, React, and UI/UX principles from Meta engineers.',url:'https://www.coursera.org/professional-certificates/meta-front-end-developer'},
+    {id:'c17',title:'Meta Back-End Developer Certificate',provider:'meta',providerName:'Meta',category:'web-dev',price:'free',duration:'8 months',badge:'',desc:'Build back-end web applications with Python, Django, REST APIs, and databases.',url:'https://www.coursera.org/professional-certificates/meta-back-end-developer'},
+    {id:'c18',title:'AWS Cloud Practitioner Essentials',provider:'aws',providerName:'AWS',category:'cloud',price:'free',duration:'6 hours',badge:'popular',desc:'Build foundational AWS cloud knowledge and prepare for the AWS Cloud Practitioner exam.',url:'https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/'},
+    {id:'c19',title:'AWS Cloud Technical Essentials',provider:'aws',providerName:'AWS',category:'cloud',price:'free',duration:'12 hours',badge:'new',desc:'Explore core AWS services including compute, storage, databases, and networking.',url:'https://www.coursera.org/learn/aws-cloud-technical-essentials'},
+    {id:'c20',title:'CS50: Introduction to Computer Science',provider:'edx',providerName:'edX (Harvard)',category:'web-dev',price:'free',duration:'12 weeks',badge:'trending',desc:'Harvard legendary intro to CS — algorithms, data structures, C, Python, SQL, and web development.',url:'https://www.edx.org/course/introduction-computer-science-harvardx-cs50x'},
+    {id:'c21',title:'Introduction to Networking and Cloud Computing',provider:'coursera',providerName:'Coursera (Microsoft)',category:'networking',price:'free',duration:'4 weeks',badge:'',desc:'Learn networking fundamentals and cloud computing concepts from Microsoft.',url:'https://www.coursera.org/learn/introduction-to-networking-and-cloud-computing'},
+    {id:'c22',title:'Google UX Design Certificate',provider:'google',providerName:'Google',category:'web-dev',price:'free',duration:'6 months',badge:'',desc:'Design user-centred products and build a professional UX portfolio with Google.',url:'https://grow.google/certificates/ux-design/'}
+  ];
+
+  var PROV_CFG={
+    'linux-foundation':{color:'#003366',bg:'#e8f0fb',abbr:'LF'},
+    'cisco':{color:'#1ba0d7',bg:'#e0f4fd',abbr:'CISCO'},
+    'google':{color:'#4285f4',bg:'#e8f0fe',abbr:'G'},
+    'ibm':{color:'#0f62fe',bg:'#edf5ff',abbr:'IBM'},
+    'meta':{color:'#0082fb',bg:'#e7f3ff',abbr:'META'},
+    'aws':{color:'#ff9900',bg:'#fff8e1',abbr:'AWS'},
+    'edx':{color:'#02262b',bg:'#e6f4f1',abbr:'edX'},
+    'coursera':{color:'#0056d2',bg:'#e8f0fb',abbr:'C'}
   };
 
-  // ── Detect placeholder config ──────────────────────────────────────────────
-  const IS_CONFIGURED = !firebaseConfig.apiKey.startsWith('REPLACE');
-  if (!IS_CONFIGURED) {
-    console.warn('[community] Firebase not configured — running in demo mode.');
-  } else {
-    document.getElementById('firebase-setup-banner').hidden = true;
+  var priceFilter='all', viewMode='grid';
+  var savedCourses=JSON.parse(localStorage.getItem('buSavedCourses')||'[]');
+
+  /* ── Provider logo SVG ── */
+  function provLogo(pid){
+    var p=PROV_CFG[pid]||{color:'#374151',bg:'#f3f4f6',abbr:'?'};
+    return '<div class="provider-logo" style="background:'+p.bg+'"><svg viewBox="0 0 40 40" width="40" height="40"><rect width="40" height="40" rx="8" fill="'+p.color+'"/><text x="20" y="26" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="'+(p.abbr.length>3?7:p.abbr.length>2?9:12)+'" fill="#fff">'+p.abbr+'</text></svg></div>';
   }
 
-  // ── Init Firebase ──────────────────────────────────────────────────────────
-  let app, auth, db, rtdb, storage;
-  if (IS_CONFIGURED) {
-    try {
-      app     = initializeApp(firebaseConfig);
-      auth    = getAuth(app);
-      db      = getFirestore(app);
-      rtdb    = getDatabase(app);
-      storage = getStorage(app);
-    } catch(e) {
-      console.error('[firebase init]', e);
-    }
+  /* ── Render course card ── */
+  function courseCard(c){
+    var p=PROV_CFG[c.provider]||{color:'#374151',bg:'#f3f4f6',abbr:'?'};
+    var badge=c.badge?'<span class="badge-'+c.badge+'">'+c.badge.charAt(0).toUpperCase()+c.badge.slice(1)+'</span>':'';
+    var isSaved=savedCourses.indexOf(c.id)!==-1;
+    return '<article class="course-card">'+
+      '<div class="course-card-header" style="background:'+p.bg+'">'+
+        provLogo(c.provider)+
+        '<div style="display:flex;gap:0.3rem;flex-wrap:wrap;justify-content:flex-end;">'+
+          badge+
+          '<span class="price-'+c.price+'">'+c.price.charAt(0).toUpperCase()+c.price.slice(1)+'</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="course-card-body">'+
+        '<span style="display:inline-block;background:rgba(17,64,217,0.08);color:var(--primary);font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;text-transform:uppercase;letter-spacing:0.05em;width:fit-content;">'+c.category+'</span>'+
+        '<div class="course-title">'+c.title+'</div>'+
+        '<div class="course-provider" style="color:'+p.color+'">'+c.providerName+'</div>'+
+        '<div class="course-desc">'+c.desc+'</div>'+
+        '<div class="course-duration"><span class="material-icons-round">schedule</span>'+c.duration+'</div>'+
+      '</div>'+
+      '<div class="course-card-footer">'+
+        '<a class="course-apply-btn" href="'+c.url+'" target="_blank" rel="noopener noreferrer" aria-label="Apply for '+c.title+'">'+
+          '<span class="material-icons-round" style="font-size:0.9rem;">open_in_new</span> Apply Now'+
+        '</a>'+
+        '<button class="bookmark-btn'+(isSaved?' saved':'')+'" onclick="toggleBookmark(this.dataset.id,this)" data-id="'+c.id+'" aria-label="Bookmark course" title="Save for later">'+
+          '<span class="material-icons-round">'+(isSaved?'bookmark':'bookmark_border')+'</span>'+
+        '</button>'+
+      '</div>'+
+    '</article>';
   }
 
-  // ── State ──────────────────────────────────────────────────────────────────
-  let currentUser     = null;
-  let currentProfile  = null;
-  let lastPostDoc     = null;
-  let postUnsub       = null;
-  let notifUnsub      = null;
-  let activeChatId    = null;
-  let chatUnsub       = null;
-  let typingTimeout   = null;
-  let postImageFile   = null;
-  let postImageUrl    = null;
-  let notifOpen       = false;
-  let msgOpen         = false;
-
-  // ── Helpers ────────────────────────────────────────────────────────────────
-  function initials(name) {
-    if (!name) return 'BU';
-    const p = name.trim().split(/\s+/);
-    return p.length >= 2 ? (p[0][0]+p[p.length-1][0]).toUpperCase() : p[0].slice(0,2).toUpperCase();
-  }
-  function timeAgo(ts) {
-    if (!ts) return '';
-    const d = ts.toDate ? ts.toDate() : new Date(ts);
-    const s = Math.floor((Date.now()-d)/1000);
-    if (s<60) return 'just now';
-    if (s<3600) return Math.floor(s/60)+'m ago';
-    if (s<86400) return Math.floor(s/3600)+'h ago';
-    return Math.floor(s/86400)+'d ago';
-  }
-  function avatarHtml(name, photoURL, size=42) {
-    const ini = initials(name);
-    const colors = ['linear-gradient(135deg,#1140d9,#6d88ff)','linear-gradient(135deg,#0f766e,#34d399)','linear-gradient(135deg,#7c3aed,#a78bfa)','linear-gradient(135deg,#dc2626,#f87171)','linear-gradient(135deg,#d97706,#fbbf24)'];
-    const col = colors[(name||'').charCodeAt(0)%colors.length];
-    if (photoURL) return `<img src="${photoURL}" alt="${name}" style="width:${size}px;height:${size}px;border-radius:50%;object-fit:cover" />`;
-    return `<span style="background:${col};width:${size}px;height:${size}px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:${Math.round(size*.35)}px;font-weight:800;flex-shrink:0">${ini}</span>`;
-  }
-  function showToast(msg, type='info') {
-    const t = document.createElement('div');
-    t.style.cssText = `position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:${type==='error'?'#dc2626':type==='success'?'#16a34a':'#374151'};color:#fff;padding:.65rem 1.2rem;border-radius:10px;font-size:.85rem;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.2);animation:fadeSlideIn .2s ease`;
-    t.textContent = msg;
-    document.body.appendChild(t);
-    setTimeout(()=>t.remove(), 3000);
-  }
-
-  // ── Auth state ─────────────────────────────────────────────────────────────
-  function updateNavForUser(user) {
-    const signIn  = document.getElementById('nav-signin-btn');
-    const signUp  = document.getElementById('nav-signup-btn');
-    const mSignIn = document.getElementById('mobile-signin-btn');
-    const mSignUp = document.getElementById('mobile-signup-btn');
-    const notifWrap = document.getElementById('notif-wrap');
-    const searchWrap = document.getElementById('header-search-wrap');
-    if (user) {
-      if (signIn)  signIn.style.display  = 'none';
-      if (signUp)  signUp.style.display  = 'none';
-      if (mSignIn) mSignIn.style.display = 'none';
-      if (mSignUp) mSignUp.style.display = 'none';
-      if (notifWrap)  notifWrap.style.display  = 'flex';
-      if (searchWrap) searchWrap.style.display = 'flex';
-    } else {
-      if (signIn)  signIn.style.display  = '';
-      if (signUp)  signUp.style.display  = '';
-      if (mSignIn) mSignIn.style.display = '';
-      if (mSignUp) mSignUp.style.display = '';
-      if (notifWrap)  notifWrap.style.display  = 'none';
-      if (searchWrap) searchWrap.style.display = 'none';
-    }
-  }
-
-  function updateSidebarProfile(profile) {
-    const card = document.getElementById('profile-card');
-    const join = document.getElementById('join-card');
-    const compAuth  = document.getElementById('composer-auth');
-    const compGuest = document.getElementById('composer-guest');
-    if (!profile) {
-      card.style.display = 'none';
-      join.style.display = 'block';
-      compAuth.style.display  = 'none';
-      compGuest.style.display = 'block';
-      return;
-    }
-    card.style.display = 'block';
-    join.style.display = 'none';
-    compAuth.style.display  = 'block';
-    compGuest.style.display = 'none';
-    const ini = initials(profile.displayName||profile.name||'');
-    document.getElementById('sidebar-initials').textContent = ini;
-    document.getElementById('sidebar-name').textContent     = profile.displayName||profile.name||'Member';
-    document.getElementById('sidebar-profession').textContent = profile.profession||'BU Alumni';
-    document.getElementById('sidebar-bio').textContent      = profile.bio||'';
-    document.getElementById('composer-initials').textContent = ini;
-    if (profile.photoURL) {
-      document.getElementById('sidebar-initials').innerHTML = `<img src="${profile.photoURL}" style="width:64px;height:64px;object-fit:cover;border-radius:50%" />`;
-      document.getElementById('composer-initials').innerHTML = `<img src="${profile.photoURL}" style="width:40px;height:40px;object-fit:cover;border-radius:50%" />`;
-    }
-  }
-
-  if (IS_CONFIGURED && auth) {
-    onAuthStateChanged(auth, async (user) => {
-      currentUser = user;
-      updateNavForUser(user);
-      if (user) {
-        // Load profile from Firestore
-        try {
-          const snap = await getDoc(doc(db,'users',user.uid));
-          currentProfile = snap.exists() ? snap.data() : { displayName: user.displayName||user.email, email: user.email };
-        } catch(e) { currentProfile = { displayName: user.displayName||user.email, email: user.email }; }
-        updateSidebarProfile(currentProfile);
-        setOnlinePresence(user.uid);
-        subscribeNotifications(user.uid);
-        loadConversations(user.uid);
-      } else {
-        currentProfile = null;
-        updateSidebarProfile(null);
-        if (notifUnsub) { notifUnsub(); notifUnsub=null; }
-      }
-      loadFeed();
-      loadGroups();
+  /* ── Filter & render courses ── */
+  function filterCourses(){
+    var cat=document.getElementById('cat-filter').value;
+    var prov=document.getElementById('prov-filter').value;
+    var q=(document.getElementById('course-search').value||'').toLowerCase().trim();
+    var filtered=COURSES.filter(function(c){
+      return (!cat||c.category===cat)&&(!prov||c.provider===prov)&&(priceFilter==='all'||c.price===priceFilter)&&(!q||c.title.toLowerCase().includes(q)||c.desc.toLowerCase().includes(q)||c.providerName.toLowerCase().includes(q));
     });
-  } else {
-    // Demo mode — show guest UI
-    updateSidebarProfile(null);
-    updateNavForUser(null);
-    loadFeedDemo();
-    loadGroupsDemo();
+    var grid=document.getElementById('course-grid');
+    var noRes=document.getElementById('no-results');
+    var cnt=document.getElementById('results-count');
+    if(!filtered.length){grid.innerHTML='';noRes.style.display='block';}
+    else{noRes.style.display='none';grid.innerHTML=filtered.map(courseCard).join('');}
+    if(cnt) cnt.textContent=filtered.length+' course'+(filtered.length!==1?'s':'');
   }
 
-  // ── Auth modal ─────────────────────────────────────────────────────────────
-  window.openAuthModal = function(tab='signin') {
-    document.getElementById('auth-modal').classList.add('open');
-    switchAuthTab(tab);
-  };
-  window.closeAuthModal = function() {
-    document.getElementById('auth-modal').classList.remove('open');
-  };
-  window.switchAuthTab = function(tab) {
-    document.getElementById('signin-form').style.display = tab==='signin'?'flex':'none';
-    document.getElementById('signup-form').style.display = tab==='signup'?'flex':'none';
-    document.getElementById('tab-signin').classList.toggle('active', tab==='signin');
-    document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
-  };
-  window.handleSignIn = async function(e) {
-    e.preventDefault();
-    if (!IS_CONFIGURED) { showToast('Firebase not configured','error'); return; }
-    const btn = document.getElementById('signin-btn');
-    const err = document.getElementById('signin-error');
-    btn.disabled = true; btn.textContent = 'Signing in…'; err.style.display='none';
-    try {
-      await signInWithEmailAndPassword(auth, document.getElementById('si-email').value.trim(), document.getElementById('si-password').value);
-      closeAuthModal();
-      showToast('Welcome back!','success');
-    } catch(ex) {
-      err.textContent = ex.code==='auth/invalid-credential'?'Invalid email or password.':ex.message;
-      err.style.display='block';
-    } finally { btn.disabled=false; btn.textContent='Sign In'; }
-  };
-  window.handleSignUp = async function(e) {
-    e.preventDefault();
-    if (!IS_CONFIGURED) { showToast('Firebase not configured','error'); return; }
-    const btn = document.getElementById('signup-btn');
-    const err = document.getElementById('signup-error');
-    btn.disabled=true; btn.textContent='Creating account…'; err.style.display='none';
-    const name = document.getElementById('su-name').value.trim();
-    const email = document.getElementById('su-email').value.trim();
-    const pass  = document.getElementById('su-password').value;
-    const prof  = document.getElementById('su-profession').value.trim();
-    const bio   = document.getElementById('su-bio').value.trim();
-    try {
-      const cred = await createUserWithEmailAndPassword(auth, email, pass);
-      await updateProfile(cred.user, { displayName: name });
-      const profile = { displayName:name, email, profession:prof, bio, createdAt:serverTimestamp(), posts:0, connections:0, groups:0 };
-      await setDoc(doc(db,'users',cred.user.uid), profile);
-      closeAuthModal();
-      showToast('Account created! Welcome to the community.','success');
-    } catch(ex) {
-      err.textContent = ex.code==='auth/email-already-in-use'?'An account with this email already exists.':ex.message;
-      err.style.display='block';
-    } finally { btn.disabled=false; btn.textContent='Create Account'; }
-  };
-
-  // ── Profile modal ──────────────────────────────────────────────────────────
-  window.openProfileModal = function() {
-    if (!currentUser) { openAuthModal('signin'); return; }
-    const p = currentProfile||{};
-    document.getElementById('pe-name').value       = p.displayName||p.name||'';
-    document.getElementById('pe-profession').value = p.profession||'';
-    document.getElementById('pe-bio').value        = p.bio||'';
-    document.getElementById('pe-skills').value     = (p.skills||[]).join(', ');
-    document.getElementById('pe-interests').value  = (p.interests||[]).join(', ');
-    document.getElementById('pe-location').value   = p.location||'';
-    document.getElementById('profile-edit-initials').textContent = initials(p.displayName||p.name||'');
-    document.getElementById('profile-modal').classList.add('open');
-  };
-  window.closeProfileModal = function() {
-    document.getElementById('profile-modal').classList.remove('open');
-  };
-  window.previewAvatar = function(input) {
-    if (!input.files[0]) return;
-    const reader = new FileReader();
-    reader.onload = e => { document.getElementById('profile-edit-initials').innerHTML = `<img src="${e.target.result}" style="width:64px;height:64px;object-fit:cover;border-radius:50%" />`; };
-    reader.readAsDataURL(input.files[0]);
-  };
-  window.saveProfile = async function(e) {
-    e.preventDefault();
-    if (!IS_CONFIGURED||!currentUser) return;
-    const btn = document.getElementById('save-profile-btn');
-    btn.disabled=true; btn.textContent='Saving…';
-    try {
-      const file = document.getElementById('avatar-upload').files[0];
-      let photoURL = currentProfile?.photoURL||null;
-      if (file) {
-        const r = sRef(storage,`avatars/${currentUser.uid}`);
-        await uploadBytes(r, file);
-        photoURL = await getDownloadURL(r);
-        await updateProfile(currentUser, { photoURL });
-      }
-      const updates = {
-        displayName: document.getElementById('pe-name').value.trim(),
-        profession:  document.getElementById('pe-profession').value.trim(),
-        bio:         document.getElementById('pe-bio').value.trim(),
-        skills:      document.getElementById('pe-skills').value.split(',').map(s=>s.trim()).filter(Boolean),
-        interests:   document.getElementById('pe-interests').value.split(',').map(s=>s.trim()).filter(Boolean),
-        location:    document.getElementById('pe-location').value.trim(),
-        ...(photoURL && { photoURL }),
-      };
-      await updateDoc(doc(db,'users',currentUser.uid), updates);
-      await updateProfile(currentUser, { displayName: updates.displayName });
-      currentProfile = { ...currentProfile, ...updates };
-      updateSidebarProfile(currentProfile);
-      closeProfileModal();
-      showToast('Profile updated!','success');
-    } catch(ex) { showToast('Failed to save: '+ex.message,'error'); }
-    finally { btn.disabled=false; btn.textContent='Save Changes'; }
-  };
-
-  // ── Feed ───────────────────────────────────────────────────────────────────
-  const BADGE_MAP = { achievement:{label:'Achievement',cls:'post-badge'}, question:{label:'Question',cls:'post-badge',style:'background:#eff6ff;color:#1e40af;border-color:#bfdbfe'} };
-
-  function renderPost(id, data) {
-    const liked = currentUser && (data.likes||[]).includes(currentUser.uid);
-    const badge = BADGE_MAP[data.type];
-    const badgeHtml = badge ? `<div class="${badge.cls}" ${badge.style?`style="${badge.style}"`:''}><span class="material-icons-round" style="font-size:12px">${data.type==='achievement'?'emoji_events':'help_outline'}</span>${badge.label}</div>` : '';
-    const imgHtml = data.imageUrl ? `<img src="${data.imageUrl}" class="post-image" alt="Post image" loading="lazy" />` : '';
-    const linkHtml = data.linkUrl ? `<a class="post-link-card" href="${data.linkUrl}" target="_blank" rel="noopener"><span class="material-icons-round" style="font-size:16px">link</span>${data.linkText||data.linkUrl}</a>` : '';
-    const isOwner = currentUser && currentUser.uid === data.authorId;
-    const el = document.createElement('article');
-    el.className = 'feed-post';
-    el.id = 'post-'+id;
-    el.innerHTML = `
-      <div class="post-author-row">
-        <div class="post-avatar">${avatarHtml(data.authorName, data.authorAvatar)}</div>
-        <div style="flex:1;min-width:0">
-          <div class="post-author-name">${data.authorName||'Alumni'}</div>
-          <div class="post-author-meta">${data.authorProfession||''} ${data.createdAt?'· '+timeAgo(data.createdAt):''}</div>
-        </div>
-        ${isOwner?`<button onclick="deletePost('${id}')" style="background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem" aria-label="Delete post"><span class="material-icons-round" style="font-size:18px">delete_outline</span></button>`:''}
-      </div>
-      ${badgeHtml}
-      <div class="post-content">${(data.content||'').replace(/</g,'&lt;')}</div>
-      ${imgHtml}${linkHtml}
-      <div class="reaction-bar">
-        <button class="reaction-btn${liked?' liked':''}" id="like-btn-${id}" onclick="toggleLike('${id}',this)" aria-label="Like" aria-pressed="${liked}">
-          <span class="material-icons-round" style="font-size:16px">thumb_up</span>
-          <span id="like-count-${id}">${(data.likes||[]).length}</span>
-        </button>
-        <button class="reaction-btn" onclick="toggleComments('${id}',this)" aria-label="Comments" aria-expanded="false">
-          <span class="material-icons-round" style="font-size:16px">chat_bubble_outline</span>
-          <span id="cmt-count-${id}">${data.commentCount||0}</span>
-        </button>
-        <button class="reaction-btn" onclick="sharePost('${id}','${(data.authorName||'').replace(/'/g,"\\'")}',this)" aria-label="Share">
-          <span class="material-icons-round" style="font-size:16px">share</span> Share
-        </button>
-      </div>
-      <div class="comments-section" id="comments-${id}">
-        <div id="comments-list-${id}"></div>
-        <div class="comment-input-row">
-          <div class="comment-avatar">${avatarHtml(currentProfile?.displayName||'', currentProfile?.photoURL, 28)}</div>
-          <input type="text" class="comment-input" placeholder="${currentUser?'Add a comment…':'Sign in to comment'}" ${currentUser?'':'disabled'} aria-label="Add a comment" onkeydown="if(event.key==='Enter')submitComment('${id}',this)" />
-          <button class="comment-send-btn" onclick="submitComment('${id}',this.previousElementSibling)" aria-label="Send"><span class="material-icons-round" style="font-size:14px">send</span></button>
-        </div>
-      </div>`;
-    return el;
+  function setPriceFilter(v){
+    priceFilter=v;
+    ['all','free','paid'].forEach(function(x){
+      var b=document.getElementById('price-'+x);
+      if(b) b.classList.toggle('active',x===v);
+    });
+    filterCourses();
   }
 
-  function loadFeed() {
-    if (!IS_CONFIGURED||!db) { loadFeedDemo(); return; }
-    const container = document.getElementById('feed-posts');
-    container.innerHTML = '<div class="spinner"></div>';
-    if (postUnsub) postUnsub();
-    const q = query(collection(db,'posts'), orderBy('createdAt','desc'), limit(10));
-    postUnsub = onSnapshot(q, snap => {
-      if (snap.empty) { container.innerHTML = '<p style="text-align:center;color:var(--muted);padding:2rem">No posts yet. Be the first to share!</p>'; return; }
-      container.innerHTML = '';
-      snap.forEach(d => container.appendChild(renderPost(d.id, d.data())));
-      lastPostDoc = snap.docs[snap.docs.length-1];
-      document.getElementById('load-more-btn').style.display = snap.docs.length===10?'block':'none';
-    }, err => { console.error(err); container.innerHTML = '<p style="text-align:center;color:var(--muted);padding:2rem">Failed to load posts.</p>'; });
+  function setView(v){
+    viewMode=v;
+    var g=document.getElementById('course-grid');
+    if(g) g.style.gridTemplateColumns=v==='list'?'1fr':'';
+    document.getElementById('grid-btn').classList.toggle('active',v==='grid');
+    document.getElementById('list-btn').classList.toggle('active',v==='list');
   }
 
-  window.loadMorePosts = async function() {
-    if (!IS_CONFIGURED||!lastPostDoc) return;
-    const btn = document.getElementById('load-more-btn');
-    btn.textContent='Loading…'; btn.disabled=true;
-    try {
-      const q = query(collection(db,'posts'), orderBy('createdAt','desc'), limit(10), startAfter(lastPostDoc));
-      const snap = await getDocs(q);
-      const container = document.getElementById('feed-posts');
-      snap.forEach(d => container.appendChild(renderPost(d.id, d.data())));
-      lastPostDoc = snap.docs[snap.docs.length-1];
-      if (snap.docs.length < 10) { btn.style.display='none'; return; }
-    } catch(e) { showToast('Failed to load more','error'); }
-    btn.textContent='Load more posts'; btn.disabled=false;
-  };
+  function toggleBookmark(id,btn){
+    var idx=savedCourses.indexOf(id);
+    var icon=btn.querySelector('.material-icons-round');
+    if(idx===-1){savedCourses.push(id);btn.classList.add('saved');if(icon)icon.textContent='bookmark';}
+    else{savedCourses.splice(idx,1);btn.classList.remove('saved');if(icon)icon.textContent='bookmark_border';}
+    localStorage.setItem('buSavedCourses',JSON.stringify(savedCourses));
+  }
 
-  // Demo feed (no Firebase)
-  const DEMO_POSTS = [
-    { id:'d1', authorName:'Amara Ssekandi', authorProfession:'Software Engineer · Class of 2018', content:'Excited to share that I just joined XYZ Tech as a Senior Engineer! 🎉 Grateful for the BU Alumni network.', type:'achievement', likes:['x','y','z'], commentCount:5, createdAt:{toDate:()=>new Date(Date.now()-7200000)} },
-    { id:'d2', authorName:'Dr. Sarah Nakato', authorProfession:'Health Professional · Class of 2008', content:'Just returned from the WHO Regional Health Summit in Nairobi. Proud to represent BU graduates on the continental stage!', type:'update', likes:['a','b'], commentCount:12, createdAt:{toDate:()=>new Date(Date.now()-18000000)} },
-    { id:'d3', authorName:'Moses Byaruhanga', authorProfession:'Entrepreneur · Class of 2016', content:'Question for the network: Any alumni working in fintech or impact investing in East Africa? Looking to connect! 🚀', type:'question', likes:['c'], commentCount:8, createdAt:{toDate:()=>new Date(Date.now()-86400000)} },
+  function scrollToLearning(){document.getElementById('learning-section').scrollIntoView({behavior:'smooth',block:'start'});}
+  function scrollToFeed(){document.getElementById('feed-section').scrollIntoView({behavior:'smooth',block:'start'});}
+
+  /* ── Render feed ── */
+  function renderFeed(){
+    var likes=JSON.parse(localStorage.getItem('buPostLikes')||'{}');
+    var html=POSTS.map(function(p){
+      var ld=likes[p.id]||{liked:false,count:p.likes};
+      var badge=p.badge?'<div class="achievement-badge"><span class="material-icons-round" style="font-size:0.85rem;">emoji_events</span>'+p.badge+'</div>':'';
+      var link=p.link?'<a class="post-link-card" href="'+p.link.url+'" target="_blank" rel="noopener"><span class="material-icons-round">link</span>'+p.link.text+'</a>':'';
+      var comments=p.comments.map(function(c){return '<div class="comment-item"><div class="avatar-circle sm">'+ini(c.a)+'</div><div class="comment-bubble"><div class="comment-author">'+c.a+'</div><div class="comment-text">'+c.t+'</div></div></div>';}).join('');
+      return '<article class="feed-post">'+
+        '<div class="post-header">'+
+          '<div class="avatar-circle">'+ini(p.author)+'</div>'+
+          '<div class="post-meta">'+
+            '<div class="post-author">'+p.author+'</div>'+
+            '<div class="post-profession">'+p.profession+'</div>'+
+          '</div>'+
+          '<span class="post-time">'+p.time+'</span>'+
+        '</div>'+
+        badge+
+        '<div class="post-content">'+p.content+'</div>'+
+        link+
+        '<div class="reaction-bar">'+
+          '<button class="reaction-btn'+(ld.liked?' liked':'')+'" onclick="toggleLike(this.dataset.id,this)" data-id="'+p.id+'">'+
+            '<span class="material-icons-round">thumb_up</span><span class="like-count">'+ld.count+'</span>'+
+          '</button>'+
+          '<button class="reaction-btn" onclick="toggleComments(this.dataset.id)" data-id="comments-'+p.id+'">'+
+            '<span class="material-icons-round">chat_bubble_outline</span>'+p.comments.length+
+          '</button>'+
+          '<button class="reaction-btn" onclick="sharePost(this.dataset.id,this.dataset.author)" data-id="'+p.id+'" data-author="'+p.author.replace(/"/g,'&quot;')+'">'+
+            '<span class="material-icons-round">share</span> Share'+
+          '</button>'+
+        '</div>'+
+        '<div class="comments-section" id="comments-'+p.id+'" style="display:none;">'+comments+'</div>'+
+      '</article>';
+    }).join('');
+    document.getElementById('feed-container').innerHTML=html;
+  }
+
+  function toggleLike(id,btn){
+    var likes=JSON.parse(localStorage.getItem('buPostLikes')||'{}');
+    var post=POSTS.find(function(p){return p.id===id;});
+    var cur=likes[id]||{liked:false,count:post?post.likes:0};
+    cur.liked=!cur.liked; cur.count+=cur.liked?1:-1;
+    likes[id]=cur; localStorage.setItem('buPostLikes',JSON.stringify(likes));
+    btn.classList.toggle('liked',cur.liked);
+    btn.querySelector('.like-count').textContent=cur.count;
+  }
+
+  function toggleComments(id){
+    var el=document.getElementById(id);
+    if(el) el.style.display=el.style.display==='none'?'block':'none';
+  }
+
+  function sharePost(id,el){
+    var author=el?el.dataset.author:id;
+    var url=window.location.href.split('#')[0]+'#post-'+id;
+    if(navigator.share){navigator.share({title:'Post by '+author+' on BU Alumni Community',url:url}).catch(function(){});}
+    else if(navigator.clipboard){navigator.clipboard.writeText(url);}
+  }
+
+  /* ── Post composer ── */
+  function togglePostBtn(){
+    var ta=document.getElementById('post-textarea');
+    var btn=document.getElementById('post-btn');
+    if(btn) btn.disabled=!ta||!ta.value.trim();
+  }
+
+  function insertTag(tag){
+    var ta=document.getElementById('post-textarea');
+    if(!ta) return;
+    ta.value=(ta.value?ta.value+' ':'')+('['+tag+'] ');
+    ta.focus(); togglePostBtn();
+  }
+
+  function submitPost(){
+    var ta=document.getElementById('post-textarea');
+    if(!ta||!ta.value.trim()) return;
+    var name=user?(user.fullName||user.name||'You'):'You';
+    var newPost={id:'u'+Date.now(),author:name,profession:'BU Alumni',time:'Just now',content:ta.value.trim(),type:'update',likes:0,comments:[]};
+    POSTS.unshift(newPost);
+    renderFeed();
+    ta.value=''; togglePostBtn();
+  }
+
+  /* ── Messages ── */
+  function openMessages(){document.getElementById('msg-panel').classList.add('open');}
+  function closeMessages(){document.getElementById('msg-panel').classList.remove('open');}
+  function sendMessage(){
+    var inp=document.getElementById('msg-input');
+    if(!inp||!inp.value.trim()) return;
+    inp.value=''; inp.focus();
+  }
+
+  /* ── Notifications ── */
+  var NOTIFS=[
+    {text:'Amara Ssekandi commented on your post',time:'2 hours ago'},
+    {text:'Dr. Sarah Nakato liked your post',time:'5 hours ago'},
+    {text:'New job posted: Senior Developer at TechCo',time:'Yesterday'},
+    {text:'Grace Auma sent you a message',time:'Yesterday'},
+    {text:'Reminder: Alumni Gala 2026 in 2 weeks',time:'2 days ago'}
   ];
-  function loadFeedDemo() {
-    const container = document.getElementById('feed-posts');
-    container.innerHTML = '';
-    DEMO_POSTS.forEach(p => container.appendChild(renderPost(p.id, p)));
-  }
-
-  // ── Post actions ───────────────────────────────────────────────────────────
-  window.submitPost = async function() {
-    if (!currentUser) { openAuthModal('signin'); return; }
-    const text = document.getElementById('composer-text').value.trim();
-    if (!text && !postImageFile) return;
-    const btn = document.getElementById('post-submit-btn');
-    btn.disabled=true; btn.textContent='Posting…';
-    try {
-      let imageUrl = null;
-      if (postImageFile && IS_CONFIGURED) {
-        const r = sRef(storage,`posts/${currentUser.uid}/${Date.now()}`);
-        await uploadBytes(r, postImageFile);
-        imageUrl = await getDownloadURL(r);
-      }
-      const type = document.getElementById('post-type-select').value;
-      const postData = {
-        authorId: currentUser.uid,
-        authorName: currentProfile?.displayName||currentUser.displayName||currentUser.email,
-        authorProfession: currentProfile?.profession||'',
-        authorAvatar: currentProfile?.photoURL||null,
-        content: text,
-        type,
-        imageUrl,
-        likes: [],
-        commentCount: 0,
-        createdAt: serverTimestamp(),
-      };
-      if (IS_CONFIGURED) {
-        await addDoc(collection(db,'posts'), postData);
-        await updateDoc(doc(db,'users',currentUser.uid), { posts: increment(1) });
-      } else {
-        const el = renderPost('new-'+Date.now(), {...postData, createdAt:{toDate:()=>new Date()}});
-        el.classList.add('new-post-anim');
-        document.getElementById('feed-posts').insertBefore(el, document.getElementById('feed-posts').firstChild);
-      }
-      document.getElementById('composer-text').value='';
-      removeComposerImage();
-      document.getElementById('post-type-select').value='update';
-      showToast('Post shared!','success');
-    } catch(e) { showToast('Failed to post: '+e.message,'error'); }
-    btn.disabled=false; btn.textContent='Post';
-  };
-
-  document.getElementById('composer-text').addEventListener('input', function() {
-    document.getElementById('post-submit-btn').disabled = this.value.trim().length===0 && !postImageFile;
-  });
-
-  window.handlePostImage = function(input) {
-    if (!input.files[0]) return;
-    postImageFile = input.files[0];
-    const reader = new FileReader();
-    reader.onload = e => {
-      document.getElementById('composer-img-el').src = e.target.result;
-      document.getElementById('composer-img-preview').style.display='block';
-      document.getElementById('post-submit-btn').disabled=false;
-    };
-    reader.readAsDataURL(postImageFile);
-  };
-  window.removeComposerImage = function() {
-    postImageFile=null; postImageUrl=null;
-    document.getElementById('composer-img-preview').style.display='none';
-    document.getElementById('composer-img-el').src='';
-    document.getElementById('post-img-upload').value='';
-  };
-  window.setPostType = function(type) {
-    document.getElementById('post-type-select').value=type;
-  };
-
-  window.toggleLike = async function(postId, btn) {
-    if (!currentUser) { openAuthModal('signin'); return; }
-    if (!IS_CONFIGURED) {
-      btn.classList.toggle('liked');
-      const c = document.getElementById('like-count-'+postId);
-      c.textContent = parseInt(c.textContent)+(btn.classList.contains('liked')?1:-1);
-      return;
-    }
-    const ref = doc(db,'posts',postId);
-    const liked = btn.classList.contains('liked');
-    try {
-      await updateDoc(ref, { likes: liked ? arrayRemove(currentUser.uid) : arrayUnion(currentUser.uid) });
-      btn.classList.toggle('liked');
-      const c = document.getElementById('like-count-'+postId);
-      c.textContent = parseInt(c.textContent)+(liked?-1:1);
-    } catch(e) { showToast('Failed to like','error'); }
-  };
-
-  window.toggleComments = function(postId, btn) {
-    const sec = document.getElementById('comments-'+postId);
-    const open = sec.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open);
-    if (open && IS_CONFIGURED) loadComments(postId);
-  };
-
-  async function loadComments(postId) {
-    const list = document.getElementById('comments-list-'+postId);
-    if (!list||!IS_CONFIGURED) return;
-    try {
-      const q = query(collection(db,'posts',postId,'comments'), orderBy('createdAt','asc'), limit(20));
-      const snap = await getDocs(q);
-      list.innerHTML = '';
-      snap.forEach(d => {
-        const c = d.data();
-        const item = document.createElement('div');
-        item.className='comment-item';
-        item.innerHTML=`<div class="comment-avatar">${avatarHtml(c.authorName,c.authorAvatar,28)}</div><div class="comment-bubble"><div class="comment-author">${c.authorName}</div>${(c.content||'').replace(/</g,'&lt;')}</div>`;
-        list.appendChild(item);
-      });
-    } catch(e) { console.error(e); }
-  }
-
-  window.submitComment = async function(postId, input) {
-    if (!currentUser) { openAuthModal('signin'); return; }
-    const text = input.value.trim();
-    if (!text) return;
-    const name = currentProfile?.displayName||currentUser.displayName||currentUser.email;
-    const item = document.createElement('div');
-    item.className='comment-item';
-    item.innerHTML=`<div class="comment-avatar">${avatarHtml(name,currentProfile?.photoURL,28)}</div><div class="comment-bubble"><div class="comment-author">${name}</div>${text.replace(/</g,'&lt;')}</div>`;
-    document.getElementById('comments-list-'+postId).appendChild(item);
-    const c = document.getElementById('cmt-count-'+postId);
-    if (c) c.textContent = parseInt(c.textContent)+1;
-    input.value='';
-    if (IS_CONFIGURED) {
-      try {
-        await addDoc(collection(db,'posts',postId,'comments'), { authorId:currentUser.uid, authorName:name, authorAvatar:currentProfile?.photoURL||null, content:text, createdAt:serverTimestamp() });
-        await updateDoc(doc(db,'posts',postId), { commentCount:increment(1) });
-      } catch(e) { console.error(e); }
-    }
-  };
-
-  window.deletePost = async function(postId) {
-    if (!currentUser||!IS_CONFIGURED) return;
-    if (!confirm('Delete this post?')) return;
-    try {
-      await updateDoc(doc(db,'posts',postId), { deleted:true, content:'[Post deleted]', imageUrl:null });
-      document.getElementById('post-'+postId)?.remove();
-      showToast('Post deleted','success');
-    } catch(e) { showToast('Failed to delete','error'); }
-  };
-
-  window.sharePost = function(postId, author, btn) {
-    const url = window.location.href.split('#')[0]+'#post-'+postId;
-    if (navigator.share) { navigator.share({ title:`Post by ${author}`, url }); return; }
-    navigator.clipboard?.writeText(url).then(()=>{ const o=btn.innerHTML; btn.innerHTML='<span class="material-icons-round" style="font-size:16px">check</span> Copied!'; setTimeout(()=>btn.innerHTML=o,2000); });
-  };
-
-  // ── Groups ─────────────────────────────────────────────────────────────────
-  const DEFAULT_GROUPS = [
-    { id:'g1', name:'Computer Science Alumni', icon:'computer',       members:342, description:'Tech graduates and enthusiasts' },
-    { id:'g2', name:'Class of 2022',           icon:'school',         members:189, description:'Connect with your classmates' },
-    { id:'g3', name:'Entrepreneurs Network',   icon:'rocket_launch',  members:267, description:'Build and grow together' },
-    { id:'g4', name:'Health Professionals',    icon:'health_and_safety', members:156, description:'Medical and health alumni' },
-    { id:'g5', name:"Women in Tech",           icon:'diversity_3',    members:98,  description:'Empowering women in technology' },
-  ];
-
-  async function loadGroups() {
-    const list = document.getElementById('groups-list');
-    if (!list) return;
-    let groups = DEFAULT_GROUPS;
-    if (IS_CONFIGURED && db) {
-      try {
-        const snap = await getDocs(collection(db,'groups'));
-        if (!snap.empty) groups = snap.docs.map(d=>({id:d.id,...d.data()}));
-        else {
-          // Seed default groups
-          for (const g of DEFAULT_GROUPS) {
-            await setDoc(doc(db,'groups',g.id), { name:g.name, icon:g.icon, members:g.members, description:g.description, createdAt:serverTimestamp() });
-          }
-        }
-      } catch(e) { console.error('[groups]',e); }
-    }
-    renderGroups(groups);
-  }
-
-  function loadGroupsDemo() { renderGroups(DEFAULT_GROUPS); }
-
-  function renderGroups(groups) {
-    const list = document.getElementById('groups-list');
-    if (!list) return;
-    const joined = JSON.parse(localStorage.getItem('buJoinedGroups')||'[]');
-    list.innerHTML = groups.slice(0,5).map(g => {
-      const isJoined = joined.includes(g.id);
-      return `<div class="group-card">
-        <div class="group-icon"><span class="material-icons-round" style="font-size:20px;color:var(--primary)">${g.icon||'groups'}</span></div>
-        <div style="flex:1;min-width:0">
-          <div style="font-weight:700;font-size:.82rem;color:var(--text)">${g.name}</div>
-          <div style="font-size:.72rem;color:var(--muted)">${g.members||0} members</div>
-        </div>
-        <button class="join-btn${isJoined?' joined':''}" onclick="toggleGroup('${g.id}',this)" aria-label="${isJoined?'Leave':'Join'} ${g.name}">${isJoined?'Joined':'Join'}</button>
-      </div>`;
+  function renderNotifs(){
+    var list=document.getElementById('notif-list');
+    if(!list) return;
+    list.innerHTML=NOTIFS.map(function(n){
+      return '<div class="notif-item"><div class="notif-dot"></div><div><div class="notif-text">'+n.text+'</div><div class="notif-time">'+n.time+'</div></div></div>';
     }).join('');
   }
-
-  window.toggleGroup = async function(groupId, btn) {
-    if (!currentUser) { openAuthModal('signin'); return; }
-    const joined = JSON.parse(localStorage.getItem('buJoinedGroups')||'[]');
-    const idx = joined.indexOf(groupId);
-    const isJoining = idx === -1;
-    if (isJoining) joined.push(groupId); else joined.splice(idx,1);
-    localStorage.setItem('buJoinedGroups', JSON.stringify(joined));
-    btn.classList.toggle('joined', isJoining);
-    btn.textContent = isJoining ? 'Joined' : 'Join';
-    const statEl = document.getElementById('stat-groups');
-    if (statEl) statEl.textContent = joined.length;
-    if (IS_CONFIGURED && db) {
-      try {
-        await updateDoc(doc(db,'groups',groupId), { members: isJoining ? increment(1) : increment(-1) });
-        if (currentUser) await updateDoc(doc(db,'users',currentUser.uid), { groups: isJoining ? increment(1) : increment(-1) });
-      } catch(e) { console.error(e); }
-    }
-    showToast(isJoining ? 'Joined group!' : 'Left group', 'success');
-  };
-
-  // ── Messaging (Firebase Realtime Database) ─────────────────────────────────
-  window.openMessages = function() {
-    if (!currentUser) { openAuthModal('signin'); return; }
-    const modal = document.getElementById('messages-modal');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    msgOpen = true;
-    ['msg-badge','msg-badge-mobile'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
-  };
-  window.closeMessages = function() {
-    document.getElementById('messages-modal').classList.remove('open');
-    document.getElementById('messages-modal').setAttribute('aria-hidden','true');
-    msgOpen = false;
-    if (chatUnsub) { chatUnsub(); chatUnsub=null; }
-    activeChatId = null;
-    document.getElementById('msg-conv-list').style.display='block';
-    document.getElementById('msg-chat-area').style.display='none';
-    document.getElementById('msg-input-row').style.display='none';
-    document.getElementById('msg-typing').style.display='none';
-    document.getElementById('msg-panel-title').textContent='Messages';
-  };
-
-  function loadConversations(uid) {
-    if (!IS_CONFIGURED||!rtdb) return;
-    const convRef = ref(rtdb, `userChats/${uid}`);
-    onValue(convRef, snap => {
-      const list = document.getElementById('msg-conv-list');
-      if (!snap.exists()) { list.innerHTML='<p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No conversations yet</p>'; return; }
-      const convs = [];
-      snap.forEach(child => convs.push({id:child.key,...child.val()}));
-      convs.sort((a,b)=>(b.lastTimestamp||0)-(a.lastTimestamp||0));
-      list.innerHTML = convs.map(c => `
-        <div class="msg-conv-item" onclick="openChat('${c.chatId}','${c.otherName||'User'}','${c.otherAvatar||''}')">
-          <div class="msg-conv-avatar">${avatarHtml(c.otherName||'U',c.otherAvatar,38)}</div>
-          <div class="msg-conv-info">
-            <div class="msg-conv-name">${c.otherName||'User'}</div>
-            <div class="msg-conv-preview">${c.lastMessage||''}</div>
-          </div>
-          ${c.unread?'<span class="msg-unread-badge">'+c.unread+'</span>':''}
-        </div>`).join('');
-    });
+  function toggleNotifications(){
+    var d=document.getElementById('notif-dropdown');
+    if(d) d.classList.toggle('open');
   }
-
-  window.openChat = function(chatId, otherName, otherAvatar) {
-    if (!IS_CONFIGURED||!rtdb||!currentUser) return;
-    activeChatId = chatId;
-    document.getElementById('msg-conv-list').style.display='none';
-    const chatArea = document.getElementById('msg-chat-area');
-    chatArea.style.display='flex';
-    document.getElementById('msg-input-row').style.display='flex';
-    document.getElementById('msg-panel-title').innerHTML = `<button onclick="backToConvList()" style="background:none;border:none;cursor:pointer;color:var(--muted);margin-right:.5rem;display:inline-flex;align-items:center"><span class="material-icons-round" style="font-size:20px">arrow_back</span></button>${otherName}`;
-    chatArea.innerHTML='<div class="spinner"></div>';
-    if (chatUnsub) chatUnsub();
-    const msgsRef = ref(rtdb, `chats/${chatId}/messages`);
-    chatUnsub = onValue(msgsRef, snap => {
-      chatArea.innerHTML='';
-      if (!snap.exists()) { chatArea.innerHTML='<p style="text-align:center;color:var(--muted);padding:1rem;font-size:.82rem">Start the conversation!</p>'; return; }
-      snap.forEach(child => {
-        const m = child.val();
-        const isSent = m.senderId === currentUser.uid;
-        const bubble = document.createElement('div');
-        bubble.className = 'msg-bubble '+(isSent?'sent':'recv');
-        bubble.innerHTML = `${(m.text||'').replace(/</g,'&lt;')}<div class="msg-bubble-meta">${m.timestamp?new Date(m.timestamp).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):''}${isSent?'<span class="material-icons-round" style="font-size:12px;margin-left:3px">'+(m.seen?'done_all':'done')+'</span>':''}</div>`;
-        chatArea.appendChild(bubble);
-      });
-      chatArea.scrollTop = chatArea.scrollHeight;
-    });
-    // Typing indicator
-    const typingRef = ref(rtdb, `chats/${chatId}/typing/${currentUser.uid==='a'?'b':'a'}`);
-    onValue(typingRef, snap => {
-      document.getElementById('msg-typing').style.display = snap.val() ? 'block' : 'none';
-    });
-  };
-
-  window.backToConvList = function() {
-    if (chatUnsub) { chatUnsub(); chatUnsub=null; }
-    activeChatId=null;
-    document.getElementById('msg-conv-list').style.display='block';
-    document.getElementById('msg-chat-area').style.display='none';
-    document.getElementById('msg-input-row').style.display='none';
-    document.getElementById('msg-typing').style.display='none';
-    document.getElementById('msg-panel-title').textContent='Messages';
-  };
-
-  window.sendMessage = async function() {
-    if (!IS_CONFIGURED||!rtdb||!currentUser||!activeChatId) return;
-    const input = document.getElementById('msg-input');
-    const text = input.value.trim();
-    if (!text) return;
-    input.value='';
-    try {
-      const msgsRef = ref(rtdb, `chats/${activeChatId}/messages`);
-      await push(msgsRef, { senderId:currentUser.uid, text, timestamp:Date.now(), seen:false });
-      await set(ref(rtdb,`chats/${activeChatId}/typing/${currentUser.uid}`), false);
-    } catch(e) { showToast('Failed to send','error'); }
-  };
-
-  window.msgKeydown = function(e) { if (e.key==='Enter') sendMessage(); };
-
-  window.handleTyping = function() {
-    if (!IS_CONFIGURED||!rtdb||!currentUser||!activeChatId) return;
-    set(ref(rtdb,`chats/${activeChatId}/typing/${currentUser.uid}`), true);
-    clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(()=>{ set(ref(rtdb,`chats/${activeChatId}/typing/${currentUser.uid}`), false); }, 2000);
-  };
-
-  // ── Online presence ────────────────────────────────────────────────────────
-  function setOnlinePresence(uid) {
-    if (!IS_CONFIGURED||!rtdb) return;
-    const presRef = ref(rtdb, `presence/${uid}`);
-    set(presRef, { online:true, lastSeen:Date.now(), displayName:currentProfile?.displayName||'', photoURL:currentProfile?.photoURL||null });
-    onDisconnect(presRef).set({ online:false, lastSeen:rtTS() });
-    // Listen to all online users
-    onValue(ref(rtdb,'presence'), snap => {
-      const list = document.getElementById('online-users-list');
-      if (!list) return;
-      const users = [];
-      snap.forEach(child => { const v=child.val(); if(v.online && child.key!==uid) users.push({id:child.key,...v}); });
-      if (!users.length) { list.innerHTML='<p style="font-size:.8rem;color:var(--muted)">No one else online</p>'; return; }
-      list.innerHTML = users.slice(0,6).map(u => `
-        <div class="online-user-item">
-          <div class="online-user-avatar" style="position:relative">
-            ${avatarHtml(u.displayName||'U',u.photoURL,32)}
-            <div class="online-dot" style="position:absolute;bottom:0;right:0"></div>
-          </div>
-          <span style="font-size:.82rem;font-weight:600;color:var(--text)">${u.displayName||'Alumni'}</span>
-        </div>`).join('');
-    });
+  function markAllRead(){
+    document.querySelectorAll('.notif-dot').forEach(function(d){d.style.background='var(--border)';});
+    document.querySelectorAll('.comm-badge').forEach(function(b){b.style.display='none';});
   }
-
-  // ── Notifications ──────────────────────────────────────────────────────────
-  function subscribeNotifications(uid) {
-    if (!IS_CONFIGURED||!db) return;
-    if (notifUnsub) notifUnsub();
-    const q = query(collection(db,`notifications/${uid}/items`), orderBy('createdAt','desc'), limit(20));
-    notifUnsub = onSnapshot(q, snap => {
-      const list = document.getElementById('notif-list');
-      const unread = snap.docs.filter(d=>!d.data().read).length;
-      ['notif-badge','notif-nav-badge','notif-badge-mobile'].forEach(id=>{
-        const el=document.getElementById(id);
-        if(el){ el.textContent=unread; el.style.display=unread?'inline-block':'none'; }
-      });
-      if (snap.empty) { list.innerHTML='<p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No notifications yet</p>'; return; }
-      const icons = { like:'favorite', comment:'comment', message:'chat', new_opportunity:'work', group_invite:'group_add' };
-      const colors = { like:'rgba(239,68,68,.1)', comment:'rgba(17,64,217,.1)', message:'rgba(17,64,217,.1)', new_opportunity:'rgba(15,118,110,.1)', group_invite:'rgba(124,58,237,.1)' };
-      list.innerHTML = snap.docs.map(d => {
-        const n=d.data();
-        return `<div class="notif-item${n.read?'':' unread'}" onclick="markNotifRead('${uid}','${d.id}')">
-          <div class="notif-icon" style="background:${colors[n.type]||'rgba(17,64,217,.1)'}"><span class="material-icons-round" style="font-size:18px;color:var(--primary)">${icons[n.type]||'notifications'}</span></div>
-          <div style="flex:1"><div style="font-size:.83rem;font-weight:600;color:var(--text)">${n.message||''}</div><div style="font-size:.75rem;color:var(--muted)">${n.createdAt?timeAgo(n.createdAt):''}</div></div>
-          ${n.read?'':'<div class="notif-dot"></div>'}
-        </div>`;
-      }).join('');
-    });
-  }
-
-  window.toggleNotifications = function(e) {
-    e.stopPropagation();
-    const dd = document.getElementById('notif-dropdown');
-    notifOpen = !notifOpen;
-    dd.style.display = notifOpen ? 'block' : 'none';
-    if (notifOpen) setTimeout(()=>document.addEventListener('click', closeNotifOutside, {once:true}), 0);
-  };
-  function closeNotifOutside(e) {
-    const wrap = document.getElementById('notif-wrap')||document.getElementById('notif-nav-btn');
-    if (wrap && !wrap.contains(e.target)) { document.getElementById('notif-dropdown').style.display='none'; notifOpen=false; }
-  }
-  window.markAllRead = async function() {
-    if (!IS_CONFIGURED||!currentUser) return;
-    document.querySelectorAll('.notif-item.unread').forEach(el=>el.classList.remove('unread'));
-    document.querySelectorAll('.notif-dot').forEach(el=>el.remove());
-    ['notif-badge','notif-nav-badge','notif-badge-mobile'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; });
-    try {
-      const snap = await getDocs(collection(db,`notifications/${currentUser.uid}/items`));
-      snap.forEach(async d => { if(!d.data().read) await updateDoc(d.ref,{read:true}); });
-    } catch(e) { console.error(e); }
-  };
-  window.markNotifRead = async function(uid, notifId) {
-    if (!IS_CONFIGURED) return;
-    try { await updateDoc(doc(db,`notifications/${uid}/items`,notifId),{read:true}); } catch(e){}
-  };
-
-  // ── Search ─────────────────────────────────────────────────────────────────
-  window.handleSearch = async function(query) {
-    const dd = document.getElementById('search-dropdown');
-    if (!query.trim()) { dd.classList.remove('open'); return; }
-    dd.classList.add('open');
-    dd.innerHTML='<div class="spinner" style="width:24px;height:24px;margin:.75rem auto"></div>';
-    const q = query.toLowerCase();
-    const results = [];
-    // Search local courses
-    if (typeof COURSES !== 'undefined') {
-      COURSES.filter(c=>c.title.toLowerCase().includes(q)||c.description.toLowerCase().includes(q)).slice(0,3).forEach(c=>{
-        results.push({type:'course',icon:'school',title:c.title,sub:c.providerName,url:'#learning'});
-      });
-    }
-    // Search Firestore users
-    if (IS_CONFIGURED && db) {
-      try {
-        const snap = await getDocs(query(collection(db,'users'), where('displayName','>=',query), where('displayName','<=',query+''), limit(5)));
-        snap.forEach(d=>{ const u=d.data(); results.push({type:'user',icon:'person',title:u.displayName||u.email,sub:u.profession||'Alumni',url:'#'}); });
-      } catch(e){}
-    }
-    if (!results.length) { dd.innerHTML='<p style="text-align:center;color:var(--muted);padding:1rem;font-size:.82rem">No results found</p>'; return; }
-    dd.innerHTML = results.map(r=>`
-      <div class="search-result-item" onclick="window.location.href='${r.url}'">
-        <div style="width:32px;height:32px;border-radius:8px;background:rgba(17,64,217,.1);display:grid;place-items:center;flex-shrink:0"><span class="material-icons-round" style="font-size:18px;color:var(--primary)">${r.icon}</span></div>
-        <div><div style="font-weight:700;font-size:.85rem;color:var(--text)">${r.title}</div><div style="font-size:.75rem;color:var(--muted)">${r.sub}</div></div>
-      </div>`).join('');
-    setTimeout(()=>document.addEventListener('click',()=>dd.classList.remove('open'),{once:true}),0);
-  };
-
-  // ── UI helpers ─────────────────────────────────────────────────────────────
-  window.scrollToFeed    = e=>{ e.preventDefault(); document.getElementById('feed').scrollIntoView({behavior:'smooth'}); };
-  window.scrollToSection = (e,id)=>{ e.preventDefault(); const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); };
-  window.showFirebaseSetupGuide = ()=>document.getElementById('setup-modal').classList.add('open');
-  window.handleNewsletter = e=>{ e.preventDefault(); const f=e.target,em=f.querySelector('input[type="email"]'),fb=document.getElementById('nl-success'); if(!em||!fb)return; fb.textContent='Thanks. '+em.value.trim()+' will now receive BU alumni updates.'; fb.hidden=false; f.reset(); };
-
-  // Escape key closes modals
-  document.addEventListener('keydown', e=>{
-    if (e.key!=='Escape') return;
-    document.getElementById('auth-modal').classList.remove('open');
-    document.getElementById('profile-modal').classList.remove('open');
-    document.getElementById('setup-modal').classList.remove('open');
-    if (msgOpen) closeMessages();
-    if (notifOpen) { document.getElementById('notif-dropdown').style.display='none'; notifOpen=false; }
+  document.addEventListener('click',function(e){
+    var dd=document.getElementById('notif-dropdown');
+    if(dd&&dd.classList.contains('open')&&!dd.closest('.comm-nav-item')&&!e.target.closest('#notif-dropdown')&&!e.target.closest('[onclick="toggleNotifications()"]')){dd.classList.remove('open');}
   });
 
-  // Mobile nav toggle
-  const navToggle = document.querySelector('.nav-toggle');
-  const mobileNav = document.getElementById('mobile-nav');
-  if (navToggle && mobileNav) {
-    navToggle.addEventListener('click', e=>{ e.stopPropagation(); const open=mobileNav.classList.toggle('open'); navToggle.setAttribute('aria-expanded',open); navToggle.innerHTML=open?'&#10005;':'&#9776;'; });
-    document.addEventListener('click', e=>{ if(!mobileNav.contains(e.target)&&!navToggle.contains(e.target)&&mobileNav.classList.contains('open')){ mobileNav.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); navToggle.innerHTML='&#9776;'; } });
+  /* ── Directory ── */
+  var DIR_ALUMNI=[
+    {name:'Amara Ssekandi',role:'Software Engineer',year:'2018',ini:'AS',color:'#1140d9'},
+    {name:'Dr. Sarah Nakato',role:'Health Professional',year:'2008',ini:'SN',color:'#0f766e'},
+    {name:'Moses Byaruhanga',role:'Entrepreneur',year:'2016',ini:'MB',color:'#7c3aed'},
+    {name:'Faith Nakato',role:'Marketing Manager',year:'2021',ini:'FN',color:'#dc2626'},
+    {name:'Robert Ssali',role:'VVP Member',year:'2010',ini:'RS',color:'#1140d9'},
+    {name:'Brian Mugisha',role:'Fintech Developer',year:'2019',ini:'BM',color:'#7c3aed'},
+    {name:'Grace Auma',role:'HR Manager',year:'2020',ini:'GA',color:'#0f766e'},
+    {name:'Alice Nakayiza',role:'Lawyer',year:'2015',ini:'AN',color:'#dc2626'}
+  ];
+  function openDirectory(){
+    renderDirGrid(DIR_ALUMNI);
+    document.getElementById('dir-modal').classList.add('open');
+  }
+  function closeDirModal(e){if(e.target===document.getElementById('dir-modal'))document.getElementById('dir-modal').classList.remove('open');}
+  function closeDirModalBtn(){document.getElementById('dir-modal').classList.remove('open');}
+  function filterDirectory(q){
+    var f=DIR_ALUMNI.filter(function(a){return !q||a.name.toLowerCase().includes(q.toLowerCase())||a.role.toLowerCase().includes(q.toLowerCase());});
+    renderDirGrid(f);
+  }
+  function renderDirGrid(list){
+    var g=document.getElementById('dir-grid');
+    if(!g) return;
+    g.innerHTML=list.map(function(a){
+      return '<div style="background:var(--surface-alt);border-radius:12px;padding:1rem;text-align:center;">'+
+        '<div class="avatar-circle lg" style="background:'+a.color+';margin:0 auto 0.5rem;">'+a.ini+'</div>'+
+        '<div style="font-weight:700;font-size:0.88rem;color:var(--text);">'+a.name+'</div>'+
+        '<div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;">'+a.role+' · Class of '+a.year+'</div>'+
+        '<button class="connect-btn" onclick="this.textContent=this.textContent===\'Connect\'?\'Connected\':\'Connect\'">Connect</button>'+
+      '</div>';
+    }).join('');
+  }
+  function filterDirectoryMini(q){
+    document.querySelectorAll('#alumni-mini-list .alumni-mini-card').forEach(function(c){
+      var n=c.querySelector('.alumni-mini-name').textContent.toLowerCase();
+      c.style.display=(!q||n.includes(q.toLowerCase()))?'':'none';
+    });
   }
 
-  // ── Init ───────────────────────────────────────────────────────────────────
-  loadGroups();
+  /* ── Group join ── */
+  document.querySelectorAll('.join-btn').forEach(function(b){
+    b.addEventListener('click',function(){this.textContent=this.textContent==='Join'?'Joined':'Join';});
+  });
+  document.querySelectorAll('.connect-btn').forEach(function(b){
+    b.addEventListener('click',function(){this.textContent=this.textContent==='Connect'?'Connected':'Connect';});
+  });
 
+  /* ── Newsletter ── */
+  function handleNewsletter(e){
+    e.preventDefault();
+    var f=e.target,em=f.querySelector('input[type="email"]'),fb=document.getElementById('nl-success');
+    if(!em||!fb) return;
+    fb.textContent='Thanks. '+em.value.trim()+' will now receive BU alumni updates.';
+    fb.hidden=false; f.reset();
+  }
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded',function(){
+    // Auth state
+    if(user){
+      var name=user.fullName||user.name||'Alumni User';
+      document.getElementById('profile-card').style.display='block';
+      document.getElementById('join-card').style.display='none';
+      document.getElementById('composer-signed-in').style.display='block';
+      document.getElementById('composer-signed-out').style.display='none';
+      var av=document.getElementById('sidebar-avatar');
+      if(av) av.textContent=ini(name);
+      var sn=document.getElementById('sidebar-name');
+      if(sn) sn.textContent=name;
+      var se=document.getElementById('sidebar-email');
+      if(se) se.textContent=user.email||'';
+      var ca=document.getElementById('composer-avatar');
+      if(ca) ca.textContent=ini(name);
+    }
+    renderFeed();
+    filterCourses();
+    renderNotifs();
+  });
   </script>
 </body>
 </html>

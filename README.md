@@ -68,27 +68,30 @@ BU ALU Portal/
 
 ## Previewing The Site
 
-### ✅ Most pages — open directly
-All pages **except Community** work by opening the HTML file directly in your browser:
-- Double-click `index.html`, `about.html`, `events.html`, etc.
+The homepage now works directly from the local files. Open:
 
-### 🔴 Community page — requires the server
-`community.html` uses Firebase real-time features that need HTTP. Open it via the server:
+- `index.html` for normal preview
 
-**Windows:**
-```
-Double-click start.bat
-```
+You do not need `localhost` just to view the site in the browser.
 
-**Mac / Linux:**
+## Stats Data
+
+Homepage stats are seeded from:
+
+- `database/stats.js` for browser preview
+- `database/stats.json` for the optional API-backed store
+
+If you want to run the optional local API, use:
+
 ```bash
 cd "BU ALU Portal"
 node server.js
 ```
 
-Then open: **http://localhost:8080**
+That starts:
 
-The server also powers all API endpoints (event tickets, membership, payments, etc.).
+- `GET /api/stats`
+- `POST /api/stats`
 
 ## Functional Requirements
 
