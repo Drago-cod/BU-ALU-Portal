@@ -1,0 +1,1184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+/* ── Community page layout ── */
+.community-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 300px;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 2rem 0;
+}
+.comm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
+.feed-post { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.3rem; margin-bottom: 1rem; box-shadow: var(--shadow); transition: box-shadow 0.2s; }
+.feed-post:hover { box-shadow: var(--shadow-card-hover, 0 18px 36px rgba(17,64,217,0.16)); }
+.post-composer { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+.reaction-bar { display: flex; gap: 0.5rem; padding-top: 0.8rem; border-top: 1px solid var(--border); margin-top: 0.8rem; }
+.reaction-btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.4rem 0.8rem; border-radius: 8px; border: none; background: none; color: var(--muted); font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
+.reaction-btn:hover { background: var(--bg); color: var(--primary); }
+.reaction-btn.liked { color: var(--primary); }
+.post-badge { display: inline-flex; align-items: center; gap: 0.3rem; background: #fef3c7; color: #92400e; border: 1px solid #fde68a; border-radius: 999px; font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.6rem; margin-bottom: 0.5rem; }
+.alumni-card-mini { display: flex; align-items: center; gap: 0.65rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+.alumni-card-mini:last-child { border-bottom: none; }
+.alumni-avatar-sm { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.75rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
+.group-card { display: flex; align-items: center; gap: 0.65rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+.group-card:last-child { border-bottom: none; }
+.group-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, rgba(17,64,217,0.12), rgba(15,118,110,0.12)); display: grid; place-items: center; flex-shrink: 0; }
+.comm-nav-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; border-radius: 10px; color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: background 0.15s, color 0.15s; cursor: pointer; border: none; background: none; font-family: inherit; width: 100%; }
+.comm-nav-item:hover, .comm-nav-item.active { background: var(--bg); color: var(--primary); }
+.comm-nav-item .material-icons-round { font-size: 20px; }
+.comm-nav-badge { margin-left: auto; background: var(--primary); color: #fff; font-size: 0.65rem; font-weight: 800; padding: 0.1rem 0.45rem; border-radius: 999px; }
+.comm-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; justify-content: flex-end; pointer-events: none; }
+.comm-modal.open { pointer-events: auto; }
+.comm-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.2s; }
+.comm-modal.open .comm-modal-backdrop { opacity: 1; }
+.comm-modal-panel { position: relative; width: 380px; height: 520px; background: var(--surface); border-radius: 16px 16px 0 0; box-shadow: 0 -8px 32px rgba(0,0,0,0.18); transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); display: flex; flex-direction: column; margin-right: 1.5rem; }
+.comm-modal.open .comm-modal-panel { transform: translateY(0); }
+.notif-dropdown { position: absolute; top: calc(100% + 8px); right: 0; width: 340px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 36px rgba(17,64,217,0.14); z-index: 500; max-height: 420px; overflow-y: auto; }
+.notif-item { display: flex; gap: 0.65rem; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.12s; }
+.notif-item:hover { background: var(--bg); }
+.notif-item.unread { background: rgba(17,64,217,0.04); }
+.notif-item:last-child { border-bottom: none; }
+.notif-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; }
+.post-author-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.post-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.85rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
+.post-author-info { flex: 1; }
+.post-author-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+.post-author-meta { font-size: 0.78rem; color: var(--muted); }
+.post-content { font-size: 0.93rem; color: var(--text); line-height: 1.6; margin-bottom: 0.5rem; }
+.post-link-card { display: flex; align-items: center; gap: 0.5rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.65rem 0.9rem; margin: 0.5rem 0; text-decoration: none; color: var(--primary); font-size: 0.85rem; font-weight: 600; transition: background 0.15s; }
+.post-link-card:hover { background: var(--surface-alt, #edf2ff); }
+.comments-section { margin-top: 0.8rem; display: none; }
+.comments-section.open { display: block; }
+.comment-item { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+.comment-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0f766e, #34d399); color: #fff; font-size: 0.65rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
+.comment-bubble { background: var(--bg); border-radius: 10px; padding: 0.45rem 0.75rem; font-size: 0.82rem; color: var(--text); flex: 1; }
+.comment-author { font-weight: 700; font-size: 0.78rem; margin-bottom: 0.15rem; }
+.comment-input-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; align-items: center; }
+.comment-input { flex: 1; border: 1px solid var(--border); border-radius: 20px; padding: 0.45rem 0.9rem; font-size: 0.82rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; transition: border-color 0.15s; }
+.comment-input:focus { border-color: var(--primary); }
+.comment-send-btn { background: var(--primary); color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; cursor: pointer; flex-shrink: 0; transition: opacity 0.15s; }
+.comment-send-btn:hover { opacity: 0.85; }
+.composer-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.82rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
+.composer-row { display: flex; gap: 0.75rem; align-items: flex-start; }
+.composer-textarea { flex: 1; border: 1px solid var(--border); border-radius: 12px; padding: 0.7rem 1rem; font-size: 0.9rem; background: var(--bg); color: var(--text); font-family: inherit; resize: none; outline: none; min-height: 60px; transition: border-color 0.15s; }
+.composer-textarea:focus { border-color: var(--primary); }
+.composer-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; align-items: center; flex-wrap: wrap; }
+.composer-attach-btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.7rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
+.composer-attach-btn:hover { background: var(--surface-alt, #edf2ff); color: var(--primary); }
+.composer-attach-btn .material-icons-round { font-size: 16px; }
+.composer-post-btn { margin-left: auto; }
+.profile-card-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 1.2rem; font-weight: 800; display: grid; place-items: center; margin: 0 auto 0.6rem; }
+.profile-stats-row { display: flex; gap: 0; border-top: 1px solid var(--border); margin-top: 0.8rem; padding-top: 0.8rem; }
+.profile-stat { flex: 1; text-align: center; }
+.profile-stat strong { display: block; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+.profile-stat span { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+.profile-stat + .profile-stat { border-left: 1px solid var(--border); }
+.support-progress-bar { background: var(--border); border-radius: 999px; height: 8px; margin: 0.5rem 0; overflow: hidden; }
+.support-progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #0f766e); border-radius: 999px; transition: width 0.6s ease; }
+.event-mini-item { display: flex; gap: 0.65rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+.event-mini-item:last-child { border-bottom: none; }
+.event-mini-date { background: var(--primary); color: #fff; border-radius: 8px; padding: 0.3rem 0.5rem; text-align: center; font-size: 0.7rem; font-weight: 800; min-width: 38px; flex-shrink: 0; line-height: 1.3; }
+.event-mini-date span { display: block; font-size: 0.6rem; font-weight: 600; opacity: 0.85; }
+.new-post-anim { animation: slideInPost 0.35s cubic-bezier(0.22,1,0.36,1); }
+@keyframes slideInPost { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+.sign-in-prompt { text-align: center; padding: 1.5rem; }
+.sign-in-prompt p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
+.sign-in-prompt .btn { margin: 0 0.3rem; }
+.join-community-card { text-align: center; padding: 1.5rem 1rem; }
+.join-community-card .material-icons-round { font-size: 40px; color: var(--primary); margin-bottom: 0.5rem; }
+.join-community-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+.join-community-card p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+.join-community-card .btn { display: block; margin-bottom: 0.5rem; }
+.comm-section-title { font-size: 0.78rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 1rem 0 0.4rem; padding: 0 0.2rem; }
+.connect-btn { margin-left: auto; flex-shrink: 0; padding: 0.3rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--primary); background: none; color: var(--primary); font-size: 0.75rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
+.connect-btn:hover, .connect-btn.connected { background: var(--primary); color: #fff; }
+.join-btn { margin-left: auto; flex-shrink: 0; padding: 0.3rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--primary); background: none; color: var(--primary); font-size: 0.75rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
+.join-btn:hover, .join-btn.joined { background: var(--primary); color: #fff; }
+.dir-search { width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 0.5rem 0.8rem; font-size: 0.85rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; margin-bottom: 0.75rem; transition: border-color 0.15s; }
+.dir-search:focus { border-color: var(--primary); }
+.view-all-link { display: block; text-align: center; font-size: 0.82rem; font-weight: 700; color: var(--primary); text-decoration: none; margin-top: 0.75rem; padding: 0.4rem; border-radius: 8px; transition: background 0.15s; }
+.view-all-link:hover { background: var(--bg); }
+.comm-page-title { padding: 1.5rem 0 0; }
+.comm-page-title h1 { font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 0.2rem; }
+.comm-page-title p { color: var(--muted); font-size: 0.9rem; }
+/* Full directory modal */
+.dir-modal-overlay { position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+.dir-modal-overlay.open { opacity: 1; pointer-events: auto; }
+.dir-modal-box { background: var(--surface); border-radius: 20px; width: min(900px, 95vw); max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 24px 64px rgba(0,0,0,0.22); transform: scale(0.96); transition: transform 0.25s cubic-bezier(0.22,1,0.36,1); overflow: hidden; }
+.dir-modal-overlay.open .dir-modal-box { transform: scale(1); }
+.dir-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); }
+.dir-modal-header h2 { font-size: 1.1rem; font-weight: 800; }
+.dir-modal-close { background: none; border: none; cursor: pointer; color: var(--muted); display: grid; place-items: center; border-radius: 8px; padding: 0.3rem; transition: background 0.15s; }
+.dir-modal-close:hover { background: var(--bg); color: var(--text); }
+.dir-modal-filters { display: flex; gap: 0.75rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.dir-modal-filters input, .dir-modal-filters select { border: 1px solid var(--border); border-radius: 10px; padding: 0.5rem 0.8rem; font-size: 0.85rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; transition: border-color 0.15s; }
+.dir-modal-filters input { flex: 1; min-width: 180px; }
+.dir-modal-filters input:focus, .dir-modal-filters select:focus { border-color: var(--primary); }
+.dir-modal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; padding: 1.5rem; overflow-y: auto; }
+.dir-alumni-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; text-align: center; }
+.dir-alumni-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 1rem; font-weight: 800; display: grid; place-items: center; margin: 0 auto 0.6rem; }
+.dir-alumni-name { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 0.2rem; }
+.dir-alumni-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.6rem; }
+.dir-alumni-year { display: inline-block; background: rgba(17,64,217,0.1); color: var(--primary); border-radius: 999px; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; margin-bottom: 0.5rem; }
+/* Messages modal inner */
+.msg-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); }
+.msg-modal-header h3 { font-size: 1rem; font-weight: 800; }
+.msg-modal-close { background: none; border: none; cursor: pointer; color: var(--muted); display: grid; place-items: center; border-radius: 8px; padding: 0.3rem; }
+.msg-modal-close:hover { background: var(--bg); }
+.msg-conv-list { flex: 1; overflow-y: auto; }
+.msg-conv-item { display: flex; gap: 0.65rem; padding: 0.8rem 1.2rem; cursor: pointer; transition: background 0.12s; border-bottom: 1px solid var(--border); align-items: center; }
+.msg-conv-item:hover { background: var(--bg); }
+.msg-conv-item.active { background: rgba(17,64,217,0.06); }
+.msg-conv-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.78rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
+.msg-conv-info { flex: 1; min-width: 0; }
+.msg-conv-name { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.msg-conv-preview { font-size: 0.78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-unread-badge { background: var(--primary); color: #fff; font-size: 0.65rem; font-weight: 800; padding: 0.1rem 0.45rem; border-radius: 999px; flex-shrink: 0; }
+.msg-input-row { display: flex; gap: 0.5rem; padding: 0.8rem 1.2rem; border-top: 1px solid var(--border); }
+.msg-input { flex: 1; border: 1px solid var(--border); border-radius: 20px; padding: 0.5rem 0.9rem; font-size: 0.85rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; }
+.msg-input:focus { border-color: var(--primary); }
+.msg-send-btn { background: var(--primary); color: #fff; border: none; border-radius: 50%; width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer; flex-shrink: 0; }
+.msg-send-btn:hover { opacity: 0.85; }
+/* Notif panel */
+.notif-wrap { position: relative; }
+.notif-header { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1rem; border-bottom: 1px solid var(--border); }
+.notif-header h4 { font-size: 0.9rem; font-weight: 800; }
+.mark-read-btn { background: none; border: none; color: var(--primary); font-size: 0.78rem; font-weight: 700; cursor: pointer; font-family: inherit; }
+.mark-read-btn:hover { text-decoration: underline; }
+.notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 4px; }
+.notif-badge-count { position: absolute; top: -4px; right: -4px; background: #ef4444; color: #fff; font-size: 0.6rem; font-weight: 800; padding: 0.1rem 0.35rem; border-radius: 999px; min-width: 16px; text-align: center; }
+.comm-mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); z-index: 200; padding: 0.5rem 0; justify-content: space-around; }
+.comm-mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; color: var(--muted); font-size: 0.65rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.5rem; border-radius: 8px; transition: color 0.15s; position: relative; }
+.comm-mobile-nav-item:hover, .comm-mobile-nav-item.active { color: var(--primary); }
+.comm-mobile-nav-item .material-icons-round { font-size: 22px; }
+@media (max-width: 1100px) { .community-layout { grid-template-columns: 240px 1fr; } .comm-right-sidebar { display: none; } }
+@media (max-width: 720px) { .community-layout { grid-template-columns: 1fr; } .comm-left-sidebar { display: none; } .comm-mobile-nav { display: flex; } body { padding-bottom: 70px; } }
+  </style>
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a href="community.html" class="active">Community</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="auth.html">Sign In</a>
+        <a class="btn btn-secondary" href="register.html">Sign Up</a>
+        <a class="btn btn-primary" href="donate.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="community.html" class="active">Community</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="auth.html">Sign In</a>
+      <a href="register.html">Sign Up</a>
+      <a href="donate.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="comm-page-title">
+        <h1>Alumni Community</h1>
+        <p>Connect, share, and grow with the BU alumni network.</p>
+      </div>
+      <div class="community-layout">
+        <!-- ── LEFT SIDEBAR ── -->
+        <aside class="comm-left-sidebar" aria-label="Community sidebar">
+
+          <!-- Profile card (shown when signed in, hidden otherwise) -->
+          <div class="comm-card" id="profile-card" style="text-align:center;display:none;">
+            <div class="profile-card-avatar" id="sidebar-avatar" aria-hidden="true">BU</div>
+            <div style="font-weight:800;font-size:0.95rem;color:var(--text);" id="sidebar-name">Member</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;" id="sidebar-profession">BU Alumni</div>
+            <a href="auth.html#profile" style="font-size:0.8rem;font-weight:700;color:var(--primary);text-decoration:none;">Edit Profile</a>
+            <div class="profile-stats-row">
+              <div class="profile-stat"><strong id="stat-posts">0</strong><span>Posts</span></div>
+              <div class="profile-stat"><strong id="stat-connections">0</strong><span>Connections</span></div>
+              <div class="profile-stat"><strong id="stat-groups">0</strong><span>Groups</span></div>
+            </div>
+          </div>
+
+          <!-- Join community card (shown when signed out) -->
+          <div class="comm-card join-community-card" id="join-card">
+            <span class="material-icons-round" aria-hidden="true">people</span>
+            <h3>Join the Community</h3>
+            <p>Sign in to post, connect with alumni, and join groups.</p>
+            <a class="btn btn-primary" href="auth.html" style="display:block;margin-bottom:0.5rem;">Sign In</a>
+            <a class="btn btn-secondary" href="register.html" style="display:block;">Sign Up</a>
+          </div>
+
+          <!-- Navigation menu -->
+          <div class="comm-card" style="padding:0.6rem;">
+            <nav aria-label="Community navigation">
+              <a href="#feed" class="comm-nav-item active" onclick="scrollToFeed(event)">
+                <span class="material-icons-round" aria-hidden="true">home</span> Feed
+              </a>
+              <a href="opportunities.html" class="comm-nav-item">
+                <span class="material-icons-round" aria-hidden="true">people</span> Directory
+              </a>
+              <button class="comm-nav-item" id="open-messages-btn" aria-label="Open messages" onclick="openMessages()">
+                <span class="material-icons-round" aria-hidden="true">chat</span> Messages
+                <span class="comm-nav-badge" id="msg-badge">3</span>
+              </button>
+              <a href="#groups" class="comm-nav-item" onclick="scrollToSection(event,'groups-section')">
+                <span class="material-icons-round" aria-hidden="true">groups</span> Groups
+              </a>
+              <a href="events.html" class="comm-nav-item">
+                <span class="material-icons-round" aria-hidden="true">campaign</span> Announcements
+              </a>
+              <a href="events.html" class="comm-nav-item">
+                <span class="material-icons-round" aria-hidden="true">event</span> Events
+              </a>
+              <a href="#" class="comm-nav-item">
+                <span class="material-icons-round" aria-hidden="true">emoji_events</span> Achievements
+              </a>
+              <a href="#" class="comm-nav-item">
+                <span class="material-icons-round" aria-hidden="true">photo_library</span> Media
+              </a>
+              <button class="comm-nav-item" id="open-notif-btn" aria-label="Open notifications" onclick="toggleNotifications(event)">
+                <span class="material-icons-round" aria-hidden="true">notifications</span> Notifications
+                <span class="comm-nav-badge" id="notif-badge">5</span>
+              </button>
+              <a href="auth.html#profile" class="comm-nav-item">
+                <span class="material-icons-round" aria-hidden="true">account_circle</span> My Profile
+              </a>
+              <a href="memberships.html" class="comm-nav-item">
+                <span class="material-icons-round" aria-hidden="true">volunteer_activism</span> Support Fund
+              </a>
+            </nav>
+          </div>
+        </aside>
+        <!-- ── MAIN FEED ── -->
+        <section class="comm-main-feed" id="feed" aria-label="Community feed">
+
+          <!-- Post composer -->
+          <div class="post-composer" id="post-composer">
+            <!-- Signed-in composer -->
+            <div id="composer-signed-in" style="display:none;">
+              <div class="composer-row">
+                <div class="composer-avatar" id="composer-avatar" aria-hidden="true">BU</div>
+                <textarea class="composer-textarea" id="composer-text" placeholder="What's on your mind?" rows="2" aria-label="Write a post"></textarea>
+              </div>
+              <div class="composer-actions">
+                <button class="composer-attach-btn" type="button" aria-label="Add photo">
+                  <span class="material-icons-round" aria-hidden="true">photo_camera</span> Photo
+                </button>
+                <button class="composer-attach-btn" type="button" aria-label="Share achievement">
+                  <span class="material-icons-round" aria-hidden="true">emoji_events</span> Achievement
+                </button>
+                <button class="composer-attach-btn" type="button" aria-label="Ask a question">
+                  <span class="material-icons-round" aria-hidden="true">help_outline</span> Question
+                </button>
+                <button class="composer-attach-btn" type="button" aria-label="Share a link">
+                  <span class="material-icons-round" aria-hidden="true">link</span> Link
+                </button>
+                <button class="btn btn-primary composer-post-btn" id="post-submit-btn" type="button" disabled onclick="submitPost()">Post</button>
+              </div>
+            </div>
+            <!-- Signed-out prompt -->
+            <div id="composer-signed-out" class="sign-in-prompt">
+              <span class="material-icons-round" style="font-size:36px;color:var(--primary);display:block;margin-bottom:0.5rem;" aria-hidden="true">edit_note</span>
+              <p>Sign in to share updates, ask questions, and connect with fellow alumni.</p>
+              <a class="btn btn-primary" href="auth.html">Sign In to Post</a>
+              <a class="btn btn-secondary" href="register.html" style="margin-left:0.5rem;">Create Account</a>
+            </div>
+          </div>
+
+          <!-- Feed posts container -->
+          <div id="feed-posts" aria-live="polite" aria-label="Feed posts">
+            <!-- Posts rendered by JS -->
+          </div>
+        </section>
+        <!-- ── RIGHT SIDEBAR ── -->
+        <aside class="comm-right-sidebar" aria-label="Alumni directory and groups">
+
+          <!-- Alumni Directory mini -->
+          <div class="comm-card">
+            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.75rem;">Alumni Directory</h3>
+            <input type="search" class="dir-search" id="dir-search-mini" placeholder="Search alumni..." aria-label="Search alumni" oninput="filterMiniDirectory(this.value)" />
+            <div id="mini-directory">
+              <div class="alumni-card-mini" data-name="Grace Auma" data-role="Business Analyst">
+                <div class="alumni-avatar-sm" aria-hidden="true">GA</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Grace Auma</div>
+                  <div style="font-size:0.72rem;color:var(--muted);">Business Analyst · Kampala</div>
+                </div>
+                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with Grace Auma">Connect</button>
+              </div>
+              <div class="alumni-card-mini" data-name="Brian Mugisha" data-role="Software Developer">
+                <div class="alumni-avatar-sm" aria-hidden="true">BM</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Brian Mugisha</div>
+                  <div style="font-size:0.72rem;color:var(--muted);">Software Developer · Kampala</div>
+                </div>
+                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with Brian Mugisha">Connect</button>
+              </div>
+              <div class="alumni-card-mini" data-name="Alice Nakayiza" data-role="Alumni Leader">
+                <div class="alumni-avatar-sm" aria-hidden="true">AN</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Alice Nakayiza</div>
+                  <div style="font-size:0.72rem;color:var(--muted);">Alumni Leader · Kampala</div>
+                </div>
+                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with Alice Nakayiza">Connect</button>
+              </div>
+              <div class="alumni-card-mini" data-name="David Ssemwanga" data-role="Data Scientist">
+                <div class="alumni-avatar-sm" aria-hidden="true">DS</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">David Ssemwanga</div>
+                  <div style="font-size:0.72rem;color:var(--muted);">Data Scientist · Remote</div>
+                </div>
+                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with David Ssemwanga">Connect</button>
+              </div>
+            </div>
+            <button class="view-all-link" onclick="openDirectoryModal()" style="background:none;border:none;cursor:pointer;font-family:inherit;width:100%;">View Full Directory &rarr;</button>
+          </div>
+
+          <!-- Active Groups -->
+          <div class="comm-card" id="groups-section">
+            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.75rem;">Active Groups</h3>
+            <div class="group-card">
+              <div class="group-icon" aria-hidden="true"><span class="material-icons-round" style="font-size:20px;color:var(--primary);">computer</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Computer Science Alumni</div>
+                <div style="font-size:0.72rem;color:var(--muted);">342 members</div>
+              </div>
+              <button class="join-btn" onclick="toggleJoin(this)" aria-label="Join Computer Science Alumni group">Join</button>
+            </div>
+            <div class="group-card">
+              <div class="group-icon" aria-hidden="true"><span class="material-icons-round" style="font-size:20px;color:var(--primary);">school</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Class of 2022</div>
+                <div style="font-size:0.72rem;color:var(--muted);">189 members</div>
+              </div>
+              <button class="join-btn" onclick="toggleJoin(this)" aria-label="Join Class of 2022 group">Join</button>
+            </div>
+            <div class="group-card">
+              <div class="group-icon" aria-hidden="true"><span class="material-icons-round" style="font-size:20px;color:var(--primary);">rocket_launch</span></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Entrepreneurs Network</div>
+                <div style="font-size:0.72rem;color:var(--muted);">267 members</div>
+              </div>
+              <button class="join-btn" onclick="toggleJoin(this)" aria-label="Join Entrepreneurs Network group">Join</button>
+            </div>
+          </div>
+
+          <!-- Upcoming Events mini -->
+          <div class="comm-card">
+            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.75rem;">Upcoming Events</h3>
+            <div class="event-mini-item">
+              <div class="event-mini-date"><span>MAY</span>10</div>
+              <div>
+                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Annual Alumni Gala 2026</div>
+                <div style="font-size:0.72rem;color:var(--muted);">Kampala Serena Hotel</div>
+                <a href="events.html" style="font-size:0.75rem;font-weight:700;color:var(--primary);text-decoration:none;">Register &rarr;</a>
+              </div>
+            </div>
+            <div class="event-mini-item">
+              <div class="event-mini-date"><span>JUN</span>7</div>
+              <div>
+                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Career Fair &amp; Networking Day</div>
+                <div style="font-size:0.72rem;color:var(--muted);">BU Main Campus</div>
+                <a href="events.html" style="font-size:0.75rem;font-weight:700;color:var(--primary);text-decoration:none;">Register &rarr;</a>
+              </div>
+            </div>
+            <a href="events.html" class="view-all-link">View All Events &rarr;</a>
+          </div>
+
+          <!-- Support Fund widget -->
+          <div class="comm-card">
+            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.4rem;">Alumni Support Fund</h3>
+            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;">Help fund scholarships for the next generation of BU students.</p>
+            <div style="display:flex;justify-content:space-between;font-size:0.75rem;font-weight:700;margin-bottom:0.3rem;">
+              <span style="color:var(--primary);">UGX 31.5M raised</span>
+              <span style="color:var(--muted);">Goal: UGX 50M</span>
+            </div>
+            <div class="support-progress-bar" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" aria-label="63% of fundraising goal reached">
+              <div class="support-progress-fill" style="width:63%;"></div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;">63% of goal reached</div>
+            <a class="btn btn-primary" href="memberships.html" style="display:block;text-align:center;font-size:0.85rem;">Contribute Now</a>
+          </div>
+        </aside>
+      </div><!-- end community-layout -->
+    </div><!-- end container -->
+  </main>
+  <!-- Mobile bottom nav -->
+  <nav class="comm-mobile-nav" aria-label="Mobile community navigation">
+    <a href="#feed" class="comm-mobile-nav-item active" onclick="scrollToFeed(event)">
+      <span class="material-icons-round" aria-hidden="true">home</span>Feed
+    </a>
+    <a href="opportunities.html" class="comm-mobile-nav-item">
+      <span class="material-icons-round" aria-hidden="true">people</span>Directory
+    </a>
+    <button class="comm-mobile-nav-item" onclick="openMessages()" style="background:none;border:none;font-family:inherit;cursor:pointer;position:relative;" aria-label="Messages">
+      <span class="material-icons-round" aria-hidden="true">chat</span>
+      <span style="font-size:0.65rem;font-weight:600;">Messages</span>
+      <span class="notif-badge-count" id="msg-badge-mobile">3</span>
+    </button>
+    <button class="comm-mobile-nav-item" onclick="toggleNotifications(event)" style="background:none;border:none;font-family:inherit;cursor:pointer;position:relative;" aria-label="Notifications">
+      <span class="material-icons-round" aria-hidden="true">notifications</span>
+      <span style="font-size:0.65rem;font-weight:600;">Alerts</span>
+      <span class="notif-badge-count" id="notif-badge-mobile">5</span>
+    </button>
+    <a href="auth.html#profile" class="comm-mobile-nav-item">
+      <span class="material-icons-round" aria-hidden="true">account_circle</span>Profile
+    </a>
+  </nav>
+  <!-- ── MESSAGES MODAL ── -->
+  <div class="comm-modal" id="messages-modal" role="dialog" aria-modal="true" aria-label="Messages" aria-hidden="true">
+    <div class="comm-modal-backdrop" onclick="closeMessages()"></div>
+    <div class="comm-modal-panel">
+      <div class="msg-modal-header">
+        <h3>Messages</h3>
+        <button class="msg-modal-close" onclick="closeMessages()" aria-label="Close messages">
+          <span class="material-icons-round" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="msg-conv-list">
+        <div class="msg-conv-item active" onclick="selectConversation(this,'Grace Auma','GA')">
+          <div class="msg-conv-avatar" aria-hidden="true">GA</div>
+          <div class="msg-conv-info">
+            <div class="msg-conv-name">Grace Auma</div>
+            <div class="msg-conv-preview">Thanks for the referral! I'll reach out...</div>
+          </div>
+          <span class="msg-unread-badge">2</span>
+        </div>
+        <div class="msg-conv-item" onclick="selectConversation(this,'Brian Mugisha','BM')">
+          <div class="msg-conv-avatar" style="background:linear-gradient(135deg,#0f766e,#34d399);" aria-hidden="true">BM</div>
+          <div class="msg-conv-info">
+            <div class="msg-conv-name">Brian Mugisha</div>
+            <div class="msg-conv-preview">Are you attending the gala next month?</div>
+          </div>
+          <span class="msg-unread-badge">1</span>
+        </div>
+        <div class="msg-conv-item" onclick="selectConversation(this,'Alice Nakayiza','AN')">
+          <div class="msg-conv-avatar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);" aria-hidden="true">AN</div>
+          <div class="msg-conv-info">
+            <div class="msg-conv-name">Alice Nakayiza</div>
+            <div class="msg-conv-preview">Welcome to the network! Let me know if...</div>
+          </div>
+        </div>
+      </div>
+      <div class="msg-input-row">
+        <input type="text" class="msg-input" id="msg-input" placeholder="Type a message..." aria-label="Type a message" onkeydown="sendMessageOnEnter(event)" />
+        <button class="msg-send-btn" onclick="sendMessage()" aria-label="Send message">
+          <span class="material-icons-round" aria-hidden="true" style="font-size:18px;">send</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NOTIFICATIONS DROPDOWN ── -->
+  <div class="notif-wrap" id="notif-wrap" style="position:fixed;top:70px;right:1.5rem;z-index:600;">
+    <div class="notif-dropdown" id="notif-dropdown" style="display:none;" role="dialog" aria-modal="true" aria-label="Notifications">
+      <div class="notif-header">
+        <h4>Notifications</h4>
+        <button class="mark-read-btn" onclick="markAllRead()" aria-label="Mark all notifications as read">Mark all read</button>
+      </div>
+      <div id="notif-list">
+        <div class="notif-item unread" role="listitem">
+          <div class="notif-icon" style="background:rgba(17,64,217,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:var(--primary);">comment</span></div>
+          <div style="flex:1;">
+            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Amara Ssekandi commented on your post</div>
+            <div style="font-size:0.75rem;color:var(--muted);">2 hours ago</div>
+          </div>
+          <div class="notif-dot" aria-label="Unread"></div>
+        </div>
+        <div class="notif-item unread" role="listitem">
+          <div class="notif-icon" style="background:rgba(239,68,68,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:#ef4444;">favorite</span></div>
+          <div style="flex:1;">
+            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Dr. Sarah Nakato liked your post</div>
+            <div style="font-size:0.75rem;color:var(--muted);">5 hours ago</div>
+          </div>
+          <div class="notif-dot" aria-label="Unread"></div>
+        </div>
+        <div class="notif-item unread" role="listitem">
+          <div class="notif-icon" style="background:rgba(15,118,110,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:#0f766e;">work</span></div>
+          <div style="flex:1;">
+            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">New job posted: Senior Developer at TechCo</div>
+            <div style="font-size:0.75rem;color:var(--muted);">Yesterday</div>
+          </div>
+          <div class="notif-dot" aria-label="Unread"></div>
+        </div>
+        <div class="notif-item unread" role="listitem">
+          <div class="notif-icon" style="background:rgba(17,64,217,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:var(--primary);">chat</span></div>
+          <div style="flex:1;">
+            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Grace Auma sent you a message</div>
+            <div style="font-size:0.75rem;color:var(--muted);">Yesterday</div>
+          </div>
+          <div class="notif-dot" aria-label="Unread"></div>
+        </div>
+        <div class="notif-item unread" role="listitem">
+          <div class="notif-icon" style="background:rgba(245,158,11,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:#f59e0b;">event</span></div>
+          <div style="flex:1;">
+            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Reminder: Alumni Gala 2026 in 2 weeks</div>
+            <div style="font-size:0.75rem;color:var(--muted);">2 days ago</div>
+          </div>
+          <div class="notif-dot" aria-label="Unread"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FULL DIRECTORY MODAL ── -->
+  <div class="dir-modal-overlay" id="dir-modal" role="dialog" aria-modal="true" aria-label="Alumni Directory" aria-hidden="true">
+    <div class="dir-modal-box">
+      <div class="dir-modal-header">
+        <h2>Alumni Directory</h2>
+        <button class="dir-modal-close" onclick="closeDirectoryModal()" aria-label="Close directory">
+          <span class="material-icons-round" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="dir-modal-filters">
+        <input type="search" id="dir-modal-search" placeholder="Search by name or profession..." aria-label="Search alumni" oninput="filterDirectory()" />
+        <select id="dir-filter-industry" aria-label="Filter by industry" onchange="filterDirectory()">
+          <option value="">All Industries</option>
+          <option value="tech">Technology</option>
+          <option value="health">Healthcare</option>
+          <option value="business">Business</option>
+          <option value="education">Education</option>
+          <option value="finance">Finance</option>
+        </select>
+        <select id="dir-filter-year" aria-label="Filter by graduation year" onchange="filterDirectory()">
+          <option value="">All Years</option>
+          <option value="2024">2024</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2018">2018</option>
+          <option value="2016">2016</option>
+          <option value="2010">2010</option>
+          <option value="2008">2008</option>
+        </select>
+      </div>
+      <div class="dir-modal-grid" id="dir-modal-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+  <footer id="footer" class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
+        <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/256761365727" target="_blank" rel="noopener" aria-label="Chat with BU Alumni on WhatsApp" class="social-icon social-icon--wa">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2c-5.5 0-9.97 4.46-9.97 9.97 0 1.75.46 3.46 1.33 4.96L2 22l5.2-1.36a9.93 9.93 0 0 0 4.83 1.23h.01c5.5 0 9.97-4.46 9.97-9.97a9.9 9.9 0 0 0-2.91-7zM12.04 20.18h-.01a8.3 8.3 0 0 1-4.24-1.16l-.3-.18-3.09.81.82-3.01-.2-.31a8.29 8.29 0 0 1-1.28-4.42c0-4.58 3.72-8.3 8.31-8.3 2.22 0 4.3.87 5.86 2.43a8.26 8.26 0 0 1 2.43 5.87c0 4.59-3.73 8.31-8.3 8.31zm4.56-6.23c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.57.12-.17.26-.65.8-.79.96-.15.17-.29.19-.54.07-.25-.13-1.05-.38-2-1.2-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.39.11-.52.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.13-.57-1.38-.78-1.89-.21-.5-.42-.43-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.09s.9 2.43 1.02 2.6c.12.17 1.77 2.7 4.28 3.79.6.26 1.06.42 1.42.54.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.19.21-.59.21-1.09.15-1.19-.06-.11-.23-.17-.48-.3z"/></svg>
+          </a>
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="BU Alumni on Facebook" class="social-icon social-icon--fb">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://x.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="BU Alumni on X (Twitter)" class="social-icon social-icon--x">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="15" height="15"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="BU Alumni on LinkedIn" class="social-icon social-icon--li">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:alumni@bualumni.org" aria-label="Email BU Alumni" class="social-icon social-icon--em">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Portal</h4>
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="activities.html">Activities</a>
+        <a class="footer-link" href="community.html">Community</a>
+        <a class="footer-link" href="career-guide.html">Career Guide</a>
+        <a class="footer-link" href="events.html">Events</a>
+        <a class="footer-link" href="memberships.html">Memberships</a>
+        <a class="footer-link" href="opportunities.html">Opportunities</a>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Contact</h4>
+        <a class="footer-link" href="mailto:alumni@bu.edu">alumni@bu.edu</a>
+        <a class="footer-link" href="tel:+256761365727">+256 761 365727</a>
+        <a class="footer-link" href="legal.html#privacy">Privacy Policy</a>
+        <a class="footer-link" href="legal.html#terms">Terms of Use</a>
+      </div>
+      <div class="footer-newsletter">
+        <h4 class="footer-heading">Stay Updated</h4>
+        <p class="footer-copy">Get alumni news and events in your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required aria-label="Email for newsletter" />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <p class="newsletter-success" id="nl-success" aria-live="polite" hidden></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="theme.js"></script>
+  <script src="animations.js"></script>
+  <script src="auth-nav.js"></script>
+  <script src="share.js"></script>
+  <script>
+  // ── Auth state ──────────────────────────────────────────────────────────────
+  const user = (function() {
+    try { return JSON.parse(localStorage.getItem('buCurrentUser') || 'null'); } catch(_) { return null; }
+  })();
+
+  function getInitials(name) {
+    if (!name) return 'BU';
+    const parts = name.trim().split(/\s+/);
+    return parts.length >= 2
+      ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+      : parts[0].slice(0, 2).toUpperCase();
+  }
+
+  // ── Posts data ──────────────────────────────────────────────────────────────
+  const POSTS_DATA = [
+    {
+      id: 'p1',
+      author: 'Amara Ssekandi',
+      profession: 'Software Engineer · Class of 2018',
+      time: '2 hours ago',
+      content: 'Excited to share that I just joined XYZ Tech as a Senior Engineer! 🎉 Grateful for the BU Alumni network — the mentorship connections here made all the difference.',
+      type: 'achievement',
+      badge: 'New Job',
+      likes: 47,
+      comments: [
+        { author: 'Dr. Sarah Nakato', text: 'Congratulations Amara! Well deserved! 🎉' },
+        { author: 'Moses Byaruhanga', text: 'Amazing news! The BU network delivers again.' }
+      ]
+    },
+    {
+      id: 'p2',
+      author: 'Dr. Sarah Nakato',
+      profession: 'Health Professional · Class of 2008',
+      time: '5 hours ago',
+      content: 'Just returned from the WHO Regional Health Summit in Nairobi. Proud to represent BU graduates on the continental stage. If anyone is interested in global health careers, feel free to reach out!',
+      type: 'update',
+      likes: 89,
+      comments: [
+        { author: 'Faith Nakato', text: 'This is so inspiring! Would love to connect about global health opportunities.' },
+        { author: 'Robert Ssali', text: 'BU pride! Thank you for representing us so well.' }
+      ]
+    },
+    {
+      id: 'p3',
+      author: 'Moses Byaruhanga',
+      profession: 'Entrepreneur · Class of 2016',
+      time: 'Yesterday',
+      content: 'Question for the network: Any alumni working in fintech or impact investing in East Africa? Looking to connect and explore partnership opportunities for my startup. 🚀',
+      type: 'question',
+      likes: 34,
+      comments: [
+        { author: 'Brian Mugisha', text: 'I work in fintech! Sending you a message now.' }
+      ]
+    },
+    {
+      id: 'p4',
+      author: 'Faith Nakato',
+      profession: 'Marketing Manager · Class of 2021',
+      time: '2 days ago',
+      content: 'Sharing this amazing resource for anyone job hunting — the BU Career Guide library has CV templates and interview prep materials that actually work. Check it out!',
+      type: 'link',
+      link: { text: 'BU Career Resource Library', url: 'career-guide.html' },
+      likes: 56,
+      comments: [
+        { author: 'Grace Auma', text: 'This helped me land my current role! Highly recommend.' }
+      ]
+    },
+    {
+      id: 'p5',
+      author: 'Robert Ssali',
+      profession: 'VVP Member · Class of 2010',
+      time: '3 days ago',
+      content: 'Congratulations to all Class of 2026 graduates! 🎓 The journey is just beginning. The BU Alumni network is here for you — mentorship, jobs, and community. Welcome home!',
+      type: 'update',
+      likes: 124,
+      comments: [
+        { author: 'Alice Nakayiza', text: 'Welcome to the family, Class of 2026! 🎓' },
+        { author: 'Amara Ssekandi', text: 'So excited to welcome the new graduates. Reach out anytime!' }
+      ]
+    }
+  ];
+
+  // ── Like persistence ────────────────────────────────────────────────────────
+  function getLikes(postId) {
+    try {
+      const stored = JSON.parse(localStorage.getItem('buPostLikes') || '{}');
+      return stored;
+    } catch(_) { return {}; }
+  }
+  function saveLike(postId, liked, count) {
+    try {
+      const stored = JSON.parse(localStorage.getItem('buPostLikes') || '{}');
+      stored[postId] = { liked, count };
+      localStorage.setItem('buPostLikes', JSON.stringify(stored));
+    } catch(_) {}
+  }
+
+  // ── Render a single post ────────────────────────────────────────────────────
+  function renderPost(post, prepend) {
+    const likes = getLikes();
+    const likeData = likes[post.id] || { liked: false, count: post.likes };
+    const ini = getInitials(post.author);
+    const avatarColors = [
+      'linear-gradient(135deg,#1140d9,#6d88ff)',
+      'linear-gradient(135deg,#0f766e,#34d399)',
+      'linear-gradient(135deg,#7c3aed,#a78bfa)',
+      'linear-gradient(135deg,#dc2626,#f87171)',
+      'linear-gradient(135deg,#d97706,#fbbf24)'
+    ];
+    const colorIdx = post.author.charCodeAt(0) % avatarColors.length;
+    const avatarStyle = avatarColors[colorIdx];
+
+    let badgeHtml = '';
+    if (post.type === 'achievement' && post.badge) {
+      badgeHtml = `<div class="post-badge"><span class="material-icons-round" style="font-size:12px;" aria-hidden="true">emoji_events</span>${post.badge}</div>`;
+    } else if (post.type === 'question') {
+      badgeHtml = `<div class="post-badge" style="background:#eff6ff;color:#1e40af;border-color:#bfdbfe;"><span class="material-icons-round" style="font-size:12px;" aria-hidden="true">help_outline</span>Question</div>`;
+    }
+
+    let linkHtml = '';
+    if (post.type === 'link' && post.link) {
+      linkHtml = `<a class="post-link-card" href="${post.link.url}"><span class="material-icons-round" style="font-size:16px;" aria-hidden="true">link</span>${post.link.text}</a>`;
+    }
+
+    const commentsHtml = (post.comments || []).map(c => `
+      <div class="comment-item">
+        <div class="comment-avatar" aria-hidden="true">${getInitials(c.author)}</div>
+        <div class="comment-bubble">
+          <div class="comment-author">${c.author}</div>
+          ${c.text}
+        </div>
+      </div>`).join('');
+
+    const el = document.createElement('article');
+    el.className = 'feed-post' + (prepend ? ' new-post-anim' : '');
+    el.id = 'post-' + post.id;
+    el.setAttribute('aria-label', `Post by ${post.author}`);
+    el.innerHTML = `
+      <div class="post-author-row">
+        <div class="post-avatar" style="background:${avatarStyle};" aria-hidden="true">${ini}</div>
+        <div class="post-author-info">
+          <div class="post-author-name">${post.author}</div>
+          <div class="post-author-meta">${post.profession} · ${post.time}</div>
+        </div>
+      </div>
+      ${badgeHtml}
+      <div class="post-content">${post.content}</div>
+      ${linkHtml}
+      <div class="reaction-bar">
+        <button class="reaction-btn${likeData.liked ? ' liked' : ''}" onclick="toggleLike('${post.id}', this)" aria-label="Like post" aria-pressed="${likeData.liked}">
+          <span class="material-icons-round" style="font-size:16px;" aria-hidden="true">thumb_up</span>
+          <span class="like-count">${likeData.count}</span>
+        </button>
+        <button class="reaction-btn" onclick="toggleComments('${post.id}', this)" aria-label="Show comments" aria-expanded="false">
+          <span class="material-icons-round" style="font-size:16px;" aria-hidden="true">chat_bubble_outline</span>
+          <span class="comment-count">${(post.comments || []).length}</span>
+        </button>
+        <button class="reaction-btn" onclick="sharePost('${post.id}', '${post.author.replace(/'/g,"\\'")}', this)" aria-label="Share post">
+          <span class="material-icons-round" style="font-size:16px;" aria-hidden="true">share</span> Share
+        </button>
+      </div>
+      <div class="comments-section" id="comments-${post.id}" aria-label="Comments">
+        ${commentsHtml}
+        <div class="comment-input-row">
+          <div class="comment-avatar" style="background:${user ? 'linear-gradient(135deg,var(--primary),#6d88ff)' : 'var(--border)'};" aria-hidden="true">${user ? getInitials(user.fullName || user.name || '') : 'BU'}</div>
+          <input type="text" class="comment-input" placeholder="${user ? 'Add a comment...' : 'Sign in to comment'}" ${user ? '' : 'disabled'} aria-label="Add a comment" onkeydown="submitCommentOnEnter(event,'${post.id}')" />
+          <button class="comment-send-btn" onclick="submitComment('${post.id}', this)" aria-label="Send comment">
+            <span class="material-icons-round" style="font-size:14px;" aria-hidden="true">send</span>
+          </button>
+        </div>
+      </div>`;
+    return el;
+  }
+
+  // ── Render all posts ────────────────────────────────────────────────────────
+  function renderFeed() {
+    const container = document.getElementById('feed-posts');
+    container.innerHTML = '';
+    POSTS_DATA.forEach(post => container.appendChild(renderPost(post, false)));
+  }
+
+  // ── Like toggle ─────────────────────────────────────────────────────────────
+  function toggleLike(postId, btn) {
+    const likes = getLikes();
+    const post = POSTS_DATA.find(p => p.id === postId);
+    const current = likes[postId] || { liked: false, count: post ? post.likes : 0 };
+    const newLiked = !current.liked;
+    const newCount = newLiked ? current.count + 1 : current.count - 1;
+    saveLike(postId, newLiked, newCount);
+    btn.classList.toggle('liked', newLiked);
+    btn.setAttribute('aria-pressed', newLiked);
+    btn.querySelector('.like-count').textContent = newCount;
+  }
+
+  // ── Comment expand/collapse ─────────────────────────────────────────────────
+  function toggleComments(postId, btn) {
+    const section = document.getElementById('comments-' + postId);
+    const isOpen = section.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+    if (isOpen) {
+      const input = section.querySelector('.comment-input');
+      if (input && !input.disabled) input.focus();
+    }
+  }
+
+  // ── Submit comment ──────────────────────────────────────────────────────────
+  function submitCommentOnEnter(e, postId) {
+    if (e.key === 'Enter') submitComment(postId, e.target.closest('.comment-input-row').querySelector('.comment-send-btn'));
+  }
+  function submitComment(postId, btn) {
+    if (!user) { window.location.href = 'auth.html'; return; }
+    const section = document.getElementById('comments-' + postId);
+    const input = section.querySelector('.comment-input');
+    const text = input.value.trim();
+    if (!text) return;
+    const name = user.fullName || user.name || 'You';
+    const item = document.createElement('div');
+    item.className = 'comment-item';
+    item.innerHTML = `
+      <div class="comment-avatar" style="background:linear-gradient(135deg,var(--primary),#6d88ff);" aria-hidden="true">${getInitials(name)}</div>
+      <div class="comment-bubble">
+        <div class="comment-author">${name}</div>
+        ${text}
+      </div>`;
+    section.insertBefore(item, section.querySelector('.comment-input-row'));
+    // Update count
+    const postEl = document.getElementById('post-' + postId);
+    const countEl = postEl.querySelector('.comment-count');
+    if (countEl) countEl.textContent = parseInt(countEl.textContent || '0') + 1;
+    input.value = '';
+    input.focus();
+  }
+
+  // ── Post composer ───────────────────────────────────────────────────────────
+  function initComposer() {
+    const signedIn = document.getElementById('composer-signed-in');
+    const signedOut = document.getElementById('composer-signed-out');
+    const textarea = document.getElementById('composer-text');
+    const submitBtn = document.getElementById('post-submit-btn');
+    const composerAvatar = document.getElementById('composer-avatar');
+
+    if (user) {
+      signedIn.style.display = 'block';
+      signedOut.style.display = 'none';
+      const name = user.fullName || user.name || '';
+      if (composerAvatar) composerAvatar.textContent = getInitials(name);
+      if (textarea) {
+        textarea.placeholder = `What's on your mind, ${name.split(' ')[0] || 'there'}?`;
+        textarea.addEventListener('input', function() {
+          submitBtn.disabled = this.value.trim().length === 0;
+        });
+      }
+    } else {
+      signedIn.style.display = 'none';
+      signedOut.style.display = 'block';
+    }
+  }
+
+  // ── Submit new post ─────────────────────────────────────────────────────────
+  function submitPost() {
+    if (!user) return;
+    const textarea = document.getElementById('composer-text');
+    const text = textarea.value.trim();
+    if (!text) return;
+    const name = user.fullName || user.name || 'You';
+    const newPost = {
+      id: 'user-' + Date.now(),
+      author: name,
+      profession: user.profession || 'BU Alumni',
+      time: 'Just now',
+      content: text,
+      type: 'update',
+      likes: 0,
+      comments: []
+    };
+    const container = document.getElementById('feed-posts');
+    const el = renderPost(newPost, true);
+    container.insertBefore(el, container.firstChild);
+    textarea.value = '';
+    document.getElementById('post-submit-btn').disabled = true;
+    // Update sidebar post count
+    const statPosts = document.getElementById('stat-posts');
+    if (statPosts) statPosts.textContent = parseInt(statPosts.textContent || '0') + 1;
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── Share post ──────────────────────────────────────────────────────────────
+  function sharePost(postId, author, btn) {
+    const url = window.location.href.split('#')[0] + '#post-' + postId;
+    if (navigator.share) {
+      navigator.share({ title: `Post by ${author} on BU Alumni Community`, url });
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span class="material-icons-round" style="font-size:16px;">check</span> Copied!';
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      });
+    }
+  }
+
+  // ── Sidebar profile ─────────────────────────────────────────────────────────
+  function initSidebar() {
+    const profileCard = document.getElementById('profile-card');
+    const joinCard = document.getElementById('join-card');
+    if (user) {
+      profileCard.style.display = 'block';
+      joinCard.style.display = 'none';
+      const name = user.fullName || user.name || 'Member';
+      document.getElementById('sidebar-avatar').textContent = getInitials(name);
+      document.getElementById('sidebar-name').textContent = name;
+      document.getElementById('sidebar-profession').textContent = user.profession || 'BU Alumni';
+      // Load stats from localStorage
+      const stats = JSON.parse(localStorage.getItem('buUserStats') || '{"posts":0,"connections":0,"groups":0}');
+      document.getElementById('stat-posts').textContent = stats.posts;
+      document.getElementById('stat-connections').textContent = stats.connections;
+      document.getElementById('stat-groups').textContent = stats.groups;
+    } else {
+      profileCard.style.display = 'none';
+      joinCard.style.display = 'block';
+    }
+  }
+
+  // ── Mini directory search ───────────────────────────────────────────────────
+  function filterMiniDirectory(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('#mini-directory .alumni-card-mini').forEach(card => {
+      const name = (card.dataset.name || '').toLowerCase();
+      const role = (card.dataset.role || '').toLowerCase();
+      card.style.display = (name.includes(q) || role.includes(q)) ? '' : 'none';
+    });
+  }
+
+  // ── Connect toggle ──────────────────────────────────────────────────────────
+  function toggleConnect(btn) {
+    const isConnected = btn.classList.toggle('connected');
+    btn.textContent = isConnected ? 'Connected' : 'Connect';
+    btn.setAttribute('aria-pressed', isConnected);
+    // Update stats
+    const statEl = document.getElementById('stat-connections');
+    if (statEl && user) {
+      const stats = JSON.parse(localStorage.getItem('buUserStats') || '{"posts":0,"connections":0,"groups":0}');
+      stats.connections = Math.max(0, stats.connections + (isConnected ? 1 : -1));
+      localStorage.setItem('buUserStats', JSON.stringify(stats));
+      statEl.textContent = stats.connections;
+    }
+  }
+
+  // ── Group join toggle ───────────────────────────────────────────────────────
+  function toggleJoin(btn) {
+    const isJoined = btn.classList.toggle('joined');
+    btn.textContent = isJoined ? 'Joined' : 'Join';
+    btn.setAttribute('aria-pressed', isJoined);
+    if (user) {
+      const stats = JSON.parse(localStorage.getItem('buUserStats') || '{"posts":0,"connections":0,"groups":0}');
+      stats.groups = Math.max(0, stats.groups + (isJoined ? 1 : -1));
+      localStorage.setItem('buUserStats', JSON.stringify(stats));
+      const statEl = document.getElementById('stat-groups');
+      if (statEl) statEl.textContent = stats.groups;
+    }
+  }
+
+  // ── Messages modal ──────────────────────────────────────────────────────────
+  let messagesOpen = false;
+  function openMessages() {
+    const modal = document.getElementById('messages-modal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    messagesOpen = true;
+    // Clear badge
+    ['msg-badge','msg-badge-mobile'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    // Focus trap
+    setTimeout(() => {
+      const input = document.getElementById('msg-input');
+      if (input) input.focus();
+    }, 300);
+  }
+  function closeMessages() {
+    const modal = document.getElementById('messages-modal');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    messagesOpen = false;
+  }
+  function selectConversation(el, name, initials) {
+    document.querySelectorAll('.msg-conv-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    const badge = el.querySelector('.msg-unread-badge');
+    if (badge) badge.remove();
+    const input = document.getElementById('msg-input');
+    if (input) { input.placeholder = `Message ${name}...`; input.focus(); }
+  }
+  function sendMessageOnEnter(e) { if (e.key === 'Enter') sendMessage(); }
+  function sendMessage() {
+    const input = document.getElementById('msg-input');
+    if (!input || !input.value.trim()) return;
+    input.value = '';
+    input.focus();
+  }
+
+  // ── Notifications ───────────────────────────────────────────────────────────
+  let notifOpen = false;
+  function toggleNotifications(e) {
+    e.stopPropagation();
+    const dropdown = document.getElementById('notif-dropdown');
+    notifOpen = !notifOpen;
+    dropdown.style.display = notifOpen ? 'block' : 'none';
+    if (notifOpen) {
+      setTimeout(() => document.addEventListener('click', closeNotifOutside, { once: true }), 0);
+    }
+  }
+  function closeNotifOutside(e) {
+    const wrap = document.getElementById('notif-wrap');
+    if (!wrap.contains(e.target)) {
+      document.getElementById('notif-dropdown').style.display = 'none';
+      notifOpen = false;
+    }
+  }
+  function markAllRead() {
+    document.querySelectorAll('.notif-item.unread').forEach(item => {
+      item.classList.remove('unread');
+      const dot = item.querySelector('.notif-dot');
+      if (dot) dot.remove();
+    });
+    ['notif-badge','notif-badge-mobile'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  }
+
+  // ── Full directory modal ────────────────────────────────────────────────────
+  const FULL_DIRECTORY = [
+    { name: 'Grace Auma', role: 'Business Analyst', year: '2020', industry: 'business', location: 'Kampala' },
+    { name: 'Brian Mugisha', role: 'Software Developer', year: '2022', industry: 'tech', location: 'Kampala' },
+    { name: 'Alice Nakayiza', role: 'Alumni Leader', year: '2018', industry: 'education', location: 'Kampala' },
+    { name: 'David Ssemwanga', role: 'Data Scientist', year: '2021', industry: 'tech', location: 'Remote' },
+    { name: 'Amara Ssekandi', role: 'Software Engineer', year: '2018', industry: 'tech', location: 'Nairobi' },
+    { name: 'Dr. Sarah Nakato', role: 'Health Professional', year: '2008', industry: 'health', location: 'Kampala' },
+    { name: 'Moses Byaruhanga', role: 'Entrepreneur', year: '2016', industry: 'business', location: 'Kampala' },
+    { name: 'Faith Nakato', role: 'Marketing Manager', year: '2021', industry: 'business', location: 'Kampala' }
+  ];
+  function openDirectoryModal() {
+    const modal = document.getElementById('dir-modal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    renderDirectoryGrid(FULL_DIRECTORY);
+    setTimeout(() => {
+      const search = document.getElementById('dir-modal-search');
+      if (search) search.focus();
+    }, 200);
+    document.addEventListener('keydown', dirModalEsc);
+  }
+  function closeDirectoryModal() {
+    const modal = document.getElementById('dir-modal');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.removeEventListener('keydown', dirModalEsc);
+  }
+  function dirModalEsc(e) { if (e.key === 'Escape') closeDirectoryModal(); }
+  document.getElementById('dir-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeDirectoryModal();
+  });
+  function filterDirectory() {
+    const q = (document.getElementById('dir-modal-search').value || '').toLowerCase();
+    const industry = document.getElementById('dir-filter-industry').value;
+    const year = document.getElementById('dir-filter-year').value;
+    const filtered = FULL_DIRECTORY.filter(a => {
+      const matchQ = !q || a.name.toLowerCase().includes(q) || a.role.toLowerCase().includes(q);
+      const matchI = !industry || a.industry === industry;
+      const matchY = !year || a.year === year;
+      return matchQ && matchI && matchY;
+    });
+    renderDirectoryGrid(filtered);
+  }
+  function renderDirectoryGrid(alumni) {
+    const grid = document.getElementById('dir-modal-grid');
+    const avatarColors = [
+      'linear-gradient(135deg,#1140d9,#6d88ff)',
+      'linear-gradient(135deg,#0f766e,#34d399)',
+      'linear-gradient(135deg,#7c3aed,#a78bfa)',
+      'linear-gradient(135deg,#dc2626,#f87171)',
+      'linear-gradient(135deg,#d97706,#fbbf24)'
+    ];
+    if (!alumni.length) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:2rem;">No alumni found matching your search.</p>';
+      return;
+    }
+    grid.innerHTML = alumni.map((a, i) => `
+      <div class="dir-alumni-card">
+        <div class="dir-alumni-avatar" style="background:${avatarColors[i % avatarColors.length]};" aria-hidden="true">${getInitials(a.name)}</div>
+        <div class="dir-alumni-name">${a.name}</div>
+        <div class="dir-alumni-meta">${a.role} · ${a.location}</div>
+        <div class="dir-alumni-year">Class of ${a.year}</div>
+        <button class="connect-btn" style="margin:0 auto;display:block;" onclick="toggleConnect(this)" aria-label="Connect with ${a.name}">Connect</button>
+      </div>`).join('');
+  }
+
+  // ── Keyboard: Escape closes messages ───────────────────────────────────────
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (messagesOpen) closeMessages();
+      if (notifOpen) { document.getElementById('notif-dropdown').style.display = 'none'; notifOpen = false; }
+    }
+  });
+
+  // ── Scroll helpers ──────────────────────────────────────────────────────────
+  function scrollToFeed(e) { e.preventDefault(); document.getElementById('feed').scrollIntoView({ behavior: 'smooth' }); }
+  function scrollToSection(e, id) { e.preventDefault(); const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }
+
+  // ── Newsletter ──────────────────────────────────────────────────────────────
+  function handleNewsletter(e) {
+    e.preventDefault();
+    const form = e.target;
+    const emailField = form.querySelector('input[type="email"]');
+    const feedback = document.getElementById('nl-success');
+    if (!emailField || !feedback) return;
+    feedback.textContent = 'Thanks. ' + emailField.value.trim() + ' will now receive BU alumni updates.';
+    feedback.hidden = false;
+    form.reset();
+  }
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function() {
+    initSidebar();
+    initComposer();
+    renderFeed();
+  });
+  </script>
+</body>
+</html>
