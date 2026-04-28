@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
@@ -11,164 +12,200 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-/* ── Community page layout ── */
-.community-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr 300px;
-  gap: 1.5rem;
-  align-items: start;
-  padding: 2rem 0;
-}
-.comm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
-.feed-post { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.3rem; margin-bottom: 1rem; box-shadow: var(--shadow); transition: box-shadow 0.2s; }
-.feed-post:hover { box-shadow: var(--shadow-card-hover, 0 18px 36px rgba(17,64,217,0.16)); }
-.post-composer { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
-.reaction-bar { display: flex; gap: 0.5rem; padding-top: 0.8rem; border-top: 1px solid var(--border); margin-top: 0.8rem; }
-.reaction-btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.4rem 0.8rem; border-radius: 8px; border: none; background: none; color: var(--muted); font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
-.reaction-btn:hover { background: var(--bg); color: var(--primary); }
-.reaction-btn.liked { color: var(--primary); }
-.post-badge { display: inline-flex; align-items: center; gap: 0.3rem; background: #fef3c7; color: #92400e; border: 1px solid #fde68a; border-radius: 999px; font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.6rem; margin-bottom: 0.5rem; }
-.alumni-card-mini { display: flex; align-items: center; gap: 0.65rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
-.alumni-card-mini:last-child { border-bottom: none; }
-.alumni-avatar-sm { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.75rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
-.group-card { display: flex; align-items: center; gap: 0.65rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
-.group-card:last-child { border-bottom: none; }
-.group-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, rgba(17,64,217,0.12), rgba(15,118,110,0.12)); display: grid; place-items: center; flex-shrink: 0; }
-.comm-nav-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; border-radius: 10px; color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: background 0.15s, color 0.15s; cursor: pointer; border: none; background: none; font-family: inherit; width: 100%; }
-.comm-nav-item:hover, .comm-nav-item.active { background: var(--bg); color: var(--primary); }
-.comm-nav-item .material-icons-round { font-size: 20px; }
-.comm-nav-badge { margin-left: auto; background: var(--primary); color: #fff; font-size: 0.65rem; font-weight: 800; padding: 0.1rem 0.45rem; border-radius: 999px; }
-.comm-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; justify-content: flex-end; pointer-events: none; }
-.comm-modal.open { pointer-events: auto; }
-.comm-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.2s; }
-.comm-modal.open .comm-modal-backdrop { opacity: 1; }
-.comm-modal-panel { position: relative; width: 380px; height: 520px; background: var(--surface); border-radius: 16px 16px 0 0; box-shadow: 0 -8px 32px rgba(0,0,0,0.18); transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); display: flex; flex-direction: column; margin-right: 1.5rem; }
-.comm-modal.open .comm-modal-panel { transform: translateY(0); }
-.notif-dropdown { position: absolute; top: calc(100% + 8px); right: 0; width: 340px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 36px rgba(17,64,217,0.14); z-index: 500; max-height: 420px; overflow-y: auto; }
-.notif-item { display: flex; gap: 0.65rem; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.12s; }
-.notif-item:hover { background: var(--bg); }
-.notif-item.unread { background: rgba(17,64,217,0.04); }
-.notif-item:last-child { border-bottom: none; }
-.notif-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; }
-.post-author-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
-.post-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.85rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
-.post-author-info { flex: 1; }
-.post-author-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
-.post-author-meta { font-size: 0.78rem; color: var(--muted); }
-.post-content { font-size: 0.93rem; color: var(--text); line-height: 1.6; margin-bottom: 0.5rem; }
-.post-link-card { display: flex; align-items: center; gap: 0.5rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.65rem 0.9rem; margin: 0.5rem 0; text-decoration: none; color: var(--primary); font-size: 0.85rem; font-weight: 600; transition: background 0.15s; }
-.post-link-card:hover { background: var(--surface-alt, #edf2ff); }
-.comments-section { margin-top: 0.8rem; display: none; }
-.comments-section.open { display: block; }
-.comment-item { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
-.comment-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0f766e, #34d399); color: #fff; font-size: 0.65rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
-.comment-bubble { background: var(--bg); border-radius: 10px; padding: 0.45rem 0.75rem; font-size: 0.82rem; color: var(--text); flex: 1; }
-.comment-author { font-weight: 700; font-size: 0.78rem; margin-bottom: 0.15rem; }
-.comment-input-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; align-items: center; }
-.comment-input { flex: 1; border: 1px solid var(--border); border-radius: 20px; padding: 0.45rem 0.9rem; font-size: 0.82rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; transition: border-color 0.15s; }
-.comment-input:focus { border-color: var(--primary); }
-.comment-send-btn { background: var(--primary); color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; cursor: pointer; flex-shrink: 0; transition: opacity 0.15s; }
-.comment-send-btn:hover { opacity: 0.85; }
-.composer-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.82rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
-.composer-row { display: flex; gap: 0.75rem; align-items: flex-start; }
-.composer-textarea { flex: 1; border: 1px solid var(--border); border-radius: 12px; padding: 0.7rem 1rem; font-size: 0.9rem; background: var(--bg); color: var(--text); font-family: inherit; resize: none; outline: none; min-height: 60px; transition: border-color 0.15s; }
-.composer-textarea:focus { border-color: var(--primary); }
-.composer-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; align-items: center; flex-wrap: wrap; }
-.composer-attach-btn { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.7rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
-.composer-attach-btn:hover { background: var(--surface-alt, #edf2ff); color: var(--primary); }
-.composer-attach-btn .material-icons-round { font-size: 16px; }
-.composer-post-btn { margin-left: auto; }
-.profile-card-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 1.2rem; font-weight: 800; display: grid; place-items: center; margin: 0 auto 0.6rem; }
-.profile-stats-row { display: flex; gap: 0; border-top: 1px solid var(--border); margin-top: 0.8rem; padding-top: 0.8rem; }
-.profile-stat { flex: 1; text-align: center; }
-.profile-stat strong { display: block; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
-.profile-stat span { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
-.profile-stat + .profile-stat { border-left: 1px solid var(--border); }
-.support-progress-bar { background: var(--border); border-radius: 999px; height: 8px; margin: 0.5rem 0; overflow: hidden; }
-.support-progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #0f766e); border-radius: 999px; transition: width 0.6s ease; }
-.event-mini-item { display: flex; gap: 0.65rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-.event-mini-item:last-child { border-bottom: none; }
-.event-mini-date { background: var(--primary); color: #fff; border-radius: 8px; padding: 0.3rem 0.5rem; text-align: center; font-size: 0.7rem; font-weight: 800; min-width: 38px; flex-shrink: 0; line-height: 1.3; }
-.event-mini-date span { display: block; font-size: 0.6rem; font-weight: 600; opacity: 0.85; }
-.new-post-anim { animation: slideInPost 0.35s cubic-bezier(0.22,1,0.36,1); }
-@keyframes slideInPost { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
-.sign-in-prompt { text-align: center; padding: 1.5rem; }
-.sign-in-prompt p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
-.sign-in-prompt .btn { margin: 0 0.3rem; }
-.join-community-card { text-align: center; padding: 1.5rem 1rem; }
-.join-community-card .material-icons-round { font-size: 40px; color: var(--primary); margin-bottom: 0.5rem; }
-.join-community-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
-.join-community-card p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
-.join-community-card .btn { display: block; margin-bottom: 0.5rem; }
-.comm-section-title { font-size: 0.78rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 1rem 0 0.4rem; padding: 0 0.2rem; }
-.connect-btn { margin-left: auto; flex-shrink: 0; padding: 0.3rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--primary); background: none; color: var(--primary); font-size: 0.75rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
-.connect-btn:hover, .connect-btn.connected { background: var(--primary); color: #fff; }
-.join-btn { margin-left: auto; flex-shrink: 0; padding: 0.3rem 0.7rem; border-radius: 8px; border: 1.5px solid var(--primary); background: none; color: var(--primary); font-size: 0.75rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
-.join-btn:hover, .join-btn.joined { background: var(--primary); color: #fff; }
-.dir-search { width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 0.5rem 0.8rem; font-size: 0.85rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; margin-bottom: 0.75rem; transition: border-color 0.15s; }
-.dir-search:focus { border-color: var(--primary); }
-.view-all-link { display: block; text-align: center; font-size: 0.82rem; font-weight: 700; color: var(--primary); text-decoration: none; margin-top: 0.75rem; padding: 0.4rem; border-radius: 8px; transition: background 0.15s; }
-.view-all-link:hover { background: var(--bg); }
-.comm-page-title { padding: 1.5rem 0 0; }
-.comm-page-title h1 { font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 0.2rem; }
-.comm-page-title p { color: var(--muted); font-size: 0.9rem; }
-/* Full directory modal */
-.dir-modal-overlay { position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-.dir-modal-overlay.open { opacity: 1; pointer-events: auto; }
-.dir-modal-box { background: var(--surface); border-radius: 20px; width: min(900px, 95vw); max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 24px 64px rgba(0,0,0,0.22); transform: scale(0.96); transition: transform 0.25s cubic-bezier(0.22,1,0.36,1); overflow: hidden; }
-.dir-modal-overlay.open .dir-modal-box { transform: scale(1); }
-.dir-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); }
-.dir-modal-header h2 { font-size: 1.1rem; font-weight: 800; }
-.dir-modal-close { background: none; border: none; cursor: pointer; color: var(--muted); display: grid; place-items: center; border-radius: 8px; padding: 0.3rem; transition: background 0.15s; }
-.dir-modal-close:hover { background: var(--bg); color: var(--text); }
-.dir-modal-filters { display: flex; gap: 0.75rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-.dir-modal-filters input, .dir-modal-filters select { border: 1px solid var(--border); border-radius: 10px; padding: 0.5rem 0.8rem; font-size: 0.85rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; transition: border-color 0.15s; }
-.dir-modal-filters input { flex: 1; min-width: 180px; }
-.dir-modal-filters input:focus, .dir-modal-filters select:focus { border-color: var(--primary); }
-.dir-modal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; padding: 1.5rem; overflow-y: auto; }
-.dir-alumni-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; text-align: center; }
-.dir-alumni-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 1rem; font-weight: 800; display: grid; place-items: center; margin: 0 auto 0.6rem; }
-.dir-alumni-name { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 0.2rem; }
-.dir-alumni-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.6rem; }
-.dir-alumni-year { display: inline-block; background: rgba(17,64,217,0.1); color: var(--primary); border-radius: 999px; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; margin-bottom: 0.5rem; }
-/* Messages modal inner */
-.msg-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); }
-.msg-modal-header h3 { font-size: 1rem; font-weight: 800; }
-.msg-modal-close { background: none; border: none; cursor: pointer; color: var(--muted); display: grid; place-items: center; border-radius: 8px; padding: 0.3rem; }
-.msg-modal-close:hover { background: var(--bg); }
-.msg-conv-list { flex: 1; overflow-y: auto; }
-.msg-conv-item { display: flex; gap: 0.65rem; padding: 0.8rem 1.2rem; cursor: pointer; transition: background 0.12s; border-bottom: 1px solid var(--border); align-items: center; }
-.msg-conv-item:hover { background: var(--bg); }
-.msg-conv-item.active { background: rgba(17,64,217,0.06); }
-.msg-conv-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #6d88ff); color: #fff; font-size: 0.78rem; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
-.msg-conv-info { flex: 1; min-width: 0; }
-.msg-conv-name { font-weight: 700; font-size: 0.88rem; color: var(--text); }
-.msg-conv-preview { font-size: 0.78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.msg-unread-badge { background: var(--primary); color: #fff; font-size: 0.65rem; font-weight: 800; padding: 0.1rem 0.45rem; border-radius: 999px; flex-shrink: 0; }
-.msg-input-row { display: flex; gap: 0.5rem; padding: 0.8rem 1.2rem; border-top: 1px solid var(--border); }
-.msg-input { flex: 1; border: 1px solid var(--border); border-radius: 20px; padding: 0.5rem 0.9rem; font-size: 0.85rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; }
-.msg-input:focus { border-color: var(--primary); }
-.msg-send-btn { background: var(--primary); color: #fff; border: none; border-radius: 50%; width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer; flex-shrink: 0; }
-.msg-send-btn:hover { opacity: 0.85; }
-/* Notif panel */
-.notif-wrap { position: relative; }
-.notif-header { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1rem; border-bottom: 1px solid var(--border); }
-.notif-header h4 { font-size: 0.9rem; font-weight: 800; }
-.mark-read-btn { background: none; border: none; color: var(--primary); font-size: 0.78rem; font-weight: 700; cursor: pointer; font-family: inherit; }
-.mark-read-btn:hover { text-decoration: underline; }
-.notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 4px; }
-.notif-badge-count { position: absolute; top: -4px; right: -4px; background: #ef4444; color: #fff; font-size: 0.6rem; font-weight: 800; padding: 0.1rem 0.35rem; border-radius: 999px; min-width: 16px; text-align: center; }
-.comm-mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); z-index: 200; padding: 0.5rem 0; justify-content: space-around; }
-.comm-mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; color: var(--muted); font-size: 0.65rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.5rem; border-radius: 8px; transition: color 0.15s; position: relative; }
-.comm-mobile-nav-item:hover, .comm-mobile-nav-item.active { color: var(--primary); }
-.comm-mobile-nav-item .material-icons-round { font-size: 22px; }
+/* ── Community layout ── */
+.community-layout{display:grid;grid-template-columns:280px 1fr 300px;gap:1.5rem;align-items:start;padding:2rem 0}
+.comm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.feed-post{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.3rem;margin-bottom:1rem;box-shadow:var(--shadow);transition:box-shadow .2s}
+.post-composer{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;margin-bottom:1rem;box-shadow:var(--shadow)}
+.reaction-bar{display:flex;gap:.5rem;padding-top:.8rem;border-top:1px solid var(--border);margin-top:.8rem}
+.reaction-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem .8rem;border-radius:8px;border:none;background:none;color:var(--muted);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
+.reaction-btn:hover{background:var(--bg);color:var(--primary)}
+.reaction-btn.liked{color:var(--primary)}
+.post-badge{display:inline-flex;align-items:center;gap:.3rem;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;font-size:.72rem;font-weight:700;padding:.2rem .6rem;margin-bottom:.5rem}
+.post-author-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.post-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.85rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+.post-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.post-author-name{font-weight:700;font-size:.95rem;color:var(--text)}
+.post-author-meta{font-size:.78rem;color:var(--muted)}
+.post-content{font-size:.93rem;color:var(--text);line-height:1.6;margin-bottom:.5rem;white-space:pre-wrap}
+.post-image{width:100%;border-radius:12px;margin:.5rem 0;max-height:400px;object-fit:cover}
+.post-link-card{display:flex;align-items:center;gap:.5rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.65rem .9rem;margin:.5rem 0;text-decoration:none;color:var(--primary);font-size:.85rem;font-weight:600;transition:background .15s}
+.post-link-card:hover{background:var(--surface-alt,#edf2ff)}
+.comments-section{margin-top:.8rem;display:none}
+.comments-section.open{display:block}
+.comment-item{display:flex;gap:.5rem;margin-bottom:.6rem}
+.comment-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#34d399);color:#fff;font-size:.65rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+.comment-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.comment-bubble{background:var(--bg);border-radius:10px;padding:.45rem .75rem;font-size:.82rem;color:var(--text);flex:1}
+.comment-author{font-weight:700;font-size:.78rem;margin-bottom:.15rem}
+.comment-input-row{display:flex;gap:.5rem;margin-top:.5rem;align-items:center}
+.comment-input{flex:1;border:1px solid var(--border);border-radius:20px;padding:.45rem .9rem;font-size:.82rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;transition:border-color .15s}
+.comment-input:focus{border-color:var(--primary)}
+.comment-send-btn{background:var(--primary);color:#fff;border:none;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+.composer-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.82rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+.composer-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.composer-row{display:flex;gap:.75rem;align-items:flex-start}
+.composer-textarea{flex:1;border:1px solid var(--border);border-radius:12px;padding:.7rem 1rem;font-size:.9rem;background:var(--bg);color:var(--text);font-family:inherit;resize:none;outline:none;min-height:60px;transition:border-color .15s}
+.composer-textarea:focus{border-color:var(--primary)}
+.composer-actions{display:flex;gap:.5rem;margin-top:.75rem;align-items:center;flex-wrap:wrap}
+.composer-attach-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .7rem;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--muted);font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
+.composer-attach-btn:hover{background:var(--surface-alt,#edf2ff);color:var(--primary)}
+.composer-attach-btn .material-icons-round{font-size:16px}
+.composer-post-btn{margin-left:auto}
+.profile-card-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:1.3rem;font-weight:800;display:grid;place-items:center;margin:0 auto .6rem;overflow:hidden;cursor:pointer;position:relative}
+.profile-card-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.profile-card-avatar .avatar-edit-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);border-radius:50%;display:none;place-items:center;color:#fff}
+.profile-card-avatar:hover .avatar-edit-overlay{display:grid}
+.profile-stats-row{display:flex;gap:0;border-top:1px solid var(--border);margin-top:.8rem;padding-top:.8rem}
+.profile-stat{flex:1;text-align:center}
+.profile-stat strong{display:block;font-size:1.1rem;font-weight:800;color:var(--primary)}
+.profile-stat span{font-size:.72rem;color:var(--muted);font-weight:600}
+.profile-stat+.profile-stat{border-left:1px solid var(--border)}
+.comm-nav-item{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;border-radius:10px;color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:600;transition:background .15s,color .15s;cursor:pointer;border:none;background:none;font-family:inherit;width:100%}
+.comm-nav-item:hover,.comm-nav-item.active{background:var(--bg);color:var(--primary)}
+.comm-nav-item .material-icons-round{font-size:20px}
+.comm-nav-badge{margin-left:auto;background:var(--primary);color:#fff;font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:999px;min-width:18px;text-align:center}
+/* Online dot */
+.online-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;border:2px solid var(--surface);position:absolute;bottom:1px;right:1px}
+.avatar-wrap{position:relative;display:inline-block}
+/* Typing indicator */
+.typing-indicator{display:flex;gap:4px;align-items:center;padding:.4rem .8rem}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:typingBounce 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+/* Messages modal */
+.comm-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-end;justify-content:flex-end;pointer-events:none}
+.comm-modal.open{pointer-events:auto}
+.comm-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.3);opacity:0;transition:opacity .2s}
+.comm-modal.open .comm-modal-backdrop{opacity:1}
+.comm-modal-panel{position:relative;width:380px;height:540px;background:var(--surface);border-radius:16px 16px 0 0;box-shadow:0 -8px 32px rgba(0,0,0,.18);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;margin-right:1.5rem}
+.comm-modal.open .comm-modal-panel{transform:translateY(0)}
+.msg-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--border)}
+.msg-modal-header h3{font-size:1rem;font-weight:800}
+.msg-modal-close{background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem}
+.msg-modal-close:hover{background:var(--bg)}
+.msg-conv-list{flex:1;overflow-y:auto}
+.msg-conv-item{display:flex;gap:.65rem;padding:.8rem 1.2rem;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border);align-items:center}
+.msg-conv-item:hover,.msg-conv-item.active{background:var(--bg)}
+.msg-conv-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.78rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+.msg-conv-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.msg-conv-info{flex:1;min-width:0}
+.msg-conv-name{font-weight:700;font-size:.88rem;color:var(--text)}
+.msg-conv-preview{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-unread-badge{background:var(--primary);color:#fff;font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:999px;flex-shrink:0}
+.msg-chat-area{flex:1;overflow-y:auto;padding:.8rem 1.2rem;display:flex;flex-direction:column;gap:.5rem}
+.msg-bubble{max-width:75%;padding:.55rem .85rem;border-radius:14px;font-size:.85rem;line-height:1.4;word-break:break-word}
+.msg-bubble.sent{background:var(--primary);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg-bubble.recv{background:var(--bg);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px}
+.msg-bubble-meta{font-size:.68rem;opacity:.7;margin-top:.2rem;text-align:right}
+.msg-input-row{display:flex;gap:.5rem;padding:.8rem 1.2rem;border-top:1px solid var(--border)}
+.msg-input{flex:1;border:1px solid var(--border);border-radius:20px;padding:.5rem .9rem;font-size:.85rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none}
+.msg-input:focus{border-color:var(--primary)}
+.msg-send-btn{background:var(--primary);color:#fff;border:none;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+/* Notifications */
+.notif-wrap{position:relative}
+.notif-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:340px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 36px rgba(17,64,217,.14);z-index:500;max-height:420px;overflow-y:auto}
+.notif-item{display:flex;gap:.65rem;padding:.85rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.notif-item:hover{background:var(--bg)}
+.notif-item.unread{background:rgba(17,64,217,.04)}
+.notif-item:last-child{border-bottom:none}
+.notif-icon{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0;margin-top:4px}
+.notif-badge-count{position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:.6rem;font-weight:800;padding:.1rem .35rem;border-radius:999px;min-width:16px;text-align:center}
+/* Auth modal */
+.auth-modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.auth-modal-overlay.open{opacity:1;pointer-events:auto}
+.auth-modal-box{background:var(--surface);border-radius:20px;width:min(440px,95vw);box-shadow:0 24px 64px rgba(0,0,0,.22);transform:scale(.96);transition:transform .25s cubic-bezier(.22,1,.36,1);overflow:hidden}
+.auth-modal-overlay.open .auth-modal-box{transform:scale(1)}
+.auth-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)}
+.auth-modal-header h2{font-size:1.1rem;font-weight:800;margin:0}
+.auth-modal-close{background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem}
+.auth-tabs{display:flex;border-bottom:1px solid var(--border)}
+.auth-tab{flex:1;padding:.85rem;text-align:center;font-weight:700;font-size:.9rem;cursor:pointer;border:none;background:none;font-family:inherit;color:var(--muted);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.auth-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.auth-form-wrap{padding:1.5rem}
+.auth-form{display:flex;flex-direction:column;gap:.9rem}
+.auth-error{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:8px;padding:.6rem .9rem;font-size:.82rem;font-weight:600}
+/* Profile edit modal */
+.profile-modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.profile-modal-overlay.open{opacity:1;pointer-events:auto}
+.profile-modal-box{background:var(--surface);border-radius:20px;width:min(500px,95vw);max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.22);transform:scale(.96);transition:transform .25s cubic-bezier(.22,1,.36,1)}
+.profile-modal-overlay.open .profile-modal-box{transform:scale(1)}
+.profile-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1}
+/* Groups */
+.group-card{display:flex;align-items:center;gap:.65rem;padding:.6rem 0;border-bottom:1px solid var(--border)}
+.group-card:last-child{border-bottom:none}
+.group-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(17,64,217,.12),rgba(15,118,110,.12));display:grid;place-items:center;flex-shrink:0}
+.join-btn{margin-left:auto;flex-shrink:0;padding:.3rem .7rem;border-radius:8px;border:1.5px solid var(--primary);background:none;color:var(--primary);font-size:.75rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
+.join-btn:hover,.join-btn.joined{background:var(--primary);color:#fff}
+/* Online users */
+.online-user-item{display:flex;align-items:center;gap:.6rem;padding:.4rem 0}
+.online-user-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#6d88ff);color:#fff;font-size:.7rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;position:relative}
+/* Search */
+.comm-search-wrap{position:relative;flex:1;max-width:320px}
+.comm-search-input{width:100%;border:1.5px solid var(--border);border-radius:999px;padding:.5rem .9rem .5rem 2.4rem;font-size:.88rem;font-family:inherit;background:var(--surface);color:var(--text);outline:none;transition:border-color .15s}
+.comm-search-input:focus{border-color:var(--primary)}
+.comm-search-icon{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:18px!important;color:var(--muted);pointer-events:none}
+.search-results-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 36px rgba(17,64,217,.14);z-index:400;max-height:360px;overflow-y:auto;display:none}
+.search-results-dropdown.open{display:block}
+.search-result-item{display:flex;align-items:center;gap:.65rem;padding:.7rem 1rem;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border)}
+.search-result-item:hover{background:var(--bg)}
+.search-result-item:last-child{border-bottom:none}
+/* Firebase setup banner */
+.firebase-setup-banner{display:flex;align-items:flex-start;gap:.75rem;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem}
+.firebase-setup-banner .material-icons-round{color:#f59e0b;flex-shrink:0;margin-top:2px}
+.firebase-setup-banner strong{display:block;font-size:.9rem;color:#92400e;margin-bottom:.2rem}
+.firebase-setup-banner p{font-size:.82rem;color:#78350f;margin:0}
+.firebase-setup-banner a{color:#b45309;font-weight:700}
+.firebase-setup-banner button{margin-left:auto;background:none;border:none;cursor:pointer;color:#92400e;flex-shrink:0;display:grid;place-items:center;border-radius:6px;padding:.2rem}
+.firebase-setup-banner button:hover{background:rgba(0,0,0,.06)}
+/* Setup guide modal */
+.setup-modal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.setup-modal-overlay.open{opacity:1;pointer-events:auto}
+.setup-modal-box{background:var(--surface);border-radius:20px;width:min(600px,95vw);max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.setup-step{display:flex;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.setup-step:last-child{border-bottom:none}
+.setup-step-num{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:.8rem;font-weight:800;display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+/* Support fund */
+.support-progress-bar{background:var(--border);border-radius:999px;height:8px;margin:.5rem 0;overflow:hidden}
+.support-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),#0f766e);border-radius:999px;transition:width .6s ease}
+/* Event mini */
+.event-mini-item{display:flex;gap:.65rem;padding:.6rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.event-mini-item:last-child{border-bottom:none}
+.event-mini-date{background:var(--primary);color:#fff;border-radius:8px;padding:.3rem .5rem;text-align:center;font-size:.7rem;font-weight:800;min-width:38px;flex-shrink:0;line-height:1.3}
+.event-mini-date span{display:block;font-size:.6rem;font-weight:600;opacity:.85}
+/* Page title */
+.comm-page-title{padding:1.5rem 0 0}
+.comm-page-title h1{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:.2rem}
+.comm-page-title p{color:var(--muted);font-size:.9rem}
+/* View all link */
+.view-all-link{display:block;text-align:center;font-size:.82rem;font-weight:700;color:var(--primary);text-decoration:none;margin-top:.75rem;padding:.4rem;border-radius:8px;transition:background .15s;background:none;border:none;cursor:pointer;font-family:inherit;width:100%}
+.view-all-link:hover{background:var(--bg)}
+/* Mobile nav */
+.comm-mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:200;padding:.5rem 0;justify-content:space-around}
+.comm-mobile-nav-item{display:flex;flex-direction:column;align-items:center;gap:.15rem;color:var(--muted);font-size:.65rem;font-weight:600;text-decoration:none;padding:.3rem .5rem;border-radius:8px;transition:color .15s;position:relative;background:none;border:none;cursor:pointer;font-family:inherit}
+.comm-mobile-nav-item:hover,.comm-mobile-nav-item.active{color:var(--primary)}
+.comm-mobile-nav-item .material-icons-round{font-size:22px}
+/* Image preview */
+.img-preview-wrap{position:relative;margin-top:.5rem}
+.img-preview-wrap img{width:100%;max-height:200px;object-fit:cover;border-radius:10px}
+.img-preview-remove{position:absolute;top:.4rem;right:.4rem;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;cursor:pointer}
+/* Load more */
+.load-more-btn{display:block;width:100%;padding:.75rem;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--primary);font-weight:700;font-size:.88rem;cursor:pointer;font-family:inherit;transition:background .15s;margin-bottom:1rem}
+.load-more-btn:hover{background:var(--bg)}
+/* Spinner */
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:1rem auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Dark mode */
+[data-theme="dark"] .comm-modal-panel,[data-theme="dark"] .auth-modal-box,[data-theme="dark"] .profile-modal-box,[data-theme="dark"] .setup-modal-box,[data-theme="dark"] .notif-dropdown,[data-theme="dark"] .search-results-dropdown{background:var(--card-bg);border-color:var(--border)}
+[data-theme="dark"] .firebase-setup-banner{background:#1c1a0a;border-color:#78350f;color:#fde68a}
+/* Responsive */
+@media(max-width:1100px){.community-layout{grid-template-columns:240px 1fr}.comm-right-sidebar{display:none}}
+@media(max-width:720px){.community-layout{grid-template-columns:1fr}.comm-left-sidebar{display:none}.comm-mobile-nav{display:flex}body{padding-bottom:70px}}
   </style>
 </head>
 <body>
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-  </div>
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="index.html" aria-label="Go to homepage">
@@ -179,14 +216,32 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="activities.html">Activities</a>
-        <a href="community.html" class="active">Community</a>
+        <a class="active" href="community.html">Community</a>
         <a href="events.html">Events</a>
         <a href="memberships.html">Memberships</a>
         <a href="opportunities.html">Opportunities</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-ghost" href="auth.html">Sign In</a>
-        <a class="btn btn-secondary" href="register.html">Sign Up</a>
+        <div class="comm-search-wrap" style="display:none" id="header-search-wrap">
+          <span class="material-icons-round comm-search-icon" aria-hidden="true">search</span>
+          <input type="search" class="comm-search-input" id="header-search" placeholder="Search community..." aria-label="Search community" oninput="handleSearch(this.value)" />
+          <div class="search-results-dropdown" id="search-dropdown"></div>
+        </div>
+        <div class="notif-wrap" id="notif-wrap" style="display:none">
+          <button class="btn btn-ghost" id="notif-btn" onclick="toggleNotifications(event)" aria-label="Notifications" style="position:relative;padding:.5rem .6rem;">
+            <span class="material-icons-round" aria-hidden="true">notifications</span>
+            <span class="notif-badge-count" id="notif-badge" style="display:none">0</span>
+          </button>
+          <div class="notif-dropdown" id="notif-dropdown" style="display:none" role="dialog" aria-label="Notifications">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;border-bottom:1px solid var(--border)">
+              <h4 style="font-size:.9rem;font-weight:800;margin:0">Notifications</h4>
+              <button onclick="markAllRead()" style="background:none;border:none;color:var(--primary);font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit">Mark all read</button>
+            </div>
+            <div id="notif-list"><p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No notifications yet</p></div>
+          </div>
+        </div>
+        <a class="btn btn-ghost" href="auth.html" id="nav-signin-btn">Sign In</a>
+        <a class="btn btn-secondary" href="register.html" id="nav-signup-btn">Sign Up</a>
         <a class="btn btn-primary" href="donate.html">Donate</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
@@ -195,16 +250,128 @@
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="activities.html">Activities</a>
-      <a href="community.html" class="active">Community</a>
+      <a class="active" href="community.html">Community</a>
       <a href="events.html">Events</a>
       <a href="memberships.html">Memberships</a>
       <a href="opportunities.html">Opportunities</a>
       <div class="mobile-nav-divider"></div>
-      <a href="auth.html">Sign In</a>
-      <a href="register.html">Sign Up</a>
+      <a href="auth.html" id="mobile-signin-btn">Sign In</a>
+      <a href="register.html" id="mobile-signup-btn">Sign Up</a>
       <a href="donate.html">Donate</a>
     </nav>
   </header>
+  <!-- Auth Modal -->
+  <div class="auth-modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-label="Sign in or sign up">
+    <div class="auth-modal-box">
+      <div class="auth-modal-header">
+        <h2>Join the Community</h2>
+        <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close"><span class="material-icons-round">close</span></button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-signin" onclick="switchAuthTab('signin')">Sign In</button>
+        <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+      <div class="auth-form-wrap">
+        <!-- Sign In -->
+        <form class="auth-form" id="signin-form" onsubmit="handleSignIn(event)">
+          <p id="signin-error" class="auth-error" style="display:none"></p>
+          <div class="form-group"><label for="si-email">Email</label><input type="email" id="si-email" required placeholder="you@example.com" autocomplete="email" /></div>
+          <div class="form-group"><label for="si-password">Password</label><input type="password" id="si-password" required placeholder="Your password" autocomplete="current-password" /></div>
+          <button class="btn btn-primary" type="submit" id="signin-btn" style="width:100%">Sign In</button>
+          <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-top:.5rem">Don't have an account? <button type="button" onclick="switchAuthTab('signup')" style="background:none;border:none;color:var(--primary);font-weight:700;cursor:pointer;font-family:inherit">Sign Up</button></p>
+        </form>
+        <!-- Sign Up -->
+        <form class="auth-form" id="signup-form" style="display:none" onsubmit="handleSignUp(event)">
+          <p id="signup-error" class="auth-error" style="display:none"></p>
+          <div class="form-row">
+            <div class="form-group"><label for="su-name">Full Name *</label><input type="text" id="su-name" required placeholder="Amara Ssekandi" autocomplete="name" /></div>
+            <div class="form-group"><label for="su-email">Email *</label><input type="email" id="su-email" required placeholder="you@example.com" autocomplete="email" /></div>
+          </div>
+          <div class="form-group"><label for="su-password">Password *</label><input type="password" id="su-password" required placeholder="Min 8 characters" autocomplete="new-password" /></div>
+          <div class="form-row">
+            <div class="form-group"><label for="su-profession">Profession</label><input type="text" id="su-profession" placeholder="e.g. Software Engineer" /></div>
+            <div class="form-group"><label for="su-year">Class Year</label><input type="text" id="su-year" placeholder="e.g. 2022" /></div>
+          </div>
+          <div class="form-group"><label for="su-bio">Bio</label><textarea id="su-bio" rows="2" placeholder="Tell the community about yourself..."></textarea></div>
+          <button class="btn btn-primary" type="submit" id="signup-btn" style="width:100%">Create Account</button>
+          <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-top:.5rem">Already have an account? <button type="button" onclick="switchAuthTab('signin')" style="background:none;border:none;color:var(--primary);font-weight:700;cursor:pointer;font-family:inherit">Sign In</button></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Edit Modal -->
+  <div class="profile-modal-overlay" id="profile-modal" role="dialog" aria-modal="true" aria-label="Edit profile">
+    <div class="profile-modal-box">
+      <div class="profile-modal-header">
+        <h2 style="font-size:1.1rem;font-weight:800;margin:0">Edit Profile</h2>
+        <button onclick="closeProfileModal()" style="background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem"><span class="material-icons-round">close</span></button>
+      </div>
+      <form class="auth-form" id="profile-edit-form" onsubmit="saveProfile(event)" style="padding:1.5rem">
+        <div style="text-align:center;margin-bottom:1rem">
+          <div class="profile-card-avatar" id="profile-edit-avatar" onclick="document.getElementById('avatar-upload').click()" style="margin:0 auto .5rem;cursor:pointer">
+            <span id="profile-edit-initials">BU</span>
+            <div class="avatar-edit-overlay"><span class="material-icons-round" style="font-size:20px">photo_camera</span></div>
+          </div>
+          <input type="file" id="avatar-upload" accept="image/*" style="display:none" onchange="previewAvatar(this)" />
+          <p style="font-size:.75rem;color:var(--muted)">Click to change photo</p>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="pe-name">Full Name</label><input type="text" id="pe-name" required /></div>
+          <div class="form-group"><label for="pe-profession">Profession</label><input type="text" id="pe-profession" /></div>
+        </div>
+        <div class="form-group"><label for="pe-bio">Bio</label><textarea id="pe-bio" rows="3" placeholder="Tell the community about yourself..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label for="pe-skills">Skills (comma-separated)</label><input type="text" id="pe-skills" placeholder="Python, React, Leadership" /></div>
+          <div class="form-group"><label for="pe-interests">Interests</label><input type="text" id="pe-interests" placeholder="AI, Entrepreneurship" /></div>
+        </div>
+        <div class="form-group"><label for="pe-location">Location</label><input type="text" id="pe-location" placeholder="Kampala, Uganda" /></div>
+        <div style="display:flex;gap:.75rem;margin-top:.5rem">
+          <button class="btn btn-primary" type="submit" id="save-profile-btn">Save Changes</button>
+          <button class="btn btn-ghost" type="button" onclick="closeProfileModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase Setup Guide Modal -->
+  <div class="setup-modal-overlay" id="setup-modal" role="dialog" aria-modal="true" aria-label="Firebase setup guide">
+    <div class="setup-modal-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border)">
+        <h2 style="font-size:1.1rem;font-weight:800;margin:0">Firebase Setup Guide</h2>
+        <button onclick="document.getElementById('setup-modal').classList.remove('open')" style="background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem"><span class="material-icons-round">close</span></button>
+      </div>
+      <div style="padding:1.5rem">
+        <p style="color:var(--muted);font-size:.88rem;margin-bottom:1.2rem">Follow these steps to connect your Firebase project and enable real-time features.</p>
+        <div class="setup-step"><div class="setup-step-num">1</div><div><strong style="font-size:.9rem">Create a Firebase project</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener" style="color:var(--primary)">console.firebase.google.com</a> and click "Add project".</p></div></div>
+        <div class="setup-step"><div class="setup-step-num">2</div><div><strong style="font-size:.9rem">Enable Authentication</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">In your project → Build → Authentication → Sign-in method → Enable Email/Password.</p></div></div>
+        <div class="setup-step"><div class="setup-step-num">3</div><div><strong style="font-size:.9rem">Create Firestore Database</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Build → Firestore Database → Create database → Start in test mode.</p></div></div>
+        <div class="setup-step"><div class="setup-step-num">4</div><div><strong style="font-size:.9rem">Enable Realtime Database</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Build → Realtime Database → Create database → Start in test mode.</p></div></div>
+        <div class="setup-step"><div class="setup-step-num">5</div><div><strong style="font-size:.9rem">Enable Storage</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Build → Storage → Get started → Start in test mode.</p></div></div>
+        <div class="setup-step"><div class="setup-step-num">6</div><div><strong style="font-size:.9rem">Copy your config</strong><p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0">Project Settings → Your apps → Web app → Copy the firebaseConfig object and replace the placeholder values in community.html.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages Modal -->
+  <div class="comm-modal" id="messages-modal" role="dialog" aria-modal="true" aria-label="Messages" aria-hidden="true">
+    <div class="comm-modal-backdrop" onclick="closeMessages()"></div>
+    <div class="comm-modal-panel">
+      <div class="msg-modal-header">
+        <h3 id="msg-panel-title">Messages</h3>
+        <button class="msg-modal-close" onclick="closeMessages()" aria-label="Close messages"><span class="material-icons-round">close</span></button>
+      </div>
+      <div id="msg-conv-list" class="msg-conv-list">
+        <p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No conversations yet</p>
+      </div>
+      <div id="msg-chat-area" class="msg-chat-area" style="display:none"></div>
+      <div id="msg-typing" style="display:none;padding:.3rem 1.2rem"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>
+      <div class="msg-input-row" id="msg-input-row" style="display:none">
+        <input type="text" class="msg-input" id="msg-input" placeholder="Type a message..." aria-label="Type a message" onkeydown="msgKeydown(event)" oninput="handleTyping()" />
+        <button class="msg-send-btn" onclick="sendMessage()" aria-label="Send"><span class="material-icons-round" style="font-size:18px">send</span></button>
+      </div>
+    </div>
+  </div>
 
   <main>
     <div class="container">
@@ -212,626 +379,150 @@
         <h1>Alumni Community</h1>
         <p>Connect, share, and grow with the BU alumni network.</p>
       </div>
-      <div class="community-layout">
-        <!-- ── LEFT SIDEBAR ── -->
-        <aside class="comm-left-sidebar" aria-label="Community sidebar">
 
-          <!-- Profile card (shown when signed in, hidden otherwise) -->
-          <div class="comm-card" id="profile-card" style="text-align:center;display:none;">
-            <div class="profile-card-avatar" id="sidebar-avatar" aria-hidden="true">BU</div>
-            <div style="font-weight:800;font-size:0.95rem;color:var(--text);" id="sidebar-name">Member</div>
-            <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;" id="sidebar-profession">BU Alumni</div>
-            <a href="auth.html#profile" style="font-size:0.8rem;font-weight:700;color:var(--primary);text-decoration:none;">Edit Profile</a>
+      <!-- Firebase setup banner -->
+      <div class="firebase-setup-banner" id="firebase-setup-banner">
+        <span class="material-icons-round">settings</span>
+        <div>
+          <strong>Firebase Setup Required</strong>
+          <p>Replace the placeholder values in the Firebase config to enable real-time features. <button onclick="showFirebaseSetupGuide()" style="background:none;border:none;color:#b45309;font-weight:700;cursor:pointer;font-family:inherit;font-size:inherit;text-decoration:underline">Setup Guide</button></p>
+        </div>
+        <button onclick="this.parentElement.hidden=true" aria-label="Dismiss"><span class="material-icons-round">close</span></button>
+      </div>
+
+      <div class="community-layout">
+        <!-- LEFT SIDEBAR -->
+        <aside class="comm-left-sidebar" aria-label="Community sidebar">
+          <!-- Profile card -->
+          <div class="comm-card" id="profile-card" style="text-align:center;display:none">
+            <div class="avatar-wrap" style="display:inline-block;margin:0 auto .6rem">
+              <div class="profile-card-avatar" id="sidebar-avatar" onclick="openProfileModal()">
+                <span id="sidebar-initials">BU</span>
+                <div class="avatar-edit-overlay"><span class="material-icons-round" style="font-size:16px">edit</span></div>
+              </div>
+              <div class="online-dot" id="sidebar-online-dot"></div>
+            </div>
+            <div style="font-weight:800;font-size:.95rem;color:var(--text)" id="sidebar-name">Member</div>
+            <div style="font-size:.78rem;color:var(--muted);margin-bottom:.3rem" id="sidebar-profession">BU Alumni</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.5rem;font-style:italic" id="sidebar-bio"></div>
+            <button onclick="openProfileModal()" style="font-size:.8rem;font-weight:700;color:var(--primary);background:none;border:none;cursor:pointer;font-family:inherit">Edit Profile</button>
             <div class="profile-stats-row">
               <div class="profile-stat"><strong id="stat-posts">0</strong><span>Posts</span></div>
               <div class="profile-stat"><strong id="stat-connections">0</strong><span>Connections</span></div>
               <div class="profile-stat"><strong id="stat-groups">0</strong><span>Groups</span></div>
             </div>
           </div>
-
-          <!-- Join community card (shown when signed out) -->
-          <div class="comm-card join-community-card" id="join-card">
-            <span class="material-icons-round" aria-hidden="true">people</span>
-            <h3>Join the Community</h3>
-            <p>Sign in to post, connect with alumni, and join groups.</p>
-            <a class="btn btn-primary" href="auth.html" style="display:block;margin-bottom:0.5rem;">Sign In</a>
-            <a class="btn btn-secondary" href="register.html" style="display:block;">Sign Up</a>
+          <!-- Join card -->
+          <div class="comm-card" id="join-card" style="text-align:center;padding:1.5rem 1rem">
+            <span class="material-icons-round" style="font-size:40px;color:var(--primary);display:block;margin-bottom:.5rem">people</span>
+            <h3 style="font-size:1rem;margin:0 0 .4rem">Join the Community</h3>
+            <p style="font-size:.82rem;color:var(--muted);margin:0 0 1rem">Sign in to post, connect, and chat with alumni.</p>
+            <button class="btn btn-primary" onclick="openAuthModal('signin')" style="display:block;margin-bottom:.5rem;width:100%">Sign In</button>
+            <button class="btn btn-secondary" onclick="openAuthModal('signup')" style="display:block;width:100%">Sign Up</button>
           </div>
-
-          <!-- Navigation menu -->
-          <div class="comm-card" style="padding:0.6rem;">
+          <!-- Nav -->
+          <div class="comm-card" style="padding:.6rem">
             <nav aria-label="Community navigation">
-              <a href="#feed" class="comm-nav-item active" onclick="scrollToFeed(event)">
-                <span class="material-icons-round" aria-hidden="true">home</span> Feed
-              </a>
-              <a href="opportunities.html" class="comm-nav-item">
-                <span class="material-icons-round" aria-hidden="true">people</span> Directory
-              </a>
-              <button class="comm-nav-item" id="open-messages-btn" aria-label="Open messages" onclick="openMessages()">
-                <span class="material-icons-round" aria-hidden="true">chat</span> Messages
-                <span class="comm-nav-badge" id="msg-badge">3</span>
-              </button>
-              <a href="#groups" class="comm-nav-item" onclick="scrollToSection(event,'groups-section')">
-                <span class="material-icons-round" aria-hidden="true">groups</span> Groups
-              </a>
-              <a href="events.html" class="comm-nav-item">
-                <span class="material-icons-round" aria-hidden="true">campaign</span> Announcements
-              </a>
-              <a href="events.html" class="comm-nav-item">
-                <span class="material-icons-round" aria-hidden="true">event</span> Events
-              </a>
-              <a href="#" class="comm-nav-item">
-                <span class="material-icons-round" aria-hidden="true">emoji_events</span> Achievements
-              </a>
-              <a href="#" class="comm-nav-item">
-                <span class="material-icons-round" aria-hidden="true">photo_library</span> Media
-              </a>
-              <button class="comm-nav-item" id="open-notif-btn" aria-label="Open notifications" onclick="toggleNotifications(event)">
-                <span class="material-icons-round" aria-hidden="true">notifications</span> Notifications
-                <span class="comm-nav-badge" id="notif-badge">5</span>
-              </button>
-              <a href="auth.html#profile" class="comm-nav-item">
-                <span class="material-icons-round" aria-hidden="true">account_circle</span> My Profile
-              </a>
-              <a href="memberships.html" class="comm-nav-item">
-                <span class="material-icons-round" aria-hidden="true">volunteer_activism</span> Support Fund
-              </a>
-              <a href="#learning" class="comm-nav-item" onclick="scrollToSection(event,'learning')">
-                <span class="material-icons-round" aria-hidden="true">school</span> Learning
-              </a>
+              <a href="#feed" class="comm-nav-item active" onclick="scrollToFeed(event)"><span class="material-icons-round">home</span> Feed</a>
+              <button class="comm-nav-item" onclick="openMessages()"><span class="material-icons-round">chat</span> Messages<span class="comm-nav-badge" id="msg-badge" style="display:none">0</span></button>
+              <a href="#groups-section" class="comm-nav-item" onclick="scrollToSection(event,'groups-section')"><span class="material-icons-round">groups</span> Groups</a>
+              <a href="events.html" class="comm-nav-item"><span class="material-icons-round">event</span> Events</a>
+              <a href="#learning" class="comm-nav-item" onclick="scrollToSection(event,'learning')"><span class="material-icons-round">school</span> Learning</a>
+              <button class="comm-nav-item" id="notif-nav-btn" onclick="toggleNotifications(event)"><span class="material-icons-round">notifications</span> Notifications<span class="comm-nav-badge" id="notif-nav-badge" style="display:none">0</span></button>
+              <a href="memberships.html" class="comm-nav-item"><span class="material-icons-round">volunteer_activism</span> Support Fund</a>
             </nav>
           </div>
         </aside>
-        <!-- ── MAIN FEED ── -->
-        <section class="comm-main-feed" id="feed" aria-label="Community feed">
 
+        <!-- MAIN FEED -->
+        <section class="comm-main-feed" id="feed" aria-label="Community feed">
           <!-- Post composer -->
           <div class="post-composer" id="post-composer">
-            <!-- Signed-in composer -->
-            <div id="composer-signed-in" style="display:none;">
+            <div id="composer-auth" style="display:none">
               <div class="composer-row">
-                <div class="composer-avatar" id="composer-avatar" aria-hidden="true">BU</div>
+                <div class="composer-avatar" id="composer-avatar"><span id="composer-initials">BU</span></div>
                 <textarea class="composer-textarea" id="composer-text" placeholder="What's on your mind?" rows="2" aria-label="Write a post"></textarea>
               </div>
+              <div id="composer-img-preview" class="img-preview-wrap" style="display:none">
+                <img id="composer-img-el" src="" alt="Preview" />
+                <button class="img-preview-remove" onclick="removeComposerImage()" aria-label="Remove image"><span class="material-icons-round" style="font-size:14px">close</span></button>
+              </div>
               <div class="composer-actions">
-                <button class="composer-attach-btn" type="button" aria-label="Add photo">
-                  <span class="material-icons-round" aria-hidden="true">photo_camera</span> Photo
-                </button>
-                <button class="composer-attach-btn" type="button" aria-label="Share achievement">
-                  <span class="material-icons-round" aria-hidden="true">emoji_events</span> Achievement
-                </button>
-                <button class="composer-attach-btn" type="button" aria-label="Ask a question">
-                  <span class="material-icons-round" aria-hidden="true">help_outline</span> Question
-                </button>
-                <button class="composer-attach-btn" type="button" aria-label="Share a link">
-                  <span class="material-icons-round" aria-hidden="true">link</span> Link
-                </button>
+                <label class="composer-attach-btn" for="post-img-upload" style="cursor:pointer"><span class="material-icons-round">photo_camera</span> Photo<input type="file" id="post-img-upload" accept="image/*" style="display:none" onchange="handlePostImage(this)" /></label>
+                <button class="composer-attach-btn" onclick="setPostType('achievement')"><span class="material-icons-round">emoji_events</span> Achievement</button>
+                <button class="composer-attach-btn" onclick="setPostType('question')"><span class="material-icons-round">help_outline</span> Question</button>
+                <select id="post-type-select" style="border:1px solid var(--border);border-radius:8px;padding:.3rem .6rem;font-size:.78rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;cursor:pointer">
+                  <option value="update">Update</option>
+                  <option value="achievement">Achievement</option>
+                  <option value="question">Question</option>
+                  <option value="link">Link</option>
+                </select>
                 <button class="btn btn-primary composer-post-btn" id="post-submit-btn" type="button" disabled onclick="submitPost()">Post</button>
               </div>
             </div>
-            <!-- Signed-out prompt -->
-            <div id="composer-signed-out" class="sign-in-prompt">
-              <span class="material-icons-round" style="font-size:36px;color:var(--primary);display:block;margin-bottom:0.5rem;" aria-hidden="true">edit_note</span>
-              <p>Sign in to share updates, ask questions, and connect with fellow alumni.</p>
-              <a class="btn btn-primary" href="auth.html">Sign In to Post</a>
-              <a class="btn btn-secondary" href="register.html" style="margin-left:0.5rem;">Create Account</a>
+            <div id="composer-guest" style="text-align:center;padding:1.2rem">
+              <span class="material-icons-round" style="font-size:36px;color:var(--primary);display:block;margin-bottom:.5rem">edit_note</span>
+              <p style="color:var(--muted);font-size:.9rem;margin:0 0 .75rem">Sign in to share updates with the alumni community.</p>
+              <button class="btn btn-primary" onclick="openAuthModal('signin')">Sign In to Post</button>
             </div>
           </div>
-
-          <!-- Feed posts container -->
-          <div id="feed-posts" aria-live="polite" aria-label="Feed posts">
-            <!-- Posts rendered by JS -->
-          </div>
+          <!-- Feed -->
+          <div id="feed-posts" aria-live="polite" aria-label="Feed posts"></div>
+          <button class="load-more-btn" id="load-more-btn" onclick="loadMorePosts()" style="display:none">Load more posts</button>
         </section>
-        <!-- ── RIGHT SIDEBAR ── -->
-        <aside class="comm-right-sidebar" aria-label="Alumni directory and groups">
 
-          <!-- Alumni Directory mini -->
-          <div class="comm-card">
-            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.75rem;">Alumni Directory</h3>
-            <input type="search" class="dir-search" id="dir-search-mini" placeholder="Search alumni..." aria-label="Search alumni" oninput="filterMiniDirectory(this.value)" />
-            <div id="mini-directory">
-              <div class="alumni-card-mini" data-name="Grace Auma" data-role="Business Analyst">
-                <div class="alumni-avatar-sm" aria-hidden="true">GA</div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Grace Auma</div>
-                  <div style="font-size:0.72rem;color:var(--muted);">Business Analyst · Kampala</div>
-                </div>
-                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with Grace Auma">Connect</button>
-              </div>
-              <div class="alumni-card-mini" data-name="Brian Mugisha" data-role="Software Developer">
-                <div class="alumni-avatar-sm" aria-hidden="true">BM</div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Brian Mugisha</div>
-                  <div style="font-size:0.72rem;color:var(--muted);">Software Developer · Kampala</div>
-                </div>
-                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with Brian Mugisha">Connect</button>
-              </div>
-              <div class="alumni-card-mini" data-name="Alice Nakayiza" data-role="Alumni Leader">
-                <div class="alumni-avatar-sm" aria-hidden="true">AN</div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Alice Nakayiza</div>
-                  <div style="font-size:0.72rem;color:var(--muted);">Alumni Leader · Kampala</div>
-                </div>
-                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with Alice Nakayiza">Connect</button>
-              </div>
-              <div class="alumni-card-mini" data-name="David Ssemwanga" data-role="Data Scientist">
-                <div class="alumni-avatar-sm" aria-hidden="true">DS</div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:700;font-size:0.82rem;color:var(--text);">David Ssemwanga</div>
-                  <div style="font-size:0.72rem;color:var(--muted);">Data Scientist · Remote</div>
-                </div>
-                <button class="connect-btn" onclick="toggleConnect(this)" aria-label="Connect with David Ssemwanga">Connect</button>
-              </div>
-            </div>
-            <button class="view-all-link" onclick="openDirectoryModal()" style="background:none;border:none;cursor:pointer;font-family:inherit;width:100%;">View Full Directory &rarr;</button>
+        <!-- RIGHT SIDEBAR -->
+        <aside class="comm-right-sidebar" aria-label="Right sidebar">
+          <!-- Online now -->
+          <div class="comm-card" id="online-card">
+            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.75rem"><span class="material-icons-round" style="font-size:16px;color:#22c55e;vertical-align:middle">circle</span> Online Now</h3>
+            <div id="online-users-list"><p style="font-size:.8rem;color:var(--muted)">No one online yet</p></div>
           </div>
-
-          <!-- Active Groups -->
+          <!-- Groups -->
           <div class="comm-card" id="groups-section">
-            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.75rem;">Active Groups</h3>
-            <div class="group-card">
-              <div class="group-icon" aria-hidden="true"><span class="material-icons-round" style="font-size:20px;color:var(--primary);">computer</span></div>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Computer Science Alumni</div>
-                <div style="font-size:0.72rem;color:var(--muted);">342 members</div>
-              </div>
-              <button class="join-btn" onclick="toggleJoin(this)" aria-label="Join Computer Science Alumni group">Join</button>
-            </div>
-            <div class="group-card">
-              <div class="group-icon" aria-hidden="true"><span class="material-icons-round" style="font-size:20px;color:var(--primary);">school</span></div>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Class of 2022</div>
-                <div style="font-size:0.72rem;color:var(--muted);">189 members</div>
-              </div>
-              <button class="join-btn" onclick="toggleJoin(this)" aria-label="Join Class of 2022 group">Join</button>
-            </div>
-            <div class="group-card">
-              <div class="group-icon" aria-hidden="true"><span class="material-icons-round" style="font-size:20px;color:var(--primary);">rocket_launch</span></div>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Entrepreneurs Network</div>
-                <div style="font-size:0.72rem;color:var(--muted);">267 members</div>
-              </div>
-              <button class="join-btn" onclick="toggleJoin(this)" aria-label="Join Entrepreneurs Network group">Join</button>
-            </div>
+            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.75rem">Active Groups</h3>
+            <div id="groups-list"><div class="spinner"></div></div>
           </div>
-
-          <!-- Upcoming Events mini -->
+          <!-- Events -->
           <div class="comm-card">
-            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.75rem;">Upcoming Events</h3>
-            <div class="event-mini-item">
-              <div class="event-mini-date"><span>MAY</span>10</div>
-              <div>
-                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Annual Alumni Gala 2026</div>
-                <div style="font-size:0.72rem;color:var(--muted);">Kampala Serena Hotel</div>
-                <a href="events.html" style="font-size:0.75rem;font-weight:700;color:var(--primary);text-decoration:none;">Register &rarr;</a>
-              </div>
-            </div>
-            <div class="event-mini-item">
-              <div class="event-mini-date"><span>JUN</span>7</div>
-              <div>
-                <div style="font-weight:700;font-size:0.82rem;color:var(--text);">Career Fair &amp; Networking Day</div>
-                <div style="font-size:0.72rem;color:var(--muted);">BU Main Campus</div>
-                <a href="events.html" style="font-size:0.75rem;font-weight:700;color:var(--primary);text-decoration:none;">Register &rarr;</a>
-              </div>
-            </div>
+            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.75rem">Upcoming Events</h3>
+            <div class="event-mini-item"><div class="event-mini-date"><span>MAY</span>10</div><div><div style="font-weight:700;font-size:.82rem;color:var(--text)">Annual Alumni Gala 2026</div><div style="font-size:.72rem;color:var(--muted)">Kampala Serena Hotel</div><a href="events.html" style="font-size:.75rem;font-weight:700;color:var(--primary);text-decoration:none">Register &rarr;</a></div></div>
+            <div class="event-mini-item"><div class="event-mini-date"><span>JUN</span>7</div><div><div style="font-weight:700;font-size:.82rem;color:var(--text)">Career Fair &amp; Networking Day</div><div style="font-size:.72rem;color:var(--muted)">BU Main Campus</div><a href="events.html" style="font-size:.75rem;font-weight:700;color:var(--primary);text-decoration:none">Register &rarr;</a></div></div>
             <a href="events.html" class="view-all-link">View All Events &rarr;</a>
           </div>
-
-          <!-- Support Fund widget -->
+          <!-- Support Fund -->
           <div class="comm-card">
-            <h3 style="font-size:0.9rem;font-weight:800;margin-bottom:0.4rem;">Alumni Support Fund</h3>
-            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;">Help fund scholarships for the next generation of BU students.</p>
-            <div style="display:flex;justify-content:space-between;font-size:0.75rem;font-weight:700;margin-bottom:0.3rem;">
-              <span style="color:var(--primary);">UGX 31.5M raised</span>
-              <span style="color:var(--muted);">Goal: UGX 50M</span>
-            </div>
-            <div class="support-progress-bar" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" aria-label="63% of fundraising goal reached">
-              <div class="support-progress-fill" style="width:63%;"></div>
-            </div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;">63% of goal reached</div>
-            <a class="btn btn-primary" href="memberships.html" style="display:block;text-align:center;font-size:0.85rem;">Contribute Now</a>
+            <h3 style="font-size:.9rem;font-weight:800;margin-bottom:.4rem">Alumni Support Fund</h3>
+            <p style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Help fund scholarships for the next generation.</p>
+            <div style="display:flex;justify-content:space-between;font-size:.75rem;font-weight:700;margin-bottom:.3rem"><span style="color:var(--primary)">UGX 31.5M raised</span><span style="color:var(--muted)">Goal: UGX 50M</span></div>
+            <div class="support-progress-bar"><div class="support-progress-fill" style="width:63%"></div></div>
+            <div style="font-size:.72rem;color:var(--muted);margin-bottom:.75rem">63% of goal reached</div>
+            <a class="btn btn-primary" href="memberships.html" style="display:block;text-align:center;font-size:.85rem">Contribute Now</a>
           </div>
         </aside>
-      </div><!-- end community-layout -->
-
-      <!-- ══════════════════════════════════════════════════════
-           LEARNING OPPORTUNITIES SECTION
-      ══════════════════════════════════════════════════════ -->
-      <section class="learn-section" id="learning" aria-labelledby="learn-heading">
-
-        <!-- Section header -->
-        <div class="learn-header">
-          <div class="learn-header-text">
-            <p class="eyebrow">Free Certified Courses</p>
-            <h2 id="learn-heading">Learning Opportunities</h2>
-            <p class="learn-subtitle">Discover free, certified courses from the world's most trusted platforms — hand-picked for BU alumni.</p>
-          </div>
-          <div class="learn-header-actions">
-            <!-- Search -->
-            <div class="learn-search-wrap">
-              <span class="material-icons-round learn-search-icon" aria-hidden="true">search</span>
-              <input type="search" id="learn-search" class="learn-search"
-                     placeholder="Search courses…" aria-label="Search courses"
-                     oninput="filterCourses()" />
-            </div>
-            <!-- Alert bell -->
-            <button class="learn-alert-btn" id="learn-alert-btn"
-                    onclick="toggleCourseAlert(this)"
-                    aria-label="Get notified when new courses are added"
-                    title="Alert me when new courses are added">
-              <span class="material-icons-round" aria-hidden="true">notifications_none</span>
-              <span class="learn-alert-label">Notify Me</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Filter bar -->
-        <div class="learn-filters" role="group" aria-label="Filter courses">
-          <div class="learn-filter-group">
-            <label for="filter-cat" class="learn-filter-label">Category</label>
-            <select id="filter-cat" class="learn-filter-select" onchange="filterCourses()" aria-label="Filter by category">
-              <option value="all">All Categories</option>
-              <option value="cybersecurity">Cybersecurity</option>
-              <option value="networking">Networking</option>
-              <option value="web-dev">Web Development</option>
-              <option value="cloud">Cloud Computing</option>
-              <option value="data">Data & AI</option>
-              <option value="linux">Linux & Open Source</option>
-              <option value="business">Business & Leadership</option>
-              <option value="devops">DevOps & Containers</option>
-            </select>
-          </div>
-          <div class="learn-filter-group">
-            <label for="filter-provider" class="learn-filter-label">Provider</label>
-            <select id="filter-provider" class="learn-filter-select" onchange="filterCourses()" aria-label="Filter by provider">
-              <option value="all">All Providers</option>
-              <option value="linux-foundation">Linux Foundation</option>
-              <option value="cisco">Cisco Networking Academy</option>
-              <option value="google">Google</option>
-              <option value="ibm">IBM</option>
-              <option value="meta">Meta</option>
-              <option value="coursera">Coursera</option>
-              <option value="edx">edX</option>
-              <option value="aws">AWS</option>
-            </select>
-          </div>
-          <div class="learn-filter-group">
-            <label for="filter-price" class="learn-filter-label">Price</label>
-            <select id="filter-price" class="learn-filter-select" onchange="filterCourses()" aria-label="Filter by price">
-              <option value="all">All</option>
-              <option value="free">Free</option>
-              <option value="paid">Paid</option>
-            </select>
-          </div>
-          <button class="learn-clear-btn" onclick="clearFilters()" aria-label="Clear all filters">
-            <span class="material-icons-round" aria-hidden="true">filter_alt_off</span> Clear
-          </button>
-        </div>
-
-        <!-- Recommended strip (shown when signed in) -->
-        <div class="learn-recommended" id="learn-recommended" hidden>
-          <h3 class="learn-strip-title">
-            <span class="material-icons-round" aria-hidden="true">auto_awesome</span>
-            Recommended for You
-          </h3>
-          <div class="learn-strip-grid" id="recommended-grid">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-
-        <!-- Results count -->
-        <div class="learn-results-bar">
-          <span id="learn-count" class="learn-count"></span>
-          <div class="learn-view-toggle" role="group" aria-label="View mode">
-            <button class="learn-view-btn active" id="view-grid-btn" onclick="setView('grid')" aria-label="Grid view" aria-pressed="true">
-              <span class="material-icons-round" aria-hidden="true">grid_view</span>
-            </button>
-            <button class="learn-view-btn" id="view-list-btn" onclick="setView('list')" aria-label="List view" aria-pressed="false">
-              <span class="material-icons-round" aria-hidden="true">view_list</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Course grid -->
-        <div class="learn-grid" id="learn-grid" aria-live="polite" aria-label="Course listings">
-          <!-- Populated by JS -->
-        </div>
-
-        <!-- No results -->
-        <div class="learn-no-results" id="learn-no-results" hidden>
-          <span class="material-icons-round" aria-hidden="true">search_off</span>
-          <p>No courses match your filters. <button class="learn-inline-btn" onclick="clearFilters()">Clear filters</button></p>
-        </div>
-
-        <!-- Admin panel (shown only when admin flag set in localStorage) -->
-        <div class="learn-admin-panel" id="learn-admin-panel" hidden>
-          <div class="learn-admin-header">
-            <h3><span class="material-icons-round" aria-hidden="true">admin_panel_settings</span> Course Admin</h3>
-            <button class="learn-admin-close" onclick="closeAdminPanel()" aria-label="Close admin panel">
-              <span class="material-icons-round" aria-hidden="true">close</span>
-            </button>
-          </div>
-          <form class="learn-admin-form" id="learn-admin-form" onsubmit="adminAddCourse(event)">
-            <div class="learn-admin-grid">
-              <div class="form-group">
-                <label for="adm-title">Course Title *</label>
-                <input type="text" id="adm-title" required placeholder="e.g. Introduction to Linux" />
-              </div>
-              <div class="form-group">
-                <label for="adm-provider">Provider *</label>
-                <select id="adm-provider" required>
-                  <option value="">Select provider</option>
-                  <option value="linux-foundation">Linux Foundation</option>
-                  <option value="cisco">Cisco Networking Academy</option>
-                  <option value="google">Google</option>
-                  <option value="ibm">IBM</option>
-                  <option value="meta">Meta</option>
-                  <option value="coursera">Coursera</option>
-                  <option value="edx">edX</option>
-                  <option value="aws">AWS</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="adm-category">Category *</label>
-                <select id="adm-category" required>
-                  <option value="">Select category</option>
-                  <option value="cybersecurity">Cybersecurity</option>
-                  <option value="networking">Networking</option>
-                  <option value="web-dev">Web Development</option>
-                  <option value="cloud">Cloud Computing</option>
-                  <option value="data">Data & AI</option>
-                  <option value="linux">Linux & Open Source</option>
-                  <option value="business">Business & Leadership</option>
-                  <option value="devops">DevOps & Containers</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="adm-price">Price</label>
-                <select id="adm-price">
-                  <option value="free">Free</option>
-                  <option value="paid">Paid</option>
-                </select>
-              </div>
-              <div class="form-group" style="grid-column:1/-1;">
-                <label for="adm-desc">Description *</label>
-                <textarea id="adm-desc" rows="2" required placeholder="Short course description…"></textarea>
-              </div>
-              <div class="form-group" style="grid-column:1/-1;">
-                <label for="adm-url">Official Course URL *</label>
-                <input type="url" id="adm-url" required placeholder="https://…" />
-              </div>
-              <div class="form-group">
-                <label for="adm-duration">Duration</label>
-                <input type="text" id="adm-duration" placeholder="e.g. 14 hours" />
-              </div>
-              <div class="form-group">
-                <label for="adm-badge">Badge</label>
-                <select id="adm-badge">
-                  <option value="">None</option>
-                  <option value="new">New</option>
-                  <option value="trending">Trending</option>
-                  <option value="popular">Popular</option>
-                </select>
-              </div>
-            </div>
-            <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
-              <button class="btn btn-primary" type="submit">Add Course</button>
-              <button class="btn btn-ghost" type="button" onclick="closeAdminPanel()">Cancel</button>
-            </div>
-            <p class="form-success" id="adm-success" hidden>
-              <span class="material-icons-round mi-check">check</span> Course added successfully!
-            </p>
-          </form>
-        </div>
-
-        <!-- Admin trigger (visible only to signed-in members) -->
-        <div style="text-align:center;margin-top:1.5rem;" id="learn-admin-trigger-wrap" hidden>
-          <button class="learn-admin-trigger" id="learn-admin-trigger"
-                  onclick="openAdminPanel()"
-                  aria-label="Open course admin panel">
-            <span class="material-icons-round" aria-hidden="true">admin_panel_settings</span>
-            Manage Courses
-          </button>
-        </div>
-
-        <!-- Members-only gate (shown when non-member clicks manage) -->
-        <div class="learn-member-gate" id="learn-member-gate" hidden>
-          <span class="material-icons-round" aria-hidden="true">lock</span>
-          <h3>Members Only</h3>
-          <p>You need to be a registered BU Alumni member to manage courses.</p>
-          <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;">
-            <a class="btn btn-primary" href="memberships.html#signup-form">
-              <span class="material-icons-round" style="font-size:16px;">card_membership</span>
-              Become a Member
-            </a>
-            <a class="btn btn-secondary" href="auth.html">
-              <span class="material-icons-round" style="font-size:16px;">login</span>
-              Sign In
-            </a>
-          </div>
-        </div>
-
-      </section><!-- /learning -->
-
-    
-    </div><!-- end container -->
+      </div>
+    </div>
   </main>
+
   <!-- Mobile bottom nav -->
   <nav class="comm-mobile-nav" aria-label="Mobile community navigation">
-    <a href="#feed" class="comm-mobile-nav-item active" onclick="scrollToFeed(event)">
-      <span class="material-icons-round" aria-hidden="true">home</span>Feed
-    </a>
-    <a href="opportunities.html" class="comm-mobile-nav-item">
-      <span class="material-icons-round" aria-hidden="true">people</span>Directory
-    </a>
-    <button class="comm-mobile-nav-item" onclick="openMessages()" style="background:none;border:none;font-family:inherit;cursor:pointer;position:relative;" aria-label="Messages">
-      <span class="material-icons-round" aria-hidden="true">chat</span>
-      <span style="font-size:0.65rem;font-weight:600;">Messages</span>
-      <span class="notif-badge-count" id="msg-badge-mobile">3</span>
-    </button>
-    <button class="comm-mobile-nav-item" onclick="toggleNotifications(event)" style="background:none;border:none;font-family:inherit;cursor:pointer;position:relative;" aria-label="Notifications">
-      <span class="material-icons-round" aria-hidden="true">notifications</span>
-      <span style="font-size:0.65rem;font-weight:600;">Alerts</span>
-      <span class="notif-badge-count" id="notif-badge-mobile">5</span>
-    </button>
-    <a href="auth.html#profile" class="comm-mobile-nav-item">
-      <span class="material-icons-round" aria-hidden="true">account_circle</span>Profile
-    </a>
+    <a href="#feed" class="comm-mobile-nav-item active" onclick="scrollToFeed(event)"><span class="material-icons-round">home</span>Feed</a>
+    <button class="comm-mobile-nav-item" onclick="openMessages()" style="position:relative"><span class="material-icons-round">chat</span><span style="font-size:.65rem;font-weight:600">Messages</span><span class="notif-badge-count" id="msg-badge-mobile" style="display:none">0</span></button>
+    <button class="comm-mobile-nav-item" onclick="toggleNotifications(event)" style="position:relative"><span class="material-icons-round">notifications</span><span style="font-size:.65rem;font-weight:600">Alerts</span><span class="notif-badge-count" id="notif-badge-mobile" style="display:none">0</span></button>
+    <a href="auth.html#profile" class="comm-mobile-nav-item"><span class="material-icons-round">account_circle</span>Profile</a>
   </nav>
-  <!-- ── MESSAGES MODAL ── -->
-  <div class="comm-modal" id="messages-modal" role="dialog" aria-modal="true" aria-label="Messages" aria-hidden="true">
-    <div class="comm-modal-backdrop" onclick="closeMessages()"></div>
-    <div class="comm-modal-panel">
-      <div class="msg-modal-header">
-        <h3>Messages</h3>
-        <button class="msg-modal-close" onclick="closeMessages()" aria-label="Close messages">
-          <span class="material-icons-round" aria-hidden="true">close</span>
-        </button>
-      </div>
-      <div class="msg-conv-list">
-        <div class="msg-conv-item active" onclick="selectConversation(this,'Grace Auma','GA')">
-          <div class="msg-conv-avatar" aria-hidden="true">GA</div>
-          <div class="msg-conv-info">
-            <div class="msg-conv-name">Grace Auma</div>
-            <div class="msg-conv-preview">Thanks for the referral! I'll reach out...</div>
-          </div>
-          <span class="msg-unread-badge">2</span>
-        </div>
-        <div class="msg-conv-item" onclick="selectConversation(this,'Brian Mugisha','BM')">
-          <div class="msg-conv-avatar" style="background:linear-gradient(135deg,#0f766e,#34d399);" aria-hidden="true">BM</div>
-          <div class="msg-conv-info">
-            <div class="msg-conv-name">Brian Mugisha</div>
-            <div class="msg-conv-preview">Are you attending the gala next month?</div>
-          </div>
-          <span class="msg-unread-badge">1</span>
-        </div>
-        <div class="msg-conv-item" onclick="selectConversation(this,'Alice Nakayiza','AN')">
-          <div class="msg-conv-avatar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);" aria-hidden="true">AN</div>
-          <div class="msg-conv-info">
-            <div class="msg-conv-name">Alice Nakayiza</div>
-            <div class="msg-conv-preview">Welcome to the network! Let me know if...</div>
-          </div>
-        </div>
-      </div>
-      <div class="msg-input-row">
-        <input type="text" class="msg-input" id="msg-input" placeholder="Type a message..." aria-label="Type a message" onkeydown="sendMessageOnEnter(event)" />
-        <button class="msg-send-btn" onclick="sendMessage()" aria-label="Send message">
-          <span class="material-icons-round" aria-hidden="true" style="font-size:18px;">send</span>
-        </button>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── NOTIFICATIONS DROPDOWN ── -->
-  <div class="notif-wrap" id="notif-wrap" style="position:fixed;top:70px;right:1.5rem;z-index:600;">
-    <div class="notif-dropdown" id="notif-dropdown" style="display:none;" role="dialog" aria-modal="true" aria-label="Notifications">
-      <div class="notif-header">
-        <h4>Notifications</h4>
-        <button class="mark-read-btn" onclick="markAllRead()" aria-label="Mark all notifications as read">Mark all read</button>
-      </div>
-      <div id="notif-list">
-        <div class="notif-item unread" role="listitem">
-          <div class="notif-icon" style="background:rgba(17,64,217,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:var(--primary);">comment</span></div>
-          <div style="flex:1;">
-            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Amara Ssekandi commented on your post</div>
-            <div style="font-size:0.75rem;color:var(--muted);">2 hours ago</div>
-          </div>
-          <div class="notif-dot" aria-label="Unread"></div>
-        </div>
-        <div class="notif-item unread" role="listitem">
-          <div class="notif-icon" style="background:rgba(239,68,68,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:#ef4444;">favorite</span></div>
-          <div style="flex:1;">
-            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Dr. Sarah Nakato liked your post</div>
-            <div style="font-size:0.75rem;color:var(--muted);">5 hours ago</div>
-          </div>
-          <div class="notif-dot" aria-label="Unread"></div>
-        </div>
-        <div class="notif-item unread" role="listitem">
-          <div class="notif-icon" style="background:rgba(15,118,110,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:#0f766e;">work</span></div>
-          <div style="flex:1;">
-            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">New job posted: Senior Developer at TechCo</div>
-            <div style="font-size:0.75rem;color:var(--muted);">Yesterday</div>
-          </div>
-          <div class="notif-dot" aria-label="Unread"></div>
-        </div>
-        <div class="notif-item unread" role="listitem">
-          <div class="notif-icon" style="background:rgba(17,64,217,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:var(--primary);">chat</span></div>
-          <div style="flex:1;">
-            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Grace Auma sent you a message</div>
-            <div style="font-size:0.75rem;color:var(--muted);">Yesterday</div>
-          </div>
-          <div class="notif-dot" aria-label="Unread"></div>
-        </div>
-        <div class="notif-item unread" role="listitem">
-          <div class="notif-icon" style="background:rgba(245,158,11,0.1);" aria-hidden="true"><span class="material-icons-round" style="font-size:18px;color:#f59e0b;">event</span></div>
-          <div style="flex:1;">
-            <div style="font-size:0.83rem;font-weight:600;color:var(--text);">Reminder: Alumni Gala 2026 in 2 weeks</div>
-            <div style="font-size:0.75rem;color:var(--muted);">2 days ago</div>
-          </div>
-          <div class="notif-dot" aria-label="Unread"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── FULL DIRECTORY MODAL ── -->
-  <div class="dir-modal-overlay" id="dir-modal" role="dialog" aria-modal="true" aria-label="Alumni Directory" aria-hidden="true">
-    <div class="dir-modal-box">
-      <div class="dir-modal-header">
-        <h2>Alumni Directory</h2>
-        <button class="dir-modal-close" onclick="closeDirectoryModal()" aria-label="Close directory">
-          <span class="material-icons-round" aria-hidden="true">close</span>
-        </button>
-      </div>
-      <div class="dir-modal-filters">
-        <input type="search" id="dir-modal-search" placeholder="Search by name or profession..." aria-label="Search alumni" oninput="filterDirectory()" />
-        <select id="dir-filter-industry" aria-label="Filter by industry" onchange="filterDirectory()">
-          <option value="">All Industries</option>
-          <option value="tech">Technology</option>
-          <option value="health">Healthcare</option>
-          <option value="business">Business</option>
-          <option value="education">Education</option>
-          <option value="finance">Finance</option>
-        </select>
-        <select id="dir-filter-year" aria-label="Filter by graduation year" onchange="filterDirectory()">
-          <option value="">All Years</option>
-          <option value="2024">2024</option>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-          <option value="2020">2020</option>
-          <option value="2018">2018</option>
-          <option value="2016">2016</option>
-          <option value="2010">2010</option>
-          <option value="2008">2008</option>
-        </select>
-      </div>
-      <div class="dir-modal-grid" id="dir-modal-grid">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </div>
   <footer id="footer" class="site-footer">
     <div class="container footer-top">
       <div class="footer-brand">
         <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="footer-logo" />
         <p class="footer-copy">Fostering lifelong relationships and opportunities for every BU graduate.</p>
         <div class="footer-social">
-          <a href="https://wa.me/256761365727" target="_blank" rel="noopener" aria-label="Chat with BU Alumni on WhatsApp" class="social-icon social-icon--wa">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2c-5.5 0-9.97 4.46-9.97 9.97 0 1.75.46 3.46 1.33 4.96L2 22l5.2-1.36a9.93 9.93 0 0 0 4.83 1.23h.01c5.5 0 9.97-4.46 9.97-9.97a9.9 9.9 0 0 0-2.91-7zM12.04 20.18h-.01a8.3 8.3 0 0 1-4.24-1.16l-.3-.18-3.09.81.82-3.01-.2-.31a8.29 8.29 0 0 1-1.28-4.42c0-4.58 3.72-8.3 8.31-8.3 2.22 0 4.3.87 5.86 2.43a8.26 8.26 0 0 1 2.43 5.87c0 4.59-3.73 8.31-8.3 8.31zm4.56-6.23c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.57.12-.17.26-.65.8-.79.96-.15.17-.29.19-.54.07-.25-.13-1.05-.38-2-1.2-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.39.11-.52.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.13-.57-1.38-.78-1.89-.21-.5-.42-.43-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.09s.9 2.43 1.02 2.6c.12.17 1.77 2.7 4.28 3.79.6.26 1.06.42 1.42.54.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.19.21-.59.21-1.09.15-1.19-.06-.11-.23-.17-.48-.3z"/></svg>
-          </a>
-          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="BU Alumni on Facebook" class="social-icon social-icon--fb">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <a href="https://x.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="BU Alumni on X (Twitter)" class="social-icon social-icon--x">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="15" height="15"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="BU Alumni on LinkedIn" class="social-icon social-icon--li">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="mailto:alumni@bualumni.org" aria-label="Email BU Alumni" class="social-icon social-icon--em">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </a>
+          <a href="https://wa.me/256761365727" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-icon social-icon--wa"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.03 2c-5.5 0-9.97 4.46-9.97 9.97 0 1.75.46 3.46 1.33 4.96L2 22l5.2-1.36a9.93 9.93 0 0 0 4.83 1.23h.01c5.5 0 9.97-4.46 9.97-9.97a9.9 9.9 0 0 0-2.91-7z"/></svg></a>
+          <a href="https://facebook.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon social-icon--fb"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://x.com/BugemaUniversity" target="_blank" rel="noopener" aria-label="X" class="social-icon social-icon--x"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="https://linkedin.com/company/bugema-university" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon social-icon--li"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="mailto:alumni@bualumni.org" aria-label="Email" class="social-icon social-icon--em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
         </div>
       </div>
       <div class="footer-links-group">
@@ -862,864 +553,842 @@
         <p class="newsletter-success" id="nl-success" aria-live="polite" hidden></p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <p>&copy; 2026 BU Alumni Association. All rights reserved.</p>
-      </div>
-    </div>
+    <div class="footer-bottom"><div class="container"><p>&copy; 2026 BU Alumni Association. All rights reserved.</p></div></div>
   </footer>
+
   <script src="theme.js"></script>
   <script src="animations.js"></script>
   <script src="auth-nav.js"></script>
   <script src="share.js"></script>
-  <script>
-  // ── Auth state ──────────────────────────────────────────────────────────────
-  const user = (function() {
-    try { return JSON.parse(localStorage.getItem('buCurrentUser') || 'null'); } catch(_) { return null; }
-  })();
+  <script type="module">
+  // ══════════════════════════════════════════════════════════════
+  // FIREBASE CONFIG — replace ALL placeholder values with yours
+  // from Firebase Console → Project Settings → Your apps → Web
+  // ══════════════════════════════════════════════════════════════
+  import { initializeApp }                                    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAuth, createUserWithEmailAndPassword,
+           signInWithEmailAndPassword, signOut,
+           onAuthStateChanged, updateProfile }                from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+  import { getFirestore, collection, doc, addDoc, getDoc,
+           setDoc, updateDoc, query, where, orderBy, limit,
+           onSnapshot, serverTimestamp, arrayUnion,
+           arrayRemove, increment, startAfter, getDocs }     from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+  import { getDatabase, ref, set, push, onValue,
+           onDisconnect, serverTimestamp as rtTS,
+           get as rtGet }                                     from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+  import { getStorage, ref as sRef,
+           uploadBytes, getDownloadURL }                      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 
-  function getInitials(name) {
+  const firebaseConfig = {
+    apiKey:            "REPLACE_WITH_YOUR_API_KEY",
+    authDomain:        "REPLACE_WITH_YOUR_AUTH_DOMAIN",
+    projectId:         "REPLACE_WITH_YOUR_PROJECT_ID",
+    storageBucket:     "REPLACE_WITH_YOUR_STORAGE_BUCKET",
+    messagingSenderId: "REPLACE_WITH_YOUR_MESSAGING_SENDER_ID",
+    appId:             "REPLACE_WITH_YOUR_APP_ID",
+    databaseURL:       "REPLACE_WITH_YOUR_DATABASE_URL"
+  };
+
+  // ── Detect placeholder config ──────────────────────────────────────────────
+  const IS_CONFIGURED = !firebaseConfig.apiKey.startsWith('REPLACE');
+  if (!IS_CONFIGURED) {
+    console.warn('[community] Firebase not configured — running in demo mode.');
+  } else {
+    document.getElementById('firebase-setup-banner').hidden = true;
+  }
+
+  // ── Init Firebase ──────────────────────────────────────────────────────────
+  let app, auth, db, rtdb, storage;
+  if (IS_CONFIGURED) {
+    try {
+      app     = initializeApp(firebaseConfig);
+      auth    = getAuth(app);
+      db      = getFirestore(app);
+      rtdb    = getDatabase(app);
+      storage = getStorage(app);
+    } catch(e) {
+      console.error('[firebase init]', e);
+    }
+  }
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  let currentUser     = null;
+  let currentProfile  = null;
+  let lastPostDoc     = null;
+  let postUnsub       = null;
+  let notifUnsub      = null;
+  let activeChatId    = null;
+  let chatUnsub       = null;
+  let typingTimeout   = null;
+  let postImageFile   = null;
+  let postImageUrl    = null;
+  let notifOpen       = false;
+  let msgOpen         = false;
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  function initials(name) {
     if (!name) return 'BU';
-    const parts = name.trim().split(/\s+/);
-    return parts.length >= 2
-      ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-      : parts[0].slice(0, 2).toUpperCase();
+    const p = name.trim().split(/\s+/);
+    return p.length >= 2 ? (p[0][0]+p[p.length-1][0]).toUpperCase() : p[0].slice(0,2).toUpperCase();
+  }
+  function timeAgo(ts) {
+    if (!ts) return '';
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    const s = Math.floor((Date.now()-d)/1000);
+    if (s<60) return 'just now';
+    if (s<3600) return Math.floor(s/60)+'m ago';
+    if (s<86400) return Math.floor(s/3600)+'h ago';
+    return Math.floor(s/86400)+'d ago';
+  }
+  function avatarHtml(name, photoURL, size=42) {
+    const ini = initials(name);
+    const colors = ['linear-gradient(135deg,#1140d9,#6d88ff)','linear-gradient(135deg,#0f766e,#34d399)','linear-gradient(135deg,#7c3aed,#a78bfa)','linear-gradient(135deg,#dc2626,#f87171)','linear-gradient(135deg,#d97706,#fbbf24)'];
+    const col = colors[(name||'').charCodeAt(0)%colors.length];
+    if (photoURL) return `<img src="${photoURL}" alt="${name}" style="width:${size}px;height:${size}px;border-radius:50%;object-fit:cover" />`;
+    return `<span style="background:${col};width:${size}px;height:${size}px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:${Math.round(size*.35)}px;font-weight:800;flex-shrink:0">${ini}</span>`;
+  }
+  function showToast(msg, type='info') {
+    const t = document.createElement('div');
+    t.style.cssText = `position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:${type==='error'?'#dc2626':type==='success'?'#16a34a':'#374151'};color:#fff;padding:.65rem 1.2rem;border-radius:10px;font-size:.85rem;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.2);animation:fadeSlideIn .2s ease`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(), 3000);
   }
 
-  // ── Posts data ──────────────────────────────────────────────────────────────
-  const POSTS_DATA = [
-    {
-      id: 'p1',
-      author: 'Amara Ssekandi',
-      profession: 'Software Engineer · Class of 2018',
-      time: '2 hours ago',
-      content: 'Excited to share that I just joined XYZ Tech as a Senior Engineer! 🎉 Grateful for the BU Alumni network — the mentorship connections here made all the difference.',
-      type: 'achievement',
-      badge: 'New Job',
-      likes: 47,
-      comments: [
-        { author: 'Dr. Sarah Nakato', text: 'Congratulations Amara! Well deserved! 🎉' },
-        { author: 'Moses Byaruhanga', text: 'Amazing news! The BU network delivers again.' }
-      ]
-    },
-    {
-      id: 'p2',
-      author: 'Dr. Sarah Nakato',
-      profession: 'Health Professional · Class of 2008',
-      time: '5 hours ago',
-      content: 'Just returned from the WHO Regional Health Summit in Nairobi. Proud to represent BU graduates on the continental stage. If anyone is interested in global health careers, feel free to reach out!',
-      type: 'update',
-      likes: 89,
-      comments: [
-        { author: 'Faith Nakato', text: 'This is so inspiring! Would love to connect about global health opportunities.' },
-        { author: 'Robert Ssali', text: 'BU pride! Thank you for representing us so well.' }
-      ]
-    },
-    {
-      id: 'p3',
-      author: 'Moses Byaruhanga',
-      profession: 'Entrepreneur · Class of 2016',
-      time: 'Yesterday',
-      content: 'Question for the network: Any alumni working in fintech or impact investing in East Africa? Looking to connect and explore partnership opportunities for my startup. 🚀',
-      type: 'question',
-      likes: 34,
-      comments: [
-        { author: 'Brian Mugisha', text: 'I work in fintech! Sending you a message now.' }
-      ]
-    },
-    {
-      id: 'p4',
-      author: 'Faith Nakato',
-      profession: 'Marketing Manager · Class of 2021',
-      time: '2 days ago',
-      content: 'Sharing this amazing resource for anyone job hunting — the BU Career Guide library has CV templates and interview prep materials that actually work. Check it out!',
-      type: 'link',
-      link: { text: 'BU Career Resource Library', url: 'career-guide.html' },
-      likes: 56,
-      comments: [
-        { author: 'Grace Auma', text: 'This helped me land my current role! Highly recommend.' }
-      ]
-    },
-    {
-      id: 'p5',
-      author: 'Robert Ssali',
-      profession: 'VVP Member · Class of 2010',
-      time: '3 days ago',
-      content: 'Congratulations to all Class of 2026 graduates! 🎓 The journey is just beginning. The BU Alumni network is here for you — mentorship, jobs, and community. Welcome home!',
-      type: 'update',
-      likes: 124,
-      comments: [
-        { author: 'Alice Nakayiza', text: 'Welcome to the family, Class of 2026! 🎓' },
-        { author: 'Amara Ssekandi', text: 'So excited to welcome the new graduates. Reach out anytime!' }
-      ]
+  // ── Auth state ─────────────────────────────────────────────────────────────
+  function updateNavForUser(user) {
+    const signIn  = document.getElementById('nav-signin-btn');
+    const signUp  = document.getElementById('nav-signup-btn');
+    const mSignIn = document.getElementById('mobile-signin-btn');
+    const mSignUp = document.getElementById('mobile-signup-btn');
+    const notifWrap = document.getElementById('notif-wrap');
+    const searchWrap = document.getElementById('header-search-wrap');
+    if (user) {
+      if (signIn)  signIn.style.display  = 'none';
+      if (signUp)  signUp.style.display  = 'none';
+      if (mSignIn) mSignIn.style.display = 'none';
+      if (mSignUp) mSignUp.style.display = 'none';
+      if (notifWrap)  notifWrap.style.display  = 'flex';
+      if (searchWrap) searchWrap.style.display = 'flex';
+    } else {
+      if (signIn)  signIn.style.display  = '';
+      if (signUp)  signUp.style.display  = '';
+      if (mSignIn) mSignIn.style.display = '';
+      if (mSignUp) mSignUp.style.display = '';
+      if (notifWrap)  notifWrap.style.display  = 'none';
+      if (searchWrap) searchWrap.style.display = 'none';
     }
-  ];
+  }
 
-  // ── Like persistence ────────────────────────────────────────────────────────
-  function getLikes(postId) {
+  function updateSidebarProfile(profile) {
+    const card = document.getElementById('profile-card');
+    const join = document.getElementById('join-card');
+    const compAuth  = document.getElementById('composer-auth');
+    const compGuest = document.getElementById('composer-guest');
+    if (!profile) {
+      card.style.display = 'none';
+      join.style.display = 'block';
+      compAuth.style.display  = 'none';
+      compGuest.style.display = 'block';
+      return;
+    }
+    card.style.display = 'block';
+    join.style.display = 'none';
+    compAuth.style.display  = 'block';
+    compGuest.style.display = 'none';
+    const ini = initials(profile.displayName||profile.name||'');
+    document.getElementById('sidebar-initials').textContent = ini;
+    document.getElementById('sidebar-name').textContent     = profile.displayName||profile.name||'Member';
+    document.getElementById('sidebar-profession').textContent = profile.profession||'BU Alumni';
+    document.getElementById('sidebar-bio').textContent      = profile.bio||'';
+    document.getElementById('composer-initials').textContent = ini;
+    if (profile.photoURL) {
+      document.getElementById('sidebar-initials').innerHTML = `<img src="${profile.photoURL}" style="width:64px;height:64px;object-fit:cover;border-radius:50%" />`;
+      document.getElementById('composer-initials').innerHTML = `<img src="${profile.photoURL}" style="width:40px;height:40px;object-fit:cover;border-radius:50%" />`;
+    }
+  }
+
+  if (IS_CONFIGURED && auth) {
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      updateNavForUser(user);
+      if (user) {
+        // Load profile from Firestore
+        try {
+          const snap = await getDoc(doc(db,'users',user.uid));
+          currentProfile = snap.exists() ? snap.data() : { displayName: user.displayName||user.email, email: user.email };
+        } catch(e) { currentProfile = { displayName: user.displayName||user.email, email: user.email }; }
+        updateSidebarProfile(currentProfile);
+        setOnlinePresence(user.uid);
+        subscribeNotifications(user.uid);
+        loadConversations(user.uid);
+      } else {
+        currentProfile = null;
+        updateSidebarProfile(null);
+        if (notifUnsub) { notifUnsub(); notifUnsub=null; }
+      }
+      loadFeed();
+      loadGroups();
+    });
+  } else {
+    // Demo mode — show guest UI
+    updateSidebarProfile(null);
+    updateNavForUser(null);
+    loadFeedDemo();
+    loadGroupsDemo();
+  }
+
+  // ── Auth modal ─────────────────────────────────────────────────────────────
+  window.openAuthModal = function(tab='signin') {
+    document.getElementById('auth-modal').classList.add('open');
+    switchAuthTab(tab);
+  };
+  window.closeAuthModal = function() {
+    document.getElementById('auth-modal').classList.remove('open');
+  };
+  window.switchAuthTab = function(tab) {
+    document.getElementById('signin-form').style.display = tab==='signin'?'flex':'none';
+    document.getElementById('signup-form').style.display = tab==='signup'?'flex':'none';
+    document.getElementById('tab-signin').classList.toggle('active', tab==='signin');
+    document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
+  };
+  window.handleSignIn = async function(e) {
+    e.preventDefault();
+    if (!IS_CONFIGURED) { showToast('Firebase not configured','error'); return; }
+    const btn = document.getElementById('signin-btn');
+    const err = document.getElementById('signin-error');
+    btn.disabled = true; btn.textContent = 'Signing in…'; err.style.display='none';
     try {
-      const stored = JSON.parse(localStorage.getItem('buPostLikes') || '{}');
-      return stored;
-    } catch(_) { return {}; }
-  }
-  function saveLike(postId, liked, count) {
+      await signInWithEmailAndPassword(auth, document.getElementById('si-email').value.trim(), document.getElementById('si-password').value);
+      closeAuthModal();
+      showToast('Welcome back!','success');
+    } catch(ex) {
+      err.textContent = ex.code==='auth/invalid-credential'?'Invalid email or password.':ex.message;
+      err.style.display='block';
+    } finally { btn.disabled=false; btn.textContent='Sign In'; }
+  };
+  window.handleSignUp = async function(e) {
+    e.preventDefault();
+    if (!IS_CONFIGURED) { showToast('Firebase not configured','error'); return; }
+    const btn = document.getElementById('signup-btn');
+    const err = document.getElementById('signup-error');
+    btn.disabled=true; btn.textContent='Creating account…'; err.style.display='none';
+    const name = document.getElementById('su-name').value.trim();
+    const email = document.getElementById('su-email').value.trim();
+    const pass  = document.getElementById('su-password').value;
+    const prof  = document.getElementById('su-profession').value.trim();
+    const bio   = document.getElementById('su-bio').value.trim();
     try {
-      const stored = JSON.parse(localStorage.getItem('buPostLikes') || '{}');
-      stored[postId] = { liked, count };
-      localStorage.setItem('buPostLikes', JSON.stringify(stored));
-    } catch(_) {}
-  }
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await updateProfile(cred.user, { displayName: name });
+      const profile = { displayName:name, email, profession:prof, bio, createdAt:serverTimestamp(), posts:0, connections:0, groups:0 };
+      await setDoc(doc(db,'users',cred.user.uid), profile);
+      closeAuthModal();
+      showToast('Account created! Welcome to the community.','success');
+    } catch(ex) {
+      err.textContent = ex.code==='auth/email-already-in-use'?'An account with this email already exists.':ex.message;
+      err.style.display='block';
+    } finally { btn.disabled=false; btn.textContent='Create Account'; }
+  };
 
-  // ── Render a single post ────────────────────────────────────────────────────
-  function renderPost(post, prepend) {
-    const likes = getLikes();
-    const likeData = likes[post.id] || { liked: false, count: post.likes };
-    const ini = getInitials(post.author);
-    const avatarColors = [
-      'linear-gradient(135deg,#1140d9,#6d88ff)',
-      'linear-gradient(135deg,#0f766e,#34d399)',
-      'linear-gradient(135deg,#7c3aed,#a78bfa)',
-      'linear-gradient(135deg,#dc2626,#f87171)',
-      'linear-gradient(135deg,#d97706,#fbbf24)'
-    ];
-    const colorIdx = post.author.charCodeAt(0) % avatarColors.length;
-    const avatarStyle = avatarColors[colorIdx];
+  // ── Profile modal ──────────────────────────────────────────────────────────
+  window.openProfileModal = function() {
+    if (!currentUser) { openAuthModal('signin'); return; }
+    const p = currentProfile||{};
+    document.getElementById('pe-name').value       = p.displayName||p.name||'';
+    document.getElementById('pe-profession').value = p.profession||'';
+    document.getElementById('pe-bio').value        = p.bio||'';
+    document.getElementById('pe-skills').value     = (p.skills||[]).join(', ');
+    document.getElementById('pe-interests').value  = (p.interests||[]).join(', ');
+    document.getElementById('pe-location').value   = p.location||'';
+    document.getElementById('profile-edit-initials').textContent = initials(p.displayName||p.name||'');
+    document.getElementById('profile-modal').classList.add('open');
+  };
+  window.closeProfileModal = function() {
+    document.getElementById('profile-modal').classList.remove('open');
+  };
+  window.previewAvatar = function(input) {
+    if (!input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => { document.getElementById('profile-edit-initials').innerHTML = `<img src="${e.target.result}" style="width:64px;height:64px;object-fit:cover;border-radius:50%" />`; };
+    reader.readAsDataURL(input.files[0]);
+  };
+  window.saveProfile = async function(e) {
+    e.preventDefault();
+    if (!IS_CONFIGURED||!currentUser) return;
+    const btn = document.getElementById('save-profile-btn');
+    btn.disabled=true; btn.textContent='Saving…';
+    try {
+      const file = document.getElementById('avatar-upload').files[0];
+      let photoURL = currentProfile?.photoURL||null;
+      if (file) {
+        const r = sRef(storage,`avatars/${currentUser.uid}`);
+        await uploadBytes(r, file);
+        photoURL = await getDownloadURL(r);
+        await updateProfile(currentUser, { photoURL });
+      }
+      const updates = {
+        displayName: document.getElementById('pe-name').value.trim(),
+        profession:  document.getElementById('pe-profession').value.trim(),
+        bio:         document.getElementById('pe-bio').value.trim(),
+        skills:      document.getElementById('pe-skills').value.split(',').map(s=>s.trim()).filter(Boolean),
+        interests:   document.getElementById('pe-interests').value.split(',').map(s=>s.trim()).filter(Boolean),
+        location:    document.getElementById('pe-location').value.trim(),
+        ...(photoURL && { photoURL }),
+      };
+      await updateDoc(doc(db,'users',currentUser.uid), updates);
+      await updateProfile(currentUser, { displayName: updates.displayName });
+      currentProfile = { ...currentProfile, ...updates };
+      updateSidebarProfile(currentProfile);
+      closeProfileModal();
+      showToast('Profile updated!','success');
+    } catch(ex) { showToast('Failed to save: '+ex.message,'error'); }
+    finally { btn.disabled=false; btn.textContent='Save Changes'; }
+  };
 
-    let badgeHtml = '';
-    if (post.type === 'achievement' && post.badge) {
-      badgeHtml = `<div class="post-badge"><span class="material-icons-round" style="font-size:12px;" aria-hidden="true">emoji_events</span>${post.badge}</div>`;
-    } else if (post.type === 'question') {
-      badgeHtml = `<div class="post-badge" style="background:#eff6ff;color:#1e40af;border-color:#bfdbfe;"><span class="material-icons-round" style="font-size:12px;" aria-hidden="true">help_outline</span>Question</div>`;
-    }
+  // ── Feed ───────────────────────────────────────────────────────────────────
+  const BADGE_MAP = { achievement:{label:'Achievement',cls:'post-badge'}, question:{label:'Question',cls:'post-badge',style:'background:#eff6ff;color:#1e40af;border-color:#bfdbfe'} };
 
-    let linkHtml = '';
-    if (post.type === 'link' && post.link) {
-      linkHtml = `<a class="post-link-card" href="${post.link.url}"><span class="material-icons-round" style="font-size:16px;" aria-hidden="true">link</span>${post.link.text}</a>`;
-    }
-
-    const commentsHtml = (post.comments || []).map(c => `
-      <div class="comment-item">
-        <div class="comment-avatar" aria-hidden="true">${getInitials(c.author)}</div>
-        <div class="comment-bubble">
-          <div class="comment-author">${c.author}</div>
-          ${c.text}
-        </div>
-      </div>`).join('');
-
+  function renderPost(id, data) {
+    const liked = currentUser && (data.likes||[]).includes(currentUser.uid);
+    const badge = BADGE_MAP[data.type];
+    const badgeHtml = badge ? `<div class="${badge.cls}" ${badge.style?`style="${badge.style}"`:''}><span class="material-icons-round" style="font-size:12px">${data.type==='achievement'?'emoji_events':'help_outline'}</span>${badge.label}</div>` : '';
+    const imgHtml = data.imageUrl ? `<img src="${data.imageUrl}" class="post-image" alt="Post image" loading="lazy" />` : '';
+    const linkHtml = data.linkUrl ? `<a class="post-link-card" href="${data.linkUrl}" target="_blank" rel="noopener"><span class="material-icons-round" style="font-size:16px">link</span>${data.linkText||data.linkUrl}</a>` : '';
+    const isOwner = currentUser && currentUser.uid === data.authorId;
     const el = document.createElement('article');
-    el.className = 'feed-post' + (prepend ? ' new-post-anim' : '');
-    el.id = 'post-' + post.id;
-    el.setAttribute('aria-label', `Post by ${post.author}`);
+    el.className = 'feed-post';
+    el.id = 'post-'+id;
     el.innerHTML = `
       <div class="post-author-row">
-        <div class="post-avatar" style="background:${avatarStyle};" aria-hidden="true">${ini}</div>
-        <div class="post-author-info">
-          <div class="post-author-name">${post.author}</div>
-          <div class="post-author-meta">${post.profession} · ${post.time}</div>
+        <div class="post-avatar">${avatarHtml(data.authorName, data.authorAvatar)}</div>
+        <div style="flex:1;min-width:0">
+          <div class="post-author-name">${data.authorName||'Alumni'}</div>
+          <div class="post-author-meta">${data.authorProfession||''} ${data.createdAt?'· '+timeAgo(data.createdAt):''}</div>
         </div>
+        ${isOwner?`<button onclick="deletePost('${id}')" style="background:none;border:none;cursor:pointer;color:var(--muted);display:grid;place-items:center;border-radius:8px;padding:.3rem" aria-label="Delete post"><span class="material-icons-round" style="font-size:18px">delete_outline</span></button>`:''}
       </div>
       ${badgeHtml}
-      <div class="post-content">${post.content}</div>
-      ${linkHtml}
+      <div class="post-content">${(data.content||'').replace(/</g,'&lt;')}</div>
+      ${imgHtml}${linkHtml}
       <div class="reaction-bar">
-        <button class="reaction-btn${likeData.liked ? ' liked' : ''}" onclick="toggleLike('${post.id}', this)" aria-label="Like post" aria-pressed="${likeData.liked}">
-          <span class="material-icons-round" style="font-size:16px;" aria-hidden="true">thumb_up</span>
-          <span class="like-count">${likeData.count}</span>
+        <button class="reaction-btn${liked?' liked':''}" id="like-btn-${id}" onclick="toggleLike('${id}',this)" aria-label="Like" aria-pressed="${liked}">
+          <span class="material-icons-round" style="font-size:16px">thumb_up</span>
+          <span id="like-count-${id}">${(data.likes||[]).length}</span>
         </button>
-        <button class="reaction-btn" onclick="toggleComments('${post.id}', this)" aria-label="Show comments" aria-expanded="false">
-          <span class="material-icons-round" style="font-size:16px;" aria-hidden="true">chat_bubble_outline</span>
-          <span class="comment-count">${(post.comments || []).length}</span>
+        <button class="reaction-btn" onclick="toggleComments('${id}',this)" aria-label="Comments" aria-expanded="false">
+          <span class="material-icons-round" style="font-size:16px">chat_bubble_outline</span>
+          <span id="cmt-count-${id}">${data.commentCount||0}</span>
         </button>
-        <button class="reaction-btn" onclick="sharePost('${post.id}', '${post.author.replace(/'/g,"\\'")}', this)" aria-label="Share post">
-          <span class="material-icons-round" style="font-size:16px;" aria-hidden="true">share</span> Share
+        <button class="reaction-btn" onclick="sharePost('${id}','${(data.authorName||'').replace(/'/g,"\\'")}',this)" aria-label="Share">
+          <span class="material-icons-round" style="font-size:16px">share</span> Share
         </button>
       </div>
-      <div class="comments-section" id="comments-${post.id}" aria-label="Comments">
-        ${commentsHtml}
+      <div class="comments-section" id="comments-${id}">
+        <div id="comments-list-${id}"></div>
         <div class="comment-input-row">
-          <div class="comment-avatar" style="background:${user ? 'linear-gradient(135deg,var(--primary),#6d88ff)' : 'var(--border)'};" aria-hidden="true">${user ? getInitials(user.fullName || user.name || '') : 'BU'}</div>
-          <input type="text" class="comment-input" placeholder="${user ? 'Add a comment...' : 'Sign in to comment'}" ${user ? '' : 'disabled'} aria-label="Add a comment" onkeydown="submitCommentOnEnter(event,'${post.id}')" />
-          <button class="comment-send-btn" onclick="submitComment('${post.id}', this)" aria-label="Send comment">
-            <span class="material-icons-round" style="font-size:14px;" aria-hidden="true">send</span>
-          </button>
+          <div class="comment-avatar">${avatarHtml(currentProfile?.displayName||'', currentProfile?.photoURL, 28)}</div>
+          <input type="text" class="comment-input" placeholder="${currentUser?'Add a comment…':'Sign in to comment'}" ${currentUser?'':'disabled'} aria-label="Add a comment" onkeydown="if(event.key==='Enter')submitComment('${id}',this)" />
+          <button class="comment-send-btn" onclick="submitComment('${id}',this.previousElementSibling)" aria-label="Send"><span class="material-icons-round" style="font-size:14px">send</span></button>
         </div>
       </div>`;
     return el;
   }
 
-  // ── Render all posts ────────────────────────────────────────────────────────
-  function renderFeed() {
+  function loadFeed() {
+    if (!IS_CONFIGURED||!db) { loadFeedDemo(); return; }
+    const container = document.getElementById('feed-posts');
+    container.innerHTML = '<div class="spinner"></div>';
+    if (postUnsub) postUnsub();
+    const q = query(collection(db,'posts'), orderBy('createdAt','desc'), limit(10));
+    postUnsub = onSnapshot(q, snap => {
+      if (snap.empty) { container.innerHTML = '<p style="text-align:center;color:var(--muted);padding:2rem">No posts yet. Be the first to share!</p>'; return; }
+      container.innerHTML = '';
+      snap.forEach(d => container.appendChild(renderPost(d.id, d.data())));
+      lastPostDoc = snap.docs[snap.docs.length-1];
+      document.getElementById('load-more-btn').style.display = snap.docs.length===10?'block':'none';
+    }, err => { console.error(err); container.innerHTML = '<p style="text-align:center;color:var(--muted);padding:2rem">Failed to load posts.</p>'; });
+  }
+
+  window.loadMorePosts = async function() {
+    if (!IS_CONFIGURED||!lastPostDoc) return;
+    const btn = document.getElementById('load-more-btn');
+    btn.textContent='Loading…'; btn.disabled=true;
+    try {
+      const q = query(collection(db,'posts'), orderBy('createdAt','desc'), limit(10), startAfter(lastPostDoc));
+      const snap = await getDocs(q);
+      const container = document.getElementById('feed-posts');
+      snap.forEach(d => container.appendChild(renderPost(d.id, d.data())));
+      lastPostDoc = snap.docs[snap.docs.length-1];
+      if (snap.docs.length < 10) { btn.style.display='none'; return; }
+    } catch(e) { showToast('Failed to load more','error'); }
+    btn.textContent='Load more posts'; btn.disabled=false;
+  };
+
+  // Demo feed (no Firebase)
+  const DEMO_POSTS = [
+    { id:'d1', authorName:'Amara Ssekandi', authorProfession:'Software Engineer · Class of 2018', content:'Excited to share that I just joined XYZ Tech as a Senior Engineer! 🎉 Grateful for the BU Alumni network.', type:'achievement', likes:['x','y','z'], commentCount:5, createdAt:{toDate:()=>new Date(Date.now()-7200000)} },
+    { id:'d2', authorName:'Dr. Sarah Nakato', authorProfession:'Health Professional · Class of 2008', content:'Just returned from the WHO Regional Health Summit in Nairobi. Proud to represent BU graduates on the continental stage!', type:'update', likes:['a','b'], commentCount:12, createdAt:{toDate:()=>new Date(Date.now()-18000000)} },
+    { id:'d3', authorName:'Moses Byaruhanga', authorProfession:'Entrepreneur · Class of 2016', content:'Question for the network: Any alumni working in fintech or impact investing in East Africa? Looking to connect! 🚀', type:'question', likes:['c'], commentCount:8, createdAt:{toDate:()=>new Date(Date.now()-86400000)} },
+  ];
+  function loadFeedDemo() {
     const container = document.getElementById('feed-posts');
     container.innerHTML = '';
-    POSTS_DATA.forEach(post => container.appendChild(renderPost(post, false)));
+    DEMO_POSTS.forEach(p => container.appendChild(renderPost(p.id, p)));
   }
 
-  // ── Like toggle ─────────────────────────────────────────────────────────────
-  function toggleLike(postId, btn) {
-    const likes = getLikes();
-    const post = POSTS_DATA.find(p => p.id === postId);
-    const current = likes[postId] || { liked: false, count: post ? post.likes : 0 };
-    const newLiked = !current.liked;
-    const newCount = newLiked ? current.count + 1 : current.count - 1;
-    saveLike(postId, newLiked, newCount);
-    btn.classList.toggle('liked', newLiked);
-    btn.setAttribute('aria-pressed', newLiked);
-    btn.querySelector('.like-count').textContent = newCount;
-  }
+  // ── Post actions ───────────────────────────────────────────────────────────
+  window.submitPost = async function() {
+    if (!currentUser) { openAuthModal('signin'); return; }
+    const text = document.getElementById('composer-text').value.trim();
+    if (!text && !postImageFile) return;
+    const btn = document.getElementById('post-submit-btn');
+    btn.disabled=true; btn.textContent='Posting…';
+    try {
+      let imageUrl = null;
+      if (postImageFile && IS_CONFIGURED) {
+        const r = sRef(storage,`posts/${currentUser.uid}/${Date.now()}`);
+        await uploadBytes(r, postImageFile);
+        imageUrl = await getDownloadURL(r);
+      }
+      const type = document.getElementById('post-type-select').value;
+      const postData = {
+        authorId: currentUser.uid,
+        authorName: currentProfile?.displayName||currentUser.displayName||currentUser.email,
+        authorProfession: currentProfile?.profession||'',
+        authorAvatar: currentProfile?.photoURL||null,
+        content: text,
+        type,
+        imageUrl,
+        likes: [],
+        commentCount: 0,
+        createdAt: serverTimestamp(),
+      };
+      if (IS_CONFIGURED) {
+        await addDoc(collection(db,'posts'), postData);
+        await updateDoc(doc(db,'users',currentUser.uid), { posts: increment(1) });
+      } else {
+        const el = renderPost('new-'+Date.now(), {...postData, createdAt:{toDate:()=>new Date()}});
+        el.classList.add('new-post-anim');
+        document.getElementById('feed-posts').insertBefore(el, document.getElementById('feed-posts').firstChild);
+      }
+      document.getElementById('composer-text').value='';
+      removeComposerImage();
+      document.getElementById('post-type-select').value='update';
+      showToast('Post shared!','success');
+    } catch(e) { showToast('Failed to post: '+e.message,'error'); }
+    btn.disabled=false; btn.textContent='Post';
+  };
 
-  // ── Comment expand/collapse ─────────────────────────────────────────────────
-  function toggleComments(postId, btn) {
-    const section = document.getElementById('comments-' + postId);
-    const isOpen = section.classList.toggle('open');
-    btn.setAttribute('aria-expanded', isOpen);
-    if (isOpen) {
-      const input = section.querySelector('.comment-input');
-      if (input && !input.disabled) input.focus();
+  document.getElementById('composer-text').addEventListener('input', function() {
+    document.getElementById('post-submit-btn').disabled = this.value.trim().length===0 && !postImageFile;
+  });
+
+  window.handlePostImage = function(input) {
+    if (!input.files[0]) return;
+    postImageFile = input.files[0];
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('composer-img-el').src = e.target.result;
+      document.getElementById('composer-img-preview').style.display='block';
+      document.getElementById('post-submit-btn').disabled=false;
+    };
+    reader.readAsDataURL(postImageFile);
+  };
+  window.removeComposerImage = function() {
+    postImageFile=null; postImageUrl=null;
+    document.getElementById('composer-img-preview').style.display='none';
+    document.getElementById('composer-img-el').src='';
+    document.getElementById('post-img-upload').value='';
+  };
+  window.setPostType = function(type) {
+    document.getElementById('post-type-select').value=type;
+  };
+
+  window.toggleLike = async function(postId, btn) {
+    if (!currentUser) { openAuthModal('signin'); return; }
+    if (!IS_CONFIGURED) {
+      btn.classList.toggle('liked');
+      const c = document.getElementById('like-count-'+postId);
+      c.textContent = parseInt(c.textContent)+(btn.classList.contains('liked')?1:-1);
+      return;
     }
+    const ref = doc(db,'posts',postId);
+    const liked = btn.classList.contains('liked');
+    try {
+      await updateDoc(ref, { likes: liked ? arrayRemove(currentUser.uid) : arrayUnion(currentUser.uid) });
+      btn.classList.toggle('liked');
+      const c = document.getElementById('like-count-'+postId);
+      c.textContent = parseInt(c.textContent)+(liked?-1:1);
+    } catch(e) { showToast('Failed to like','error'); }
+  };
+
+  window.toggleComments = function(postId, btn) {
+    const sec = document.getElementById('comments-'+postId);
+    const open = sec.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    if (open && IS_CONFIGURED) loadComments(postId);
+  };
+
+  async function loadComments(postId) {
+    const list = document.getElementById('comments-list-'+postId);
+    if (!list||!IS_CONFIGURED) return;
+    try {
+      const q = query(collection(db,'posts',postId,'comments'), orderBy('createdAt','asc'), limit(20));
+      const snap = await getDocs(q);
+      list.innerHTML = '';
+      snap.forEach(d => {
+        const c = d.data();
+        const item = document.createElement('div');
+        item.className='comment-item';
+        item.innerHTML=`<div class="comment-avatar">${avatarHtml(c.authorName,c.authorAvatar,28)}</div><div class="comment-bubble"><div class="comment-author">${c.authorName}</div>${(c.content||'').replace(/</g,'&lt;')}</div>`;
+        list.appendChild(item);
+      });
+    } catch(e) { console.error(e); }
   }
 
-  // ── Submit comment ──────────────────────────────────────────────────────────
-  function submitCommentOnEnter(e, postId) {
-    if (e.key === 'Enter') submitComment(postId, e.target.closest('.comment-input-row').querySelector('.comment-send-btn'));
-  }
-  function submitComment(postId, btn) {
-    if (!user) { window.location.href = 'auth.html'; return; }
-    const section = document.getElementById('comments-' + postId);
-    const input = section.querySelector('.comment-input');
+  window.submitComment = async function(postId, input) {
+    if (!currentUser) { openAuthModal('signin'); return; }
     const text = input.value.trim();
     if (!text) return;
-    const name = user.fullName || user.name || 'You';
+    const name = currentProfile?.displayName||currentUser.displayName||currentUser.email;
     const item = document.createElement('div');
-    item.className = 'comment-item';
-    item.innerHTML = `
-      <div class="comment-avatar" style="background:linear-gradient(135deg,var(--primary),#6d88ff);" aria-hidden="true">${getInitials(name)}</div>
-      <div class="comment-bubble">
-        <div class="comment-author">${name}</div>
-        ${text}
-      </div>`;
-    section.insertBefore(item, section.querySelector('.comment-input-row'));
-    // Update count
-    const postEl = document.getElementById('post-' + postId);
-    const countEl = postEl.querySelector('.comment-count');
-    if (countEl) countEl.textContent = parseInt(countEl.textContent || '0') + 1;
-    input.value = '';
-    input.focus();
-  }
-
-  // ── Post composer ───────────────────────────────────────────────────────────
-  function initComposer() {
-    const signedIn = document.getElementById('composer-signed-in');
-    const signedOut = document.getElementById('composer-signed-out');
-    const textarea = document.getElementById('composer-text');
-    const submitBtn = document.getElementById('post-submit-btn');
-    const composerAvatar = document.getElementById('composer-avatar');
-
-    if (user) {
-      signedIn.style.display = 'block';
-      signedOut.style.display = 'none';
-      const name = user.fullName || user.name || '';
-      if (composerAvatar) composerAvatar.textContent = getInitials(name);
-      if (textarea) {
-        textarea.placeholder = `What's on your mind, ${name.split(' ')[0] || 'there'}?`;
-        textarea.addEventListener('input', function() {
-          submitBtn.disabled = this.value.trim().length === 0;
-        });
-      }
-    } else {
-      signedIn.style.display = 'none';
-      signedOut.style.display = 'block';
+    item.className='comment-item';
+    item.innerHTML=`<div class="comment-avatar">${avatarHtml(name,currentProfile?.photoURL,28)}</div><div class="comment-bubble"><div class="comment-author">${name}</div>${text.replace(/</g,'&lt;')}</div>`;
+    document.getElementById('comments-list-'+postId).appendChild(item);
+    const c = document.getElementById('cmt-count-'+postId);
+    if (c) c.textContent = parseInt(c.textContent)+1;
+    input.value='';
+    if (IS_CONFIGURED) {
+      try {
+        await addDoc(collection(db,'posts',postId,'comments'), { authorId:currentUser.uid, authorName:name, authorAvatar:currentProfile?.photoURL||null, content:text, createdAt:serverTimestamp() });
+        await updateDoc(doc(db,'posts',postId), { commentCount:increment(1) });
+      } catch(e) { console.error(e); }
     }
+  };
+
+  window.deletePost = async function(postId) {
+    if (!currentUser||!IS_CONFIGURED) return;
+    if (!confirm('Delete this post?')) return;
+    try {
+      await updateDoc(doc(db,'posts',postId), { deleted:true, content:'[Post deleted]', imageUrl:null });
+      document.getElementById('post-'+postId)?.remove();
+      showToast('Post deleted','success');
+    } catch(e) { showToast('Failed to delete','error'); }
+  };
+
+  window.sharePost = function(postId, author, btn) {
+    const url = window.location.href.split('#')[0]+'#post-'+postId;
+    if (navigator.share) { navigator.share({ title:`Post by ${author}`, url }); return; }
+    navigator.clipboard?.writeText(url).then(()=>{ const o=btn.innerHTML; btn.innerHTML='<span class="material-icons-round" style="font-size:16px">check</span> Copied!'; setTimeout(()=>btn.innerHTML=o,2000); });
+  };
+
+  // ── Groups ─────────────────────────────────────────────────────────────────
+  const DEFAULT_GROUPS = [
+    { id:'g1', name:'Computer Science Alumni', icon:'computer',       members:342, description:'Tech graduates and enthusiasts' },
+    { id:'g2', name:'Class of 2022',           icon:'school',         members:189, description:'Connect with your classmates' },
+    { id:'g3', name:'Entrepreneurs Network',   icon:'rocket_launch',  members:267, description:'Build and grow together' },
+    { id:'g4', name:'Health Professionals',    icon:'health_and_safety', members:156, description:'Medical and health alumni' },
+    { id:'g5', name:"Women in Tech",           icon:'diversity_3',    members:98,  description:'Empowering women in technology' },
+  ];
+
+  async function loadGroups() {
+    const list = document.getElementById('groups-list');
+    if (!list) return;
+    let groups = DEFAULT_GROUPS;
+    if (IS_CONFIGURED && db) {
+      try {
+        const snap = await getDocs(collection(db,'groups'));
+        if (!snap.empty) groups = snap.docs.map(d=>({id:d.id,...d.data()}));
+        else {
+          // Seed default groups
+          for (const g of DEFAULT_GROUPS) {
+            await setDoc(doc(db,'groups',g.id), { name:g.name, icon:g.icon, members:g.members, description:g.description, createdAt:serverTimestamp() });
+          }
+        }
+      } catch(e) { console.error('[groups]',e); }
+    }
+    renderGroups(groups);
   }
 
-  // ── Submit new post ─────────────────────────────────────────────────────────
-  function submitPost() {
-    if (!user) return;
-    const textarea = document.getElementById('composer-text');
-    const text = textarea.value.trim();
+  function loadGroupsDemo() { renderGroups(DEFAULT_GROUPS); }
+
+  function renderGroups(groups) {
+    const list = document.getElementById('groups-list');
+    if (!list) return;
+    const joined = JSON.parse(localStorage.getItem('buJoinedGroups')||'[]');
+    list.innerHTML = groups.slice(0,5).map(g => {
+      const isJoined = joined.includes(g.id);
+      return `<div class="group-card">
+        <div class="group-icon"><span class="material-icons-round" style="font-size:20px;color:var(--primary)">${g.icon||'groups'}</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:700;font-size:.82rem;color:var(--text)">${g.name}</div>
+          <div style="font-size:.72rem;color:var(--muted)">${g.members||0} members</div>
+        </div>
+        <button class="join-btn${isJoined?' joined':''}" onclick="toggleGroup('${g.id}',this)" aria-label="${isJoined?'Leave':'Join'} ${g.name}">${isJoined?'Joined':'Join'}</button>
+      </div>`;
+    }).join('');
+  }
+
+  window.toggleGroup = async function(groupId, btn) {
+    if (!currentUser) { openAuthModal('signin'); return; }
+    const joined = JSON.parse(localStorage.getItem('buJoinedGroups')||'[]');
+    const idx = joined.indexOf(groupId);
+    const isJoining = idx === -1;
+    if (isJoining) joined.push(groupId); else joined.splice(idx,1);
+    localStorage.setItem('buJoinedGroups', JSON.stringify(joined));
+    btn.classList.toggle('joined', isJoining);
+    btn.textContent = isJoining ? 'Joined' : 'Join';
+    const statEl = document.getElementById('stat-groups');
+    if (statEl) statEl.textContent = joined.length;
+    if (IS_CONFIGURED && db) {
+      try {
+        await updateDoc(doc(db,'groups',groupId), { members: isJoining ? increment(1) : increment(-1) });
+        if (currentUser) await updateDoc(doc(db,'users',currentUser.uid), { groups: isJoining ? increment(1) : increment(-1) });
+      } catch(e) { console.error(e); }
+    }
+    showToast(isJoining ? 'Joined group!' : 'Left group', 'success');
+  };
+
+  // ── Messaging (Firebase Realtime Database) ─────────────────────────────────
+  window.openMessages = function() {
+    if (!currentUser) { openAuthModal('signin'); return; }
+    const modal = document.getElementById('messages-modal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    msgOpen = true;
+    ['msg-badge','msg-badge-mobile'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+  };
+  window.closeMessages = function() {
+    document.getElementById('messages-modal').classList.remove('open');
+    document.getElementById('messages-modal').setAttribute('aria-hidden','true');
+    msgOpen = false;
+    if (chatUnsub) { chatUnsub(); chatUnsub=null; }
+    activeChatId = null;
+    document.getElementById('msg-conv-list').style.display='block';
+    document.getElementById('msg-chat-area').style.display='none';
+    document.getElementById('msg-input-row').style.display='none';
+    document.getElementById('msg-typing').style.display='none';
+    document.getElementById('msg-panel-title').textContent='Messages';
+  };
+
+  function loadConversations(uid) {
+    if (!IS_CONFIGURED||!rtdb) return;
+    const convRef = ref(rtdb, `userChats/${uid}`);
+    onValue(convRef, snap => {
+      const list = document.getElementById('msg-conv-list');
+      if (!snap.exists()) { list.innerHTML='<p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No conversations yet</p>'; return; }
+      const convs = [];
+      snap.forEach(child => convs.push({id:child.key,...child.val()}));
+      convs.sort((a,b)=>(b.lastTimestamp||0)-(a.lastTimestamp||0));
+      list.innerHTML = convs.map(c => `
+        <div class="msg-conv-item" onclick="openChat('${c.chatId}','${c.otherName||'User'}','${c.otherAvatar||''}')">
+          <div class="msg-conv-avatar">${avatarHtml(c.otherName||'U',c.otherAvatar,38)}</div>
+          <div class="msg-conv-info">
+            <div class="msg-conv-name">${c.otherName||'User'}</div>
+            <div class="msg-conv-preview">${c.lastMessage||''}</div>
+          </div>
+          ${c.unread?'<span class="msg-unread-badge">'+c.unread+'</span>':''}
+        </div>`).join('');
+    });
+  }
+
+  window.openChat = function(chatId, otherName, otherAvatar) {
+    if (!IS_CONFIGURED||!rtdb||!currentUser) return;
+    activeChatId = chatId;
+    document.getElementById('msg-conv-list').style.display='none';
+    const chatArea = document.getElementById('msg-chat-area');
+    chatArea.style.display='flex';
+    document.getElementById('msg-input-row').style.display='flex';
+    document.getElementById('msg-panel-title').innerHTML = `<button onclick="backToConvList()" style="background:none;border:none;cursor:pointer;color:var(--muted);margin-right:.5rem;display:inline-flex;align-items:center"><span class="material-icons-round" style="font-size:20px">arrow_back</span></button>${otherName}`;
+    chatArea.innerHTML='<div class="spinner"></div>';
+    if (chatUnsub) chatUnsub();
+    const msgsRef = ref(rtdb, `chats/${chatId}/messages`);
+    chatUnsub = onValue(msgsRef, snap => {
+      chatArea.innerHTML='';
+      if (!snap.exists()) { chatArea.innerHTML='<p style="text-align:center;color:var(--muted);padding:1rem;font-size:.82rem">Start the conversation!</p>'; return; }
+      snap.forEach(child => {
+        const m = child.val();
+        const isSent = m.senderId === currentUser.uid;
+        const bubble = document.createElement('div');
+        bubble.className = 'msg-bubble '+(isSent?'sent':'recv');
+        bubble.innerHTML = `${(m.text||'').replace(/</g,'&lt;')}<div class="msg-bubble-meta">${m.timestamp?new Date(m.timestamp).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):''}${isSent?'<span class="material-icons-round" style="font-size:12px;margin-left:3px">'+(m.seen?'done_all':'done')+'</span>':''}</div>`;
+        chatArea.appendChild(bubble);
+      });
+      chatArea.scrollTop = chatArea.scrollHeight;
+    });
+    // Typing indicator
+    const typingRef = ref(rtdb, `chats/${chatId}/typing/${currentUser.uid==='a'?'b':'a'}`);
+    onValue(typingRef, snap => {
+      document.getElementById('msg-typing').style.display = snap.val() ? 'block' : 'none';
+    });
+  };
+
+  window.backToConvList = function() {
+    if (chatUnsub) { chatUnsub(); chatUnsub=null; }
+    activeChatId=null;
+    document.getElementById('msg-conv-list').style.display='block';
+    document.getElementById('msg-chat-area').style.display='none';
+    document.getElementById('msg-input-row').style.display='none';
+    document.getElementById('msg-typing').style.display='none';
+    document.getElementById('msg-panel-title').textContent='Messages';
+  };
+
+  window.sendMessage = async function() {
+    if (!IS_CONFIGURED||!rtdb||!currentUser||!activeChatId) return;
+    const input = document.getElementById('msg-input');
+    const text = input.value.trim();
     if (!text) return;
-    const name = user.fullName || user.name || 'You';
-    const newPost = {
-      id: 'user-' + Date.now(),
-      author: name,
-      profession: user.profession || 'BU Alumni',
-      time: 'Just now',
-      content: text,
-      type: 'update',
-      likes: 0,
-      comments: []
-    };
-    const container = document.getElementById('feed-posts');
-    const el = renderPost(newPost, true);
-    container.insertBefore(el, container.firstChild);
-    textarea.value = '';
-    document.getElementById('post-submit-btn').disabled = true;
-    // Update sidebar post count
-    const statPosts = document.getElementById('stat-posts');
-    if (statPosts) statPosts.textContent = parseInt(statPosts.textContent || '0') + 1;
-    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    input.value='';
+    try {
+      const msgsRef = ref(rtdb, `chats/${activeChatId}/messages`);
+      await push(msgsRef, { senderId:currentUser.uid, text, timestamp:Date.now(), seen:false });
+      await set(ref(rtdb,`chats/${activeChatId}/typing/${currentUser.uid}`), false);
+    } catch(e) { showToast('Failed to send','error'); }
+  };
+
+  window.msgKeydown = function(e) { if (e.key==='Enter') sendMessage(); };
+
+  window.handleTyping = function() {
+    if (!IS_CONFIGURED||!rtdb||!currentUser||!activeChatId) return;
+    set(ref(rtdb,`chats/${activeChatId}/typing/${currentUser.uid}`), true);
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(()=>{ set(ref(rtdb,`chats/${activeChatId}/typing/${currentUser.uid}`), false); }, 2000);
+  };
+
+  // ── Online presence ────────────────────────────────────────────────────────
+  function setOnlinePresence(uid) {
+    if (!IS_CONFIGURED||!rtdb) return;
+    const presRef = ref(rtdb, `presence/${uid}`);
+    set(presRef, { online:true, lastSeen:Date.now(), displayName:currentProfile?.displayName||'', photoURL:currentProfile?.photoURL||null });
+    onDisconnect(presRef).set({ online:false, lastSeen:rtTS() });
+    // Listen to all online users
+    onValue(ref(rtdb,'presence'), snap => {
+      const list = document.getElementById('online-users-list');
+      if (!list) return;
+      const users = [];
+      snap.forEach(child => { const v=child.val(); if(v.online && child.key!==uid) users.push({id:child.key,...v}); });
+      if (!users.length) { list.innerHTML='<p style="font-size:.8rem;color:var(--muted)">No one else online</p>'; return; }
+      list.innerHTML = users.slice(0,6).map(u => `
+        <div class="online-user-item">
+          <div class="online-user-avatar" style="position:relative">
+            ${avatarHtml(u.displayName||'U',u.photoURL,32)}
+            <div class="online-dot" style="position:absolute;bottom:0;right:0"></div>
+          </div>
+          <span style="font-size:.82rem;font-weight:600;color:var(--text)">${u.displayName||'Alumni'}</span>
+        </div>`).join('');
+    });
   }
 
-  // ── Share post ──────────────────────────────────────────────────────────────
-  function sharePost(postId, author, btn) {
-    const url = window.location.href.split('#')[0] + '#post-' + postId;
-    if (navigator.share) {
-      navigator.share({ title: `Post by ${author} on BU Alumni Community`, url });
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
-        const orig = btn.innerHTML;
-        btn.innerHTML = '<span class="material-icons-round" style="font-size:16px;">check</span> Copied!';
-        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+  // ── Notifications ──────────────────────────────────────────────────────────
+  function subscribeNotifications(uid) {
+    if (!IS_CONFIGURED||!db) return;
+    if (notifUnsub) notifUnsub();
+    const q = query(collection(db,`notifications/${uid}/items`), orderBy('createdAt','desc'), limit(20));
+    notifUnsub = onSnapshot(q, snap => {
+      const list = document.getElementById('notif-list');
+      const unread = snap.docs.filter(d=>!d.data().read).length;
+      ['notif-badge','notif-nav-badge','notif-badge-mobile'].forEach(id=>{
+        const el=document.getElementById(id);
+        if(el){ el.textContent=unread; el.style.display=unread?'inline-block':'none'; }
+      });
+      if (snap.empty) { list.innerHTML='<p style="text-align:center;color:var(--muted);padding:1.5rem;font-size:.85rem">No notifications yet</p>'; return; }
+      const icons = { like:'favorite', comment:'comment', message:'chat', new_opportunity:'work', group_invite:'group_add' };
+      const colors = { like:'rgba(239,68,68,.1)', comment:'rgba(17,64,217,.1)', message:'rgba(17,64,217,.1)', new_opportunity:'rgba(15,118,110,.1)', group_invite:'rgba(124,58,237,.1)' };
+      list.innerHTML = snap.docs.map(d => {
+        const n=d.data();
+        return `<div class="notif-item${n.read?'':' unread'}" onclick="markNotifRead('${uid}','${d.id}')">
+          <div class="notif-icon" style="background:${colors[n.type]||'rgba(17,64,217,.1)'}"><span class="material-icons-round" style="font-size:18px;color:var(--primary)">${icons[n.type]||'notifications'}</span></div>
+          <div style="flex:1"><div style="font-size:.83rem;font-weight:600;color:var(--text)">${n.message||''}</div><div style="font-size:.75rem;color:var(--muted)">${n.createdAt?timeAgo(n.createdAt):''}</div></div>
+          ${n.read?'':'<div class="notif-dot"></div>'}
+        </div>`;
+      }).join('');
+    });
+  }
+
+  window.toggleNotifications = function(e) {
+    e.stopPropagation();
+    const dd = document.getElementById('notif-dropdown');
+    notifOpen = !notifOpen;
+    dd.style.display = notifOpen ? 'block' : 'none';
+    if (notifOpen) setTimeout(()=>document.addEventListener('click', closeNotifOutside, {once:true}), 0);
+  };
+  function closeNotifOutside(e) {
+    const wrap = document.getElementById('notif-wrap')||document.getElementById('notif-nav-btn');
+    if (wrap && !wrap.contains(e.target)) { document.getElementById('notif-dropdown').style.display='none'; notifOpen=false; }
+  }
+  window.markAllRead = async function() {
+    if (!IS_CONFIGURED||!currentUser) return;
+    document.querySelectorAll('.notif-item.unread').forEach(el=>el.classList.remove('unread'));
+    document.querySelectorAll('.notif-dot').forEach(el=>el.remove());
+    ['notif-badge','notif-nav-badge','notif-badge-mobile'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; });
+    try {
+      const snap = await getDocs(collection(db,`notifications/${currentUser.uid}/items`));
+      snap.forEach(async d => { if(!d.data().read) await updateDoc(d.ref,{read:true}); });
+    } catch(e) { console.error(e); }
+  };
+  window.markNotifRead = async function(uid, notifId) {
+    if (!IS_CONFIGURED) return;
+    try { await updateDoc(doc(db,`notifications/${uid}/items`,notifId),{read:true}); } catch(e){}
+  };
+
+  // ── Search ─────────────────────────────────────────────────────────────────
+  window.handleSearch = async function(query) {
+    const dd = document.getElementById('search-dropdown');
+    if (!query.trim()) { dd.classList.remove('open'); return; }
+    dd.classList.add('open');
+    dd.innerHTML='<div class="spinner" style="width:24px;height:24px;margin:.75rem auto"></div>';
+    const q = query.toLowerCase();
+    const results = [];
+    // Search local courses
+    if (typeof COURSES !== 'undefined') {
+      COURSES.filter(c=>c.title.toLowerCase().includes(q)||c.description.toLowerCase().includes(q)).slice(0,3).forEach(c=>{
+        results.push({type:'course',icon:'school',title:c.title,sub:c.providerName,url:'#learning'});
       });
     }
-  }
-
-  // ── Sidebar profile ─────────────────────────────────────────────────────────
-  function initSidebar() {
-    const profileCard = document.getElementById('profile-card');
-    const joinCard = document.getElementById('join-card');
-    if (user) {
-      profileCard.style.display = 'block';
-      joinCard.style.display = 'none';
-      const name = user.fullName || user.name || 'Member';
-      document.getElementById('sidebar-avatar').textContent = getInitials(name);
-      document.getElementById('sidebar-name').textContent = name;
-      document.getElementById('sidebar-profession').textContent = user.profession || 'BU Alumni';
-      // Load stats from localStorage
-      const stats = JSON.parse(localStorage.getItem('buUserStats') || '{"posts":0,"connections":0,"groups":0}');
-      document.getElementById('stat-posts').textContent = stats.posts;
-      document.getElementById('stat-connections').textContent = stats.connections;
-      document.getElementById('stat-groups').textContent = stats.groups;
-    } else {
-      profileCard.style.display = 'none';
-      joinCard.style.display = 'block';
+    // Search Firestore users
+    if (IS_CONFIGURED && db) {
+      try {
+        const snap = await getDocs(query(collection(db,'users'), where('displayName','>=',query), where('displayName','<=',query+''), limit(5)));
+        snap.forEach(d=>{ const u=d.data(); results.push({type:'user',icon:'person',title:u.displayName||u.email,sub:u.profession||'Alumni',url:'#'}); });
+      } catch(e){}
     }
-  }
-
-  // ── Mini directory search ───────────────────────────────────────────────────
-  function filterMiniDirectory(query) {
-    const q = query.toLowerCase();
-    document.querySelectorAll('#mini-directory .alumni-card-mini').forEach(card => {
-      const name = (card.dataset.name || '').toLowerCase();
-      const role = (card.dataset.role || '').toLowerCase();
-      card.style.display = (name.includes(q) || role.includes(q)) ? '' : 'none';
-    });
-  }
-
-  // ── Connect toggle ──────────────────────────────────────────────────────────
-  function toggleConnect(btn) {
-    const isConnected = btn.classList.toggle('connected');
-    btn.textContent = isConnected ? 'Connected' : 'Connect';
-    btn.setAttribute('aria-pressed', isConnected);
-    // Update stats
-    const statEl = document.getElementById('stat-connections');
-    if (statEl && user) {
-      const stats = JSON.parse(localStorage.getItem('buUserStats') || '{"posts":0,"connections":0,"groups":0}');
-      stats.connections = Math.max(0, stats.connections + (isConnected ? 1 : -1));
-      localStorage.setItem('buUserStats', JSON.stringify(stats));
-      statEl.textContent = stats.connections;
-    }
-  }
-
-  // ── Group join toggle ───────────────────────────────────────────────────────
-  function toggleJoin(btn) {
-    const isJoined = btn.classList.toggle('joined');
-    btn.textContent = isJoined ? 'Joined' : 'Join';
-    btn.setAttribute('aria-pressed', isJoined);
-    if (user) {
-      const stats = JSON.parse(localStorage.getItem('buUserStats') || '{"posts":0,"connections":0,"groups":0}');
-      stats.groups = Math.max(0, stats.groups + (isJoined ? 1 : -1));
-      localStorage.setItem('buUserStats', JSON.stringify(stats));
-      const statEl = document.getElementById('stat-groups');
-      if (statEl) statEl.textContent = stats.groups;
-    }
-  }
-
-  // ── Messages modal ──────────────────────────────────────────────────────────
-  let messagesOpen = false;
-  function openMessages() {
-    const modal = document.getElementById('messages-modal');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-    messagesOpen = true;
-    // Clear badge
-    ['msg-badge','msg-badge-mobile'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
-    // Focus trap
-    setTimeout(() => {
-      const input = document.getElementById('msg-input');
-      if (input) input.focus();
-    }, 300);
-  }
-  function closeMessages() {
-    const modal = document.getElementById('messages-modal');
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    messagesOpen = false;
-  }
-  function selectConversation(el, name, initials) {
-    document.querySelectorAll('.msg-conv-item').forEach(i => i.classList.remove('active'));
-    el.classList.add('active');
-    const badge = el.querySelector('.msg-unread-badge');
-    if (badge) badge.remove();
-    const input = document.getElementById('msg-input');
-    if (input) { input.placeholder = `Message ${name}...`; input.focus(); }
-  }
-  function sendMessageOnEnter(e) { if (e.key === 'Enter') sendMessage(); }
-  function sendMessage() {
-    const input = document.getElementById('msg-input');
-    if (!input || !input.value.trim()) return;
-    input.value = '';
-    input.focus();
-  }
-
-  // ── Notifications ───────────────────────────────────────────────────────────
-  let notifOpen = false;
-  function toggleNotifications(e) {
-    e.stopPropagation();
-    const dropdown = document.getElementById('notif-dropdown');
-    notifOpen = !notifOpen;
-    dropdown.style.display = notifOpen ? 'block' : 'none';
-    if (notifOpen) {
-      setTimeout(() => document.addEventListener('click', closeNotifOutside, { once: true }), 0);
-    }
-  }
-  function closeNotifOutside(e) {
-    const wrap = document.getElementById('notif-wrap');
-    if (!wrap.contains(e.target)) {
-      document.getElementById('notif-dropdown').style.display = 'none';
-      notifOpen = false;
-    }
-  }
-  function markAllRead() {
-    document.querySelectorAll('.notif-item.unread').forEach(item => {
-      item.classList.remove('unread');
-      const dot = item.querySelector('.notif-dot');
-      if (dot) dot.remove();
-    });
-    ['notif-badge','notif-badge-mobile'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
-  }
-
-  // ── Full directory modal ────────────────────────────────────────────────────
-  const FULL_DIRECTORY = [
-    { name: 'Grace Auma', role: 'Business Analyst', year: '2020', industry: 'business', location: 'Kampala' },
-    { name: 'Brian Mugisha', role: 'Software Developer', year: '2022', industry: 'tech', location: 'Kampala' },
-    { name: 'Alice Nakayiza', role: 'Alumni Leader', year: '2018', industry: 'education', location: 'Kampala' },
-    { name: 'David Ssemwanga', role: 'Data Scientist', year: '2021', industry: 'tech', location: 'Remote' },
-    { name: 'Amara Ssekandi', role: 'Software Engineer', year: '2018', industry: 'tech', location: 'Nairobi' },
-    { name: 'Dr. Sarah Nakato', role: 'Health Professional', year: '2008', industry: 'health', location: 'Kampala' },
-    { name: 'Moses Byaruhanga', role: 'Entrepreneur', year: '2016', industry: 'business', location: 'Kampala' },
-    { name: 'Faith Nakato', role: 'Marketing Manager', year: '2021', industry: 'business', location: 'Kampala' }
-  ];
-  function openDirectoryModal() {
-    const modal = document.getElementById('dir-modal');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-    renderDirectoryGrid(FULL_DIRECTORY);
-    setTimeout(() => {
-      const search = document.getElementById('dir-modal-search');
-      if (search) search.focus();
-    }, 200);
-    document.addEventListener('keydown', dirModalEsc);
-  }
-  function closeDirectoryModal() {
-    const modal = document.getElementById('dir-modal');
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.removeEventListener('keydown', dirModalEsc);
-  }
-  function dirModalEsc(e) { if (e.key === 'Escape') closeDirectoryModal(); }
-  document.getElementById('dir-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeDirectoryModal();
-  });
-  function filterDirectory() {
-    const q = (document.getElementById('dir-modal-search').value || '').toLowerCase();
-    const industry = document.getElementById('dir-filter-industry').value;
-    const year = document.getElementById('dir-filter-year').value;
-    const filtered = FULL_DIRECTORY.filter(a => {
-      const matchQ = !q || a.name.toLowerCase().includes(q) || a.role.toLowerCase().includes(q);
-      const matchI = !industry || a.industry === industry;
-      const matchY = !year || a.year === year;
-      return matchQ && matchI && matchY;
-    });
-    renderDirectoryGrid(filtered);
-  }
-  function renderDirectoryGrid(alumni) {
-    const grid = document.getElementById('dir-modal-grid');
-    const avatarColors = [
-      'linear-gradient(135deg,#1140d9,#6d88ff)',
-      'linear-gradient(135deg,#0f766e,#34d399)',
-      'linear-gradient(135deg,#7c3aed,#a78bfa)',
-      'linear-gradient(135deg,#dc2626,#f87171)',
-      'linear-gradient(135deg,#d97706,#fbbf24)'
-    ];
-    if (!alumni.length) {
-      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:2rem;">No alumni found matching your search.</p>';
-      return;
-    }
-    grid.innerHTML = alumni.map((a, i) => `
-      <div class="dir-alumni-card">
-        <div class="dir-alumni-avatar" style="background:${avatarColors[i % avatarColors.length]};" aria-hidden="true">${getInitials(a.name)}</div>
-        <div class="dir-alumni-name">${a.name}</div>
-        <div class="dir-alumni-meta">${a.role} · ${a.location}</div>
-        <div class="dir-alumni-year">Class of ${a.year}</div>
-        <button class="connect-btn" style="margin:0 auto;display:block;" onclick="toggleConnect(this)" aria-label="Connect with ${a.name}">Connect</button>
+    if (!results.length) { dd.innerHTML='<p style="text-align:center;color:var(--muted);padding:1rem;font-size:.82rem">No results found</p>'; return; }
+    dd.innerHTML = results.map(r=>`
+      <div class="search-result-item" onclick="window.location.href='${r.url}'">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(17,64,217,.1);display:grid;place-items:center;flex-shrink:0"><span class="material-icons-round" style="font-size:18px;color:var(--primary)">${r.icon}</span></div>
+        <div><div style="font-weight:700;font-size:.85rem;color:var(--text)">${r.title}</div><div style="font-size:.75rem;color:var(--muted)">${r.sub}</div></div>
       </div>`).join('');
-  }
+    setTimeout(()=>document.addEventListener('click',()=>dd.classList.remove('open'),{once:true}),0);
+  };
 
-  // ── Keyboard: Escape closes messages ───────────────────────────────────────
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      if (messagesOpen) closeMessages();
-      if (notifOpen) { document.getElementById('notif-dropdown').style.display = 'none'; notifOpen = false; }
-    }
+  // ── UI helpers ─────────────────────────────────────────────────────────────
+  window.scrollToFeed    = e=>{ e.preventDefault(); document.getElementById('feed').scrollIntoView({behavior:'smooth'}); };
+  window.scrollToSection = (e,id)=>{ e.preventDefault(); const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); };
+  window.showFirebaseSetupGuide = ()=>document.getElementById('setup-modal').classList.add('open');
+  window.handleNewsletter = e=>{ e.preventDefault(); const f=e.target,em=f.querySelector('input[type="email"]'),fb=document.getElementById('nl-success'); if(!em||!fb)return; fb.textContent='Thanks. '+em.value.trim()+' will now receive BU alumni updates.'; fb.hidden=false; f.reset(); };
+
+  // Escape key closes modals
+  document.addEventListener('keydown', e=>{
+    if (e.key!=='Escape') return;
+    document.getElementById('auth-modal').classList.remove('open');
+    document.getElementById('profile-modal').classList.remove('open');
+    document.getElementById('setup-modal').classList.remove('open');
+    if (msgOpen) closeMessages();
+    if (notifOpen) { document.getElementById('notif-dropdown').style.display='none'; notifOpen=false; }
   });
 
-  // ── Scroll helpers ──────────────────────────────────────────────────────────
-  function scrollToFeed(e) { e.preventDefault(); document.getElementById('feed').scrollIntoView({ behavior: 'smooth' }); }
-  function scrollToSection(e, id) { e.preventDefault(); const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }
-
-  // ── Newsletter ──────────────────────────────────────────────────────────────
-  function handleNewsletter(e) {
-    e.preventDefault();
-    const form = e.target;
-    const emailField = form.querySelector('input[type="email"]');
-    const feedback = document.getElementById('nl-success');
-    if (!emailField || !feedback) return;
-    feedback.textContent = 'Thanks. ' + emailField.value.trim() + ' will now receive BU alumni updates.';
-    feedback.hidden = false;
-    form.reset();
-  }
-
-  // ══════════════════════════════════════════════════════════════════════════
-  // LEARNING OPPORTUNITIES
-  // ══════════════════════════════════════════════════════════════════════════
-
-  // ── Course data ────────────────────────────────────────────────────────────
-  var COURSES = [
-    // Linux Foundation
-    { id:'c1',  title:'Introduction to Linux',                    provider:'linux-foundation', providerName:'Linux Foundation',       category:'linux',         price:'free',  duration:'60 hours',  badge:'popular',  description:'A comprehensive introduction to the Linux operating system, covering command line, file systems, and scripting.', url:'https://training.linuxfoundation.org/training/introduction-to-linux/', tags:['linux','open source','command line'] },
-    { id:'c2',  title:'Introduction to Kubernetes',               provider:'linux-foundation', providerName:'Linux Foundation',       category:'devops',        price:'free',  duration:'14 hours',  badge:'trending', description:'Learn the fundamentals of Kubernetes container orchestration and cloud-native application deployment.', url:'https://training.linuxfoundation.org/training/introduction-to-kubernetes/', tags:['kubernetes','containers','devops'] },
-    { id:'c3',  title:'Introduction to Cloud Infrastructure Technologies', provider:'linux-foundation', providerName:'Linux Foundation', category:'cloud', price:'free', duration:'14 hours', badge:'new', description:'Explore cloud computing concepts, IaaS, PaaS, SaaS, and leading cloud providers.', url:'https://training.linuxfoundation.org/training/introduction-to-cloud-infrastructure-technologies/', tags:['cloud','infrastructure','devops'] },
-    { id:'c4',  title:'Open Source Software Development, Linux and Git', provider:'linux-foundation', providerName:'Linux Foundation', category:'linux', price:'free', duration:'30 hours', badge:'', description:'Master open source development workflows, Linux fundamentals, and Git version control.', url:'https://www.edx.org/professional-certificate/linuxfoundationx-open-source-software-development-linux-and-git', tags:['linux','git','open source'] },
-    // Cisco Networking Academy
-    { id:'c5',  title:'Introduction to Cybersecurity',            provider:'cisco',            providerName:'Cisco Networking Academy', category:'cybersecurity', price:'free',  duration:'6 hours',   badge:'popular',  description:'Explore the world of cybersecurity and learn how to protect yourself and your organisation online.', url:'https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity', tags:['cybersecurity','security','beginner'] },
-    { id:'c6',  title:'Networking Basics',                        provider:'cisco',            providerName:'Cisco Networking Academy', category:'networking',    price:'free',  duration:'22 hours',  badge:'trending', description:'Learn the fundamentals of computer networking, IP addressing, and network protocols.', url:'https://www.netacad.com/courses/networking/networking-basics', tags:['networking','tcp/ip','cisco'] },
-    { id:'c7',  title:'Python Essentials 1',                      provider:'cisco',            providerName:'Cisco Networking Academy', category:'web-dev',       price:'free',  duration:'25 hours',  badge:'new',      description:'Start your Python programming journey with this beginner-friendly course from Cisco.', url:'https://www.netacad.com/courses/programming/pcap-programming-essentials-python', tags:['python','programming','beginner'] },
-    { id:'c8',  title:'Cybersecurity Essentials',                 provider:'cisco',            providerName:'Cisco Networking Academy', category:'cybersecurity', price:'free',  duration:'30 hours',  badge:'',         description:'Deepen your cybersecurity knowledge with threat analysis, cryptography, and network security.', url:'https://www.netacad.com/courses/cybersecurity/cybersecurity-essentials', tags:['cybersecurity','encryption','network security'] },
-    { id:'c9',  title:'CCNA: Introduction to Networks',           provider:'cisco',            providerName:'Cisco Networking Academy', category:'networking',    price:'free',  duration:'70 hours',  badge:'popular',  description:'The first course in the CCNA curriculum — covers network fundamentals, Ethernet, and IPv4/IPv6.', url:'https://www.netacad.com/courses/networking/ccna-introduction-networks', tags:['ccna','networking','cisco','certification'] },
-    // Google
-    { id:'c10', title:'Google IT Support Professional Certificate', provider:'google',          providerName:'Google',                 category:'networking',    price:'free',  duration:'6 months',  badge:'trending', description:'Prepare for a career in IT support with this beginner-level professional certificate from Google.', url:'https://grow.google/certificates/it-support/', tags:['it support','networking','google','certification'] },
-    { id:'c11', title:'Google Cybersecurity Certificate',          provider:'google',           providerName:'Google',                 category:'cybersecurity', price:'free',  duration:'6 months',  badge:'new',      description:'Build job-ready cybersecurity skills with hands-on labs and real-world scenarios.', url:'https://grow.google/certificates/cybersecurity/', tags:['cybersecurity','google','certification','siem'] },
-    { id:'c12', title:'Google Data Analytics Certificate',         provider:'google',           providerName:'Google',                 category:'data',          price:'free',  duration:'6 months',  badge:'popular',  description:'Learn data analytics tools and techniques including SQL, R, Tableau, and spreadsheets.', url:'https://grow.google/certificates/data-analytics/', tags:['data analytics','sql','tableau','google'] },
-    { id:'c13', title:'Google UX Design Certificate',              provider:'google',           providerName:'Google',                 category:'web-dev',       price:'free',  duration:'6 months',  badge:'',         description:'Design user-centred products and build a professional UX portfolio with Google.', url:'https://grow.google/certificates/ux-design/', tags:['ux','design','figma','google'] },
-    // IBM
-    { id:'c14', title:'IBM AI Foundations for Business',           provider:'ibm',              providerName:'IBM',                    category:'data',          price:'free',  duration:'6 hours',   badge:'trending', description:'Understand AI concepts, machine learning, and how AI is transforming business.', url:'https://www.edx.org/professional-certificate/ibm-applied-ai', tags:['ai','machine learning','ibm','business'] },
-    { id:'c15', title:'IBM Cybersecurity Analyst Professional Certificate', provider:'ibm',     providerName:'IBM',                    category:'cybersecurity', price:'free',  duration:'8 months',  badge:'new',      description:'Develop skills for a cybersecurity analyst role with IBM\'s professional certificate program.', url:'https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst', tags:['cybersecurity','siem','ibm','certification'] },
-    { id:'c16', title:'IBM Full Stack Software Developer',         provider:'ibm',              providerName:'IBM',                    category:'web-dev',       price:'free',  duration:'4 months',  badge:'popular',  description:'Build full-stack web applications using React, Node.js, Python, Django, and cloud platforms.', url:'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer', tags:['full stack','react','nodejs','ibm'] },
-    // Meta
-    { id:'c17', title:'Meta Front-End Developer Certificate',      provider:'meta',             providerName:'Meta',                   category:'web-dev',       price:'free',  duration:'7 months',  badge:'trending', description:'Learn HTML, CSS, JavaScript, React, and UI/UX principles from Meta engineers.', url:'https://www.coursera.org/professional-certificates/meta-front-end-developer', tags:['html','css','javascript','react','meta'] },
-    { id:'c18', title:'Meta Back-End Developer Certificate',       provider:'meta',             providerName:'Meta',                   category:'web-dev',       price:'free',  duration:'8 months',  badge:'',         description:'Build back-end web applications with Python, Django, REST APIs, and databases.', url:'https://www.coursera.org/professional-certificates/meta-back-end-developer', tags:['python','django','api','meta'] },
-    // AWS
-    { id:'c19', title:'AWS Cloud Practitioner Essentials',         provider:'aws',              providerName:'AWS',                    category:'cloud',         price:'free',  duration:'6 hours',   badge:'popular',  description:'Build foundational AWS cloud knowledge and prepare for the AWS Certified Cloud Practitioner exam.', url:'https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/', tags:['aws','cloud','certification','amazon'] },
-    { id:'c20', title:'AWS Cloud Technical Essentials',            provider:'aws',              providerName:'AWS',                    category:'cloud',         price:'free',  duration:'12 hours',  badge:'new',      description:'Explore core AWS services including compute, storage, databases, and networking.', url:'https://www.coursera.org/learn/aws-cloud-technical-essentials', tags:['aws','cloud','s3','ec2'] },
-    // edX / Coursera
-    { id:'c21', title:'CS50: Introduction to Computer Science',    provider:'edx',              providerName:'edX (Harvard)',           category:'web-dev',       price:'free',  duration:'12 weeks',  badge:'trending', description:'Harvard\'s legendary intro to computer science — algorithms, data structures, C, Python, SQL, and web development.', url:'https://www.edx.org/course/introduction-computer-science-harvardx-cs50x', tags:['computer science','python','c','harvard'] },
-    { id:'c22', title:'Introduction to Networking and Cloud Computing', provider:'coursera',    providerName:'Coursera (Microsoft)',    category:'networking',    price:'free',  duration:'4 weeks',   badge:'',         description:'Learn networking fundamentals and cloud computing concepts from Microsoft on Coursera.', url:'https://www.coursera.org/learn/introduction-to-networking-and-cloud-computing', tags:['networking','cloud','microsoft'] },
-  ];
-
-  // ── Provider config (logos / colours) ─────────────────────────────────────
-  var PROVIDERS = {
-    'linux-foundation': { name:'Linux Foundation',        color:'#003366', bg:'#e8f0fb', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#003366"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="#fff">LF</text></svg>' },
-    'cisco':            { name:'Cisco Networking Academy', color:'#1ba0d7', bg:'#e0f4fd', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#1ba0d7"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="9" fill="#fff">CISCO</text></svg>' },
-    'google':           { name:'Google',                   color:'#4285f4', bg:'#e8f0fe', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#fff" stroke="#e5e7eb"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="10" fill="#4285f4">G</text></svg>' },
-    'ibm':              { name:'IBM',                      color:'#0f62fe', bg:'#edf5ff', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0f62fe"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="#fff">IBM</text></svg>' },
-    'meta':             { name:'Meta',                     color:'#0082fb', bg:'#e7f3ff', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0082fb"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="9" fill="#fff">META</text></svg>' },
-    'coursera':         { name:'Coursera',                 color:'#0056d2', bg:'#e8f0fb', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0056d2"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="7" fill="#fff">COURSERA</text></svg>' },
-    'edx':              { name:'edX',                      color:'#02262b', bg:'#e6f4f1', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#02262b"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="#fff">edX</text></svg>' },
-    'aws':              { name:'AWS',                      color:'#ff9900', bg:'#fff8e1', icon:'<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#232f3e"/><text x="20" y="26" text-anchor="middle" font-family="Arial" font-weight="900" font-size="9" fill="#ff9900">AWS</text></svg>' },
-  };
-
-  var BADGE_CONFIG = {
-    'new':      { label:'New',      cls:'badge-new' },
-    'trending': { label:'Trending', cls:'badge-trending' },
-    'popular':  { label:'Popular',  cls:'badge-popular' },
-  };
-
-  var CAT_LABELS = {
-    'cybersecurity':'Cybersecurity','networking':'Networking','web-dev':'Web Dev',
-    'cloud':'Cloud','data':'Data & AI','linux':'Linux','business':'Business','devops':'DevOps',
-  };
-
-  // ── State ──────────────────────────────────────────────────────────────────
-  var allCourses   = COURSES.slice();   // mutable (admin can add)
-  var currentView  = 'grid';
-  var alertEnabled = false;
-
-  // ── Render a course card ───────────────────────────────────────────────────
-  function renderCourseCard(course, compact) {
-    var prov  = PROVIDERS[course.provider] || { name: course.providerName, color:'#374151', bg:'#f3f4f6', icon:'' };
-    var badge = course.badge ? BADGE_CONFIG[course.badge] : null;
-    var catLabel = CAT_LABELS[course.category] || course.category;
-
-    var badgeHtml = badge
-      ? '<span class="course-badge ' + badge.cls + '" aria-label="' + badge.label + '">' + badge.label + '</span>'
-      : '';
-
-    var priceHtml = course.price === 'free'
-      ? '<span class="course-price-free">Free</span>'
-      : '<span class="course-price-paid">Paid</span>';
-
-    if (compact) {
-      return '<div class="course-card course-card--compact" data-id="' + course.id + '">' +
-        '<div class="course-card-logo" style="background:' + prov.bg + ';">' + prov.icon + '</div>' +
-        '<div class="course-card-body">' +
-          '<div class="course-card-meta-row">' +
-            '<span class="course-cat-tag">' + catLabel + '</span>' +
-            priceHtml + badgeHtml +
-          '</div>' +
-          '<h4 class="course-card-title">' + course.title + '</h4>' +
-          '<p class="course-card-provider">' + prov.name + '</p>' +
-        '</div>' +
-        '<a class="btn btn-primary course-apply-btn" href="' + course.url + '" target="_blank" rel="noopener noreferrer" aria-label="Apply for ' + course.title + '">Apply</a>' +
-      '</div>';
-    }
-
-    return '<article class="course-card" data-id="' + course.id + '" data-category="' + course.category + '" data-provider="' + course.provider + '" data-price="' + course.price + '">' +
-      '<div class="course-card-header" style="background:' + prov.bg + ';">' +
-        '<div class="course-card-logo-wrap">' + prov.icon + '</div>' +
-        '<div class="course-card-badges">' + badgeHtml + priceHtml + '</div>' +
-      '</div>' +
-      '<div class="course-card-body">' +
-        '<span class="course-cat-tag">' + catLabel + '</span>' +
-        '<h3 class="course-card-title">' + course.title + '</h3>' +
-        '<p class="course-card-provider" style="color:' + prov.color + ';">' + prov.name + '</p>' +
-        '<p class="course-card-desc">' + course.description + '</p>' +
-        (course.duration ? '<div class="course-card-duration"><span class="material-icons-round" aria-hidden="true">schedule</span>' + course.duration + '</div>' : '') +
-      '</div>' +
-      '<div class="course-card-footer">' +
-        '<a class="btn btn-primary course-apply-btn" href="' + course.url + '" target="_blank" rel="noopener noreferrer" aria-label="Apply for ' + course.title + '">' +
-          '<span class="material-icons-round" aria-hidden="true">open_in_new</span> Apply Now' +
-        '</a>' +
-        '<button class="course-save-btn" onclick="saveCourse(\'' + course.id + '\', this)" aria-label="Save course" title="Save for later">' +
-          '<span class="material-icons-round" aria-hidden="true">bookmark_border</span>' +
-        '</button>' +
-      '</div>' +
-    '</article>';
-  }
-
-  // ── Filter & render ────────────────────────────────────────────────────────
-  function filterCourses() {
-    var cat      = document.getElementById('filter-cat').value;
-    var provider = document.getElementById('filter-provider').value;
-    var price    = document.getElementById('filter-price').value;
-    var query    = (document.getElementById('learn-search').value || '').toLowerCase().trim();
-
-    var filtered = allCourses.filter(function(c) {
-      var matchCat  = cat      === 'all' || c.category === cat;
-      var matchProv = provider === 'all' || c.provider === provider;
-      var matchPrice= price    === 'all' || c.price    === price;
-      var matchQ    = !query   || query === 'admin' ||
-        c.title.toLowerCase().includes(query) ||
-        c.description.toLowerCase().includes(query) ||
-        (c.tags || []).some(function(t){ return t.includes(query); }) ||
-        (PROVIDERS[c.provider] || {}).name.toLowerCase().includes(query);
-      return matchCat && matchProv && matchPrice && matchQ;
-    });
-
-    renderCourseGrid(filtered);
-  }
-
-  function renderCourseGrid(courses) {
-    var grid    = document.getElementById('learn-grid');
-    var noRes   = document.getElementById('learn-no-results');
-    var countEl = document.getElementById('learn-count');
-
-    if (!courses.length) {
-      grid.innerHTML = '';
-      noRes.hidden   = false;
-      countEl.textContent = '0 courses found';
-      return;
-    }
-
-    noRes.hidden = true;
-    countEl.textContent = courses.length + ' course' + (courses.length !== 1 ? 's' : '') + ' found';
-
-    grid.className = 'learn-grid' + (currentView === 'list' ? ' learn-grid--list' : '');
-    grid.innerHTML = courses.map(function(c){ return renderCourseCard(c, false); }).join('');
-  }
-
-  function clearFilters() {
-    document.getElementById('filter-cat').value      = 'all';
-    document.getElementById('filter-provider').value = 'all';
-    document.getElementById('filter-price').value    = 'all';
-    document.getElementById('learn-search').value    = '';
-    filterCourses();
-  }
-
-  // ── View toggle ────────────────────────────────────────────────────────────
-  function setView(mode) {
-    currentView = mode;
-    document.getElementById('view-grid-btn').classList.toggle('active', mode === 'grid');
-    document.getElementById('view-list-btn').classList.toggle('active', mode === 'list');
-    document.getElementById('view-grid-btn').setAttribute('aria-pressed', mode === 'grid');
-    document.getElementById('view-list-btn').setAttribute('aria-pressed', mode === 'list');
-    filterCourses();
-  }
-
-  // ── Recommended strip ──────────────────────────────────────────────────────
-  function renderRecommended() {
-    if (!user) return;
-    var strip = document.getElementById('learn-recommended');
-    var grid  = document.getElementById('recommended-grid');
-    // Pick 3 trending/popular courses
-    var picks = allCourses.filter(function(c){ return c.badge === 'trending' || c.badge === 'popular'; }).slice(0, 3);
-    if (!picks.length) return;
-    grid.innerHTML = picks.map(function(c){ return renderCourseCard(c, true); }).join('');
-    strip.hidden = false;
-  }
-
-  // ── Save course ────────────────────────────────────────────────────────────
-  function saveCourse(courseId, btn) {
-    var saved = JSON.parse(localStorage.getItem('buSavedCourses') || '[]');
-    var idx   = saved.indexOf(courseId);
-    var icon  = btn.querySelector('.material-icons-round');
-    if (idx === -1) {
-      saved.push(courseId);
-      if (icon) icon.textContent = 'bookmark';
-      btn.style.color = 'var(--primary)';
-      btn.setAttribute('aria-label', 'Unsave course');
-    } else {
-      saved.splice(idx, 1);
-      if (icon) icon.textContent = 'bookmark_border';
-      btn.style.color = '';
-      btn.setAttribute('aria-label', 'Save course');
-    }
-    localStorage.setItem('buSavedCourses', JSON.stringify(saved));
-  }
-
-  // ── Alert toggle ───────────────────────────────────────────────────────────
-  function toggleCourseAlert(btn) {
-    alertEnabled = !alertEnabled;
-    localStorage.setItem('buCourseAlert', alertEnabled ? '1' : '0');
-    var icon  = btn.querySelector('.material-icons-round');
-    var label = btn.querySelector('.learn-alert-label');
-    if (alertEnabled) {
-      if (icon)  icon.textContent  = 'notifications_active';
-      if (label) label.textContent = 'Alerts On';
-      btn.classList.add('alert-active');
-      btn.setAttribute('aria-label', 'Disable course alerts');
-    } else {
-      if (icon)  icon.textContent  = 'notifications_none';
-      if (label) label.textContent = 'Notify Me';
-      btn.classList.remove('alert-active');
-      btn.setAttribute('aria-label', 'Get notified when new courses are added');
-    }
-  }
-
-  // ── Admin panel — members only ─────────────────────────────────────────────
-  function isMember() {
-    // User is a member if they are signed in AND have a membership record
-    // We check buCurrentUser (signed in) + buAlumniAccounts or memberId in their record
-    if (!user) return false;
-    // Check if they have a memberId stored (set after membership registration)
-    var memberId = user.memberId || user.member_id || null;
-    if (memberId) return true;
-    // Fallback: check if any member record exists for their email in localStorage
-    var members = JSON.parse(localStorage.getItem('buMemberRecords') || '[]');
-    return members.some(function(m) {
-      return m.email && m.email.toLowerCase() === (user.email || '').toLowerCase();
-    });
-  }
-
-  function openAdminPanel() {
-    var gate  = document.getElementById('learn-member-gate');
-    var panel = document.getElementById('learn-admin-panel');
-
-    if (!user) {
-      // Not signed in at all
-      gate.hidden  = false;
-      panel.hidden = true;
-      gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-
-    if (!isMember()) {
-      // Signed in but not a member
-      gate.hidden  = false;
-      panel.hidden = true;
-      gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-
-    // Verified member — show the panel
-    gate.hidden  = true;
-    panel.hidden = false;
-    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  function closeAdminPanel() {
-    document.getElementById('learn-admin-panel').hidden = true;
-    document.getElementById('adm-success').hidden = true;
-    document.getElementById('learn-admin-form').reset();
-  }
-  function adminAddCourse(e) {
-    e.preventDefault();
-    var newCourse = {
-      id:          'c' + Date.now(),
-      title:       document.getElementById('adm-title').value.trim(),
-      provider:    document.getElementById('adm-provider').value,
-      providerName:(PROVIDERS[document.getElementById('adm-provider').value] || {}).name || '',
-      category:    document.getElementById('adm-category').value,
-      price:       document.getElementById('adm-price').value,
-      duration:    document.getElementById('adm-duration').value.trim(),
-      description: document.getElementById('adm-desc').value.trim(),
-      url:         document.getElementById('adm-url').value.trim(),
-      badge:       document.getElementById('adm-badge').value,
-      tags:        [],
-    };
-    allCourses.unshift(newCourse);
-    // Persist to localStorage
-    localStorage.setItem('buAdminCourses', JSON.stringify(allCourses));
-    filterCourses();
-    document.getElementById('adm-success').hidden = false;
-    document.getElementById('learn-admin-form').reset();
-    setTimeout(function(){ document.getElementById('adm-success').hidden = true; }, 3000);
+  // Mobile nav toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', e=>{ e.stopPropagation(); const open=mobileNav.classList.toggle('open'); navToggle.setAttribute('aria-expanded',open); navToggle.innerHTML=open?'&#10005;':'&#9776;'; });
+    document.addEventListener('click', e=>{ if(!mobileNav.contains(e.target)&&!navToggle.contains(e.target)&&mobileNav.classList.contains('open')){ mobileNav.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); navToggle.innerHTML='&#9776;'; } });
   }
 
   // ── Init ───────────────────────────────────────────────────────────────────
-  function initLearning() {
-    // Restore admin-added courses
-    var stored = localStorage.getItem('buAdminCourses');
-    if (stored) {
-      try { allCourses = JSON.parse(stored); } catch(_) {}
-    }
-    // Restore alert state
-    alertEnabled = localStorage.getItem('buCourseAlert') === '1';
-    if (alertEnabled) {
-      var btn = document.getElementById('learn-alert-btn');
-      if (btn) toggleCourseAlert(btn);
-    }
-    // Show "Manage Courses" button only to signed-in members
-    var triggerWrap = document.getElementById('learn-admin-trigger-wrap');
-    if (triggerWrap) {
-      triggerWrap.hidden = !isMember();
-    }
-    filterCourses();
-    renderRecommended();
-  }
+  loadGroups();
 
-  
-  // ── Init ────────────────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', function() {
-    initSidebar();
-    initComposer();
-    renderFeed();
-    initLearning();
-  });
   </script>
 </body>
 </html>
