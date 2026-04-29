@@ -285,76 +285,207 @@
 
       </div>
     </section>
-    <!-- Event Registration Form -->
-    <section class="section section-alt" id="event-register">
-      <div class="container" style="max-width:600px;">
-        <div class="section-title-wrap fade-up" style="text-align:center;margin-bottom:2rem;">
-          <p class="eyebrow">Secure Your Spot</p>
-          <h2 id="register-form-title">Event Registration</h2>
-          <p>Fill in your details below. Your ticket will be sent to your email address.</p>
+    <!-- Event Registration Form - Modern Design -->
+    <section class="section" id="event-register" style="padding: 5rem 0; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); position: relative; overflow: hidden;">
+      <!-- Decorative background -->
+      <div style="position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(17, 64, 217, 0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+      <div style="position: absolute; bottom: -150px; left: -150px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+      
+      <div class="container" style="max-width:700px; position: relative; z-index: 1;">
+        <!-- Header -->
+        <div class="section-title-wrap fade-up" style="text-align:center; margin-bottom:3rem;">
+          <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 0.5rem 1.25rem; border-radius: 50px; margin-bottom: 1.25rem; border: 1px solid #bfdbfe;">
+            <span class="material-icons-round" style="font-size: 1.1rem; color: #1140d9;">event_available</span>
+            <span style="font-weight: 700; font-size: 0.85rem; color: #1e40af; letter-spacing: 0.5px;">SECURE YOUR SPOT</span>
+          </div>
+          <h2 id="register-form-title" style="font-size: 2.5rem; color: #0f172a; margin-bottom: 1rem; font-weight: 800; letter-spacing: -0.02em;">Event Registration</h2>
+          <p style="font-size: 1.05rem; color: #64748b; line-height: 1.6; max-width: 500px; margin: 0 auto;">
+            Fill in your details below. Your ticket will be sent to your email address instantly.
+          </p>
         </div>
 
-        <form class="event-reg-form" id="event-reg-form" novalidate>
-          <!-- Hidden event metadata populated by setEventTitle() -->
-          <input type="hidden" id="reg-event-name"     value="" />
-          <input type="hidden" id="reg-event-date"     value="" />
-          <input type="hidden" id="reg-event-location" value="" />
-          <input type="hidden" id="reg-event-time"     value="" />
-
-          <div class="form-group">
-            <label for="reg-full-name">Full Name <span aria-hidden="true" style="color:var(--primary)">*</span></label>
-            <input type="text" id="reg-full-name" placeholder="e.g. Amara Ssekandi" required autocomplete="name" />
-          </div>
-
-          <div class="form-group">
-            <label for="reg-email">Email Address <span aria-hidden="true" style="color:var(--primary)">*</span></label>
-            <input type="email" id="reg-email" placeholder="your@email.com" required autocomplete="email" />
-            <span class="field-hint">Your ticket &amp; receipt will be sent here.</span>
-          </div>
-
-          <div class="form-group">
-            <label for="reg-phone">Phone Number <span aria-hidden="true" style="color:var(--primary)">*</span></label>
-            <input type="tel" id="reg-phone" placeholder="+256 700 000 000" required autocomplete="tel" />
-          </div>
-
-          <!-- Error message -->
-          <p class="form-error" id="reg-error" hidden></p>
-
-          <button class="btn btn-primary" id="reg-submit-btn" type="button" style="width:100%;margin-top:0.5rem;"
-                  onclick="submitRegistration()">
-            Register &amp; Get Ticket
-          </button>
-        </form>
-
-        <!-- Success state -->
-        <div class="event-reg-success" id="event-reg-success" hidden>
-          <div class="ticket-card">
-            <div class="ticket-header">
-              <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="ticket-logo" />
-              <span class="ticket-badge"><span class="material-icons-round mi-check">check</span> Registered</span>
+        <!-- Form Card -->
+        <div style="background: #ffffff; border-radius: 24px; padding: 3rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); border: 1px solid #e2e8f0;">
+          
+          <!-- Event Info Badge -->
+          <div id="event-info-badge" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; display: none;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <span class="material-icons-round" style="font-size: 1.5rem; color: #1140d9;">event</span>
+              <h3 id="event-badge-title" style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;"></h3>
             </div>
-            <h3 id="ticket-event-name"></h3>
-            <div class="ticket-details">
-              <div><span class="ticket-label">Name</span>     <span id="ticket-name"></span></div>
-              <div><span class="ticket-label">Email</span>    <span id="ticket-email"></span></div>
-              <div><span class="ticket-label">Phone</span>    <span id="ticket-phone"></span></div>
-              <div><span class="ticket-label">Ticket ID</span><span id="ticket-id"></span></div>
+            <div id="event-badge-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; font-size: 0.9rem; color: #475569;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="material-icons-round" style="font-size: 1rem; color: #3b82f6;">calendar_today</span>
+                <span id="event-badge-date"></span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="material-icons-round" style="font-size: 1rem; color: #3b82f6;">schedule</span>
+                <span id="event-badge-time"></span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="material-icons-round" style="font-size: 1rem; color: #3b82f6;">location_on</span>
+                <span id="event-badge-location"></span>
+              </div>
             </div>
-            <p class="ticket-note" id="ticket-note"></p>
-
-            <!-- Download button ? href filled by JS after API responds -->
-            <a id="ticket-download-btn"
-               class="btn btn-primary"
-               href="#"
-               download
-               style="width:100%;margin-top:1rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:0.4rem;">
-              <span class="material-icons-round">download</span> Download Ticket &amp; Receipt (PDF)
-            </a>
           </div>
-          <div style="text-align:center;margin-top:1.5rem;">
-            <button class="btn btn-secondary" onclick="resetRegForm()">Register for Another Event</button>
+
+          <form class="event-reg-form" id="event-reg-form" novalidate>
+            <!-- Hidden event metadata -->
+            <input type="hidden" id="reg-event-name" value="" />
+            <input type="hidden" id="reg-event-date" value="" />
+            <input type="hidden" id="reg-event-location" value="" />
+            <input type="hidden" id="reg-event-time" value="" />
+
+            <!-- Full Name -->
+            <div class="form-group" style="margin-bottom: 1.75rem;">
+              <label for="reg-full-name" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #0f172a; margin-bottom: 0.75rem; font-size: 0.95rem;">
+                <span class="material-icons-round" style="font-size: 1.1rem; color: #3b82f6;">person</span>
+                Full Name <span style="color: #ef4444;">*</span>
+              </label>
+              <input type="text" id="reg-full-name" placeholder="e.g. Amara Ssekandi" required autocomplete="name" 
+                     style="width: 100%; padding: 1rem 1.25rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.3s ease; background: #f8fafc;"
+                     onfocus="this.style.borderColor='#3b82f6'; this.style.background='#ffffff'; this.style.boxShadow='0 0 0 4px rgba(59, 130, 246, 0.1)'"
+                     onblur="this.style.borderColor='#e2e8f0'; this.style.background='#f8fafc'; this.style.boxShadow='none'" />
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group" style="margin-bottom: 1.75rem;">
+              <label for="reg-email" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #0f172a; margin-bottom: 0.75rem; font-size: 0.95rem;">
+                <span class="material-icons-round" style="font-size: 1.1rem; color: #3b82f6;">email</span>
+                Email Address <span style="color: #ef4444;">*</span>
+              </label>
+              <input type="email" id="reg-email" placeholder="your@email.com" required autocomplete="email" 
+                     style="width: 100%; padding: 1rem 1.25rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.3s ease; background: #f8fafc;"
+                     onfocus="this.style.borderColor='#3b82f6'; this.style.background='#ffffff'; this.style.boxShadow='0 0 0 4px rgba(59, 130, 246, 0.1)'"
+                     onblur="this.style.borderColor='#e2e8f0'; this.style.background='#f8fafc'; this.style.boxShadow='none'" />
+              <span style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #64748b; margin-top: 0.5rem;">
+                <span class="material-icons-round" style="font-size: 0.9rem;">info</span>
+                Your ticket &amp; receipt will be sent here
+              </span>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group" style="margin-bottom: 2rem;">
+              <label for="reg-phone" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #0f172a; margin-bottom: 0.75rem; font-size: 0.95rem;">
+                <span class="material-icons-round" style="font-size: 1.1rem; color: #3b82f6;">phone</span>
+                Phone Number <span style="color: #ef4444;">*</span>
+              </label>
+              <input type="tel" id="reg-phone" placeholder="+256 700 000 000" required autocomplete="tel" 
+                     style="width: 100%; padding: 1rem 1.25rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: all 0.3s ease; background: #f8fafc;"
+                     onfocus="this.style.borderColor='#3b82f6'; this.style.background='#ffffff'; this.style.boxShadow='0 0 0 4px rgba(59, 130, 246, 0.1)'"
+                     onblur="this.style.borderColor='#e2e8f0'; this.style.background='#f8fafc'; this.style.boxShadow='none'" />
+            </div>
+
+            <!-- Error message -->
+            <div id="reg-error" hidden style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; color: #dc2626;">
+              <span class="material-icons-round" style="font-size: 1.2rem;">error</span>
+              <span id="reg-error-text"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary" id="reg-submit-btn" type="button" onclick="submitRegistration()"
+                    style="width: 100%; padding: 1.125rem 2rem; font-size: 1.05rem; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.75rem; background: linear-gradient(135deg, #1140d9, #3b82f6); border: none; color: #ffffff; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(17, 64, 217, 0.3);"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(17, 64, 217, 0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(17, 64, 217, 0.3)'">
+              <span class="material-icons-round" style="font-size: 1.2rem;">confirmation_number</span>
+              Register &amp; Get Ticket
+            </button>
+
+            <!-- Security Note -->
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; font-size: 0.85rem; color: #64748b;">
+              <span class="material-icons-round" style="font-size: 1rem; color: #10b981;">verified_user</span>
+              <span>Your information is secure and will not be shared</span>
+            </div>
+          </form>
+        </div>
+
+        <!-- Success State - Modern Design -->
+        <div class="event-reg-success" id="event-reg-success" hidden style="background: #ffffff; border-radius: 24px; padding: 3rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); border: 1px solid #e2e8f0;">
+          
+          <!-- Success Icon -->
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); animation: successPulse 0.6s ease-out;">
+              <span class="material-icons-round" style="font-size: 3rem; color: #ffffff;">check_circle</span>
+            </div>
+            <h3 style="font-size: 1.75rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">Registration Confirmed!</h3>
+            <p style="font-size: 1rem; color: #64748b;">Your ticket has been sent to your email</p>
+          </div>
+
+          <!-- Ticket Card -->
+          <div class="ticket-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid #bfdbfe; border-radius: 20px; padding: 2rem; margin-bottom: 2rem;">
+            
+            <!-- Ticket Header -->
+            <div class="ticket-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 2px dashed #bfdbfe;">
+              <div style="display: flex; align-items: center; gap: 1rem;">
+                <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="ticket-logo" style="width: 48px; height: 48px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);" />
+                <div>
+                  <div style="font-size: 0.75rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px;">BU Alumni Portal</div>
+                  <div style="font-size: 0.85rem; color: #475569; font-weight: 600;">Event Ticket</div>
+                </div>
+              </div>
+              <span class="ticket-badge" style="background: #10b981; color: #ffffff; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+                <span class="material-icons-round" style="font-size: 1rem;">check</span>
+                Confirmed
+              </span>
+            </div>
+
+            <!-- Event Name -->
+            <h3 id="ticket-event-name" style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem; line-height: 1.3;"></h3>
+
+            <!-- Ticket Details Grid -->
+            <div class="ticket-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+              <div style="background: #ffffff; padding: 1rem; border-radius: 12px; border: 1px solid #e0e7ff;">
+                <span class="ticket-label" style="display: block; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Name</span>
+                <span id="ticket-name" style="font-size: 1rem; font-weight: 600; color: #0f172a;"></span>
+              </div>
+              <div style="background: #ffffff; padding: 1rem; border-radius: 12px; border: 1px solid #e0e7ff;">
+                <span class="ticket-label" style="display: block; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Email</span>
+                <span id="ticket-email" style="font-size: 1rem; font-weight: 600; color: #0f172a; word-break: break-all;"></span>
+              </div>
+              <div style="background: #ffffff; padding: 1rem; border-radius: 12px; border: 1px solid #e0e7ff;">
+                <span class="ticket-label" style="display: block; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Phone</span>
+                <span id="ticket-phone" style="font-size: 1rem; font-weight: 600; color: #0f172a;"></span>
+              </div>
+              <div style="background: #ffffff; padding: 1rem; border-radius: 12px; border: 1px solid #e0e7ff;">
+                <span class="ticket-label" style="display: block; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Ticket ID</span>
+                <span id="ticket-id" style="font-size: 1rem; font-weight: 700; color: #1140d9;"></span>
+              </div>
+            </div>
+
+            <!-- Note -->
+            <p class="ticket-note" id="ticket-note" style="background: #ffffff; padding: 1rem; border-radius: 12px; border: 1px solid #e0e7ff; font-size: 0.9rem; color: #475569; line-height: 1.6; margin: 0;"></p>
+          </div>
+
+          <!-- Download Button -->
+          <a id="ticket-download-btn"
+             class="btn btn-primary"
+             href="#"
+             download
+             style="width:100%; padding: 1.125rem 2rem; text-align:center; display:flex; align-items:center; justify-content:center; gap:0.75rem; background: linear-gradient(135deg, #1140d9, #3b82f6); border-radius: 12px; font-size: 1.05rem; font-weight: 700; text-decoration: none; color: #ffffff; box-shadow: 0 4px 12px rgba(17, 64, 217, 0.3); transition: all 0.3s ease;"
+             onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(17, 64, 217, 0.4)'"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(17, 64, 217, 0.3)'">
+            <span class="material-icons-round" style="font-size: 1.2rem;">download</span>
+            Download Ticket &amp; Receipt (PDF)
+          </a>
+
+          <!-- Register Another -->
+          <div style="text-align:center; margin-top:2rem;">
+            <button class="btn btn-secondary" onclick="resetRegForm()" style="padding: 0.875rem 1.75rem; border-radius: 12px; font-weight: 600; background: #f1f5f9; color: #475569; border: 2px solid #e2e8f0; cursor: pointer; transition: all 0.3s ease;"
+                    onmouseover="this.style.background='#e2e8f0'; this.style.borderColor='#cbd5e1'"
+                    onmouseout="this.style.background='#f1f5f9'; this.style.borderColor='#e2e8f0'">
+              Register for Another Event
+            </button>
           </div>
         </div>
+
+        <style>
+          @keyframes successPulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+          }
+        </style>
+
       </div>
     </section>
   </main>
@@ -470,6 +601,21 @@
       document.getElementById('reg-event-date').value     = date     || '';
       document.getElementById('reg-event-location').value = location || '';
       document.getElementById('reg-event-time').value     = time     || '';
+      
+      // Populate the event info badge
+      const badge = document.getElementById('event-info-badge');
+      const badgeTitle = document.getElementById('event-badge-title');
+      const badgeDate = document.getElementById('event-badge-date');
+      const badgeTime = document.getElementById('event-badge-time');
+      const badgeLocation = document.getElementById('event-badge-location');
+      
+      if (badge && badgeTitle) {
+        badgeTitle.textContent = title;
+        if (badgeDate) badgeDate.textContent = date || 'TBA';
+        if (badgeTime) badgeTime.textContent = time || 'TBA';
+        if (badgeLocation) badgeLocation.textContent = location || 'TBA';
+        badge.style.display = 'block';
+      }
     }
 
     async function submitRegistration() {
@@ -500,7 +646,7 @@
       // Client-side validation
       errorEl.hidden = true;
       if (!fullName || !email || !phone) {
-        errorEl.textContent = 'Please fill in all required fields.';
+        document.getElementById('reg-error-text').textContent = 'Please fill in all required fields.';
         errorEl.hidden = false;
         return;
       }
@@ -543,12 +689,12 @@
         dlBtn.href     = data.downloadUrl;
         dlBtn.download = `BU-Ticket-${data.ticketId}.pdf`;
 
-        // Swap form ? success
-        document.getElementById('event-reg-form').hidden    = true;
+        // Swap form → success
+        document.getElementById('event-reg-form').parentElement.hidden = true;
         document.getElementById('event-reg-success').hidden = false;
 
       } catch (err) {
-        errorEl.textContent = err.message;
+        document.getElementById('reg-error-text').textContent = err.message;
         errorEl.hidden = false;
       } finally {
         btn.disabled    = false;
@@ -557,7 +703,7 @@
     }
 
     function resetRegForm() {
-      document.getElementById('event-reg-form').hidden    = false;
+      document.getElementById('event-reg-form').parentElement.hidden = false;
       document.getElementById('event-reg-success').hidden = true;
       document.getElementById('event-reg-form')
         .querySelectorAll('input[type=text],input[type=email],input[type=tel]')
@@ -565,6 +711,12 @@
       document.getElementById('register-form-title').textContent = 'Event Registration';
       document.getElementById('reg-event-name').value = '';
       document.getElementById('reg-error').hidden = true;
+      
+      // Hide the event info badge
+      const badge = document.getElementById('event-info-badge');
+      if (badge) {
+        badge.style.display = 'none';
+      }
     }
   </script>
   <script src="theme.js"></script>

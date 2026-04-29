@@ -65,12 +65,11 @@ html {
 /* ── ENHANCED HEADER WITH GLASSMORPHISM ── */
 
 .site-header {
-  background: rgba(255, 255, 255, 0.85) !important;
+  background: var(--nav-bg) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  box-shadow: var(--nav-shadow) !important;
   animation: fadeInDown 0.8s ease-out;
 }
 
@@ -86,7 +85,7 @@ html {
 }
 
 [data-theme="dark"] .site-header {
-  background: rgba(13, 17, 23, 0.75) !important;
+  background: var(--nav-bg) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -94,7 +93,7 @@ html {
 .nav-link {
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .nav-link::after {
@@ -184,13 +183,152 @@ html {
 .hero-card,
 .event-card,
 .member-card,
-.testimonial-card {
+.testimonial-card,
+.alumni-hub-card,
+.quick-link-card,
+.tier-card,
+.activity-card,
+.about-cta,
+.spotlight-card,
+.faq-item,
+.leader-card,
+.sidebar-widget,
+.filter-bar,
+.opp-card {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(15px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(15px) saturate(150%) !important;
+  border: 1px solid var(--glass-border) !important;
   position: relative;
   overflow: hidden;
+  /* Enhanced spacing and visual hierarchy */
+  padding: 1.75rem !important;
+}
+
+/* Card content spacing improvements */
+.stat-card > *,
+.content-card > *,
+.stats-feature-box > *,
+.hero-card > *,
+.event-card > *,
+.member-card > *,
+.testimonial-card > *,
+.alumni-hub-card > *,
+.quick-link-card > *,
+.tier-card > *,
+.activity-card > *,
+.about-cta > *,
+.spotlight-card > *,
+.faq-item > *,
+.leader-card > *,
+.sidebar-widget > *,
+.filter-bar > *,
+.opp-card > * {
+  margin-bottom: 1.25rem;
+}
+
+/* Last child margin reset */
+.stat-card > *:last-child,
+.content-card > *:last-child,
+.stats-feature-box > *:last-child,
+.hero-card > *:last-child,
+.event-card > *:last-child,
+.member-card > *:last-child,
+.testimonial-card > *:last-child,
+.alumni-hub-card > *:last-child,
+.quick-link-card > *:last-child,
+.tier-card > *:last-child,
+.activity-card > *:last-child,
+.about-cta > *:last-child,
+.spotlight-card > *:last-child,
+.faq-item > *:last-child,
+.leader-card > *:last-child,
+.sidebar-widget > *:last-child,
+.filter-bar > *:last-child,
+.opp-card > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Enhanced title styling in cards */
+.stat-card h3,
+.content-card h3,
+.stats-feature-box h3,
+.hero-card h3,
+.event-card h3,
+.member-card h3,
+.testimonial-card h3,
+.alumni-hub-card h3,
+.quick-link-card h3,
+.tier-card h3,
+.activity-card h3,
+.about-cta h3,
+.spotlight-card h3,
+.faq-item h3,
+.leader-card h3,
+.sidebar-widget h3,
+.filter-bar h3,
+.opp-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text);
+  font-weight: 800;
+}
+
+/* Enhanced text styling in cards */
+.stat-card p,
+.content-card p,
+.stats-feature-box p,
+.hero-card p,
+.event-card p,
+.member-card p,
+.testimonial-card p,
+.alumni-hub-card p,
+.quick-link-card p,
+.tier-card p,
+.activity-card p,
+.about-cta p,
+.spotlight-card p,
+.faq-item p,
+.leader-card p,
+.sidebar-widget p,
+.filter-bar p,
+.opp-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* FAQ summary text color - force override */
+.faq-item summary {
+  color: #0a1628 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* FAQ paragraph text color - force override */
+.faq-item p {
+  color: #4a6fa5 !important;
+  opacity: 1 !important;
+}
+
+/* Dark theme FAQ colors */
+[data-theme="dark"] .faq-item summary {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .faq-item p {
+  color: #94a3b8 !important;
+}
+
+/* Card shimmer effect */
+@keyframes cardShimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.card-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  background-size: 1000px 100%;
+  animation: cardShimmer 2s infinite;
 }
 
 .card::before {
@@ -211,10 +349,31 @@ html {
 .stat-card:hover,
 .content-card:hover,
 .stats-feature-box:hover,
-.hero-card:hover {
+.hero-card:hover,
+.alumni-hub-card:hover,
+.quick-link-card:hover,
+.testimonial-card:hover,
+.opp-card:hover,
+.tier-card:hover,
+.activity-card:hover,
+.spotlight-card:hover,
+.leader-card:hover,
+.filter-bar:hover {
   transform: translateY(-8px) scale(1.02) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 20px 40px rgba(44, 79, 196, 0.15) !important;
   border-color: var(--primary) !important;
+}
+
+/* Card shimmer effect */
+@keyframes cardShimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.card-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  background-size: 1000px 100%;
+  animation: cardShimmer 2s infinite;
 }
 
 /* Card shimmer effect */
@@ -235,8 +394,8 @@ html {
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
 }
 
 .btn::before {
@@ -247,7 +406,7 @@ html {
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
 }
@@ -257,20 +416,10 @@ html {
   height: 300px;
 }
 
-.btn:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
-}
-
-.btn:active {
-  transform: translateY(0) !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Primary button with gradient */
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--accent)) !important;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
   position: relative;
+  box-shadow: 0 8px 24px rgba(44, 79, 196, 0.35) !important;
 }
 
 .btn-primary::after {
@@ -280,13 +429,37 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--accent), var(--primary));
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2d7a 100%);
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 .btn-primary:hover::after {
   opacity: 1;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1.5px solid var(--border) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 6px 20px rgba(44, 79, 196, 0.12) !important;
+}
+
+.btn-secondary:hover {
+  background: #fff !important;
+  border-color: var(--primary) !important;
+}
+
+.btn-ghost {
+  background: transparent !important;
+  border: 1.5px solid var(--glass-border) !important;
+  color: var(--text) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: var(--primary) !important;
 }
 
 /* ── PROFESSIONAL FORM ENHANCEMENTS ── */
@@ -469,6 +642,72 @@ h2 {
   transform: translateX(4px);
 }
 
+/* Dark theme footer adjustments */
+[data-theme="dark"] .site-footer {
+  background: linear-gradient(135deg, #0a0f1a 0%, #0f1420 50%, #141824 100%) !important;
+}
+
+[data-theme="dark"] .footer-top {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .footer-bottom {
+  background: rgba(0, 0, 0, 0.3);
+  border-top-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .newsletter-form input {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .newsletter-form input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #3b82f6;
+}
+
+[data-theme="dark"] .social-icon {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .social-icon:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+/* Footer animation on scroll */
+@keyframes fadeInFooter {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.site-footer.in-view {
+  animation: fadeInFooter 0.8s ease-out;
+}
+
+/* Newsletter success animation */
+@keyframes slideInSuccess {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.newsletter-success:not([hidden]) {
+  animation: slideInSuccess 0.4s ease-out;
+}
+
 /* ── SOCIAL MEDIA ICONS ── */
 
 .social-icon {
@@ -550,24 +789,34 @@ h2 {
 [data-theme="dark"] .stat-card,
 [data-theme="dark"] .content-card,
 [data-theme="dark"] .stats-feature-box,
-[data-theme="dark"] .hero-card {
-  background: rgba(22, 27, 34, 0.7) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-.stat-card:hover,
-.content-card:hover,
-.stats-feature-box:hover,
-.hero-card:hover {
-  transform: translateY(-8px) scale(1.02) !important;
-  box-shadow: 0 20px 40px rgba(17, 64, 217, 0.12) !important;
-  z-index: 10;
+[data-theme="dark"] .hero-card,
+[data-theme="dark"] .alumni-hub-card,
+[data-theme="dark"] .quick-link-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .tier-card,
+[data-theme="dark"] .activity-card,
+[data-theme="dark"] .spotlight-card,
+[data-theme="dark"] .leader-card,
+[data-theme="dark"] .filter-bar,
+[data-theme="dark"] .opp-card,
+[data-theme="dark"] .portal-form {
+  background: rgba(30, 41, 59, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 [data-theme="dark"] .stat-card:hover,
 [data-theme="dark"] .content-card:hover,
 [data-theme="dark"] .stats-feature-box:hover,
-[data-theme="dark"] .hero-card:hover {
+[data-theme="dark"] .hero-card:hover,
+[data-theme="dark"] .alumni-hub-card:hover,
+[data-theme="dark"] .quick-link-card:hover,
+[data-theme="dark"] .testimonial-card:hover,
+[data-theme="dark"] .tier-card:hover,
+[data-theme="dark"] .activity-card:hover,
+[data-theme="dark"] .spotlight-card:hover,
+[data-theme="dark"] .leader-card:hover,
+[data-theme="dark"] .filter-bar:hover,
+[data-theme="dark"] .opp-card:hover {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -638,3 +887,96 @@ h2 {
   opacity: 1;
   transform: translateY(0);
 }
+
+
+/* ── ENHANCED IMPACT SHOWCASE SECTION ── */
+
+/* Impact metric card hover effects */
+.impact-metric-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  cursor: pointer;
+}
+
+.impact-metric-card:hover {
+  transform: translateY(-12px) scale(1.03) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Icon pulse animation on hover */
+.impact-metric-card:hover .impact-metric-icon {
+  animation: iconPulse 0.6s ease-in-out;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Number counter animation */
+.impact-metric-value {
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.impact-metric-card:hover .impact-metric-value {
+  transform: scale(1.08);
+}
+
+/* Gradient text shimmer effect */
+@keyframes textShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.impact-metric-card:hover h3 {
+  background: linear-gradient(90deg, #0f172a 25%, #3b82f6 50%, #0f172a 75%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 2s linear infinite;
+}
+
+/* CTA Banner button hover effects */
+.impact-showcase a.btn:hover {
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .impact-showcase-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .impact-metric-card {
+    padding: 1.5rem !important;
+  }
+  
+  .impact-metric-value {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* Dark theme support */
+[data-theme="dark"] .impact-metric-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .impact-metric-card:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Stagger animation for grid items */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }

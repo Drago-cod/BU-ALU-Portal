@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
@@ -54,59 +54,45 @@
   <main>
 
     <!-- -- HERO -- -->
-    <section class="page-hero">
+     <section class="page-hero" style="padding: 4rem 0 3rem; background: linear-gradient(135deg, #000000 0%, #27304f 50%, #0d152f 100%);">
     <div class="page-hero-dot-grid" aria-hidden="true"></div>
-    <div class="container">
-      <div class="page-hero-inner">
-        <div class="page-hero-text">
-          <div class="page-hero-eyebrow">
-            <span class="material-icons-round">info</span>
-            BU Alumni Portal
+    <div class="container" style="max-width: 1000px;">
+      <div class="page-hero-inner" style="gap: 3rem; justify-content: center; text-align: center;">
+        <div class="page-hero-text" style="max-width: 600px; margin: 0 auto;">
+          <div class="page-hero-eyebrow" style="margin-bottom: 1rem; color: #ffffff; background: rgba(255,255,255,0.25); padding: 0.5rem 1rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.3);">
+            <span class="material-icons-round" style="font-size: 1rem; color: #ffffff;">info</span>
+            <span style="font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;">BU ALUMNI PORTAL</span>
           </div>
-          <h1>About BU Alumni Portal</h1>
-          <p class="hero-copy">The BU Alumni Portal supports lifelong connections, professional growth, and community impact for graduates across the world.</p>
-          <div class="page-hero-actions">
-            <a class="page-hero-btn-primary" href="#leadership" onclick="smoothScrollTo(event, 'leadership')">
+          <h1 style="font-size: 2.8rem; margin-bottom: 1rem; line-height: 1.15; color: #ffffff; text-shadow: 0 2px 8px rgba(0,0,0,0.4); font-weight: 800; letter-spacing: -0.02em;">About BU Alumni Portal</h1>
+          <p class="hero-copy" style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.5rem; color: #ffffff; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">The BU Alumni Portal supports lifelong connections, professional growth, and community impact for graduates across the world.</p>
+          <div class="page-hero-actions" style="gap: 0.75rem; justify-content: center;">
+            <a class="page-hero-btn-primary" href="#leadership" onclick="smoothScrollTo(event, 'leadership')" style="background: #ffffff; color: #1140d9; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
               <span class="material-icons-round" style="font-size:1rem;">people</span>
               Meet the Team
             </a>
-            <a class="page-hero-btn-ghost" href="memberships.html">
+            <a class="page-hero-btn-ghost" href="memberships.html" style="background: rgba(255,255,255,0.2); color: #ffffff; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); font-size: 0.9rem;">
               <span class="material-icons-round" style="font-size:1rem;">card_membership</span>
               Join Us
             </a>
           </div>
         </div>
-        <div class="page-hero-badges">
-          <div class="page-hero-badge">
-            <span class="material-icons-round">school</span>
-            <div><div class="page-hero-badge-val">Est. 1948</div><div class="page-hero-badge-text">Bugema University, Uganda</div></div>
-          </div>
-          <div class="page-hero-badge">
-            <span class="material-icons-round">public</span>
-            <div><div class="page-hero-badge-val">389K+</div><div class="page-hero-badge-text">Alumni worldwide</div></div>
-          </div>
-          <div class="page-hero-badge">
-            <span class="material-icons-round">location_on</span>
-            <div><div class="page-hero-badge-val">72</div><div class="page-hero-badge-text">Active chapters</div></div>
-          </div>
-        </div>
       </div>
-      <div class="page-hero-stats">
-        <div class="page-hero-stat">
-          <div class="page-hero-stat-icon"><span class="material-icons-round">people</span></div>
-          <div><div class="page-hero-stat-val">389K+</div><div class="page-hero-stat-lbl">Alumni Worldwide</div></div>
+      <div class="page-hero-stats" style="gap: 1rem; margin-top: 2.5rem; display: flex; justify-content: center; flex-wrap: wrap;">
+        <div class="page-hero-stat" style="background: rgba(255,255,255,0.15); padding: 1rem 1.5rem; border-radius: 12px; min-width: 140px;">
+          <div class="page-hero-stat-icon" style="background: rgba(255,255,255,0.25); margin: 0 auto 0.5rem; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;"><span class="material-icons-round" style="color: #ffffff; font-size: 1.2rem;">people</span></div>
+          <div style="text-align: center;"><div class="page-hero-stat-val" style="font-size: 1.5rem; color: #ffffff; font-weight: 800;">389K+</div><div class="page-hero-stat-lbl" style="color: rgba(255,255,255,0.9); font-size: 0.8rem;">Alumni Worldwide</div></div>
         </div>
-        <div class="page-hero-stat">
-          <div class="page-hero-stat-icon"><span class="material-icons-round">location_on</span></div>
-          <div><div class="page-hero-stat-val">72</div><div class="page-hero-stat-lbl">Active Chapters</div></div>
+        <div class="page-hero-stat" style="background: rgba(255,255,255,0.15); padding: 1rem 1.5rem; border-radius: 12px; min-width: 140px;">
+          <div class="page-hero-stat-icon" style="background: rgba(255,255,255,0.25); margin: 0 auto 0.5rem; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;"><span class="material-icons-round" style="color: #ffffff; font-size: 1.2rem;">location_on</span></div>
+          <div style="text-align: center;"><div class="page-hero-stat-val" style="font-size: 1.5rem; color: #ffffff; font-weight: 800;">72</div><div class="page-hero-stat-lbl" style="color: rgba(255,255,255,0.9); font-size: 0.8rem;">Active Chapters</div></div>
         </div>
-        <div class="page-hero-stat">
-          <div class="page-hero-stat-icon"><span class="material-icons-round">calendar_month</span></div>
-          <div><div class="page-hero-stat-val">75+</div><div class="page-hero-stat-lbl">Years of Excellence</div></div>
+        <div class="page-hero-stat" style="background: rgba(255,255,255,0.15); padding: 1rem 1.5rem; border-radius: 12px; min-width: 140px;">
+          <div class="page-hero-stat-icon" style="background: rgba(255,255,255,0.25); margin: 0 auto 0.5rem; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;"><span class="material-icons-round" style="color: #ffffff; font-size: 1.2rem;">calendar_month</span></div>
+          <div style="text-align: center;"><div class="page-hero-stat-val" style="font-size: 1.5rem; color: #ffffff; font-weight: 800;">75+</div><div class="page-hero-stat-lbl" style="color: rgba(255,255,255,0.9); font-size: 0.8rem;">Years of Excellence</div></div>
         </div>
-        <div class="page-hero-stat">
-          <div class="page-hero-stat-icon"><span class="material-icons-round">handshake</span></div>
-          <div><div class="page-hero-stat-val">50+</div><div class="page-hero-stat-lbl">Partner Organisations</div></div>
+        <div class="page-hero-stat" style="background: rgba(255,255,255,0.15); padding: 1rem 1.5rem; border-radius: 12px; min-width: 140px;">
+          <div class="page-hero-stat-icon" style="background: rgba(255,255,255,0.25); margin: 0 auto 0.5rem; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;"><span class="material-icons-round" style="color: #ffffff; font-size: 1.2rem;">handshake</span></div>
+          <div style="text-align: center;"><div class="page-hero-stat-val" style="font-size: 1.5rem; color: #ffffff; font-weight: 800;">50+</div><div class="page-hero-stat-lbl" style="color: rgba(255,255,255,0.9); font-size: 0.8rem;">Partners</div></div>
         </div>
       </div>
     </div>

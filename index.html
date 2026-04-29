@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="enhancements.css" />
+  <link rel="stylesheet" href="form-enhancements.css" />
 </head>
 <body>
     <header class="site-header">
@@ -52,60 +53,71 @@
 
   <main>
     <!-- Hero -->
-    <section class="hero home-hero parallax-section" id="home">
-      <div class="container home-hero-grid">
-        <div class="hero-image slide-left scroll-reveal">
-          <img src="image/programs-scaled.jpg" alt="Bugema University students using a laptop together" />
+    <section class="hero home-hero parallax-section" id="home" style="min-height: 90vh;">
+      <div class="container home-hero-grid" style="gap: 4rem;">
+        <div class="hero-image slide-left scroll-reveal" style="max-width: 50%;">
+          <img src="image/programs-scaled.jpg" alt="Bugema University students using a laptop together" style="border-radius: 24px; box-shadow: 0 24px 60px rgba(26, 58, 138, 0.2); border: 1px solid var(--glass-border);" />
         </div>
-        <div class="hero-content">
-          <p class="eyebrow fade-in-up">Welcome Home</p>
-          <h1 class="hero-title fade-in-up">Connecting Our Past to Your Future.</h1>
-          <p class="hero-copy fade-in-up">
+        <div class="hero-content" style="max-width: 50%;">
+          <p class="eyebrow fade-in-up" style="margin-bottom: 1rem;">Welcome Home</p>
+          <h1 class="hero-title fade-in-up" style="font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem;">Connecting Our Past to Your Future.</h1>
+          <p class="hero-copy fade-in-up" style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem;">
             Explore alumni opportunities, reconnect with classmates, and support the next generation of BU leaders.
           </p>
-          <div class="hero-actions fade-in-up">
-            <a class="btn btn-primary" href="auth.html">Join the Network</a>
-            <a class="btn btn-ghost" href="about.html">Learn More</a>
-          </div>
+      <div class="hero-actions fade-in-up" style="gap: 1rem;">
+        <a class="btn btn-primary" href="auth.html" style="padding: 1rem 2rem; font-size: 1rem;">Join the Network</a>
+        <a class="btn btn-ghost" href="about.html" style="padding: 1rem 2rem; font-size: 1rem;">Learn More</a>
+      </div>
+      <!-- Glassmorphism Stats Cards -->
+      <div class="hero-stats fade-in-up" style="display: flex; gap: 1.5rem; margin-top: 2.5rem;">
+        <div class="hero-stat-card glass-card">
+          <div class="hero-stat-num" style="font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 0.25rem;">389K+</div>
+          <div class="hero-stat-label" style="font-size: 0.95rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;">Alumni</div>
         </div>
+        <div class="hero-stat-card glass-card">
+          <div class="hero-stat-num" style="font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 0.25rem;">72</div>
+          <div class="hero-stat-label" style="font-size: 0.95rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;">Chapters</div>
+        </div>
+      </div>
+    </div>
       </div>
     </section>
 
     <!-- Alumni Experience -->
-    <section class="alumni-hub section scroll-reveal" aria-labelledby="alumni-hub-title">
+    <section class="alumni-hub section scroll-reveal" aria-labelledby="alumni-hub-title" style="padding: 5rem 0;">
       <div class="container">
-        <div class="alumni-hub-shell">
-          <div class="alumni-hub-head fade-in-up">
-            <p class="eyebrow">Alumni Experience</p>
-            <h2 id="alumni-hub-title">Everything you can do from one portal</h2>
-            <p>
+        <div class="alumni-hub-shell" style="text-align: center;">
+          <div class="alumni-hub-head fade-in-up" style="max-width: 800px; margin: 0 auto 4rem;">
+            <p class="eyebrow" style="margin-bottom: 1rem;">Alumni Experience</p>
+            <h2 id="alumni-hub-title" style="font-size: 2.5rem; margin-bottom: 1.5rem;">Everything you can do from one portal</h2>
+            <p style="font-size: 1.1rem; line-height: 1.7;">
               Reconnect with classmates, discover career opportunities, show up for events, and give back to the next generation of Bugema University leaders.
             </p>
           </div>
-          <div class="alumni-hub-grid stagger-children">
-            <article class="alumni-hub-card scroll-reveal">
-              <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">group</span></div>
-              <h3>Grow Your Network</h3>
-              <p>Join the alumni community, update your details, and stay connected with classmates and chapters.</p>
+          <div class="alumni-hub-grid stagger-children" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+            <article class="alumni-hub-card scroll-reveal" style="padding: 2.5rem; border-radius: 24px;">
+              <div class="alumni-hub-icon" aria-hidden="true" style="width: 60px; height: 60px; border-radius: 12px; margin: 0 auto 1.5rem;"><span class="material-icons-round" style="font-size: 32px;">group</span></div>
+              <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Grow Your Network</h3>
+              <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Join the alumni community, update your details, and stay connected with classmates and chapters.</p>
               <a class="text-link" href="auth.html">Join the network &rarr;</a>
-            </article>
-            <article class="alumni-hub-card scroll-reveal">
-              <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">work</span></div>
-              <h3>Career Support</h3>
-              <p>Explore jobs, partnerships, and mentorship paths designed for new graduates and experienced alumni alike.</p>
+               </article>
+            <article class="alumni-hub-card scroll-reveal" style="padding: 2.5rem; border-radius: 24px;">
+              <div class="alumni-hub-icon" aria-hidden="true" style="width: 60px; height: 60px; border-radius: 12px; margin: 0 auto 1.5rem;"><span class="material-icons-round" style="font-size: 32px;">work</span></div>
+              <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Career Support</h3>
+              <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Explore jobs, partnerships, and mentorship paths designed for new graduates and experienced alumni alike.</p>
               <a class="text-link" href="opportunities.html">Explore opportunities &rarr;</a>
               <a class="text-link" href="career-guide.html">Career resources &rarr;</a>
-            </article>
-            <article class="alumni-hub-card scroll-reveal">
-              <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">event</span></div>
-              <h3>Attend Signature Events</h3>
-              <p>Register for reunions, networking days, and community events that keep the BU story active.</p>
+               </article>
+            <article class="alumni-hub-card scroll-reveal" style="padding: 2.5rem; border-radius: 24px;">
+              <div class="alumni-hub-icon" aria-hidden="true" style="width: 60px; height: 60px; border-radius: 12px; margin: 0 auto 1.5rem;"><span class="material-icons-round" style="font-size: 32px;">event</span></div>
+              <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Attend Signature Events</h3>
+              <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Register for reunions, networking days, and community events that keep the BU story active.</p>
               <a class="text-link" href="#event-registration-section">Open the event form &rarr;</a>
-            </article>
-            <article class="alumni-hub-card scroll-reveal">
-              <div class="alumni-hub-icon" aria-hidden="true"><span class="material-icons-round">favorite</span></div>
-              <h3>Give Back</h3>
-              <p>Support scholarships, volunteer in outreach programs, and help current students thrive.</p>
+               </article>
+            <article class="alumni-hub-card scroll-reveal" style="padding: 2.5rem; border-radius: 24px;">
+              <div class="alumni-hub-icon" aria-hidden="true" style="width: 60px; height: 60px; border-radius: 12px; margin: 0 auto 1.5rem;"><span class="material-icons-round" style="font-size: 32px;">favorite</span></div>
+              <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Give Back</h3>
+              <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Support scholarships, volunteer in outreach programs, and help current students thrive.</p>
               <a class="text-link" href="donate.html">Support the mission &rarr;</a>
             </article>
           </div>
@@ -114,80 +126,80 @@
     </section>
 
     <!-- Quick Links -->
-    <section class="section quick-links-section scroll-reveal">
+    <section class="section quick-links-section scroll-reveal" style="padding: 4rem 0;">
       <div class="container">
-        <div class="quick-links-grid stagger-children">
-          <a class="quick-link-card hover-lift" href="auth.html">
-            <span class="ql-icon"><span class="material-icons-round">group</span></span>
-            <span>Join Network</span>
+        <div class="quick-links-grid stagger-children" style="gap: 2rem;">
+          <a class="quick-link-card hover-lift" href="auth.html" style="padding: 2rem; border-radius: 24px; text-align: center; gap: 1rem;">
+            <span class="ql-icon" style="width: 50px; height: 50px; border-radius: 12px; margin: 0 auto;"><span class="material-icons-round" style="font-size: 28px;">group</span></span>
+            <span style="font-size: 1.1rem; font-weight: 600;">Join Network</span>
           </a>
-          <a class="quick-link-card hover-lift" href="events.html">
-            <span class="ql-icon"><span class="material-icons-round">newspaper</span></span>
-            <span>Latest News</span>
+          <a class="quick-link-card hover-lift" href="events.html" style="padding: 2rem; border-radius: 24px; text-align: center; gap: 1rem;">
+            <span class="ql-icon" style="width: 50px; height: 50px; border-radius: 12px; margin: 0 auto;"><span class="material-icons-round" style="font-size: 28px;">newspaper</span></span>
+            <span style="font-size: 1.1rem; font-weight: 600;">Latest News</span>
           </a>
-          <a class="quick-link-card hover-lift" href="donate.html">
-            <span class="ql-icon"><span class="material-icons-round">favorite</span></span>
-            <span>Give Back</span>
+          <a class="quick-link-card hover-lift" href="donate.html" style="padding: 2rem; border-radius: 24px; text-align: center; gap: 1rem;">
+            <span class="ql-icon" style="width: 50px; height: 50px; border-radius: 12px; margin: 0 auto;"><span class="material-icons-round" style="font-size: 28px;">favorite</span></span>
+            <span style="font-size: 1.1rem; font-weight: 600;">Give Back</span>
           </a>
         </div>
       </div>
     </section>
 
     <!-- Welcome + Stats -->
-    <section id="general-info" class="section">
-      <div class="container general-info-grid">
-        <article class="community-story-card scroll-reveal fade-in-left">
-          <p class="eyebrow">Our Community</p>
-          <h2 class="text-gradient">Welcome to the BU Alumni Portal</h2>
-          <figure class="community-media">
-            <img src="image/Events.png" alt="Bugema University students gathered at a campus community event" />
+    <section id="general-info" class="section" style="padding: 5rem 0;">
+      <div class="container general-info-grid" style="gap: 4rem;">
+        <article class="community-story-card scroll-reveal fade-in-left" style="padding: 3rem; border-radius: 24px;">
+          <p class="eyebrow" style="margin-bottom: 1rem;">Our Community</p>
+          <h2 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 2rem;">Welcome to the BU Alumni Portal</h2>
+          <figure class="community-media" style="margin-bottom: 2rem;">
+            <img src="image/Events.png" alt="Bugema University students gathered at a campus community event" style="border-radius: 24px; margin-bottom: 1rem; border: 1px solid var(--glass-border);" />
             <figcaption class="community-media-caption">
-              <span class="community-media-kicker">Community First</span>
+              <span class="community-media-kicker" style="font-weight: 600;">Community First</span>
               Alumni gatherings, campus moments, and shared experiences keep the BU network active, visible, and welcoming.
             </figcaption>
           </figure>
-          <p class="home-copy">
+          <p class="home-copy" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
             This portal is your dedicated space to stay connected with classmates, discover alumni opportunities, and continue building your BU legacy long after graduation.
           </p>
-          <p class="home-copy">
+          <p class="home-copy" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
             Whether you are looking to mentor students, expand your professional network, or contribute to community causes, you will find resources here to help you engage in meaningful ways.
           </p>
-          <div class="hero-actions community-actions">
-            <a class="btn btn-primary" href="about.html">About the Portal</a>
-            <a class="btn btn-secondary" href="activities.html">Explore Activities</a>
+          <div class="hero-actions community-actions" style="gap: 1rem;">
+            <a class="btn btn-primary" href="about.html" style="padding: 1rem 2rem;">About the Portal</a>
+            <a class="btn btn-secondary" href="activities.html" style="padding: 1rem 2rem;">Explore Activities</a>
           </div>
         </article>
-        <aside class="stats-feature-box scroll-reveal fade-in-right" aria-label="BU Alumni Stats">
-          <h3>BU Alumni at a Glance</h3>
-          <ul class="stats-feature-list">
-            <li><strong data-counter="3800">3,000+</strong> registered alumni members</li>
-            <li><strong data-counter="250">250</strong> jobs posted this year</li>
-            <li><strong data-counter="72">72</strong> active alumni chapters</li>
-            <li><strong data-counter="1800">1,800+</strong> mentorship connections made</li>
-            <li><strong data-counter="3150">UGX 1.5M</strong> raised for scholarships</li>
-            <li><strong data-counter="120">120+</strong> partner recruiters</li>
+        <aside class="stats-feature-box scroll-reveal fade-in-right" aria-label="BU Alumni Stats" style="padding: 3rem; border-radius: 24px;">
+          <h3 style="font-size: 1.8rem; margin-bottom: 2rem;">BU Alumni at a Glance</h3>
+          <ul class="stats-feature-list" style="gap: 1.5rem;">
+            <li style="font-size: 1.1rem;"><strong data-counter="3800" style="font-size: 1.5rem;">3,000+</strong> registered alumni members</li>
+            <li style="font-size: 1.1rem;"><strong data-counter="250" style="font-size: 1.5rem;">250</strong> jobs posted this year</li>
+            <li style="font-size: 1.1rem;"><strong data-counter="72" style="font-size: 1.5rem;">72</strong> active alumni chapters</li>
+            <li style="font-size: 1.1rem;"><strong data-counter="1800" style="font-size: 1.5rem;">1,800+</strong> mentorship connections made</li>
+            <li style="font-size: 1.1rem;"><strong data-counter="3150" style="font-size: 1.5rem;">UGX 1.5M</strong> raised for scholarships</li>
+            <li style="font-size: 1.1rem;"><strong data-counter="120" style="font-size: 1.5rem;">120+</strong> partner recruiters</li>
           </ul>
-          <a class="btn btn-primary stats-feature-cta" href="memberships.html">Become a Member</a>
+          <a class="btn btn-primary stats-feature-cta" href="memberships.html" style="padding: 1rem 2rem; margin-top: 2rem;">Become a Member</a>
         </aside>
       </div>
     </section>
 
     <!-- Featured Events Strip -->
-    <section class="section section-alt scroll-reveal">
+    <section class="section section-alt scroll-reveal" style="padding: 5rem 0;">
       <div class="container">
-        <div class="section-title-wrap fade-in-up">
-          <h2 class="text-gradient">Upcoming Events</h2>
-          <p>Don't miss what's happening in the BU alumni community.</p>
+        <div class="section-title-wrap fade-in-up" style="text-align: center; margin-bottom: 3rem;">
+          <h2 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 1rem;">Upcoming Events</h2>
+          <p style="font-size: 1.1rem; line-height: 1.7;">Don't miss what's happening in the BU alumni community.</p>
         </div>
-        <div class="events-strip stagger-children">
-          <article class="event-strip-card scroll-reveal hover-lift">
-            <div class="event-strip-date">
-              <span>MAY</span>
-              <strong>10</strong>
+        <div class="events-strip stagger-children" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+          <article class="event-strip-card scroll-reveal hover-lift" style="padding: 2rem; border-radius: 24px; display: flex; gap: 1.5rem; align-items: flex-start;">
+            <div class="event-strip-date" style="min-width: 70px; padding: 1rem; border-radius: 20px; text-align: center;">
+              <span style="font-size: 0.9rem; font-weight: 600;">MAY</span>
+              <strong style="font-size: 2rem; display: block;">10</strong>
             </div>
             <div>
-              <h3>Annual Alumni Gala 2026</h3>
-              <p class="meta">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
+              <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Annual Alumni Gala 2026</h3>
+              <p class="meta" style="font-size: 0.95rem; margin-bottom: 1rem;">Kampala Serena Hotel &nbsp;·&nbsp; 6:00 PM EAT</p>
               <a
                 class="text-link event-register-trigger"
                 href="#event-registration-section"
@@ -200,14 +212,14 @@
               </a>
             </div>
           </article>
-          <article class="event-strip-card">
-            <div class="event-strip-date">
-              <span>JUN</span>
-              <strong>7</strong>
+          <article class="event-strip-card scroll-reveal hover-lift" style="padding: 2rem; border-radius: 24px; display: flex; gap: 1.5rem; align-items: flex-start;">
+            <div class="event-strip-date" style="min-width: 70px; padding: 1rem; border-radius: 20px; text-align: center;">
+              <span style="font-size: 0.9rem; font-weight: 600;">JUN</span>
+              <strong style="font-size: 2rem; display: block;">7</strong>
             </div>
             <div>
-              <h3>Career Fair &amp; Networking Day</h3>
-              <p class="meta">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
+              <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Career Fair &amp; Networking Day</h3>
+              <p class="meta" style="font-size: 0.95rem; margin-bottom: 1rem;">BU Main Campus &nbsp;·&nbsp; 9:00 AM EAT</p>
               <a
                 class="text-link event-register-trigger"
                 href="#event-registration-section"
@@ -220,14 +232,14 @@
               </a>
             </div>
           </article>
-          <article class="event-strip-card">
-            <div class="event-strip-date">
-              <span>JUL</span>
-              <strong>19</strong>
+          <article class="event-strip-card scroll-reveal hover-lift" style="padding: 2rem; border-radius: 24px; display: flex; gap: 1.5rem; align-items: flex-start;">
+            <div class="event-strip-date" style="min-width: 70px; padding: 1rem; border-radius: 20px; text-align: center;">
+              <span style="font-size: 0.9rem; font-weight: 600;">JUL</span>
+              <strong style="font-size: 2rem; display: block;">19</strong>
             </div>
             <div>
-              <h3>Charity Run for Education</h3>
-              <p class="meta">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
+              <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Charity Run for Education</h3>
+              <p class="meta" style="font-size: 0.95rem; margin-bottom: 1rem;">Kololo Airstrip, Kampala &nbsp;·&nbsp; 7:00 AM EAT</p>
               <a
                 class="text-link event-register-trigger"
                 href="#event-registration-section"

@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="form-enhancements.css" />
 </head>
 <body>
   <header class="site-header">
@@ -50,65 +51,65 @@
   </header>
 
   <main>
-    <section class="hero about-hero">
-      <div class="container about-hero-grid">
-        <div>
-          <p class="eyebrow">Alumni Access</p>
-          <h1>Sign Up for Alumni Services</h1>
-          <p class="hero-copy">
+    <section class="hero about-hero" style="padding: 6rem 0;">
+      <div class="container about-hero-grid" style="gap: 4rem;">
+        <div style="max-width: 50%;">
+          <p class="eyebrow" style="margin-bottom: 1rem;">Alumni Access</p>
+          <h1 style="font-size: 3rem; margin-bottom: 1.5rem; line-height: 1.2;">Sign Up for Alumni Services</h1>
+          <p class="hero-copy" style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem;">
             Create your BU Alumni account to access networking opportunities, events, and career resources.
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#signup">Create Account</a>
-            <a class="btn btn-ghost" href="login.html">Sign In</a>
+          <div class="hero-actions" style="gap: 1rem;">
+            <a class="btn btn-primary" href="#signup" style="padding: 1rem 2rem;">Create Account</a>
+            <a class="btn btn-ghost" href="login.html" style="padding: 1rem 2rem;">Sign In</a>
           </div>
         </div>
-        <div class="hero-card slide-right auth-hero-card">
-          <img src="image/programs-scaled.jpg" alt="Students reviewing Bugema University information on a laptop" class="hero-card-img" />
-          <h3>Membership Access Fee</h3>
-          <div class="auth-fee-banner">
-            <strong>UGX 10,000</strong>
-            <span>About USD 2.70</span>
+        <div class="hero-card slide-right auth-hero-card" style="padding: 2.5rem; border-radius: 24px;">
+          <img src="image/programs-scaled.jpg" alt="Students reviewing Bugema University information on a laptop" class="hero-card-img" style="border-radius: 16px; margin-bottom: 1.5rem;" />
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.2rem;">Membership Access Fee</h3>
+          <div class="auth-fee-banner" style="padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+            <strong style="font-size: 2rem;">UGX 10,000</strong>
+            <span style="font-size: 1rem;">About USD 2.70</span>
           </div>
-          <p class="auth-fee-note">USD figure is approximate, based on a recent mid-market UGX/USD reference checked on April 26, 2026.</p>
-          <ul class="auth-benefits-list">
-            <li>Access alumni services and member communications</li>
-            <li>Track opportunities and service updates</li>
-            <li>Register interest in mentorship and events</li>
+          <p class="auth-fee-note" style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">USD figure is approximate, based on a recent mid-market UGX/USD reference checked on April 26, 2026.</p>
+          <ul class="auth-benefits-list" style="gap: 0.8rem;">
+            <li style="font-size: 1rem; line-height: 1.6;">Access alumni services and member communications</li>
+            <li style="font-size: 1rem; line-height: 1.6;">Track opportunities and service updates</li>
+            <li style="font-size: 1rem; line-height: 1.6;">Register interest in mentorship and events</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section section-alt" style="padding: 5rem 0;">
       <div class="container">
-        <div class="section-title-wrap fade-up">
-          <p class="eyebrow">Payment Methods</p>
-          <h2>Accepted ways to record the membership fee</h2>
+        <div class="section-title-wrap fade-up" style="text-align: center; margin-bottom: 3rem;">
+          <p class="eyebrow" style="margin-bottom: 1rem;">Payment Methods</p>
+          <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Accepted ways to record the membership fee</h2>
           <p>The sign-up form supports Mobile Money, card payment, and bank transfer references.</p>
         </div>
-        <div class="pay-methods-grid auth-pay-methods fade-up">
-          <div class="pay-method-badge" title="MTN Mobile Money">
+        <div class="pay-methods-grid auth-pay-methods fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+          <div class="pay-method-badge" style="padding: 2rem; border-radius: 16px;" title="MTN Mobile Money">
             <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money" role="img">
               <rect width="120" height="48" rx="8" fill="#FFCC00"/>
               <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13" fill="#000">MTN</text>
               <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#000">Mobile Money</text>
             </svg>
           </div>
-          <div class="pay-method-badge" title="Airtel Money">
+          <div class="pay-method-badge" style="padding: 2rem; border-radius: 16px;" title="Airtel Money">
             <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money" role="img">
               <rect width="120" height="48" rx="8" fill="#E40000"/>
               <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13" fill="#fff">Airtel</text>
               <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#fff">Money</text>
             </svg>
           </div>
-          <div class="pay-method-badge" title="Visa">
+          <div class="pay-method-badge" style="padding: 2rem; border-radius: 16px;" title="Visa">
             <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Visa" role="img">
               <rect width="120" height="48" rx="8" fill="#1A1F71"/>
               <text x="60" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="26" fill="#FFFFFF" letter-spacing="-1">VISA</text>
             </svg>
           </div>
-          <div class="pay-method-badge" title="Mastercard">
+          <div class="pay-method-badge" style="padding: 2rem; border-radius: 16px;" title="Mastercard">
             <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard" role="img">
               <rect width="120" height="48" rx="8" fill="#252525"/>
               <circle cx="46" cy="24" r="14" fill="#EB001B"/>
@@ -117,7 +118,7 @@
               <text x="60" y="44" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#ccc">Mastercard</text>
             </svg>
           </div>
-          <div class="pay-method-badge" title="Bank Transfer">
+          <div class="pay-method-badge" style="padding: 2rem; border-radius: 16px;" title="Bank Transfer">
             <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer" role="img">
               <rect width="120" height="48" rx="8" fill="#1140d9"/>
               <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="#fff">Bank</text>

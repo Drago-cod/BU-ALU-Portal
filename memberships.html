@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="enhancements.css" />
+  <link rel="stylesheet" href="form-enhancements.css" />
 </head>
 
 <body>
@@ -211,61 +212,30 @@
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section section-alt">
-      <div class="container" style="max-width:720px;">
-        <div class="section-title-wrap fade-up">
-          <h2>Frequently Asked Questions</h2>
-        </div>
-        <div class="faq-list fade-up">
-          <details class="faq-item">
-            <summary>Can I upgrade my membership tier later?</summary>
-            <p>Yes. You can upgrade at any time by submitting a new membership form and paying the difference. Your
-              benefits activate immediately upon confirmation.</p>
-          </details>
-          <details class="faq-item">
-            <summary>How does the VVP insurance benefit work?</summary>
-            <p>VVP members receive an Alumni Insurance Certificate upon payment confirmation. This certificate qualifies
-              you for group insurance coverage through our partner provider. Details are sent to your registered email.
-            </p>
-          </details>
-          <details class="faq-item">
-            <summary>Are membership fees refundable?</summary>
-            <p>Membership fees are non-refundable once processed. If you have concerns, please contact us at
-              alumni@bu.edu before completing your payment.</p>
-          </details>
-          <details class="faq-item">
-            <summary>What is a one-time donation?</summary>
-            <p>A one-time donation goes directly to the BU Alumni Scholarship Fund. You do not receive membership
-              benefits, but you will receive a donation receipt for your records. Use the dedicated <a class="text-link"
-                href="donate.html">donation page</a> to submit donor details and choose a payment method.</p>
-          </details>
-          <details class="faq-item">
-            <summary>How do I access Grads Links after registering?</summary>
-            <p>Once your membership is verified (within 2 business days), you will receive login credentials by email.
-              Grads Links and gated features will then be accessible from your member dashboard.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
     <!-- Payment Methods Trust Bar -->
-    <section class="section pay-trust-section">
+    <section class="section pay-trust-section" style="background: linear-gradient(135deg, #0a1628 0%, #1a2847 100%); padding: 4rem 0;">
       <div class="container">
         <div class="pay-trust-wrap fade-up">
-          <p class="pay-trust-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="11" width="18" height="11" rx="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-            Secure Payment &mdash; We Accept
-          </p>
-          <div class="pay-methods-grid">
+          <!-- Section Header -->
+          <div style="text-align: center; margin-bottom: 3rem;">
+            <div style="display: inline-flex; align-items: center; gap: 0.75rem; background: rgba(255, 255, 255, 0.1); padding: 0.75rem 1.5rem; border-radius: 50px; margin-bottom: 1.5rem; backdrop-filter: blur(10px);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <span style="color: #ffffff; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.5px; text-transform: uppercase;">Payment Methods</span>
+            </div>
+            <h2 style="color: #ffffff; font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2;">Accepted ways to record the membership fee</h2>
+            <p style="color: #94a3b8; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">The sign-up form supports Mobile Money, card payment, and bank transfer references.</p>
+          </div>
+
+          <!-- Payment Methods Grid -->
+          <div class="pay-methods-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
 
             <!-- MTN Mobile Money -->
-            <div class="pay-method-badge" title="MTN Mobile Money">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money" role="img">
+            <div class="pay-method-badge" title="MTN Mobile Money" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money" role="img" style="width: 100%; height: auto;">
                 <rect width="120" height="48" rx="8" fill="#FFCC00" />
                 <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13"
                   fill="#000">MTN</text>
@@ -275,8 +245,8 @@
             </div>
 
             <!-- Airtel Money -->
-            <div class="pay-method-badge" title="Airtel Money">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money" role="img">
+            <div class="pay-method-badge" title="Airtel Money" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money" role="img" style="width: 100%; height: auto;">
                 <rect width="120" height="48" rx="8" fill="#E40000" />
                 <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13"
                   fill="#fff">Airtel</text>
@@ -286,8 +256,8 @@
             </div>
 
             <!-- Visa -->
-            <div class="pay-method-badge" title="Visa">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Visa" role="img">
+            <div class="pay-method-badge" title="Visa" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Visa" role="img" style="width: 100%; height: auto;">
                 <rect width="120" height="48" rx="8" fill="#1A1F71" />
                 <text x="60" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="26"
                   fill="#FFFFFF" letter-spacing="-1">VISA</text>
@@ -295,8 +265,8 @@
             </div>
 
             <!-- Mastercard -->
-            <div class="pay-method-badge" title="Mastercard">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard" role="img">
+            <div class="pay-method-badge" title="Mastercard" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard" role="img" style="width: 100%; height: auto;">
                 <rect width="120" height="48" rx="8" fill="#252525" />
                 <!-- left circle -->
                 <circle cx="46" cy="24" r="14" fill="#EB001B" />
@@ -310,8 +280,8 @@
             </div>
 
             <!-- Bank Transfer -->
-            <div class="pay-method-badge" title="Bank Transfer">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer" role="img">
+            <div class="pay-method-badge" title="Bank Transfer" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer" role="img" style="width: 100%; height: auto;">
                 <rect width="120" height="48" rx="8" fill="#1140d9" />
                 <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11"
                   fill="#fff">Bank</text>
@@ -321,8 +291,8 @@
             </div>
 
             <!-- Stanbic Bank -->
-            <div class="pay-method-badge" title="Stanbic Bank Uganda">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Stanbic Bank" role="img">
+            <div class="pay-method-badge" title="Stanbic Bank Uganda" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Stanbic Bank" role="img" style="width: 100%; height: auto;">
                 <rect width="120" height="48" rx="8" fill="#003087" />
                 <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11"
                   fill="#fff">Stanbic</text>
@@ -332,15 +302,38 @@
             </div>
 
           </div>
-          <p class="pay-trust-note">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+
+          <!-- Security Note -->
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 1.5rem; display: flex; align-items: center; gap: 1rem; backdrop-filter: blur(10px);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
-            All transactions are encrypted and processed securely. Your financial data is never stored on our servers.
-          </p>
+            <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+              <strong style="color: #10b981;">Secure Payment:</strong> All transactions are encrypted and processed securely. Your financial data is never stored on our servers.
+            </p>
+          </div>
         </div>
       </div>
+
+      <style>
+        .pay-method-badge:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        @media (max-width: 768px) {
+          .pay-methods-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .pay-methods-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      </style>
     </section>
 
     <!-- Membership Registration Form -->
