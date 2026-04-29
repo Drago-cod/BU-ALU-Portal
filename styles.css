@@ -10730,14 +10730,15 @@ select,
   transition: all 0.2s ease;
 }
 
-/* Dark theme dropdown */
+/* Dark theme dropdown - FIXED for visibility */
 [data-theme="dark"] select,
 [data-theme="dark"] .form-group select,
 [data-theme="dark"] .filter-group select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-color: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  background-color: #1e293b !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Select hover state */
@@ -10868,4 +10869,182 @@ select:disabled,
 [data-theme="dark"] .form-group select:disabled,
 [data-theme="dark"] .filter-group select:disabled {
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   PAYMENT METHOD CARDS - Visibility fixes
+   ========================================================================== */
+
+/* Base payment option card styling */
+.pay-option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  max-width: 100px;
+  padding: 0.75rem 0.5rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Dark theme - make cards visible */
+[data-theme="dark"] .pay-option-card {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .pay-option-card:hover {
+  background: rgba(44, 79, 196, 0.2);
+  border-color: rgba(96, 165, 250, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Light theme */
+[data-theme="light"] .pay-option-card {
+  background: #ffffff;
+  border-color: rgba(44, 79, 196, 0.2);
+  box-shadow: 0 2px 8px rgba(26, 58, 138, 0.08);
+}
+
+[data-theme="light"] .pay-option-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(44, 79, 196, 0.15);
+}
+
+/* Selected state */
+.pay-option input[type="radio"]:checked + .pay-option-card,
+.pay-option-card--selected {
+  border-color: var(--primary);
+  background: var(--panel-bg-soft);
+  box-shadow: 0 0 0 3px rgba(44, 79, 196, 0.2);
+}
+
+[data-theme="dark"] .pay-option input[type="radio"]:checked + .pay-option-card,
+[data-theme="dark"] .pay-option-card--selected {
+  background: rgba(44, 79, 196, 0.3);
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Payment logo/image styling */
+.pay-logo {
+  width: 60px;
+  height: 32px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+  filter: grayscale(0.3);
+  transition: all 0.2s ease;
+}
+
+.pay-option-card:hover .pay-logo,
+.pay-option input[type="radio"]:checked + .pay-option-card .pay-logo {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+
+[data-theme="dark"] .pay-logo {
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* Payment label text */
+.pay-option-card > span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .pay-option-card > span {
+  color: #e2e8f0;
+}
+
+/* Payment options container */
+.pay-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+/* Payment section heading */
+.pay-select-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .pay-select-label {
+  color: #e2e8f0;
+}
+
+.pay-select-label .material-icons-round {
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+/* Payment wrapper */
+.pay-select-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+[data-theme="dark"] .pay-select-wrap {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive payment cards */
+@media (max-width: 768px) {
+  .pay-option-card {
+    min-width: 70px;
+    max-width: 90px;
+    padding: 0.625rem 0.4rem;
+  }
+  
+  .pay-logo {
+    width: 52px;
+    height: 28px;
+  }
+  
+  .pay-option-card > span {
+    font-size: 0.65rem;
+  }
+  
+  .pay-options {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pay-option-card {
+    min-width: 60px;
+    max-width: 76px;
+    padding: 0.5rem 0.35rem;
+    border-radius: 12px;
+  }
+  
+  .pay-logo {
+    width: 48px;
+    height: 24px;
+  }
+  
+  .pay-option-card > span {
+    font-size: 0.6rem;
+  }
 }
