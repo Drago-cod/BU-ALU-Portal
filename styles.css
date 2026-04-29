@@ -142,11 +142,6 @@ li,
   overflow-wrap: anywhere;
 }
 
-.container {
-  width: min(1100px, 92%);
-  margin: 0 auto;
-}
-
 /* ── Header & Navigation (Glassmorphism) ── */
 .site-header {
   position: sticky;
@@ -245,11 +240,6 @@ li,
   line-height: 1;
   box-shadow: var(--shadow);
   transition: all 0.2s ease;
-}
-
-.nav-toggle:hover {
-  background: #fff;
-  box-shadow: var(--shadow-strong);
 }
 
 .nav-toggle:hover {
@@ -394,15 +384,15 @@ li,
 
 .hero-copy {
   color: var(--muted);
-  max-width: 60ch;
-  margin-bottom: 2rem;
+  max-width: 56ch;
+  margin-bottom: 1.3rem;
   font-size: 1.15rem;
   line-height: 1.75;
 }
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   flex-wrap: wrap;
 }
 
@@ -415,47 +405,10 @@ li,
 .hero-card {
   background: var(--surface);
   border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(12px);
-}
-
-h1,
-h2,
-h3 {
-  line-height: 1.2;
-  margin-top: 0;
-}
-
-h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: clamp(1.5rem, 2.6vw, 2rem);
-  margin-bottom: 0.35rem;
-}
-
-.hero-copy {
-  color: var(--muted);
-  max-width: 56ch;
-  margin-bottom: 1.3rem;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-}
-
-.hero-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.2rem 1.3rem;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
 }
 
 .hero-card p,
@@ -2940,14 +2893,6 @@ html.page-ready { animation: page-fade-in 0.35s ease forwards; }
   background-image: linear-gradient(120deg, #c7d4ff 0%, #e8eeff 40%, #d0daff 60%, #c7d4ff 100%);
 }
 
-body {
-  background: var(--page-bg);
-}
-
-.container {
-  width: min(1180px, 92%);
-}
-
 .site-header {
   background: var(--nav-bg);
   box-shadow: var(--nav-shadow);
@@ -4339,12 +4284,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
 }
 
 .form-group label {
@@ -6589,13 +6528,6 @@ html.page-ready {
   font-size: clamp(14px, 1.1vw + 10px, 18px);
 }
 
-/* ── Fluid container ── */
-.container {
-  width: min(1200px, 92%);
-  margin-inline: auto;
-  padding-inline: clamp(0.75rem, 3vw, 1.5rem);
-}
-
 /* ══ 3XL — Large desktops (1440px+) ══════════════════════════ */
 @media (min-width: 1440px) {
   .container { width: min(1320px, 88%); }
@@ -6949,507 +6881,14 @@ html, body {
 
 /* ── Plog slideshow — same constraints ── */
 .plog-slideshow {
-  width: 100%;
   min-height: clamp(200px, 36vw, 460px);
   max-height: 500px;
-}
-
-/* ── Container — never overflow ── */
-.container {
-  width: min(1200px, 92%);
-  margin-inline: auto;
-  padding-inline: clamp(0.75rem, 3vw, 1.5rem);
-  box-sizing: border-box;
-}
-
-/* ── All grids — prevent overflow ── */
-.home-hero-grid,
-.general-info-grid,
-.about-hero-grid,
-.about-page-hero-inner,
-.about-mission-grid,
-.alumni-hub-grid,
-.events-strip,
-.testimonials-grid,
-.values-grid,
-.tier-grid,
-.resource-grid,
-.activity-cards,
-.leadership-grid,
-.footer-top,
-.stats-bar-grid,
-.quick-links-grid {
-  min-width: 0;
-}
-
-/* All grid children — prevent overflow */
-.home-hero-grid > *,
-.general-info-grid > *,
-.alumni-hub-grid > *,
-.events-strip > *,
-.testimonials-grid > * {
-  min-width: 0;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-/* ── Images — always contained ── */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ── Sections — full width, no side overflow ── */
-.section,
-.section-alt,
-.stats-bar,
-.cta-banner,
-.featured-event-banner,
-.pay-trust-section {
-  width: 100%;
-  overflow: hidden;
-}
-
-/* ── Nav — prevent overflow on small screens ── */
-.nav-wrap {
-  flex-wrap: nowrap;
-  overflow: hidden;
-}
-
-.brand {
-  flex-shrink: 0;
-  min-width: 0;
-}
-
-.brand span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* ── Tables — scroll on overflow ── */
-.pay-bank-table {
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* ── Forms — full width on all screens ── */
-.portal-form,
-.mem-form,
-.event-reg-form,
-.upload-form {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea,
-.momo-phone-input {
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
-}
-
-/* ── Buttons — no overflow ── */
-.btn {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* ── Cards — no overflow ── */
-.alumni-hub-card,
-.event-strip-card,
-.testimonial-card,
-.opp-card,
-.resource-card,
-.tier-card,
-.leader-card,
-.activity-card,
-.value-card,
-.sidebar-widget,
-.stats-feature-box,
-.hero-card {
-  min-width: 0;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-/* ── Footer — full width ── */
-.site-footer {
-  width: 100%;
-  overflow: hidden;
-}
-
-.footer-top {
-  overflow: hidden;
-}
-
-/* ── Mobile nav — full width ── */
-.mobile-nav {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* ══ Responsive fixes per breakpoint ════════════════════════ */
-
-/* Tablet (680–919px) */
-@media (max-width: 919px) {
-  .home-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .hero-visual {
-    min-height: clamp(200px, 50vw, 360px);
-    max-height: 360px;
-    width: 100%;
-  }
-
-  .plog-slideshow {
-    min-height: clamp(180px, 48vw, 340px);
-    max-height: 340px;
-  }
-
-  .general-info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-hero-grid,
-  .about-page-hero-inner {
-    grid-template-columns: 1fr;
-  }
-
-  .about-page-hero-visual {
-    min-height: 260px;
-    max-height: 300px;
-  }
-
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .events-strip {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .alumni-hub-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .tier-grid {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: none;
-  }
-}
-
-/* Mobile (< 680px) */
-@media (max-width: 679px) {
-  .home-hero-grid,
-  .general-info-grid,
-  .about-hero-grid,
-  .about-page-hero-inner,
-  .about-mission-grid,
-  .event-registration-shell {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .hero-visual {
-    min-height: clamp(180px, 55vw, 280px);
-    max-height: 280px;
-    border-radius: 14px;
-  }
-
-  .plog-slideshow {
-    min-height: clamp(160px, 52vw, 260px);
-    max-height: 260px;
-  }
-
-  .alumni-hub-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .events-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .tier-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .resource-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-top {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .hero-actions .btn {
-    width: 100%;
-    text-align: center;
-  }
-
-  .cta-banner-inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-
-  .cta-banner-inner .hero-actions {
-    flex-direction: column;
-  }
-
-  .cta-banner-inner .hero-actions .btn {
-    width: 100%;
-  }
-
-  .featured-event-inner {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .featured-event-inner .btn {
-    width: 100%;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .opp-actions,
-  .event-actions,
-  .resource-actions {
-    flex-direction: column;
-  }
-
-  .opp-actions .btn,
-  .event-actions .btn,
-  .resource-actions .btn {
-    width: 100%;
-  }
-
-  .newsletter-form {
-    flex-direction: column;
-  }
-
-  .newsletter-form input,
-  .newsletter-form .btn {
-    width: 100%;
-  }
-
-  .stats-bar-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-
-  .quick-links-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .activity-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .activity-card {
-    flex-direction: column;
-  }
-
-  .leader-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .leader-links {
-    justify-content: center;
-  }
-
-  .plog-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .plog-sidebar {
-    position: static;
-  }
-
-  .event-row {
-    flex-direction: column;
-  }
-
-  .mem-tier-picker {
-    grid-template-columns: 1fr;
-  }
-
-  .mem-step-actions--split {
-    flex-direction: column-reverse;
-    gap: 0.5rem;
-  }
-
-  .mem-step-actions--split .btn {
-    width: 100%;
-  }
-
-  .about-page-hero-visual {
-    min-height: 200px;
-    max-height: 240px;
-  }
-
-  .values-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-focus-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-mission-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .section {
-    padding: 2rem 0;
-  }
-}
-
-/* Small phones (< 480px) */
-@media (max-width: 479px) {
-  .container {
-    padding-inline: 0.65rem;
-  }
-
-  h1 { font-size: clamp(1.5rem, 8vw, 2rem); }
-  h2 { font-size: clamp(1.2rem, 6vw, 1.6rem); }
-
-  .brand span { display: none; }
-  .brand-logo { width: 32px; height: 32px; }
-  .nav-wrap { min-height: 56px; }
-
-  .hero-visual {
-    min-height: clamp(160px, 60vw, 240px);
-    max-height: 240px;
-  }
-
-  .stats-bar-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-
-  .stat-bar-num {
-    font-size: clamp(1.2rem, 5vw, 1.6rem);
-  }
-
-  .quick-links-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .alumni-hub-shell,
-  .event-registration-shell,
-  .cta-banner-inner {
-    padding: 1rem;
-    border-radius: 18px;
-  }
-
-  .pay-methods-grid {
-    gap: 0.4rem;
-  }
-
-  .pay-method-badge {
-    width: 68px;
-    height: 28px;
-  }
-
-  .mem-steps {
-    gap: 0;
-  }
-
-  .mem-step-num {
-    width: 28px;
-    height: 28px;
-    font-size: 0.78rem;
-  }
-
-  .mem-step-label {
-    font-size: 0.6rem;
-  }
-
-  .sfb-wrap--fab {
-    bottom: 0.8rem;
-    right: 0.8rem;
-  }
-
-  .sfb-trigger {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
-  }
-}
-
-/* Very small (< 360px) */
-@media (max-width: 359px) {
-  .container { padding-inline: 0.5rem; }
-  h1 { font-size: 1.35rem; }
-  h2 { font-size: 1.1rem; }
-  .btn { padding: 0.55rem 0.7rem; font-size: 0.8rem; }
-  .stats-bar-grid { grid-template-columns: 1fr; }
-  .quick-links-grid { grid-template-columns: 1fr; }
-  .hero-visual { min-height: 150px; max-height: 200px; }
-}
-
-/* Touch — disable hover transforms that cause layout shift */
-@media (hover: none) {
-  .home-hero .hero-visual {
-    transform: none !important;
-    animation: none;
-  }
-
-  .btn:hover,
-  .quick-link-card:hover,
-  .alumni-hub-card:hover,
-  .opp-card:hover,
-  .resource-card:hover {
-    transform: none;
-  }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   FINAL FIT-TO-SCREEN OVERRIDES  (loaded last — highest priority)
-══════════════════════════════════════════════════════════════ */
-
-/* 1 ── Stop ALL horizontal overflow at the root */
-*, *::before, *::after { box-sizing: border-box; }
-
-html {
-  overflow-x: clip;   /* clip is safer than hidden — doesn't affect position:sticky */
-}
-
-body {
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
 }
 
 /* ── Container — fluid, never wider than viewport */
 .container {
   width: 100%;
-  max-width: min(1200px, 100%);
+  max-width: min(1200px, 100vw);
   margin-inline: auto;
   padding-inline: clamp(0.75rem, 4vw, 1.5rem);
   box-sizing: border-box;
@@ -10248,6 +9687,432 @@ main, section, .container {
 [data-theme="light"] .about-page-hero-text {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(44, 79, 196, 0.15);
+}
+
+/* ==========================================================================
+   COMPREHENSIVE RESPONSIVE DESIGN
+   Mobile-first approach with breakpoints for all screen sizes
+   ========================================================================== */
+
+/* Base mobile-first styles */
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Container responsive widths */
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* Responsive grid layouts */
+.responsive-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 480px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Responsive flex layouts */
+.responsive-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-flex {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+}
+
+/* Hero section responsive */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.hero-content {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .hero-content {
+    text-align: left;
+  }
+}
+
+.hero-image {
+  order: -1;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .hero-image {
+    order: 0;
+    max-width: none;
+  }
+}
+
+/* Navigation responsive */
+@media (max-width: 1023px) {
+  .desktop-nav {
+    display: none;
+  }
+  
+  .mobile-nav-toggle {
+    display: flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-nav-toggle {
+    display: none;
+  }
+  
+  .desktop-nav {
+    display: flex;
+  }
+}
+
+/* Card responsive sizing */
+.card {
+  width: 100%;
+}
+
+.card-responsive {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 480px) {
+  .card-responsive {
+    flex-direction: row;
+  }
+}
+
+/* Form responsive */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .form-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .form-row-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .form-row-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Button responsive sizing */
+.btn-responsive {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .btn-responsive {
+    width: auto;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Table responsive */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive table {
+  min-width: 600px;
+}
+
+@media (max-width: 767px) {
+  .table-responsive table {
+    font-size: 0.875rem;
+  }
+  
+  .table-responsive th,
+  .table-responsive td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+/* Sidebar responsive */
+.sidebar-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-layout {
+    grid-template-columns: 250px 1fr;
+  }
+}
+
+@media (min-width: 1280px) {
+  .sidebar-layout {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+/* Stats responsive */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Footer responsive */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+/* Image responsive */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Touch-friendly tap targets on mobile */
+@media (max-width: 767px) {
+  a, button, .btn, .nav-link, .card, .form-control {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem 1rem;
+  }
+  
+  /* Increase spacing for touch */
+  .card {
+    padding: 1.25rem;
+  }
+  
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+/* Hide/show responsive utilities */
+@media (max-width: 639px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .show-mobile {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .show-tablet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .show-desktop {
+    display: none !important;
+  }
+}
+
+/* Responsive spacing utilities */
+@media (max-width: 767px) {
+  .section {
+    padding: 2rem 0;
+  }
+  
+  .section-lg {
+    padding: 3rem 0;
+  }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Responsive text alignment */
+.text-center-mobile {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-center-mobile {
+    text-align: left;
+  }
+  
+  .text-center-tablet {
+    text-align: center;
+  }
+}
+
+/* Responsive video embeds */
+.video-responsive {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-responsive iframe,
+.video-responsive video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 /* ==========================================================================

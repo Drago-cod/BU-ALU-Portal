@@ -658,3 +658,241 @@ label[for*="description"]::before {
   50% { transform: scale(1.1); }
   100% { transform: scale(1); opacity: 1; }
 }
+
+/* ==========================================================================
+   DARK THEME SUPPORT FOR FORMS
+   ========================================================================== */
+
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .portal-form,
+[data-theme="dark"] .mem-form,
+[data-theme="dark"] .auth-form,
+[data-theme="dark"] .donation-form,
+[data-theme="dark"] .upload-form,
+[data-theme="dark"] .event-reg-form {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .form-group label,
+[data-theme="dark"] .form-label {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .input-hint {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .form-progress {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .success-message {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+  border-color: #10b981;
+}
+
+/* ==========================================================================
+   FORM VALIDATION STATES
+   ========================================================================== */
+
+.form-group.valid input,
+.form-group.valid select,
+.form-group.valid textarea {
+  border-color: #10b981;
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.form-group.invalid input,
+.form-group.invalid select,
+.form-group.invalid textarea {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.05);
+  animation: shake 0.5s ease-in-out;
+}
+
+.form-error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.form-error-message::before {
+  content: '⚠️';
+  font-size: 0.875rem;
+}
+
+.form-success-message {
+  color: #10b981;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.form-success-message::before {
+  content: '✓';
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   PASSWORD STRENGTH INDICATOR
+   ========================================================================== */
+
+.password-strength {
+  margin-top: 0.75rem;
+}
+
+.strength-bar {
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.strength-bar-fill {
+  height: 100%;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.strength-weak { background: #ef4444; width: 33%; }
+.strength-medium { background: #f59e0b; width: 66%; }
+.strength-strong { background: #10b981; width: 100%; }
+
+.strength-label {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+
+.strength-label.weak { color: #ef4444; }
+.strength-label.medium { color: #f59e0b; }
+.strength-label.strong { color: #10b981; }
+
+/* ==========================================================================
+   CHECKBOX & RADIO ENHANCEMENTS
+   ========================================================================== */
+
+.checkbox-group,
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkbox-group:hover,
+.radio-group:hover {
+  color: var(--primary);
+}
+
+.custom-checkbox,
+.custom-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.custom-radio {
+  border-radius: 50%;
+}
+
+.checkbox-group input:checked + .custom-checkbox,
+.radio-group input:checked + .custom-radio {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.custom-checkbox::after {
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.checkbox-group input:checked + .custom-checkbox::after {
+  opacity: 1;
+}
+
+.custom-radio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.radio-group input:checked + .custom-radio::after {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   FILE UPLOAD STYLING
+   ========================================================================== */
+
+.file-upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--surface);
+}
+
+.file-upload-area:hover {
+  border-color: var(--primary);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.file-upload-area.dragging {
+  border-color: var(--primary);
+  background: rgba(59, 130, 246, 0.1);
+  transform: scale(1.02);
+}
+
+.file-upload-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  color: var(--muted);
+}
+
+.file-upload-text {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.file-upload-hint {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+[data-theme="dark"] .file-upload-area {
+  background: rgba(30, 41, 59, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .file-upload-area:hover {
+  background: rgba(44, 79, 196, 0.2);
+  border-color: rgba(96, 165, 250, 0.5);
+}
