@@ -452,38 +452,48 @@
       const password = form.password.value;
       const confirmPassword = form.confirmPassword.value;
 
+      // Hide previous messages
       success.hidden = true;
       success.classList.remove('form-error');
       
+      // Validate passwords match
       if (password !== confirmPassword) {
         success.textContent = 'Passwords do not match.';
         success.classList.add('form-error');
         success.hidden = false;
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
       const payload = {
         fullName: form.fullName.value.trim(),
         email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
+        phone: document.getElementById('signup-country-code').value + form.phone.value.trim().replace(/\D/g, ''),
         program: form.program.value,
         graduationYear: form.graduationYear.value.trim(),
         password,
         paymentMethod: form.paymentMethod.value,
       };
 
+      // Show loading state
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Creating account...';
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="material-icons-round" style="animation: spin 1s linear infinite; margin-right: 0.5rem;">sync</span><span>Creating account...</span>';
 
       try {
         // Use BUAlumniAPI to register account
         const result = await BUAlumniAPI.registerAccount(payload);
 
         if (!result.success) {
-          throw new Error(result.error || 'Sign-up failed.');
+          throw new Error(result.error || 'Sign-up failed. Please try again.');
         }
 
         const data = result.data;
+        
+        // Show success state
+        submitBtn.innerHTML = '<span class="material-icons-round" style="margin-right: 0.5rem;">check_circle</span><span>Success!</span>';
+        submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        
         success.textContent = 'Account created successfully! Redirecting to portal...';
         success.hidden = false;
         form.reset();
@@ -493,14 +503,43 @@
           window.location.href = 'index.html';
         }, 2000);
       } catch (err) {
-        success.textContent = err.message;
+        // Show error state
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.style.background = '';
+        
+        success.textContent = err.message || 'Sign-up failed. Please check your information and try again.';
         success.classList.add('form-error');
         success.hidden = false;
+        
+        // Scroll to error message
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Complete Registration & Pay $52.5';
+        if (!success.classList.contains('form-error')) {
+          // Keep success state
+        } else {
+          // Reset button on error
+          submitBtn.disabled = false;
+        }
       }
     }
+
+    // Add CSS for spinning animation
+    const signupStyle = document.createElement('style');
+    signupStyle.textContent = `
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .form-error {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        border: 1px solid #fecaca;
+      }
+    `;
+    document.head.appendChild(signupStyle);
 
       </script>
 </body>
