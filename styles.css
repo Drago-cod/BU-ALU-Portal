@@ -12003,6 +12003,8 @@ a:hover {
   font-weight: 600;
   font-size: 0.95rem;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 9999;
 }
 
 .qa-trigger:hover {
@@ -12046,6 +12048,7 @@ a:hover {
   pointer-events: none;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
+  z-index: 9999;
 }
 
 .qa-menu.open {
