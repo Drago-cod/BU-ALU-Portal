@@ -814,26 +814,24 @@
       btn.textContent = 'Sending…';
 
       try {
-        // Use LocalDB instead of backend API
+        // Use backend API for event registration
         const registrationData = {
           fullName,
           email,
           phone,
           eventName,
-          eventType,
           eventDate:     document.getElementById('reg-event-date').value,
           eventLocation: document.getElementById('reg-event-location').value,
           eventTime:     document.getElementById('reg-event-time').value,
         };
 
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 800));
+        const result = await BUAlumniAPI.registerEvent(registrationData);
 
-        const data = await LocalDB.saveEventRegistration(registrationData);
-
-        if (!data.success) {
-          throw new Error(data.error || 'Registration failed. Please try again.');
+        if (!result.success) {
+          throw new Error(result.error || 'Registration failed. Please try again.');
         }
+
+        const data = result.data;
 
         // Populate ticket card
         document.getElementById('ticket-event-name').textContent = eventName;
@@ -845,12 +843,9 @@
 
         // Wire up the download button
         const dlBtn = document.getElementById('ticket-download-btn');
-        dlBtn.href     = '#';
+        dlBtn.href     = data.downloadUrl || `${window.location.origin}/api/ticket/${data.ticketId}`;
         dlBtn.download = `BU-Ticket-${data.ticketId}.pdf`;
-        dlBtn.onclick = (e) => {
-          e.preventDefault();
-          alert('Ticket saved to local database! Check your downloads folder for the JSON file.');
-        };
+        dlBtn.onclick = null; // Use default link behavior
 
         // Swap form → success
         document.getElementById('event-reg-form').parentElement.hidden = true;
@@ -887,6 +882,7 @@
   <script src="quick-actions.js"></script>
   <script src="search.js"></script>
   <script src="auth-nav.js"></script>
+  <script src="api-client.js"></script>
   <script src="share.js"></script>
   <script src="forms.js"></script>
   <script>

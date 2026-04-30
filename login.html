@@ -51,58 +51,110 @@
   </header>
 
   <main>
-    <section class="hero about-hero" style="padding: 6rem 0;">
-      <div class="container about-hero-grid" style="gap: 4rem;">
-        <div style="max-width: 50%;">
-          <p class="eyebrow" style="margin-bottom: 1rem; color: #1140d9; font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(17,64,217,0.1); padding: 0.5rem 1rem; border-radius: 8px;">Alumni Access</p>
-          <h1 style="font-size: 3rem; margin-bottom: 1.5rem; line-height: 1.2; color: #1e293b;">Sign In to Your Account</h1>
-          <p class="hero-copy" style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; color: #475569; max-width: 500px;">
-            Access your BU alumni services, networking opportunities, events, and career resources.
-          </p>
-          <div class="hero-actions" style="gap: 1rem;">
-            <a class="btn btn-primary" href="#signin" style="padding: 1rem 2rem; font-weight: 600;">Sign In</a>
-            <a class="btn btn-ghost" href="auth.html" style="padding: 1rem 2rem; font-weight: 600;">Create Account</a>
-          </div>
-        </div>
-        <div class="hero-card slide-right auth-hero-card" style="padding: 2.5rem; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
-          <img src="image/programs-scaled.jpg" alt="Students reviewing Bugema University information on a laptop" class="hero-card-img" style="border-radius: 16px; margin-bottom: 1.5rem; width: 100%;" />
-          <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #1e293b;">Welcome Back</h3>
-          <p style="font-size: 1rem; line-height: 1.6; color: #64748b; margin-bottom: 1.5rem;">Sign in to continue accessing your alumni benefits and connect with fellow graduates.</p>
-          <ul class="auth-benefits-list" style="gap: 0.8rem; list-style: none; padding: 0;">
-            <li style="font-size: 0.95rem; line-height: 1.6; color: #475569; display: flex; align-items: center; gap: 0.5rem;"><span class="material-icons-round" style="color: #1140d9; font-size: 1.1rem;">check_circle</span> Access alumni services and member communications</li>
-            <li style="font-size: 0.95rem; line-height: 1.6; color: #475569; display: flex; align-items: center; gap: 0.5rem;"><span class="material-icons-round" style="color: #1140d9; font-size: 1.1rem;">check_circle</span> Track opportunities and service updates</li>
-            <li style="font-size: 0.95rem; line-height: 1.6; color: #475569; display: flex; align-items: center; gap: 0.5rem;"><span class="material-icons-round" style="color: #1140d9; font-size: 1.1rem;">check_circle</span> Register interest in mentorship and events</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container auth-layout">
-        <div class="auth-card fade-up">
-          <div class="section-title-wrap auth-title-wrap">
-            <p class="eyebrow">Sign In</p>
-            <h2>Sign In to Your Account</h2>
-            <p>Use the email and password you registered with.</p>
-          </div>
-
-          <form class="portal-form auth-form" id="signin-form" onsubmit="handleSignin(event)">
-            <div class="form-group">
-              <label for="signin-email">Email Address</label>
-              <input type="email" id="signin-email" name="email" placeholder="you@example.com" required autocomplete="email" />
+    <section class="section auth-section">
+      <div class="container">
+        <div class="auth-split-layout fade-up">
+          <!-- Left Side - Welcome Card -->
+          <div class="auth-welcome-card">
+            <div class="auth-welcome-content">
+              <h1 class="auth-welcome-title">Welcome Back!</h1>
+              <p class="auth-welcome-subtitle">Sign in to access your alumni portal and stay connected with the BU community.</p>
+              
+              <div class="auth-benefits-list">
+                <div class="auth-benefit-item">
+                  <span class="material-icons-round auth-benefit-icon">check_circle</span>
+                  <div class="auth-benefit-text">
+                    <strong>Connect with Alumni</strong>
+                    <span>Access 15,000+ active members</span>
+                  </div>
+                </div>
+                
+                <div class="auth-benefit-item">
+                  <span class="material-icons-round auth-benefit-icon">check_circle</span>
+                  <div class="auth-benefit-text">
+                    <strong>Career Opportunities</strong>
+                    <span>Explore exclusive job listings</span>
+                  </div>
+                </div>
+                
+                <div class="auth-benefit-item">
+                  <span class="material-icons-round auth-benefit-icon">check_circle</span>
+                  <div class="auth-benefit-text">
+                    <strong>Exclusive Events</strong>
+                    <span>Join 500+ annual networking events</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="signin-password">Password</label>
-              <input type="password" id="signin-password" name="password" placeholder="Your password" required autocomplete="current-password" />
-            </div>
-            <button class="btn btn-primary" id="signin-submit-btn" type="submit">Sign In</button>
-            <p class="form-success" id="signin-success" aria-live="polite" hidden></p>
-          </form>
+          </div>
 
-          <div class="auth-side-note">
-            <h3>Don't have an account yet?</h3>
-            <p>Create a BU Alumni account to access exclusive services and connect with fellow graduates.</p>
-            <a href="auth.html" class="btn btn-secondary">Create Account</a>
+          <!-- Right Side - Sign In Form -->
+          <div class="auth-form-card">
+            <div class="auth-form-header">
+              <h2 class="auth-form-title">Sign In</h2>
+              <p class="auth-form-subtitle">Enter your credentials to access your account</p>
+            </div>
+
+            <form class="modern-auth-form" id="signin-form" onsubmit="handleSignin(event)">
+              <div class="form-group">
+                <label for="signin-email">Email Address</label>
+                <div class="input-with-icon">
+                  <span class="material-icons-round input-icon">mail</span>
+                  <input type="email" id="signin-email" name="email" placeholder="your.email@example.com" required autocomplete="email" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signin-password">Password</label>
+                <div class="input-with-icon">
+                  <span class="material-icons-round input-icon">lock</span>
+                  <input type="password" id="signin-password" name="password" placeholder="Enter your password" required autocomplete="current-password" />
+                  <button type="button" class="input-action-btn" onclick="togglePasswordVisibility('signin-password')" aria-label="Toggle password visibility">
+                    <span class="material-icons-round">visibility</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-row auth-form-options">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="remember" />
+                  <span>Remember me</span>
+                </label>
+                <a href="#" class="text-link" onclick="return false;">Forgot password?</a>
+              </div>
+
+              <button class="btn btn-primary btn-large" id="signin-submit-btn" type="submit">
+                Sign In
+              </button>
+
+              <p class="form-success" id="signin-success" aria-live="polite" hidden></p>
+
+              <div class="auth-divider">
+                <span>Or continue with</span>
+              </div>
+
+              <div class="social-auth-buttons">
+                <button type="button" class="social-auth-btn" onclick="return false;">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+                    <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.18L12.05 13.56c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.485 18 9.003 18z" fill="#34A853"/>
+                    <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+                    <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.426 0 9.003 0 5.485 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335"/>
+                  </svg>
+                  Google
+                </button>
+                <button type="button" class="social-auth-btn" onclick="return false;">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 9c0-4.97-4.03-9-9-9S0 4.03 0 9c0 4.49 3.29 8.21 7.59 8.88v-6.28H5.31V9h2.28V7.02c0-2.25 1.34-3.49 3.39-3.49.98 0 2.01.18 2.01.18v2.21h-1.13c-1.11 0-1.46.69-1.46 1.4V9h2.49l-.4 2.6h-2.09v6.28C14.71 17.21 18 13.49 18 9z" fill="#1877F2"/>
+                  </svg>
+                  Facebook
+                </button>
+              </div>
+
+              <p class="auth-footer-text">
+                Don't have an account? <a href="auth.html" class="text-link-primary">Create an account</a>
+              </p>
+            </form>
           </div>
         </div>
       </div>
@@ -159,6 +211,7 @@
   <script src="quick-actions.js"></script>
   <script src="search.js"></script>
   <script src="auth-nav.js"></script>
+  <script src="api-client.js"></script>
   <script src="share.js"></script>
   <script src="forms.js"></script>
   <script>
@@ -175,6 +228,20 @@
       emailField.blur();
     }
 
+    function togglePasswordVisibility(inputId) {
+      const input = document.getElementById(inputId);
+      const button = input.parentElement.querySelector('.input-action-btn');
+      const icon = button.querySelector('.material-icons-round');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
     async function handleSignin(event) {
       event.preventDefault();
 
@@ -185,28 +252,22 @@
       const password = form.password.value;
 
       success.hidden = true;
+      success.classList.remove('form-error');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Signing in...';
 
       try {
-        let result;
-        // Check localStorage for account (matching register.html)
-        const existing = JSON.parse(localStorage.getItem('buAccounts') || '[]');
-        const account = existing.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
-        if (!account) throw new Error('Invalid email or password.');
-        result = {
-          success: true,
-          account: {
-            accountId: account.id,
-            fullName: account.fullName || account.email.split('@')[0],
-            email: account.email,
-            paymentStatus: 'pending'
-          },
-          message: `Welcome back, ${account.fullName || account.email.split('@')[0]}! Login successful. Redirecting...`
-        };
+        // Use BUAlumniAPI to login
+        const result = await BUAlumniAPI.loginAccount(email, password);
 
-        localStorage.setItem('buCurrentUser', JSON.stringify(result.account));
-        success.textContent = result.message;
+        if (!result.success) {
+          throw new Error(result.error || 'Invalid email or password.');
+        }
+
+        const data = result.data;
+        const account = data.account;
+        
+        success.textContent = `Welcome back, ${account.fullName}! Redirecting...`;
         success.hidden = false;
         form.reset();
         
@@ -216,6 +277,7 @@
         }, 1500);
       } catch (err) {
         success.textContent = err.message;
+        success.classList.add('form-error');
         success.hidden = false;
       } finally {
         submitBtn.disabled = false;

@@ -1102,72 +1102,17 @@
       showMomoStep(provider, 'sending');
 
       try {
-        // Call backend to send payment prompt
-        const res = await fetch('/api/momo-prompt', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            provider,
-            phone,
-            amount: 10000,
-            currency: 'UGX',
-            reference: 'BU-ALUMNI-REG',
-          }),
-        });
-        const data = await res.json();
+        // Use BUAlumniAPI to send payment prompt
+        const result = await BUAlumniAPI.momoPrompt(provider, phone, 10000, 'UGX', 'BU-ALUMNI-REG');
 
-        if (data.success) {
-          // Start polling for payment status
+        if (result.success && result.data.success) {
+          // Payment confirmed
+          momoConfirmed[provider] = true;
           document.getElementById(`momo-confirmed-${provider}`).textContent = formatted;
-          showMomoStep(provider, 'pending');
-          
-          // Poll payment status every 3 seconds for up to 2 minutes
-          const maxAttempts = 40; // 40 attempts * 3 seconds = 2 minutes
-          let attempts = 0;
-          
-          const checkPaymentStatus = async () => {
-            try {
-              const statusRes = await fetch(`/api/payment-status/${data.logId}`);
-              const statusData = await statusRes.json();
-              
-              if (statusData.success && statusData.status === 'confirmed') {
-                momoConfirmed[provider] = true;
-                showMomoStep(provider, 'success');
-                return;
-              } else if (statusData.success && statusData.status === 'failed') {
-                document.getElementById(`momo-error-text-${provider}`).textContent =
-                  'Payment failed. Please try again.';
-                showMomoStep(provider, 'error');
-                return;
-              }
-              
-              attempts++;
-              if (attempts < maxAttempts) {
-                setTimeout(checkPaymentStatus, 3000);
-              } else {
-                document.getElementById(`momo-error-text-${provider}`).textContent =
-                  'Payment confirmation timed out. Please check your phone and try again.';
-                showMomoStep(provider, 'error');
-              }
-            } catch (err) {
-              console.error('Payment status check failed:', err);
-              attempts++;
-              if (attempts < maxAttempts) {
-                setTimeout(checkPaymentStatus, 3000);
-              } else {
-                document.getElementById(`momo-error-text-${provider}`).textContent =
-                  'Unable to confirm payment status. Please try again.';
-                showMomoStep(provider, 'error');
-              }
-            }
-          };
-          
-          // Start checking after 3 seconds
-          setTimeout(checkPaymentStatus, 3000);
-          
+          showMomoStep(provider, 'success');
         } else {
           document.getElementById(`momo-error-text-${provider}`).textContent =
-            data.message || 'Payment was not confirmed. Please try again.';
+            result.data?.message || result.error || 'Payment was not confirmed. Please try again.';
           showMomoStep(provider, 'error');
         }
       } catch (err) {
@@ -1236,14 +1181,12 @@
       };
 
       try {
-        const res = await fetch('/api/register-member', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const data = await res.json();
+        // Use BUAlumniAPI to register member
+        const result = await BUAlumniAPI.registerMember(payload);
 
-        if (!res.ok || !data.success) throw new Error(data.error || 'Submission failed.');
+        if (!result.success) throw new Error(result.error || 'Submission failed.');
+
+        const data = result.data;
 
         // Show success
         document.getElementById('mem-form').hidden = true;
@@ -1291,6 +1234,7 @@
   <script src="quick-actions.js"></script>
   <script src="search.js"></script>
   <script src="auth-nav.js"></script>
+  <script src="api-client.js"></script>
   <script src="share.js"></script>
   <script src="forms.js"></script>
 </body>

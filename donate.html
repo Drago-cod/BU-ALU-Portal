@@ -136,10 +136,12 @@
           </div>
           
           <div class="scholarship-fund-footer">
-            <p class="scholarship-fund-message">
+            <div class="scholarship-fund-message">
               <span class="material-icons-round">favorite</span>
-              <span>Thanks to generous alumni, we've hit 83% of our UGX 50M target. Help us reach 100%!</span>
-            </p>
+              <div class="scholarship-message-text">
+                <strong>Almost there!</strong> Thanks to generous alumni, we've hit 83% of our UGX 50M target. Help us reach 100%!
+              </div>
+            </div>
             <a class="btn btn-primary" href="#donation-form">
               <span class="material-icons-round">volunteer_activism</span>
               Contribute Now
@@ -550,6 +552,7 @@
   <script src="quick-actions.js"></script>
   <script src="search.js"></script>
   <script src="auth-nav.js"></script>
+  <script src="api-client.js"></script>
   <script src="share.js"></script>
   <script src="forms.js"></script>
   <script>
@@ -637,15 +640,10 @@
         fullName: form.fullName.value.trim(),
         email: form.email.value.trim(),
         phone: form.phone.value.trim(),
-        donorType: form.donorType.value,
-        graduationYear: form.graduationYear.value.trim(),
-        organization: form.organization.value.trim(),
-        supportArea: form.supportArea.value,
-        donationAmount: form.donationAmount.value.trim(),
+        amount: parseFloat(form.donationAmount.value.trim()),
+        currency: 'UGX',
         paymentMethod,
-        transactionReference: form.transactionReference.value.trim(),
         message: form.message.value.trim(),
-        anonymous: form.anonymous.checked
       };
 
       success.hidden = true;
@@ -653,31 +651,14 @@
       submitBtn.textContent = 'Submitting...';
 
       try {
-        let result;
+        const result = await BUAlumniAPI.registerDonation(payload);
 
-        if (window.location.protocol === 'file:') {
-          const donationId = 'DON-' + Date.now().toString().slice(-6);
-          const existing = JSON.parse(localStorage.getItem('buDonations') || '[]');
-          existing.unshift({ ...payload, donationId, donatedAt: new Date().toISOString() });
-          localStorage.setItem('buDonations', JSON.stringify(existing));
-          result = {
-            success: true,
-            donationId,
-            message: 'Donation details captured locally for preview. The appreciation receipt email is only sent when the page is submitted through the local server with SMTP configured.'
-          };
-        } else {
-          const response = await fetch('/api/register-donation', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          result = await response.json();
-          if (!response.ok || !result.success) {
-            throw new Error(result.error || 'Donation submission failed.');
-          }
+        if (!result.success) {
+          throw new Error(result.error || 'Donation submission failed.');
         }
 
-        success.textContent = result.message;
+        const data = result.data;
+        success.textContent = data.message || 'Thank you for your donation! A receipt has been sent to your email.';
         success.hidden = false;
         form.reset();
         document.querySelectorAll('.donation-preset-btn').forEach((item) => item.classList.remove('is-active'));
