@@ -316,7 +316,7 @@
 
     // Set language and update all pages
     setLanguage(lang) {
-      if (!['en', 'lg', 'sw', 'ar'].includes(lang)) {
+      if (!['en', 'ar', 'fr', 'sw'].includes(lang)) {
         console.warn(`Unsupported language: ${lang}. Defaulting to English.`);
         lang = 'en';
       }
