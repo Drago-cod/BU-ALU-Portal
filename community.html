@@ -407,19 +407,9 @@
             </div>
           </div>
 
-          <!-- Join card (shown when signed out) -->
-          <div class="comm-card" id="join-card" style="background:var(--cta-bg);border:none;padding:1.4rem;">
-            <div style="text-align:center;">
-              <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 0.7rem;">
-                <span class="material-icons-round" style="font-size:1.6rem;color:#fff;">groups</span>
-              </div>
-              <div style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:0.3rem;">Join the Community</div>
-              <div style="font-size:0.8rem;color:rgba(255,255,255,0.95) !important;margin-bottom:1rem;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,0.2);">Sign in to post, connect, and access all features.</div>
-              <div style="display:flex;flex-direction:column;gap:0.5rem;">
-                <a href="login.html" class="btn" style="text-align:center;font-size:0.85rem;background:#fff;color:#0c30a6;font-weight:700;">Sign In</a>
-                <a href="register.html" class="btn" style="text-align:center;font-size:0.85rem;background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.3);">Sign Up</a>
-              </div>
-            </div>
+          <!-- User Profile / Join card (dynamic based on auth state) -->
+          <div id="community-profile-container">
+            <!-- Will be populated by community-profile.js -->
           </div>
 
           <!-- Navigation menu -->
@@ -831,6 +821,11 @@
   <script src="quick-actions.js"></script>
   <script src="search.js"></script>
   <script src="auth-nav.js"></script>
+  <script src="api-client.js"></script>
+  <script src="i18n.js"></script>
+  <script src="language-switcher.js"></script>
+  <script src="community-profile.js"></script>
+  <script src="community-functions.js"></script>
   <script src="share.js"></script>
   <script>
   /* -- Auth -- */

@@ -690,12 +690,23 @@
              class="btn btn-primary"
              href="#"
              download
-             style="width:100%; padding: 1.125rem 2rem; text-align:center; display:flex; align-items:center; justify-content:center; gap:0.75rem; background: linear-gradient(135deg, #1140d9, #3b82f6); border-radius: 12px; font-size: 1.05rem; font-weight: 700; text-decoration: none; color: #ffffff; box-shadow: 0 4px 12px rgba(17, 64, 217, 0.3); transition: all 0.3s ease;"
+             style="width:100%; padding: 1.125rem 2rem; text-align:center; display:flex; align-items:center; justify-content:center; gap:0.75rem; background: linear-gradient(135deg, #1140d9, #3b82f6); border-radius: 12px; font-size: 1.05rem; font-weight: 700; text-decoration: none; color: #ffffff; box-shadow: 0 4px 12px rgba(17, 64, 217, 0.3); transition: all 0.3s ease; margin-bottom: 1rem;"
              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(17, 64, 217, 0.4)'"
              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(17, 64, 217, 0.3)'">
             <span class="material-icons-round" style="font-size: 1.2rem;">download</span>
             Download Ticket &amp; Receipt (PDF)
           </a>
+
+          <!-- Add to Calendar Button -->
+          <button id="add-to-calendar-btn"
+             class="btn btn-secondary"
+             onclick="addEventToCalendar()"
+             style="width:100%; padding: 1.125rem 2rem; text-align:center; display:flex; align-items:center; justify-content:center; gap:0.75rem; background: #ffffff; border: 2px solid #1140d9; color: #1140d9; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;"
+             onmouseover="this.style.background='#eff6ff'"
+             onmouseout="this.style.background='#ffffff'">
+            <span class="material-icons-round" style="font-size: 1.2rem;">event</span>
+            Add to Calendar
+          </button>
 
           <!-- Register Another -->
           <div style="text-align:center; margin-top:2rem;">
@@ -1124,6 +1135,53 @@
       }
     `;
     document.head.appendChild(style);
+
+    // Add event to calendar
+    function addEventToCalendar() {
+      const eventName = document.getElementById('reg-event-name').value || 'BU Alumni Event';
+      const eventDate = document.getElementById('reg-event-date').value;
+      const eventLocation = document.getElementById('reg-event-location').value || 'TBA';
+      const eventTime = document.getElementById('reg-event-time').value || '10:00 AM';
+      
+      if (window.addToCalendar) {
+        window.addToCalendar(eventName, eventDate, eventLocation, eventTime);
+      } else {
+        // Fallback: create ICS file
+        const startDate = eventDate ? new Date(eventDate + ' ' + eventTime) : new Date();
+        const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
+        
+        const formatDate = (date) => {
+          return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        };
+        
+        const icsContent = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//BU Alumni Portal//Event//EN',
+          'BEGIN:VEVENT',
+          `UID:${Date.now()}@bualumni.org`,
+          `DTSTAMP:${formatDate(new Date())}`,
+          `DTSTART:${formatDate(startDate)}`,
+          `DTEND:${formatDate(endDate)}`,
+          `SUMMARY:${eventName}`,
+          `LOCATION:${eventLocation}`,
+          `DESCRIPTION:BU Alumni Event: ${eventName}`,
+          'STATUS:CONFIRMED',
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n');
+        
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${eventName.replace(/\s+/g, '_')}.ics`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        alert('Event added to calendar! Check your downloads.');
+      }
+    }
 
     function resetRegForm() {
       // Show form, hide success
