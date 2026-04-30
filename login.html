@@ -251,10 +251,14 @@
       const email = form.email.value.trim();
       const password = form.password.value;
 
+      // Hide previous messages
       success.hidden = true;
       success.classList.remove('form-error');
+      
+      // Show loading state
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Signing in...';
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="material-icons-round" style="animation: spin 1s linear infinite; margin-right: 0.5rem;">sync</span><span>Signing in...</span>';
 
       try {
         // Use BUAlumniAPI to login
@@ -267,6 +271,10 @@
         const data = result.data;
         const account = data.account;
         
+        // Show success message
+        submitBtn.innerHTML = '<span class="material-icons-round" style="margin-right: 0.5rem;">check_circle</span><span>Success!</span>';
+        submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        
         success.textContent = `Welcome back, ${account.fullName}! Redirecting...`;
         success.hidden = false;
         form.reset();
@@ -276,14 +284,43 @@
           window.location.href = 'index.html';
         }, 1500);
       } catch (err) {
-        success.textContent = err.message;
+        // Show error message
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.style.background = '';
+        
+        success.textContent = err.message || 'Sign in failed. Please check your credentials and try again.';
         success.classList.add('form-error');
         success.hidden = false;
+        
+        // Scroll to error message
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign In';
+        if (!success.classList.contains('form-error')) {
+          // Keep success state
+        } else {
+          // Reset button on error
+          submitBtn.disabled = false;
+        }
       }
     }
+
+    // Add CSS for spinning animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .form-error {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        border: 1px solid #fecaca;
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
