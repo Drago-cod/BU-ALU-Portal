@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="enhancements.css" />
   <link rel="stylesheet" href="form-enhancements.css" />
+  <script src="local-db.js"></script>
 </head>
 <body>
 
@@ -128,7 +129,7 @@
           </li>
         </ul>
       </div>
-      <form id="registerForm" novalidate>
+      <form id="registerForm" onsubmit="handleRegisterSubmit(event); return false;" novalidate>
         
         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
           <label for="username" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Username</label>
@@ -262,7 +263,6 @@
     const ratingText = document.getElementById('ratingText');
     
     const strengthPanel = document.getElementById('strengthPanel');
-    const pwdPopup = document.getElementById('pwdPopup');
     
     // Wrappers & Errors
     const wrappers = {
@@ -358,21 +358,9 @@
 
     password.addEventListener('focus', () => {
       strengthPanel.classList.add('active');
-      if (password.value.length === 0 && !generatedPassword) {
-        generatedPassword = generateStrongPassword();
-        password.value = generatedPassword;
-        password.select();
-        pwdPopup.classList.add('active');
-        validatePasswordStrength();
-      }
     });
 
-    password.addEventListener('blur', (e) => {
-      setTimeout(() => {
-        if (!pwdPopup.contains(document.activeElement)) {
-          pwdPopup.classList.remove('active');
-        }
-      }, 100);
+    password.addEventListener('blur', () => {
       validatePassword();
       if(password.value.length === 0) strengthPanel.classList.remove('active');
     });
@@ -408,7 +396,6 @@
       else updateMeters(0);
       
       if(val.length >= 8) showError('password', errors.password, false);
-      if(val !== generatedPassword) pwdPopup.classList.remove('active');
       if(confirmPassword.value.length > 0) validateConfirmPassword();
     }
 
@@ -496,79 +483,107 @@
     setupToggle('togglePassword', 'password');
     setupToggle('toggleConfirm', 'confirmPassword');
 
-    document.getElementById('btnChooseOwn').addEventListener('click', () => {
-      password.value = '';
-      generatedPassword = '';
-      pwdPopup.classList.remove('active');
-      validatePasswordStrength();
-      password.focus();
-    });
-
-    document.getElementById('btnUseStrong').addEventListener('click', () => {
-      confirmPassword.value = generatedPassword;
-      pwdPopup.classList.remove('active');
-      validatePasswordStrength();
-      validateConfirmPassword();
-      confirmPassword.focus();
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // Simple form submission handler (like donate form)
+    async function handleRegisterSubmit(event) {
+      event.preventDefault();
       
-      const isUserValid = validateUsername();
-      const isPwdValid = validatePassword();
-      const isPwdMatch = validateConfirmPassword();
-      const isReferralValid = validateReferralSource();
-      const isRatingValid = validateRating();
+      const form = event.target;
+      const submitBtn = document.querySelector('.btn-submit');
+      
+      // Get form values
+      const username = form.username.value.trim();
+      const domain = form.domain.value;
+      const password = form.password.value;
+      const confirmPassword = form.confirmPassword.value;
+      const referralSource = form.referralSource.value;
+      const ratingValue = form.rating.value;
 
-      if (isUserValid && isPwdValid && isPwdMatch && isReferralValid && isRatingValid) {
-        // Show loading state
-        const submitBtn = document.querySelector('.btn-submit');
-        const originalText = submitBtn.textContent;
-        submitBtn.innerHTML = '<span class="loading-spinner"></span> Creating Account...';
-        submitBtn.disabled = true;
-
-        try {
-          // Prepare registration data
-          const username = document.getElementById('username').value;
-          const domain = document.getElementById('domain').value;
-          const email = username + domain;
-          const password = document.getElementById('password').value;
-          const referralSource = document.getElementById('referralSource').value;
-          const ratingValue = document.getElementById('rating').value;
-
-          // Send registration request
-          const response = await fetch('/api/register-account', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email,
-              password,
-              referralSource,
-              rating: ratingValue
-            })
-          });
-
-          const data = await response.json();
-
-          if (response.ok && data.success) {
-            // Success - redirect to login or show success message
-            window.location.href = 'login.html?message=Registration successful! Please sign in.';
-          } else {
-            throw new Error(data.error || 'Registration failed');
-          }
-        } catch (error) {
-          console.error('Registration error:', error);
-          alert(error.message || 'Registration failed. Please try again.');
-        } finally {
-          // Reset button state
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-        }
+      // Simple validation
+      if (!username) {
+        alert('Please enter a username');
+        return;
       }
-    });
+      if (!domain) {
+        alert('Please select an email domain');
+        return;
+      }
+      if (!password || password.length < 8) {
+        alert('Password must be at least 8 characters');
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      if (!referralSource) {
+        alert('Please select how you heard about us');
+        return;
+      }
+      if (!ratingValue) {
+        alert('Please provide a rating');
+        return;
+      }
+
+      // Show loading
+      const originalText = submitBtn.textContent;
+      submitBtn.innerHTML = '<span class="loading-spinner"></span> Creating Account...';
+      submitBtn.disabled = true;
+
+      try {
+        const email = username + domain;
+        const donationId = 'ACC-' + Date.now();
+        
+        // Save to localStorage
+        const accounts = JSON.parse(localStorage.getItem('bu_accounts') || '[]');
+        
+        // Check if email exists
+        if (accounts.some(acc => acc.email === email)) {
+          throw new Error('This email is already registered. Please login instead.');
+        }
+        
+        const account = {
+          id: donationId,
+          username: username,
+          email: email,
+          password: password,
+          referralSource: referralSource,
+          rating: ratingValue,
+          createdAt: new Date().toISOString(),
+          status: 'active'
+        };
+        
+        accounts.push(account);
+        localStorage.setItem('bu_accounts', JSON.stringify(accounts));
+        
+        // Auto-login
+        localStorage.setItem('buCurrentUser', JSON.stringify(account));
+        localStorage.setItem('buIsLoggedIn', 'true');
+        
+        // Show success
+        const formCard = document.querySelector('.form-card');
+        formCard.innerHTML = `
+          <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 3rem; border-radius: 24px; text-align: center;">
+            <div style="width: 80px; height: 80px; background: white; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem; font-weight: bold;">✓</div>
+            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Account Created Successfully!</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Welcome, <strong>${username}</strong>!</p>
+            <p style="margin-bottom: 1.5rem;">Your Account ID: <strong style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 8px; font-family: monospace;">${donationId}</strong></p>
+            <p style="font-size: 0.95rem; opacity: 0.9;">Redirecting to homepage...</p>
+          </div>
+        `;
+        
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 2500);
+        
+      } catch (error) {
+        alert(error.message || 'Registration failed. Please try again.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+
+    // Make function globally available
+    window.handleRegisterSubmit = handleRegisterSubmit;
   </script>
   <style>
     /* Rating Component Styles */
@@ -739,7 +754,10 @@
 
   <script src="theme.js"></script>
   <script src="animations.js"></script>
+  <script src="quick-actions.js"></script>
+  <script src="search.js"></script>
   <script src="auth-nav.js"></script>
+  <script src="forms.js"></script>
 </body>
 </html>
 

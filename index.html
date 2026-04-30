@@ -304,6 +304,24 @@
       </div>
     </section>
 
+    <!-- Live Activity Feed -->
+    <section class="activity-feed-section scroll-reveal">
+      <div class="container">
+        <div class="activity-feed-header fade-in-up">
+          <span class="eyebrow">Live Activity</span>
+          <h2>Community in Action</h2>
+          <p>See what fellow alumni are doing right now - donations, registrations, and connections happening in real-time.</p>
+        </div>
+        <div id="activity-feed" class="fade-in-up">
+          <!-- Activity feed will be populated by activity-feed.js -->
+          <div class="activity-feed-empty">
+            <span class="material-icons-round" style="font-size: 48px; opacity: 0.3;">notifications_none</span>
+            <p>Loading recent activity...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Testimonials -->
     <section class="section">
       <div class="container">
@@ -342,6 +360,108 @@
               </div>
             </footer>
           </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alumni Success Stories -->
+    <section class="section alumni-success-section scroll-reveal" style="padding: 5rem 0;">
+      <div class="container">
+        <div class="section-title-wrap fade-in-up" style="text-align: center; margin-bottom: 3rem;">
+          <p class="eyebrow" style="margin-bottom: 1rem;">Success Stories</p>
+          <h2 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 1rem;">Alumni Making a Difference</h2>
+          <p style="font-size: 1.1rem; line-height: 1.7; max-width: 700px; margin: 0 auto;">
+            From entrepreneurs to educators, our alumni are creating impact across industries and communities worldwide.
+          </p>
+        </div>
+        
+        <div class="success-stories-grid stagger-children" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+          <!-- Story 1 -->
+          <article class="success-story-card scroll-reveal hover-lift" style="background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06); border: 1px solid var(--glass-border);">
+            <div class="story-image" style="height: 240px; background: linear-gradient(135deg, #1140d9, #3b82f6); position: relative; overflow: hidden;">
+              <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: rgba(255,255,255,0.3); font-weight: 800;">
+                <span class="material-icons-round" style="font-size: 80px;">business_center</span>
+              </div>
+            </div>
+            <div style="padding: 2rem;">
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #1140d9, #3b82f6); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.3rem;">
+                  SK
+                </div>
+                <div>
+                  <h3 style="font-size: 1.2rem; margin: 0 0 0.25rem 0; font-weight: 700;">Sarah Kisakye</h3>
+                  <p class="meta" style="margin: 0; font-size: 0.9rem;">Class of 2015 · Tech Entrepreneur</p>
+                </div>
+              </div>
+              <p style="font-size: 1rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.5rem;">
+                Founded a fintech startup that has processed over $50M in transactions, helping small businesses across East Africa access digital payments.
+              </p>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <span style="padding: 0.4rem 0.8rem; background: #eff6ff; color: #1140d9; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Fintech</span>
+                <span style="padding: 0.4rem 0.8rem; background: #eff6ff; color: #1140d9; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Innovation</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Story 2 -->
+          <article class="success-story-card scroll-reveal hover-lift" style="background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06); border: 1px solid var(--glass-border);">
+            <div class="story-image" style="height: 240px; background: linear-gradient(135deg, #10b981, #34d399); position: relative; overflow: hidden;">
+              <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: rgba(255,255,255,0.3); font-weight: 800;">
+                <span class="material-icons-round" style="font-size: 80px;">school</span>
+              </div>
+            </div>
+            <div style="padding: 2rem;">
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #34d399); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.3rem;">
+                  JM
+                </div>
+                <div>
+                  <h3 style="font-size: 1.2rem; margin: 0 0 0.25rem 0; font-weight: 700;">James Mukasa</h3>
+                  <p class="meta" style="margin: 0; font-size: 0.9rem;">Class of 2012 · Education Leader</p>
+                </div>
+              </div>
+              <p style="font-size: 1rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.5rem;">
+                Established 15 community schools in rural Uganda, providing quality education to over 3,000 children who previously had no access to schooling.
+              </p>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <span style="padding: 0.4rem 0.8rem; background: #d1fae5; color: #059669; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Education</span>
+                <span style="padding: 0.4rem 0.8rem; background: #d1fae5; color: #059669; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Social Impact</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Story 3 -->
+          <article class="success-story-card scroll-reveal hover-lift" style="background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06); border: 1px solid var(--glass-border);">
+            <div class="story-image" style="height: 240px; background: linear-gradient(135deg, #f59e0b, #fbbf24); position: relative; overflow: hidden;">
+              <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: rgba(255,255,255,0.3); font-weight: 800;">
+                <span class="material-icons-round" style="font-size: 80px;">medical_services</span>
+              </div>
+            </div>
+            <div style="padding: 2rem;">
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #fbbf24); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.3rem;">
+                  DN
+                </div>
+                <div>
+                  <h3 style="font-size: 1.2rem; margin: 0 0 0.25rem 0; font-weight: 700;">Dr. Grace Nambi</h3>
+                  <p class="meta" style="margin: 0; font-size: 0.9rem;">Class of 2010 · Healthcare Pioneer</p>
+                </div>
+              </div>
+              <p style="font-size: 1rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.5rem;">
+                Leading researcher in tropical diseases, her work on malaria prevention has saved thousands of lives and earned international recognition.
+              </p>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <span style="padding: 0.4rem 0.8rem; background: #fef3c7; color: #d97706; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Healthcare</span>
+                <span style="padding: 0.4rem 0.8rem; background: #fef3c7; color: #d97706; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Research</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+          <a class="btn btn-primary" href="community.html" style="padding: 1rem 2.5rem; font-size: 1rem;">
+            View More Success Stories
+          </a>
         </div>
       </div>
     </section>
@@ -454,9 +574,14 @@
   <script src="theme.js"></script>
   <script src="animations.js"></script>
   <script src="animations-enhanced.js"></script>
+  <script src="quick-actions.js"></script>
+  <script src="activity-feed.js"></script>
+  <script src="newsletter-popup.js"></script>
+  <script src="search.js"></script>
   <script src="auth-nav.js"></script>
   <script src="share.js"></script>
   <script src="home.js"></script>
+  <script src="forms.js"></script>
   <script>
     function handleNewsletter(e) {
       e.preventDefault();

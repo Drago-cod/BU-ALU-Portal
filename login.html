@@ -156,7 +156,10 @@
 
   <script src="theme.js"></script>
   <script src="animations.js"></script>
+  <script src="quick-actions.js"></script>
+  <script src="search.js"></script>
   <script src="auth-nav.js"></script>
+  <script src="forms.js"></script>
   <script>
     function handleNewsletter(e) {
       e.preventDefault();
@@ -186,34 +189,30 @@
 
       try {
         let result;
-        if (window.location.protocol === 'file:') {
-          const existing = JSON.parse(localStorage.getItem('buAlumniAccounts') || '[]');
-          const account = existing.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
-          if (!account) throw new Error('Invalid email or password.');
-          result = {
-            success: true,
-            account: {
-              accountId: account.accountId,
-              fullName: account.fullName,
-              email: account.email,
-              paymentStatus: account.paymentStatus
-            },
-            message: `Signed in as ${account.fullName}. Membership payment status: ${account.paymentStatus.replace('_', ' ')}.`
-          };
-        } else {
-          const response = await fetch('/api/login-account', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-          });
-          result = await response.json();
-          if (!response.ok || !result.success) throw new Error(result.error || 'Sign in failed.');
-        }
+        // Check localStorage for account (matching register.html)
+        const existing = JSON.parse(localStorage.getItem('buAccounts') || '[]');
+        const account = existing.find((item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password);
+        if (!account) throw new Error('Invalid email or password.');
+        result = {
+          success: true,
+          account: {
+            accountId: account.id,
+            fullName: account.fullName || account.email.split('@')[0],
+            email: account.email,
+            paymentStatus: 'pending'
+          },
+          message: `Welcome back, ${account.fullName || account.email.split('@')[0]}! Login successful. Redirecting...`
+        };
 
         localStorage.setItem('buCurrentUser', JSON.stringify(result.account));
         success.textContent = result.message;
         success.hidden = false;
         form.reset();
+        
+        // Redirect after success
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
       } catch (err) {
         success.textContent = err.message;
         success.hidden = false;

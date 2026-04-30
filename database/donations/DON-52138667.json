@@ -1,0 +1,18 @@
+{
+  "donationId": "DON-52138667",
+  "fullName": "Drago Samuel",
+  "email": "dragosamuel443@gmail.com",
+  "phone": "+256761365727",
+  "donorType": "Corporate Partner",
+  "graduationYear": "1954",
+  "organization": "sammiepro",
+  "supportArea": "Scholarship Fund",
+  "donationAmount": 50000,
+  "currency": "UGX",
+  "paymentMethod": "mtn_momo",
+  "paymentMethodLabel": "MTN Mobile Money",
+  "transactionReference": "0761365727",
+  "message": "Working from home",
+  "anonymous": true,
+  "donatedAt": "2026-04-29T23:41:36.856Z"
+}
