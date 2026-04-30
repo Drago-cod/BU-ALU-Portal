@@ -247,6 +247,7 @@
 
   const originalTextNodes = new WeakMap();
   const originalAttributes = new WeakMap();
+  let originalDocumentTitle = null;
   const ATTRIBUTE_NAMES = ['placeholder', 'title', 'aria-label', 'alt', 'value'];
   const observerConfig = {
     childList: true,
@@ -405,7 +406,10 @@
   function translatePage() {
     const language = getCurrentLanguage();
     translateTree(document.body, language);
-    document.title = translateText(document.title, language);
+    if (originalDocumentTitle === null) {
+      originalDocumentTitle = document.title;
+    }
+    document.title = translateText(originalDocumentTitle, language);
   }
 
   function setLanguage(language) {
@@ -462,6 +466,7 @@
 
   function init() {
     setDocumentLanguage(getCurrentLanguage());
+    originalDocumentTitle = document.title;
     translatePage();
     installMutationObserver();
     installDialogTranslation();
