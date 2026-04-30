@@ -688,21 +688,6 @@ li,
 }
 
 /* ── Hero Statistics Cards ── */
-.hero-stat-card {
-  border-radius: 24px;
-  background: var(--surface);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow);
-  transition: all 0.35s ease;
-  padding: 1.75rem 2.25rem;
-}
-
-.hero-stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-strong);
-  border-color: rgba(44, 79, 196, 0.25);
-}
-
 .hero-stats {
   display: flex;
   gap: 1.5rem;
@@ -3564,16 +3549,11 @@ html.page-ready {
   color: var(--text);
 }
 
-.alumni-hub-card p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-  color: var(--muted);
-}
-
 .alumni-hub-card h3 {
   margin: 0 0 0.55rem;
   font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
 }
 
 .alumni-hub-card p {
@@ -6345,15 +6325,10 @@ html[dir="rtl"] .auth-fee-summary-row {
 }
 
 /* ── Page entrance — blur + fade ── */
-html { opacity: 0; filter: blur(4px); }
+html { opacity: 1; filter: none; }
 
 html.page-ready {
-  animation: pageEntrance 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes pageEntrance {
-  from { opacity: 0; filter: blur(4px); }
-  to   { opacity: 1; filter: blur(0);   }
+  animation: none;
 }
 
 /* ── Nav hide/show on scroll ── */
@@ -6428,24 +6403,19 @@ html.page-ready {
 
 /* ── Hero text entrance — spring bounce ── */
 .hero h1 {
-  animation: heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: hero-slide-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .hero .eyebrow {
-  animation: heroSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: hero-slide-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .hero .hero-copy {
-  animation: heroSlideUp 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: hero-slide-up 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .hero .hero-actions {
-  animation: heroSlideUp 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: hero-slide-up 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .hero .hero-card {
-  animation: heroSlideUp 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes heroSlideUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: none; }
+  animation: hero-slide-up 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* ── Card tilt — preserve 3-D ── */
@@ -6466,20 +6436,7 @@ html.page-ready {
   will-change: transform;
 }
 
-.btn-ripple {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  transform: translate(-50%, -50%) scale(0);
-  animation: ripple 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  pointer-events: none;
-}
-
-@keyframes ripple {
-  to { transform: translate(-50%, -50%) scale(70); opacity: 0; }
-}
+/* Ripple animation removed - using existing keyframe */
 
 /* ── Section title underline draw ── */
 .section-title-wrap h2 {
@@ -6506,12 +6463,7 @@ html.page-ready {
 
 /* ── Eyebrow letter-spacing entrance ── */
 .eyebrow {
-  animation: eyebrowIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes eyebrowIn {
-  from { opacity: 0; letter-spacing: 0.22em; }
-  to   { opacity: 1; letter-spacing: 0.08em; }
+  animation: eyebrow-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* ── Hero visual float ── */
@@ -6519,19 +6471,9 @@ html.page-ready {
   animation: float 6s ease-in-out infinite;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-12px); }
-}
-
 /* ── Tier card featured glow pulse ── */
 .tier-card--featured {
-  animation: glowPulse 3s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 0 2px var(--primary), var(--shadow); }
-  50%       { box-shadow: 0 0 0 5px rgba(17,64,217,0.3), 0 24px 48px rgba(17,64,217,0.2); }
+  animation: glow-pulse 3s ease-in-out infinite;
 }
 
 /* ── Insurance badge shimmer ── */
@@ -6542,12 +6484,7 @@ html.page-ready {
     #fff8e1 0%, #fef3c7 35%, #fffde7 50%, #fff8e1 65%, #fff8e1 100%
   );
   background-size: 250% 100%;
-  animation: shimmer 2.8s linear infinite;
-}
-
-@keyframes shimmer {
-  0%   { background-position: 250% center; }
-  100% { background-position: -250% center; }
+  animation: badge-shimmer 2.8s linear infinite;
 }
 
 /* ── Stats bar count-up ── */
@@ -6601,13 +6538,7 @@ html.page-ready {
 
 /* ── Leader avatar pulse on card hover ── */
 .leader-card:hover .leader-avatar {
-  animation: avatarPulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes avatarPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.15); }
-  100% { transform: scale(1); }
+  animation: avatar-pulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ── FAQ open/close ── */
@@ -6628,29 +6559,13 @@ html.page-ready {
 }
 
 /* ── CTA banner entrance ── */
-.cta-banner h2    { animation: heroSlideUp 0.65s ease both; }
-.cta-banner p     { animation: heroSlideUp 0.65s 0.1s ease both; }
-.cta-banner .hero-actions { animation: heroSlideUp 0.65s 0.2s ease both; }
+.cta-banner h2    { animation: hero-slide-up 0.65s ease both; }
+.cta-banner p     { animation: hero-slide-up 0.65s 0.1s ease both; }
+.cta-banner .hero-actions { animation: hero-slide-up 0.65s 0.2s ease both; }
 
 /* ── Opp card tag bounce on hover ── */
 .opp-card:hover .opp-tag {
-  animation: tagBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes tagBounce {
-  0%   { transform: scale(1); }
-  60%  { transform: scale(1.14); }
-  100% { transform: scale(1); }
-}
-
-/* ── Resource card icon spin on hover ── */
-.resource-card:hover .resource-icon .material-icons-round {
-  animation: iconSpin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes iconSpin {
-  from { transform: rotate(-15deg) scale(0.85); }
-  to   { transform: rotate(0deg)   scale(1); }
+  animation: tag-bounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ── Reduced motion overrides ── */
@@ -20072,5 +19987,125 @@ a:hover {
   .btn-featured {
     height: 2.75rem;
     font-size: 0.9375rem;
+  }
+}
+
+/* Final UI stability fixes: header controls + mobile home hero */
+.site-header,
+.nav-wrap,
+.nav-actions,
+.lang-switcher,
+.lang-switcher-control {
+  overflow: visible !important;
+}
+
+.site-header {
+  z-index: 1400 !important;
+}
+
+.nav-wrap,
+.nav-actions,
+.lang-switcher,
+.lang-switcher-control {
+  position: relative;
+}
+
+.nav-actions,
+.lang-switcher,
+.lang-switcher-control,
+.lang-switcher-select {
+  z-index: 1401;
+}
+
+.lang-switcher-select {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 1.75rem 0 2.5rem !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .home-hero-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1.5rem !important;
+    text-align: left !important;
+    min-height: auto !important;
+  }
+
+  .home-hero-grid .hero-content {
+    order: 1 !important;
+    max-width: none !important;
+    text-align: left !important;
+  }
+
+  .home-hero-grid .hero-image {
+    order: 2 !important;
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .home-hero-grid .hero-image img {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  .home-hero .eyebrow,
+  .home-hero .hero-title,
+  .home-hero .hero-copy {
+    text-align: left !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .home-hero .hero-title {
+    font-size: clamp(2rem, 8vw, 2.6rem) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .home-hero .hero-copy {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .hero-actions {
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
+
+  .hero-actions .btn {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .hero-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+    margin-top: 1.75rem !important;
+  }
+
+  .hero-stat-card {
+    min-width: 0 !important;
+    width: 100% !important;
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    grid-template-columns: 1fr !important;
   }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
@@ -730,7 +730,7 @@
       document.getElementById('no-results').hidden = visible > 0;
     }
 
-    /* -- Job Givers Portal � member gate -- */
+    /* -- Job Givers Portal ï¿½ member gate -- */
     (function initJobGivers() {
       var user = null;
       try { user = JSON.parse(localStorage.getItem('buCurrentUser') || 'null'); } catch (_) {}
@@ -741,13 +741,13 @@
       var nameEl   = document.getElementById('jg-member-name');
 
       if (user) {
-        // Signed in � show form
+        // Signed in ï¿½ show form
         gate.hidden     = true;
         formWrap.hidden = false;
         var name = user.fullName || user.name || user.email || 'Member';
         if (nameEl) nameEl.textContent = name;
       } else {
-        // Not signed in � show gate
+        // Not signed in ï¿½ show gate
         gate.hidden     = false;
         formWrap.hidden = true;
       }
@@ -782,7 +782,7 @@
 
       var btn = document.getElementById('jg-submit-btn');
       btn.disabled    = true;
-      btn.textContent = 'Posting�';
+      btn.textContent = 'Postingï¿½';
 
       var user = null;
       try { user = JSON.parse(localStorage.getItem('buCurrentUser') || 'null'); } catch (_) {}
@@ -857,8 +857,8 @@
           '<span class="opp-new-badge">New</span>' +
         '</div>' +
         '<h3>' + job.title + '</h3>' +
-        '<p class="meta">' + job.company + (job.salary ? ' &nbsp;�&nbsp; ' + job.salary : '') + '</p>' +
-        '<p>' + job.description.slice(0, 160) + (job.description.length > 160 ? '�' : '') + '</p>' +
+        '<p class="meta">' + job.company + (job.salary ? ' &nbsp;ï¿½&nbsp; ' + job.salary : '') + '</p>' +
+        '<p>' + job.description.slice(0, 160) + (job.description.length > 160 ? 'ï¿½' : '') + '</p>' +
         '<div class="opp-actions">' +
           '<a class="btn btn-primary" href="mailto:' + job.contactEmail + '">Apply</a>' +
           (job.website ? '<a class="btn btn-ghost" href="' + job.website + '" target="_blank" rel="noopener">Website</a>' : '') +
@@ -886,8 +886,6 @@
       resetJobForm();
     }
   </script>
-  <script src="i18n.js"></script>
-  <script src="language-switcher.js"></script>
   <script src="theme.js"></script>
   <script src="animations.js"></script>
   <script src="quick-actions.js"></script>
@@ -897,3 +895,5 @@
 </body>
 
 </html>
+
+

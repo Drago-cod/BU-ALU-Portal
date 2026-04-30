@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Page - BU Alumni Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="community.html">Community</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="login.html">Sign In</a>
+        <a class="btn btn-secondary" href="register.html">Sign Up</a>
+        <a class="btn btn-primary" href="donate.html">Donate</a>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 4rem 0;">
+    <div class="container">
+      <h1>Test Page</h1>
+      <p>This is a test page to check if JavaScript is working.</p>
+      <button onclick="alert('JavaScript is working!')" class="btn btn-primary">Test Button</button>
+      
+      <div style="margin-top: 2rem;">
+        <h2>Script Loading Status:</h2>
+        <div id="status"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts in correct order -->
+  <script src="theme.js"></script>
+  <script src="api-client.js"></script>
+  <script src="auth-nav.js"></script>
+  
+  <script>
+    // Check what's loaded
+    const status = document.getElementById('status');
+    const checks = [
+      { name: 'BUAlumniAPI', obj: window.BUAlumniAPI },
+      { name: 'BUi18n', obj: window.BUi18n },
+      { name: 'FormUtils', obj: window.FormUtils },
+    ];
+    
+    let html = '<ul>';
+    checks.forEach(check => {
+      const loaded = check.obj ? '✅ Loaded' : '❌ Not Loaded';
+      html += `<li><strong>${check.name}:</strong> ${loaded}</li>`;
+    });
+    html += '</ul>';
+    
+    status.innerHTML = html;
+    
+    // Log to console
+    console.log('=== Script Loading Check ===');
+    console.log('BUAlumniAPI:', window.BUAlumniAPI);
+    console.log('BUi18n:', window.BUi18n);
+    console.log('Current Language:', window.BUi18n?.getCurrentLanguage());
+    console.log('Supported Languages:', window.BUi18n?.getSupportedLanguages());
+  </script>
+</body>
+</html>

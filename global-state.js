@@ -129,131 +129,145 @@
 
     // Update navigation bar
     updateNavigation() {
-      const isLoggedIn = this.isLoggedIn();
-      const account = this.getAccount();
-      
-      // Desktop navigation
-      const navActions = document.querySelector('.nav-actions');
-      if (navActions && isLoggedIn && account) {
-        const signInLink = navActions.querySelector('a[href="login.html"], a[href="auth.html"]');
-        const signUpLink = navActions.querySelector('a[href="register.html"]');
+      try {
+        const isLoggedIn = this.isLoggedIn();
+        const account = this.getAccount();
         
-        if (signInLink || signUpLink) {
-          // Remove sign in/up buttons
-          if (signInLink) signInLink.remove();
-          if (signUpLink) signUpLink.remove();
+        // Desktop navigation
+        const navActions = document.querySelector('.nav-actions');
+        if (!navActions) return; // Exit if nav-actions doesn't exist
+        
+        if (isLoggedIn && account) {
+          const signInLink = navActions.querySelector('a[href="login.html"], a[href="auth.html"]');
+          const signUpLink = navActions.querySelector('a[href="register.html"]');
           
-          // Add user menu
-          const userName = account.fullName || account.name || account.email || 'User';
-          const initials = this.getUserInitials(userName);
-          const donateBtn = navActions.querySelector('a[href="donate.html"]');
-          
-          const userMenu = document.createElement('div');
-          userMenu.className = 'member-pill-wrap';
-          userMenu.setAttribute('data-open', 'false');
-          userMenu.innerHTML = `
-            <button type="button" class="member-pill" aria-haspopup="true" aria-expanded="false">
-              <span class="member-pill-avatar">${initials}</span>
-              <span class="member-pill-name">${userName.split(' ')[0]}</span>
-              <span class="material-icons-round member-pill-chevron">expand_more</span>
-            </button>
-            <div class="member-dropdown" role="menu">
-              <div class="member-dropdown-header">
-                <span class="member-dropdown-avatar">${initials}</span>
-                <div>
-                  <strong class="member-dropdown-name">${userName}</strong>
-                  <span class="member-dropdown-email">${account.email || ''}</span>
+          // Only update if sign-in buttons exist (not already updated)
+          if (signInLink || signUpLink) {
+            // Remove sign in/up buttons
+            if (signInLink) signInLink.remove();
+            if (signUpLink) signUpLink.remove();
+            
+            // Add user menu
+            const userName = account.fullName || account.name || account.email || 'User';
+            const initials = this.getUserInitials(userName);
+            const donateBtn = navActions.querySelector('a[href="donate.html"]');
+            
+            const userMenu = document.createElement('div');
+            userMenu.className = 'member-pill-wrap';
+            userMenu.setAttribute('data-open', 'false');
+            userMenu.innerHTML = `
+              <button type="button" class="member-pill" aria-haspopup="true" aria-expanded="false">
+                <span class="member-pill-avatar">${initials}</span>
+                <span class="member-pill-name">${userName.split(' ')[0]}</span>
+                <span class="material-icons-round member-pill-chevron">expand_more</span>
+              </button>
+              <div class="member-dropdown" role="menu">
+                <div class="member-dropdown-header">
+                  <span class="member-dropdown-avatar">${initials}</span>
+                  <div>
+                    <strong class="member-dropdown-name">${userName}</strong>
+                    <span class="member-dropdown-email">${account.email || ''}</span>
+                  </div>
                 </div>
+                <div class="member-dropdown-divider"></div>
+                <a class="member-dropdown-item" href="community.html" role="menuitem">
+                  <span class="material-icons-round">person</span> My Profile
+                </a>
+                <a class="member-dropdown-item" href="memberships.html" role="menuitem">
+                  <span class="material-icons-round">card_membership</span> Membership
+                </a>
+                <a class="member-dropdown-item" href="community.html" role="menuitem">
+                  <span class="material-icons-round">groups</span> Community
+                </a>
+                <div class="member-dropdown-divider"></div>
+                <button class="member-dropdown-item member-dropdown-signout" type="button" role="menuitem">
+                  <span class="material-icons-round">logout</span> Sign Out
+                </button>
               </div>
-              <div class="member-dropdown-divider"></div>
-              <a class="member-dropdown-item" href="community.html" role="menuitem">
+            `;
+            
+            if (donateBtn) {
+              navActions.insertBefore(userMenu, donateBtn);
+            } else {
+              navActions.appendChild(userMenu);
+            }
+            
+            // Add dropdown toggle functionality
+            const pill = userMenu.querySelector('.member-pill');
+            const signOutBtn = userMenu.querySelector('.member-dropdown-signout');
+            
+            if (pill) {
+              pill.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = userMenu.getAttribute('data-open') === 'true';
+                userMenu.setAttribute('data-open', !isOpen);
+                pill.setAttribute('aria-expanded', !isOpen);
+                
+                if (!isOpen) {
+                  setTimeout(() => {
+                    document.addEventListener('click', () => {
+                      userMenu.setAttribute('data-open', 'false');
+                      pill.setAttribute('aria-expanded', 'false');
+                    }, { once: true });
+                  }, 0);
+                }
+              });
+            }
+            
+            if (signOutBtn) {
+              signOutBtn.addEventListener('click', () => this.signOut());
+            }
+          }
+        }
+        
+        // Mobile navigation
+        const mobileNav = document.getElementById('mobile-nav');
+        if (mobileNav && isLoggedIn && account) {
+          const mSignIn = mobileNav.querySelector('a[href="login.html"], a[href="auth.html"]');
+          const mSignUp = mobileNav.querySelector('a[href="register.html"]');
+          
+          // Only update if sign-in buttons exist (not already updated)
+          if (mSignIn || mSignUp) {
+            if (mSignIn) mSignIn.remove();
+            if (mSignUp) mSignUp.remove();
+            
+            const divider = mobileNav.querySelector('.mobile-nav-divider');
+            const userName = account.fullName || account.name || account.email || 'User';
+            const initials = this.getUserInitials(userName);
+            
+            const mobileUser = document.createElement('div');
+            mobileUser.className = 'mobile-member-section';
+            mobileUser.innerHTML = `
+              <div class="mobile-member-row">
+                <span class="mobile-member-avatar">${initials}</span>
+                <span class="mobile-member-name">${userName}</span>
+              </div>
+              <a href="community.html" class="mobile-nav-link">
                 <span class="material-icons-round">person</span> My Profile
               </a>
-              <a class="member-dropdown-item" href="memberships.html" role="menuitem">
+              <a href="memberships.html" class="mobile-nav-link">
                 <span class="material-icons-round">card_membership</span> Membership
               </a>
-              <a class="member-dropdown-item" href="community.html" role="menuitem">
-                <span class="material-icons-round">groups</span> Community
-              </a>
-              <div class="member-dropdown-divider"></div>
-              <button class="member-dropdown-item member-dropdown-signout" type="button" role="menuitem">
+              <button class="mobile-signout-btn" type="button">
                 <span class="material-icons-round">logout</span> Sign Out
               </button>
-            </div>
-          `;
-          
-          if (donateBtn) {
-            navActions.insertBefore(userMenu, donateBtn);
-          } else {
-            navActions.appendChild(userMenu);
-          }
-          
-          // Add dropdown toggle functionality
-          const pill = userMenu.querySelector('.member-pill');
-          const dropdown = userMenu.querySelector('.member-dropdown');
-          const signOutBtn = userMenu.querySelector('.member-dropdown-signout');
-          
-          pill.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isOpen = userMenu.getAttribute('data-open') === 'true';
-            userMenu.setAttribute('data-open', !isOpen);
-            pill.setAttribute('aria-expanded', !isOpen);
+            `;
             
-            if (!isOpen) {
-              setTimeout(() => {
-                document.addEventListener('click', () => {
-                  userMenu.setAttribute('data-open', 'false');
-                  pill.setAttribute('aria-expanded', 'false');
-                }, { once: true });
-              }, 0);
+            if (divider) {
+              divider.parentNode.insertBefore(mobileUser, divider.nextSibling);
+            } else {
+              mobileNav.appendChild(mobileUser);
             }
-          });
-          
-          signOutBtn.addEventListener('click', () => this.signOut());
-        }
-      }
-      
-      // Mobile navigation
-      const mobileNav = document.getElementById('mobile-nav');
-      if (mobileNav && isLoggedIn && account) {
-        const mSignIn = mobileNav.querySelector('a[href="login.html"], a[href="auth.html"]');
-        const mSignUp = mobileNav.querySelector('a[href="register.html"]');
-        
-        if (mSignIn || mSignUp) {
-          if (mSignIn) mSignIn.remove();
-          if (mSignUp) mSignUp.remove();
-          
-          const divider = mobileNav.querySelector('.mobile-nav-divider');
-          const userName = account.fullName || account.name || account.email || 'User';
-          const initials = this.getUserInitials(userName);
-          
-          const mobileUser = document.createElement('div');
-          mobileUser.className = 'mobile-member-section';
-          mobileUser.innerHTML = `
-            <div class="mobile-member-row">
-              <span class="mobile-member-avatar">${initials}</span>
-              <span class="mobile-member-name">${userName}</span>
-            </div>
-            <a href="community.html" class="mobile-nav-link">
-              <span class="material-icons-round">person</span> My Profile
-            </a>
-            <a href="memberships.html" class="mobile-nav-link">
-              <span class="material-icons-round">card_membership</span> Membership
-            </a>
-            <button class="mobile-signout-btn" type="button">
-              <span class="material-icons-round">logout</span> Sign Out
-            </button>
-          `;
-          
-          if (divider) {
-            divider.parentNode.insertBefore(mobileUser, divider.nextSibling);
-          } else {
-            mobileNav.appendChild(mobileUser);
+            
+            const mSignOutBtn = mobileUser.querySelector('.mobile-signout-btn');
+            if (mSignOutBtn) {
+              mSignOutBtn.addEventListener('click', () => this.signOut());
+            }
           }
-          
-          const mSignOutBtn = mobileUser.querySelector('.mobile-signout-btn');
-          mSignOutBtn.addEventListener('click', () => this.signOut());
         }
+      } catch (error) {
+        console.warn('Navigation update warning:', error);
+        // Don't break the page
       }
     },
 
@@ -363,32 +377,49 @@
   // ============================================================================
 
   function initialize() {
-    // Initialize language
-    GlobalLanguage.initLanguage();
-    
-    // Initialize auth state
-    GlobalAuth.updateAllPages();
-    
-    // Listen for storage changes (from other tabs)
-    window.addEventListener('storage', (e) => {
-      if (e.key === STORAGE_KEYS.ACCOUNT || e.key === STORAGE_KEYS.TOKEN || e.key === STORAGE_KEYS.USER) {
+    try {
+      // Initialize language
+      GlobalLanguage.initLanguage();
+      
+      // Initialize auth state (but don't break if it fails)
+      try {
         GlobalAuth.updateAllPages();
+      } catch (e) {
+        console.warn('GlobalAuth initialization warning:', e);
       }
-      if (e.key === STORAGE_KEYS.LANGUAGE) {
-        GlobalLanguage.initLanguage();
+      
+      // Listen for storage changes (from other tabs)
+      window.addEventListener('storage', (e) => {
+        if (e.key === STORAGE_KEYS.ACCOUNT || e.key === STORAGE_KEYS.TOKEN || e.key === STORAGE_KEYS.USER) {
+          try {
+            GlobalAuth.updateAllPages();
+          } catch (err) {
+            console.warn('GlobalAuth update warning:', err);
+          }
+        }
+        if (e.key === STORAGE_KEYS.LANGUAGE) {
+          GlobalLanguage.initLanguage();
+          GlobalLanguage.translateCurrentPage();
+        }
+      });
+      
+      // Listen for custom auth state changes
+      window.addEventListener('authStateChanged', () => {
+        try {
+          GlobalAuth.updateAllPages();
+        } catch (err) {
+          console.warn('GlobalAuth update warning:', err);
+        }
+      });
+      
+      // Listen for custom language changes
+      window.addEventListener('languageChanged', () => {
         GlobalLanguage.translateCurrentPage();
-      }
-    });
-    
-    // Listen for custom auth state changes
-    window.addEventListener('authStateChanged', () => {
-      GlobalAuth.updateAllPages();
-    });
-    
-    // Listen for custom language changes
-    window.addEventListener('languageChanged', () => {
-      GlobalLanguage.translateCurrentPage();
-    });
+      });
+    } catch (error) {
+      console.error('GlobalState initialization error:', error);
+      // Don't break the page - continue loading
+    }
   }
 
   // Run initialization
