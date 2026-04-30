@@ -231,73 +231,67 @@
           </div>
 
           <!-- Payment Methods Grid -->
-          <div class="pay-methods-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+          <div class="pay-methods-grid">
 
             <!-- MTN Mobile Money -->
-            <div class="pay-method-badge" title="MTN Mobile Money" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money" role="img" style="width: 100%; height: auto;">
+            <div class="pay-method-badge" title="MTN Mobile Money">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money" role="img">
                 <rect width="120" height="48" rx="8" fill="#FFCC00" />
-                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13"
-                  fill="#000">MTN</text>
-                <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9"
-                  fill="#000">Mobile Money</text>
+                <g transform="translate(60, 24)">
+                  <path d="M-15,-8 L-10,8 L-5,-8 M-5,-8 L0,8 L5,-8 M5,-8 L10,8 L15,-8" stroke="#000" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
               </svg>
             </div>
 
             <!-- Airtel Money -->
-            <div class="pay-method-badge" title="Airtel Money" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money" role="img" style="width: 100%; height: auto;">
+            <div class="pay-method-badge" title="Airtel Money">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money" role="img">
                 <rect width="120" height="48" rx="8" fill="#E40000" />
-                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="13"
-                  fill="#fff">Airtel</text>
-                <text x="60" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9"
-                  fill="#fff">Money</text>
+                <g transform="translate(60, 24)">
+                  <circle cx="0" cy="0" r="12" fill="none" stroke="#fff" stroke-width="3"/>
+                  <path d="M-8,-3 L0,-12 L8,-3" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
               </svg>
             </div>
 
             <!-- Visa -->
-            <div class="pay-method-badge" title="Visa" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Visa" role="img" style="width: 100%; height: auto;">
+            <div class="pay-method-badge" title="Visa">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Visa" role="img">
                 <rect width="120" height="48" rx="8" fill="#1A1F71" />
-                <text x="60" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="26"
-                  fill="#FFFFFF" letter-spacing="-1">VISA</text>
+                <g transform="translate(30, 24)">
+                  <path d="M0,-8 L4,8 M8,-8 L12,8 M16,-8 L16,8 M24,-8 L24,8 M28,-8 L36,8 M40,-8 L32,8" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
               </svg>
             </div>
 
             <!-- Mastercard -->
-            <div class="pay-method-badge" title="Mastercard" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard" role="img" style="width: 100%; height: auto;">
+            <div class="pay-method-badge" title="Mastercard">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard" role="img">
                 <rect width="120" height="48" rx="8" fill="#252525" />
-                <!-- left circle -->
-                <circle cx="46" cy="24" r="14" fill="#EB001B" />
-                <!-- right circle -->
-                <circle cx="74" cy="24" r="14" fill="#F79E1B" />
-                <!-- overlap blend -->
-                <path d="M60 13.2a14 14 0 0 1 0 21.6A14 14 0 0 1 60 13.2z" fill="#FF5F00" />
-                <text x="60" y="44" text-anchor="middle" font-family="Arial,sans-serif" font-size="7"
-                  fill="#ccc">Mastercard</text>
+                <circle cx="46" cy="24" r="12" fill="#EB001B" />
+                <circle cx="74" cy="24" r="12" fill="#F79E1B" />
+                <path d="M60 14a12 12 0 0 1 0 20 12 12 0 0 1 0-20z" fill="#FF5F00" />
               </svg>
             </div>
 
             <!-- Bank Transfer -->
-            <div class="pay-method-badge" title="Bank Transfer" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer" role="img" style="width: 100%; height: auto;">
+            <div class="pay-method-badge" title="Bank Transfer">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer" role="img">
                 <rect width="120" height="48" rx="8" fill="#1140d9" />
-                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11"
-                  fill="#fff">Bank</text>
-                <text x="60" y="35" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9"
-                  fill="#bfdbfe">Transfer</text>
+                <g transform="translate(60, 24)">
+                  <path d="M-18,0 L0,-10 L18,0 M-15,0 L-15,8 M-8,0 L-8,8 M0,0 L0,8 M8,0 L8,8 M15,0 L15,8 M-20,8 L20,8 M-22,10 L22,10" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
               </svg>
             </div>
 
             <!-- Stanbic Bank -->
-            <div class="pay-method-badge" title="Stanbic Bank Uganda" style="background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 16px; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Stanbic Bank" role="img" style="width: 100%; height: auto;">
+            <div class="pay-method-badge" title="Stanbic Bank Uganda">
+              <svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-label="Stanbic Bank" role="img">
                 <rect width="120" height="48" rx="8" fill="#003087" />
-                <text x="60" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11"
-                  fill="#fff">Stanbic</text>
-                <text x="60" y="35" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9"
-                  fill="#90b8f8">Bank Uganda</text>
+                <g transform="translate(60, 24)">
+                  <circle cx="0" cy="-3" r="6" fill="#90b8f8"/>
+                  <path d="M-12,3 L-12,12 L12,12 L12,3 M-8,3 L-8,12 M-4,3 L-4,12 M0,3 L0,12 M4,3 L4,12 M8,3 L8,12" stroke="#90b8f8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                </g>
               </svg>
             </div>
 
@@ -507,82 +501,113 @@
               </div>
             </div>
 
-            <!-- Payment Method -->
-            <div class="pay-select-wrap">
-              <p class="pay-select-label">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="1" y="4" width="22" height="16" rx="2" />
-                  <line x1="1" y1="10" x2="23" y2="10" />
-                </svg>
-                Select Payment Method <span class="req" aria-hidden="true">*</span>
-              </p>
-              <div class="pay-options" role="radiogroup" aria-label="Payment method">
+            <!-- Payment Method - Modern Design -->
+            <div class="payment-method-section">
+              <div class="payment-method-header">
+                <span class="material-icons-round">credit_card</span>
+                <span>Select Payment Method</span>
+                <span class="req">*</span>
+              </div>
+              
+              <div class="payment-options-modern" role="radiogroup" aria-label="Payment method">
 
-                <label class="pay-option" for="pay-mtn">
+                <label class="payment-option-modern" for="pay-mtn">
                   <input type="radio" id="pay-mtn" name="paymentMethod" value="MTN Mobile Money" required />
-                  <div class="pay-option-card">
-                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
-                      <rect width="80" height="32" rx="5" fill="#FFCC00" />
-                      <text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900"
-                        font-size="9" fill="#000">MTN</text>
-                      <text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700"
-                        font-size="6" fill="#000">Mobile Money</text>
-                    </svg>
-                    <span>MTN MoMo</span>
+                  <div class="payment-option-card-modern">
+                    <div class="payment-option-check">
+                      <span class="material-icons-round">check_circle</span>
+                    </div>
+                    <div class="payment-option-logo">
+                      <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" aria-label="MTN Mobile Money">
+                        <rect width="100" height="40" rx="8" fill="#FFCC00" />
+                        <text x="50" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="#000">MTN</text>
+                        <text x="50" y="30" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#000">Mobile Money</text>
+                      </svg>
+                    </div>
+                    <div class="payment-option-info">
+                      <span class="payment-option-name">MTN MoMo</span>
+                      <span class="payment-option-desc">Mobile Money</span>
+                    </div>
                   </div>
                 </label>
 
-                <label class="pay-option" for="pay-airtel">
+                <label class="payment-option-modern" for="pay-airtel">
                   <input type="radio" id="pay-airtel" name="paymentMethod" value="Airtel Money" />
-                  <div class="pay-option-card">
-                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
-                      <rect width="80" height="32" rx="5" fill="#E40000" />
-                      <text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900"
-                        font-size="9" fill="#fff">Airtel</text>
-                      <text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700"
-                        font-size="6" fill="#ffc0c0">Money</text>
-                    </svg>
-                    <span>Airtel Money</span>
+                  <div class="payment-option-card-modern">
+                    <div class="payment-option-check">
+                      <span class="material-icons-round">check_circle</span>
+                    </div>
+                    <div class="payment-option-logo">
+                      <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" aria-label="Airtel Money">
+                        <rect width="100" height="40" rx="8" fill="#E40000" />
+                        <text x="50" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="#fff">Airtel</text>
+                        <text x="50" y="30" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#ffc0c0">Money</text>
+                      </svg>
+                    </div>
+                    <div class="payment-option-info">
+                      <span class="payment-option-name">Airtel Money</span>
+                      <span class="payment-option-desc">Mobile Money</span>
+                    </div>
                   </div>
                 </label>
 
-                <label class="pay-option" for="pay-visa">
+                <label class="payment-option-modern" for="pay-visa">
                   <input type="radio" id="pay-visa" name="paymentMethod" value="Visa Card" />
-                  <div class="pay-option-card">
-                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
-                      <rect width="80" height="32" rx="5" fill="#1A1F71" />
-                      <text x="40" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900"
-                        font-size="17" fill="#FFFFFF" letter-spacing="-1">VISA</text>
-                    </svg>
-                    <span>Visa Card</span>
+                  <div class="payment-option-card-modern">
+                    <div class="payment-option-check">
+                      <span class="material-icons-round">check_circle</span>
+                    </div>
+                    <div class="payment-option-logo">
+                      <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" aria-label="Visa">
+                        <rect width="100" height="40" rx="8" fill="#1A1F71" />
+                        <text x="50" y="26" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="20" fill="#FFFFFF" letter-spacing="-1">VISA</text>
+                      </svg>
+                    </div>
+                    <div class="payment-option-info">
+                      <span class="payment-option-name">Visa Card</span>
+                      <span class="payment-option-desc">Credit/Debit</span>
+                    </div>
                   </div>
                 </label>
 
-                <label class="pay-option" for="pay-mc">
+                <label class="payment-option-modern" for="pay-mc">
                   <input type="radio" id="pay-mc" name="paymentMethod" value="Mastercard" />
-                  <div class="pay-option-card">
-                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
-                      <rect width="80" height="32" rx="5" fill="#252525" />
-                      <circle cx="30" cy="16" r="10" fill="#EB001B" />
-                      <circle cx="50" cy="16" r="10" fill="#F79E1B" />
-                      <path d="M40 8.5a10 10 0 0 1 0 15A10 10 0 0 1 40 8.5z" fill="#FF5F00" />
-                    </svg>
-                    <span>Mastercard</span>
+                  <div class="payment-option-card-modern">
+                    <div class="payment-option-check">
+                      <span class="material-icons-round">check_circle</span>
+                    </div>
+                    <div class="payment-option-logo">
+                      <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+                        <rect width="100" height="40" rx="8" fill="#252525" />
+                        <circle cx="37" cy="20" r="12" fill="#EB001B" />
+                        <circle cx="63" cy="20" r="12" fill="#F79E1B" />
+                        <path d="M50 10a12 12 0 0 1 0 20A12 12 0 0 1 50 10z" fill="#FF5F00" />
+                      </svg>
+                    </div>
+                    <div class="payment-option-info">
+                      <span class="payment-option-name">Mastercard</span>
+                      <span class="payment-option-desc">Credit/Debit</span>
+                    </div>
                   </div>
                 </label>
 
-                <label class="pay-option" for="pay-bank">
+                <label class="payment-option-modern" for="pay-bank">
                   <input type="radio" id="pay-bank" name="paymentMethod" value="Bank Transfer" />
-                  <div class="pay-option-card">
-                    <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" class="pay-logo" aria-hidden="true">
-                      <rect width="80" height="32" rx="5" fill="#1140d9" />
-                      <text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900"
-                        font-size="8" fill="#fff">Bank</text>
-                      <text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700"
-                        font-size="6" fill="#bfdbfe">Transfer</text>
-                    </svg>
-                    <span>Bank Transfer</span>
+                  <div class="payment-option-card-modern">
+                    <div class="payment-option-check">
+                      <span class="material-icons-round">check_circle</span>
+                    </div>
+                    <div class="payment-option-logo">
+                      <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" aria-label="Bank Transfer">
+                        <rect width="100" height="40" rx="8" fill="#1140d9" />
+                        <text x="50" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="10" fill="#fff">Bank</text>
+                        <text x="50" y="30" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="7" fill="#bfdbfe">Transfer</text>
+                      </svg>
+                    </div>
+                    <div class="payment-option-info">
+                      <span class="payment-option-name">Bank Transfer</span>
+                      <span class="payment-option-desc">Direct Payment</span>
+                    </div>
                   </div>
                 </label>
 
@@ -590,39 +615,50 @@
               <span class="field-error" id="err-payment" hidden>Please select a payment method.</span>
 
               <!-- Contextual instructions shown after selection -->
-              <div class="pay-instructions" id="pay-instructions" hidden>
+              <div class="payment-instructions-modern" id="pay-instructions" hidden>
 
-                <!-- -- MTN Mobile Money ? live prompt flow -- -->
-                <div id="pay-instr-mtn" class="pay-instr-block" hidden>
-                  <div class="momo-flow" id="momo-flow-mtn" data-provider="MTN Mobile Money" data-prefix="077,078,076">
-                    <div class="momo-step" id="momo-step-mtn-input">
-                      <p class="momo-heading">
-                        <svg viewBox="0 0 80 32" class="momo-logo-inline" aria-hidden="true">
-                          <rect width="80" height="32" rx="5" fill="#FFCC00" /><text x="40" y="13" text-anchor="middle"
-                            font-family="Arial,sans-serif" font-weight="900" font-size="9" fill="#000">MTN</text><text
-                            x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700"
-                            font-size="6" fill="#000">Mobile Money</text>
-                        </svg>
-                        Enter your MTN MoMo number
-                      </p>
-                      <p class="momo-note">A payment prompt will be sent to this number. You will approve it on your
-                        phone ? <strong>no PIN is entered here.</strong></p>
-                      <div class="momo-input-row">
-                        <input type="tel" class="momo-phone-input" id="momo-phone-mtn" placeholder="e.g. 0771 234 567"
-                          maxlength="13" autocomplete="tel" aria-label="MTN Mobile Money phone number" />
-                        <button type="button" class="btn btn-primary momo-send-btn" onclick="sendMomoPrompt('mtn')">
-                          <span class="material-icons-round" style="font-size:16px;">send</span>
-                          Send Prompt
+                <!-- MTN Mobile Money - Modern Flow -->
+                <div id="pay-instr-mtn" class="payment-instr-block-modern" hidden>
+                  <div class="momo-flow-modern" id="momo-flow-mtn" data-provider="MTN Mobile Money" data-prefix="077,078,076">
+                    
+                    <!-- Step 1: Input Number -->
+                    <div class="momo-step-modern" id="momo-step-mtn-input">
+                      <div class="momo-header-modern">
+                        <div class="momo-logo-badge">
+                          <svg viewBox="0 0 80 32" aria-hidden="true">
+                            <rect width="80" height="32" rx="5" fill="#FFCC00" />
+                            <text x="40" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="9" fill="#000">MTN</text>
+                            <text x="40" y="24" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="6" fill="#000">Mobile Money</text>
+                          </svg>
+                        </div>
+                        <h4 class="momo-title-modern">Enter your MTN MoMo number</h4>
+                      </div>
+                      
+                      <div class="momo-info-box">
+                        <span class="material-icons-round">info</span>
+                        <p>A payment prompt will be sent to this number. You will approve it on your phone – <strong>no PIN is entered here.</strong></p>
+                      </div>
+                      
+                      <div class="momo-input-group-modern">
+                        <div class="momo-input-wrapper">
+                          <span class="material-icons-round">phone_android</span>
+                          <input type="tel" class="momo-phone-input-modern" id="momo-phone-mtn" placeholder="e.g. 0771 234 567" maxlength="13" autocomplete="tel" aria-label="MTN Mobile Money phone number" />
+                        </div>
+                        <button type="button" class="btn btn-primary btn-momo-send" onclick="sendMomoPrompt('mtn')">
+                          <span class="material-icons-round">send</span>
+                          <span>Send Prompt</span>
                         </button>
                       </div>
                       <span class="field-error" id="err-momo-mtn" hidden>Please enter a valid MTN Uganda number (077/078/076/039).</span>
                     </div>
 
-                    <div class="momo-step momo-step--sending" id="momo-step-mtn-sending" hidden>
-                      <div class="momo-spinner" aria-hidden="true"></div>
-                      <p class="momo-sending-text">Sending payment prompt to <strong id="momo-display-mtn"></strong>?
-                      </p>
-                      <p class="momo-note">Check your phone and enter your MTN MoMo PIN to approve <strong>UGX
+                    <!-- Step 2: Sending -->
+                    <div class="momo-step-modern momo-step-sending" id="momo-step-mtn-sending" hidden>
+                      <div class="momo-status-icon">
+                        <div class="momo-spinner-modern"></div>
+                      </div>
+                      <h4 class="momo-status-title">Sending payment prompt to <strong id="momo-display-mtn"></strong></h4>
+                      <p class="momo-status-text">Check your phone and enter your MTN MoMo PIN to approve <strong>UGX
                           10,000</strong>.</p>
                     </div>
 
@@ -968,18 +1004,18 @@
       });
     });
 
-    // Payment method ? show contextual instructions
+    // Payment method – show contextual instructions
     document.querySelectorAll('input[name="paymentMethod"]').forEach((radio) => {
       radio.addEventListener('change', () => {
-        // Highlight selected card
-        document.querySelectorAll('.pay-option-card').forEach((c) => c.classList.remove('pay-option-card--selected'));
-        if (radio.checked) radio.closest('.pay-option').querySelector('.pay-option-card').classList.add('pay-option-card--selected');
-
+        // Highlight selected card (handled by CSS now with :checked selector)
+        // No need to manually add/remove classes
+        
         // Show instructions panel
         const instrWrap = document.getElementById('pay-instructions');
         instrWrap.hidden = false;
         ['pay-instr-mtn', 'pay-instr-airtel', 'pay-instr-card', 'pay-instr-bank'].forEach((id) => {
-          document.getElementById(id).hidden = true;
+          const el = document.getElementById(id);
+          if (el) el.hidden = true;
         });
         const map = {
           'MTN Mobile Money': 'pay-instr-mtn',
@@ -989,7 +1025,10 @@
           'Bank Transfer': 'pay-instr-bank',
         };
         const target = map[radio.value];
-        if (target) document.getElementById(target).hidden = false;
+        if (target) {
+          const targetEl = document.getElementById(target);
+          if (targetEl) targetEl.hidden = false;
+        }
       });
     });
 

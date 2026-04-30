@@ -91,14 +91,6 @@
     .badge-popular{background:#ede9fe;color:#6d28d9;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
     .price-free{background:#dcfce7;color:#15803d;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
     .price-paid{background:#f3f4f6;color:#374151;font-size:0.65rem;font-weight:800;padding:0.18rem 0.5rem;border-radius:999px;}
-    /* Filter bar */
-    .filter-bar{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.2rem;align-items:center;}
-    .filter-select{padding:0.45rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.82rem;font-family:inherit;cursor:pointer;}
-    .filter-search{flex:1;min-width:160px;padding:0.45rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.82rem;font-family:inherit;}
-    .filter-search:focus,.filter-select:focus{outline:none;border-color:var(--primary);}
-    .price-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-    .price-toggle button{padding:0.4rem 0.75rem;border:none;background:var(--surface);color:var(--muted);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.15s;}
-    .price-toggle button.active{background:var(--primary);color:#fff;}
     /* Right sidebar */
     .alumni-mini-card{display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid var(--border);}
     .alumni-mini-card:last-child{border-bottom:none;}
@@ -514,34 +506,61 @@
             </div>
 
             <!-- Filter bar -->
-            <div class="filter-bar" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;box-shadow:var(--shadow);">
-              <select class="filter-select" id="cat-filter" onchange="filterCourses()">
-                <option value="">All Categories</option>
-                <option value="cybersecurity">Cybersecurity</option>
-                <option value="networking">Networking</option>
-                <option value="web-dev">Web Development</option>
-                <option value="cloud">Cloud</option>
-                <option value="data">Data &amp; AI</option>
-                <option value="linux">Linux</option>
-                <option value="devops">DevOps</option>
-              </select>
-              <select class="filter-select" id="prov-filter" onchange="filterCourses()">
-                <option value="">All Providers</option>
-                <option value="linux-foundation">Linux Foundation</option>
-                <option value="cisco">Cisco</option>
-                <option value="google">Google</option>
-                <option value="ibm">IBM</option>
-                <option value="meta">Meta</option>
-                <option value="aws">AWS</option>
-                <option value="edx">edX</option>
-                <option value="coursera">Coursera</option>
-              </select>
-              <div class="price-toggle">
-                <button class="active" id="price-all" onclick="setPriceFilter('all')">All</button>
-                <button id="price-free" onclick="setPriceFilter('free')">Free</button>
-                <button id="price-paid" onclick="setPriceFilter('paid')">Paid</button>
+            <div class="filter-bar-modern">
+              <div class="filter-group">
+                <label class="filter-label">
+                  <span class="material-icons-round">category</span>
+                  <span>Category</span>
+                </label>
+                <select class="filter-select-modern" id="cat-filter" onchange="filterCourses()">
+                  <option value="">All Categories</option>
+                  <option value="cybersecurity">Cybersecurity</option>
+                  <option value="networking">Networking</option>
+                  <option value="web-dev">Web Development</option>
+                  <option value="cloud">Cloud</option>
+                  <option value="data">Data &amp; AI</option>
+                  <option value="linux">Linux</option>
+                  <option value="devops">DevOps</option>
+                </select>
               </div>
-              <input class="filter-search" type="search" id="course-search" placeholder="Search courses..." oninput="filterCourses()" />
+              
+              <div class="filter-group">
+                <label class="filter-label">
+                  <span class="material-icons-round">business</span>
+                  <span>Provider</span>
+                </label>
+                <select class="filter-select-modern" id="prov-filter" onchange="filterCourses()">
+                  <option value="">All Providers</option>
+                  <option value="linux-foundation">Linux Foundation</option>
+                  <option value="cisco">Cisco</option>
+                  <option value="google">Google</option>
+                  <option value="ibm">IBM</option>
+                  <option value="meta">Meta</option>
+                  <option value="aws">AWS</option>
+                  <option value="edx">edX</option>
+                  <option value="coursera">Coursera</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label class="filter-label">
+                  <span class="material-icons-round">payments</span>
+                  <span>Price</span>
+                </label>
+                <div class="price-toggle-modern">
+                  <button class="price-toggle-btn active" id="price-all" onclick="setPriceFilter('all')">All</button>
+                  <button class="price-toggle-btn" id="price-free" onclick="setPriceFilter('free')">Free</button>
+                  <button class="price-toggle-btn" id="price-paid" onclick="setPriceFilter('paid')">Paid</button>
+                </div>
+              </div>
+              
+              <div class="filter-group filter-search-group">
+                <label class="filter-label">
+                  <span class="material-icons-round">search</span>
+                  <span>Search</span>
+                </label>
+                <input class="filter-search-modern" type="search" id="course-search" placeholder="Search courses..." oninput="filterCourses()" />
+              </div>
             </div>
 
             <!-- Course grid -->
