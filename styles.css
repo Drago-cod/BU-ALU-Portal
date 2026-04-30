@@ -2605,8 +2605,13 @@ h3 {
 }
 
 /* ── Page entrance ── */
-html { opacity: 0; }
-html.page-ready { animation: page-fade-in 0.35s ease forwards; }
+html { 
+  opacity: 1; /* Changed from 0 to prevent flash */
+}
+
+html.page-ready { 
+  animation: none; /* Remove animation to prevent flash */
+}
 
 @keyframes page-fade-in {
   from { opacity: 0; }
@@ -2614,16 +2619,16 @@ html.page-ready { animation: page-fade-in 0.35s ease forwards; }
 }
 
 /* ── Scroll-triggered base states ── */
-.fade-up    { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
-.fade-in    { opacity: 0;                               transition: opacity 0.55s ease; }
-.slide-left { opacity: 0; transform: translateX(-32px); transition: opacity 0.55s ease, transform 0.55s ease; }
-.slide-right{ opacity: 0; transform: translateX(32px);  transition: opacity 0.55s ease, transform 0.55s ease; }
-.scale-in   { opacity: 0; transform: scale(0.94);       transition: opacity 0.5s ease, transform 0.5s ease; }
+.fade-up    { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.fade-in    { opacity: 0;                               transition: opacity 0.45s ease; }
+.slide-left { opacity: 0; transform: translateX(-20px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.slide-right{ opacity: 0; transform: translateX(20px);  transition: opacity 0.45s ease, transform 0.45s ease; }
+.scale-in   { opacity: 0; transform: scale(0.96);       transition: opacity 0.4s ease, transform 0.4s ease; }
 
 .stagger-children > * {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* Triggered state */
@@ -18563,6 +18568,20 @@ a:hover {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
+/* Responsive padding for auth section */
+@media (max-width: 768px) {
+  .auth-section {
+    padding: 2rem 0;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-section {
+    padding: 1.5rem 0;
+  }
+}
+
 .auth-split-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -18921,10 +18940,16 @@ a:hover {
   .auth-split-layout {
     grid-template-columns: 1fr;
     gap: 2rem;
+    max-width: 600px;
   }
 
   .auth-welcome-card {
     padding: 2.5rem;
+    order: 2;
+  }
+
+  .auth-form-card {
+    order: 1;
   }
 
   .auth-welcome-title {
@@ -18953,6 +18978,24 @@ a:hover {
     font-size: 1rem;
   }
 
+  .auth-benefit-item {
+    gap: 0.75rem;
+  }
+
+  .auth-benefit-icon {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.25rem;
+  }
+
+  .auth-benefit-text strong {
+    font-size: 0.9375rem;
+  }
+
+  .auth-benefit-text span {
+    font-size: 0.875rem;
+  }
+
   .auth-form-card {
     padding: 2rem;
   }
@@ -18961,13 +19004,942 @@ a:hover {
     font-size: 1.5rem;
   }
 
+  .auth-form-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .modern-auth-form {
+    gap: 1.25rem;
+  }
+
+  .input-with-icon input {
+    height: 2.75rem;
+    font-size: 0.875rem;
+  }
+
+  .input-icon {
+    font-size: 1.125rem;
+  }
+
   .social-auth-buttons {
     grid-template-columns: 1fr;
+  }
+
+  .social-auth-btn {
+    height: 2.75rem;
+    font-size: 0.875rem;
   }
 
   .auth-form-options {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+  }
+
+  .btn-large {
+    height: 2.75rem;
+    font-size: 0.9375rem;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MODERN SIGN-UP PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+.auth-signup-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.auth-signup-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.auth-signup-subtitle {
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+.auth-signup-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Sign-Up Form Card */
+.auth-signup-form-card {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .auth-signup-form-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modern-signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modern-signup-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.modern-signup-form select {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 3rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+  background: var(--bg);
+  color: var(--text);
+  width: 100%;
+}
+
+.modern-signup-form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(17, 64, 217, 0.1);
+}
+
+/* Payment Method Section */
+.payment-method-section {
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+[data-theme="dark"] .payment-method-section {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.payment-method-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.payment-method-header .material-icons-round {
+  color: #10b981;
+  font-size: 1.5rem;
+}
+
+.payment-method-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.payment-method-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.payment-method-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.payment-method-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.payment-method-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding: 0 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.payment-method-label .material-icons-round {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.payment-method-label svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+.payment-method-option input[type="radio"]:checked + .payment-method-label {
+  border-color: var(--primary);
+  background: rgba(17, 64, 217, 0.1);
+  color: var(--primary);
+}
+
+.payment-method-option input[type="radio"]:checked + .payment-method-label .material-icons-round,
+.payment-method-option input[type="radio"]:checked + .payment-method-label svg {
+  color: var(--primary);
+}
+
+.payment-method-option:hover .payment-method-label {
+  border-color: var(--primary);
+}
+
+/* Gradient Button */
+.btn-gradient {
+  background: linear-gradient(135deg, #10b981 0%, #1140d9 100%);
+  border: none;
+  color: #ffffff;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-gradient:hover::before {
+  left: 100%;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(17, 64, 217, 0.3);
+}
+
+/* Sidebar Cards */
+.auth-signup-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Fee Card */
+.signup-fee-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.signup-fee-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.signup-fee-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.signup-fee-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+.signup-fee-row span {
+  color: var(--muted);
+}
+
+.signup-fee-row strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.signup-fee-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.5rem 0;
+}
+
+.signup-fee-total {
+  font-size: 1.125rem;
+  padding-top: 0.5rem;
+}
+
+.signup-fee-amount {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #10b981;
+}
+
+.signup-fee-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+}
+
+.signup-fee-note .material-icons-round {
+  color: #3b82f6;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.signup-fee-note p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0;
+}
+
+.signup-fee-note strong {
+  font-weight: 600;
+}
+
+/* Benefits Card */
+.signup-benefits-card {
+  background: linear-gradient(135deg, #1140d9 0%, #3b82f6 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(17, 64, 217, 0.2);
+}
+
+.signup-benefits-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.signup-benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.signup-benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.signup-benefits-list .material-icons-round {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  opacity: 0.9;
+}
+
+/* Security Card */
+.signup-security-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.signup-security-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.signup-security-text {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.signup-security-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #10b981;
+}
+
+.signup-security-badge .material-icons-round {
+  font-size: 1.125rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .auth-signup-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .auth-signup-sidebar {
+    order: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .auth-signup-form-card {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-signup-header {
+    margin-bottom: 2rem;
+  }
+
+  .auth-signup-title {
+    font-size: 2rem;
+  }
+
+  .auth-signup-subtitle {
+    font-size: 1rem;
+  }
+
+  .auth-signup-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-signup-form-card {
+    padding: 2rem;
+  }
+
+  .auth-form-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .auth-form-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-form-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .modern-signup-form {
+    gap: 1rem;
+  }
+
+  .modern-signup-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .input-with-icon input {
+    height: 2.75rem;
+    font-size: 0.875rem;
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
+  }
+
+  .input-icon {
+    font-size: 1.125rem;
+    left: 0.875rem;
+  }
+
+  .input-action-btn {
+    right: 0.5rem;
+  }
+
+  .modern-signup-form select {
+    height: 2.75rem;
+    font-size: 0.875rem;
+  }
+
+  .payment-method-section {
+    padding: 1.25rem;
+  }
+
+  .payment-method-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .payment-method-label {
+    height: 2.5rem;
+    font-size: 0.8125rem;
+    padding: 0 0.75rem;
+    gap: 0.375rem;
+  }
+
+  .payment-method-label .material-icons-round,
+  .payment-method-label svg {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .btn-large {
+    height: 2.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .signup-fee-card,
+  .signup-benefits-card,
+  .signup-security-card {
+    padding: 1.25rem;
+  }
+
+  .signup-fee-title,
+  .signup-benefits-title,
+  .signup-security-title {
+    font-size: 1rem;
+  }
+
+  .signup-fee-amount {
+    font-size: 1.5rem;
+  }
+
+  .signup-benefits-list li {
+    font-size: 0.875rem;
+  }
+
+  .signup-benefits-list .material-icons-round {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-section {
+    padding: 1.5rem 0;
+  }
+
+  .auth-signup-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .auth-signup-title {
+    font-size: 1.75rem;
+  }
+
+  .auth-signup-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .auth-signup-form-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .auth-form-title {
+    font-size: 1.25rem;
+  }
+
+  .modern-signup-form {
+    gap: 0.875rem;
+  }
+
+  .modern-signup-form .form-group {
+    gap: 0.375rem;
+  }
+
+  .modern-signup-form label {
+    font-size: 0.8125rem;
+  }
+
+  .input-with-icon input,
+  .modern-signup-form select {
+    height: 2.5rem;
+    font-size: 0.8125rem;
+    border-radius: 10px;
+  }
+
+  .input-with-icon input {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .input-icon {
+    font-size: 1rem;
+    left: 0.75rem;
+  }
+
+  .input-action-btn {
+    right: 0.375rem;
+    padding: 0.375rem;
+  }
+
+  .input-action-btn .material-icons-round {
+    font-size: 1.125rem;
+  }
+
+  .payment-method-section {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .payment-method-header h3 {
+    font-size: 0.9375rem;
+  }
+
+  .payment-method-header .material-icons-round {
+    font-size: 1.25rem;
+  }
+
+  .payment-method-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .payment-method-label {
+    height: 2.5rem;
+    font-size: 0.8125rem;
+    gap: 0.375rem;
+  }
+
+  .payment-method-label .material-icons-round,
+  .payment-method-label svg {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .checkbox-label {
+    font-size: 0.8125rem;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .btn-large {
+    height: 2.5rem;
+    font-size: 0.875rem;
+    border-radius: 10px;
+  }
+
+  .auth-footer-text {
+    font-size: 0.875rem;
+  }
+
+  .signup-fee-card,
+  .signup-benefits-card,
+  .signup-security-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .signup-fee-title,
+  .signup-benefits-title,
+  .signup-security-title {
+    font-size: 0.9375rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .signup-fee-row {
+    font-size: 0.875rem;
+  }
+
+  .signup-fee-total {
+    font-size: 1rem;
+  }
+
+  .signup-fee-amount {
+    font-size: 1.375rem;
+  }
+
+  .signup-fee-note {
+    padding: 0.875rem;
+  }
+
+  .signup-fee-note p {
+    font-size: 0.8125rem;
+  }
+
+  .signup-benefits-list {
+    gap: 0.625rem;
+  }
+
+  .signup-benefits-list li {
+    font-size: 0.8125rem;
+    gap: 0.625rem;
+  }
+
+  .signup-benefits-list .material-icons-round {
+    font-size: 1rem;
+  }
+
+  .signup-security-text {
+    font-size: 0.8125rem;
+  }
+
+  .signup-security-badge {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .signup-security-badge .material-icons-round {
+    font-size: 1rem;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MODERN FEATURED EVENT SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+.featured-event-section {
+  background: var(--bg);
+  padding: 4rem 0;
+}
+
+.featured-event-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  color: var(--text);
+}
+
+.featured-event-card-modern {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--surface);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+[data-theme="dark"] .featured-event-card-modern {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.featured-event-image {
+  position: relative;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.featured-event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.featured-event-card-modern:hover .featured-event-image img {
+  transform: scale(1.05);
+}
+
+.featured-event-content {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-event-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.featured-event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.featured-event-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+.featured-event-detail-item .material-icons-round {
+  font-size: 1.25rem;
+  color: #ec4899;
+  flex-shrink: 0;
+}
+
+.featured-event-description {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+}
+
+.btn-featured {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+  border: none;
+  color: #ffffff;
+  font-weight: 700;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-featured:hover::before {
+  left: 100%;
+}
+
+.btn-featured:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .featured-event-section {
+    padding: 3rem 0;
+  }
+
+  .featured-event-heading {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .featured-event-card-modern {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+  }
+
+  .featured-event-image {
+    height: 250px;
+  }
+
+  .featured-event-content {
+    padding: 2rem;
+  }
+
+  .featured-event-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .featured-event-details {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .featured-event-detail-item {
+    font-size: 0.875rem;
+  }
+
+  .featured-event-detail-item .material-icons-round {
+    font-size: 1.125rem;
+  }
+
+  .featured-event-description {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-event-section {
+    padding: 2rem 0;
+  }
+
+  .featured-event-heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .featured-event-card-modern {
+    border-radius: 16px;
+  }
+
+  .featured-event-image {
+    height: 200px;
+  }
+
+  .featured-event-content {
+    padding: 1.5rem;
+  }
+
+  .featured-event-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .featured-event-details {
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+  }
+
+  .featured-event-detail-item {
+    font-size: 0.8125rem;
+    gap: 0.625rem;
+  }
+
+  .featured-event-detail-item .material-icons-round {
+    font-size: 1rem;
+  }
+
+  .featured-event-description {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn-featured {
+    height: 2.75rem;
+    font-size: 0.9375rem;
   }
 }

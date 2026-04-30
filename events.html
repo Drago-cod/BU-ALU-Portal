@@ -112,18 +112,52 @@
     </div>
   </section>
 
-    <!-- Featured Event Banner -->
-    <div class="featured-event-banner">
-      <div class="container featured-event-inner">
-        <div class="featured-event-badge">Featured Event</div>
-        <div>
-          <h2>Annual Alumni Gala 2026</h2>
-          <p class="meta">May 10 &nbsp;?&nbsp; Kampala Serena Hotel &nbsp;?&nbsp; 6:00 PM EAT</p>
-          <p>The biggest alumni gathering of the year. Awards, networking, and celebration of BU's legacy.</p>
+    <!-- Featured Event Section -->
+    <section class="section featured-event-section">
+      <div class="container">
+        <h2 class="featured-event-heading">Featured Event</h2>
+        
+        <div class="featured-event-card-modern">
+          <div class="featured-event-image">
+            <img src="image/event1.png" alt="Annual Alumni Gala 2026 - Elegant table setting with flowers" />
+          </div>
+          
+          <div class="featured-event-content">
+            <h3 class="featured-event-title">Annual Alumni Gala 2026</h3>
+            
+            <div class="featured-event-details">
+              <div class="featured-event-detail-item">
+                <span class="material-icons-round">event</span>
+                <span>June 22, 2026</span>
+              </div>
+              
+              <div class="featured-event-detail-item">
+                <span class="material-icons-round">schedule</span>
+                <span>6:00 PM - 11:00 PM</span>
+              </div>
+              
+              <div class="featured-event-detail-item">
+                <span class="material-icons-round">location_on</span>
+                <span>Serena Hotel, Kampala</span>
+              </div>
+              
+              <div class="featured-event-detail-item">
+                <span class="material-icons-round">people</span>
+                <span>150 spots available</span>
+              </div>
+            </div>
+            
+            <p class="featured-event-description">
+              Join us for our biggest event of the year! An evening of celebration, networking, and giving back.
+            </p>
+            
+            <button class="btn btn-primary btn-large btn-featured" onclick="setEventTitle('Annual Alumni Gala 2026', 'June 22, 2026', 'Serena Hotel, Kampala', '6:00 PM - 11:00 PM')">
+              Register Now
+            </button>
+          </div>
         </div>
-        <a class="btn btn-primary" href="#event-register">Register Now</a>
       </div>
-    </div>
+    </section>
 
     <!-- Main content: asymmetric layout -->
     <section class="section">
@@ -497,7 +531,7 @@
             </div>
           </div>
 
-          <form class="event-reg-form-modern" id="event-reg-form" novalidate>
+          <form class="event-reg-form-modern" id="event-reg-form" onsubmit="handleEventRegistration(event)" novalidate>
             <!-- Hidden event metadata -->
             <input type="hidden" id="reg-event-name" value="" />
             <input type="hidden" id="reg-event-date" value="" />
@@ -511,7 +545,11 @@
                 <span>Full Name</span>
                 <span class="form-required">*</span>
               </label>
-              <input type="text" id="reg-full-name" class="form-input-modern" placeholder="e.g. Amara Ssekandi" required autocomplete="name" />
+              <input type="text" id="reg-full-name" class="form-input-modern" placeholder="e.g. Amara Ssekandi" required autocomplete="name" oninput="validateFullName()" onblur="validateFullName()" />
+              <span class="field-error-message" id="reg-full-name-error" style="display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; display: flex; align-items: center; gap: 0.25rem;">
+                <span class="material-icons-round" style="font-size: 1rem;">error</span>
+                <span></span>
+              </span>
             </div>
 
             <!-- Email Address -->
@@ -521,8 +559,12 @@
                 <span>Email Address</span>
                 <span class="form-required">*</span>
               </label>
-              <input type="email" id="reg-email" class="form-input-modern" placeholder="your@email.com" required autocomplete="email" />
-              <span class="form-hint-modern">
+              <input type="email" id="reg-email" class="form-input-modern" placeholder="your@email.com" required autocomplete="email" oninput="validateEmail()" onblur="validateEmail()" />
+              <span class="field-error-message" id="reg-email-error" style="display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; display: flex; align-items: center; gap: 0.25rem;">
+                <span class="material-icons-round" style="font-size: 1rem;">error</span>
+                <span></span>
+              </span>
+              <span class="form-hint-modern" id="reg-email-hint">
                 <span class="material-icons-round">info</span>
                 <span>Your ticket & receipt will be sent here</span>
               </span>
@@ -535,11 +577,15 @@
                 <span>Phone Number</span>
                 <span class="form-required">*</span>
               </label>
-              <input type="tel" id="reg-phone" class="form-input-modern" placeholder="+256 700 000 000" required autocomplete="tel" />
+              <input type="tel" id="reg-phone" class="form-input-modern" placeholder="+256 700 000 000" required autocomplete="tel" oninput="validatePhone()" onblur="validatePhone()" />
+              <span class="field-error-message" id="reg-phone-error" style="display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; display: flex; align-items: center; gap: 0.25rem;">
+                <span class="material-icons-round" style="font-size: 1rem;">error</span>
+                <span></span>
+              </span>
             </div>
 
             <!-- Error message -->
-            <div class="form-error-modern" id="reg-error" hidden>
+            <div class="form-error-modern" id="reg-error" style="display: none;">
               <span class="material-icons-round">error</span>
               <span id="reg-error-text"></span>
             </div>
@@ -777,6 +823,129 @@
       }
     }
 
+    // Real-time validation functions
+    function showFieldError(fieldId, message) {
+      const input = document.getElementById(fieldId);
+      const errorEl = document.getElementById(fieldId + '-error');
+      
+      if (input && errorEl) {
+        input.classList.add('input-error');
+        input.style.borderColor = '#dc2626';
+        errorEl.style.display = 'flex';
+        errorEl.querySelector('span:last-child').textContent = message;
+      }
+    }
+
+    function hideFieldError(fieldId) {
+      const input = document.getElementById(fieldId);
+      const errorEl = document.getElementById(fieldId + '-error');
+      
+      if (input && errorEl) {
+        input.classList.remove('input-error');
+        input.style.borderColor = '';
+        errorEl.style.display = 'none';
+      }
+    }
+
+    function validateFullName() {
+      const input = document.getElementById('reg-full-name');
+      const value = input.value.trim();
+      
+      if (value === '') {
+        hideFieldError('reg-full-name');
+        return false;
+      }
+      
+      if (value.length < 3) {
+        showFieldError('reg-full-name', 'Name must be at least 3 characters');
+        return false;
+      }
+      
+      if (!/^[a-zA-Z\s'-]+$/.test(value)) {
+        showFieldError('reg-full-name', 'Name can only contain letters, spaces, hyphens, and apostrophes');
+        return false;
+      }
+      
+      hideFieldError('reg-full-name');
+      return true;
+    }
+
+    function validateEmail() {
+      const input = document.getElementById('reg-email');
+      const value = input.value.trim();
+      
+      if (value === '') {
+        hideFieldError('reg-email');
+        return false;
+      }
+      
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        showFieldError('reg-email', 'Please enter a valid email address');
+        return false;
+      }
+      
+      hideFieldError('reg-email');
+      return true;
+    }
+
+    function validatePhone() {
+      const input = document.getElementById('reg-phone');
+      const value = input.value.trim();
+      
+      if (value === '') {
+        hideFieldError('reg-phone');
+        return false;
+      }
+      
+      // Remove all non-digit characters for validation
+      const digits = value.replace(/\D/g, '');
+      
+      // Check for Uganda phone format (256XXXXXXXXX or 07XXXXXXXX or 03XXXXXXXX)
+      const isUgandaFormat = /^(256[7039]\d{8}|0[7039]\d{8})$/.test(digits);
+      
+      if (!isUgandaFormat && digits.length < 9) {
+        showFieldError('reg-phone', 'Please enter a valid phone number');
+        return false;
+      }
+      
+      if (!isUgandaFormat && digits.length > 12) {
+        showFieldError('reg-phone', 'Phone number is too long');
+        return false;
+      }
+      
+      hideFieldError('reg-phone');
+      return true;
+    }
+
+    function validateAllFields() {
+      const fullNameValid = validateFullName();
+      const emailValid = validateEmail();
+      const phoneValid = validatePhone();
+      
+      // Check if fields are empty
+      const fullName = document.getElementById('reg-full-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      
+      if (!fullName) {
+        showFieldError('reg-full-name', 'Full name is required');
+      }
+      if (!email) {
+        showFieldError('reg-email', 'Email address is required');
+      }
+      if (!phone) {
+        showFieldError('reg-phone', 'Phone number is required');
+      }
+      
+      return fullNameValid && emailValid && phoneValid && fullName && email && phone;
+    }
+
+    async function handleEventRegistration(event) {
+      event.preventDefault();
+      await submitRegistration();
+    }
+
     async function submitRegistration() {
       const btn       = document.getElementById('reg-submit-btn');
       const errorEl   = document.getElementById('reg-error');
@@ -785,33 +954,27 @@
       const phone     = document.getElementById('reg-phone').value.trim();
       const eventName = document.getElementById('reg-event-name').value.trim() || 'BU Alumni Event';
 
-      // Determine event type based on event name
-      function determineEventType(eventName) {
-        const name = eventName.toLowerCase();
-        if (name.includes('tech') || name.includes('ai') || name.includes('machine learning') || name.includes('programming')) {
-          return 'Tech';
-        } else if (name.includes('conference') || name.includes('summit') || name.includes('forum')) {
-          return 'Conference';
-        } else if (name.includes('networking') || name.includes('meet') || name.includes('connect')) {
-          return 'Networking';
-        } else if (name.includes('workshop') || name.includes('training') || name.includes('seminar')) {
-          return 'Workshop';
+      // Hide main error box initially
+      errorEl.style.display = 'none';
+
+      // Validate all fields
+      if (!validateAllFields()) {
+        document.getElementById('reg-error-text').textContent = 'Please fix the errors above before submitting.';
+        errorEl.style.display = 'flex';
+        
+        // Scroll to first error
+        const firstError = document.querySelector('.input-error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus();
         }
-        return 'General';
-      }
-
-      const eventType = determineEventType(eventName);
-
-      // Client-side validation
-      errorEl.hidden = true;
-      if (!fullName || !email || !phone) {
-        document.getElementById('reg-error-text').textContent = 'Please fill in all required fields.';
-        errorEl.hidden = false;
         return;
       }
 
+      // Disable button and show loading state
       btn.disabled    = true;
-      btn.textContent = 'Sending…';
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-icons-round" style="animation: spin 1s linear infinite;">sync</span><span>Sending…</span>';
 
       try {
         // Use backend API for event registration
@@ -833,6 +996,9 @@
 
         const data = result.data;
 
+        // Hide error box on success
+        errorEl.style.display = 'none';
+
         // Populate ticket card
         document.getElementById('ticket-event-name').textContent = eventName;
         document.getElementById('ticket-name').textContent        = fullName;
@@ -850,31 +1016,87 @@
         // Swap form → success
         document.getElementById('event-reg-form').parentElement.hidden = true;
         document.getElementById('event-reg-success').hidden = false;
+        
+        // Scroll to success message
+        document.getElementById('event-reg-success').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       } catch (err) {
-        document.getElementById('reg-error-text').textContent = err.message;
-        errorEl.hidden = false;
+        // Show error box on failure
+        const errorMessage = err.message || 'Registration failed. Please try again.';
+        document.getElementById('reg-error-text').textContent = errorMessage;
+        errorEl.style.display = 'flex';
+        
+        // Scroll to error message
+        errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Log error for debugging
+        console.error('Registration error:', err);
       } finally {
-        btn.disabled    = false;
-        btn.textContent = 'Register & Get Ticket';
+        btn.disabled = false;
+        btn.innerHTML = originalText;
       }
     }
 
+    // Add CSS for spinning animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .input-error {
+        border-color: #dc2626 !important;
+        background-color: #fef2f2 !important;
+      }
+      .field-error-message {
+        animation: slideDown 0.3s ease-out;
+      }
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
     function resetRegForm() {
+      // Show form, hide success
       document.getElementById('event-reg-form').parentElement.hidden = false;
       document.getElementById('event-reg-success').hidden = true;
+      
+      // Clear all input fields
       document.getElementById('event-reg-form')
         .querySelectorAll('input[type=text],input[type=email],input[type=tel]')
         .forEach((el) => { el.value = ''; });
+      
+      // Reset form title
       document.getElementById('register-form-title').textContent = 'Event Registration';
       document.getElementById('reg-event-name').value = '';
-      document.getElementById('reg-error').hidden = true;
+      
+      // Hide main error box
+      const errorEl = document.getElementById('reg-error');
+      if (errorEl) {
+        errorEl.style.display = 'none';
+      }
+      
+      // Clear all field-level errors
+      hideFieldError('reg-full-name');
+      hideFieldError('reg-email');
+      hideFieldError('reg-phone');
       
       // Hide the event info badge
       const badge = document.getElementById('event-info-badge');
       if (badge) {
         badge.style.display = 'none';
       }
+      
+      // Scroll to top of form
+      document.getElementById('event-register').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   </script>
   <script src="theme.js"></script>
