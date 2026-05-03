@@ -20487,3 +20487,76 @@ a:hover {
     font-size: 0.8rem !important;
   }
 }
+
+/* Opportunity cards: keep mobile action buttons compact and readable */
+.opp-actions .btn,
+.opp-actions .share-btn {
+  min-height: 42px !important;
+  height: 42px !important;
+  border-radius: 12px !important;
+}
+
+@media (max-width: 768px) {
+  .opp-actions {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 0.55rem !important;
+  }
+
+  .opp-actions .btn {
+    width: auto !important;
+    padding: 0.62rem 0.85rem !important;
+    font-size: 0.86rem !important;
+    line-height: 1 !important;
+  }
+
+  .opp-actions .btn-primary {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .opp-actions .btn-ghost {
+    flex: 0 0 auto !important;
+  }
+
+  .opp-actions .share-btn {
+    flex: 0 0 42px !important;
+    width: 42px !important;
+    min-width: 42px !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .opp-actions {
+    gap: 0.45rem !important;
+  }
+
+  .opp-actions .btn {
+    padding-left: 0.7rem !important;
+    padding-right: 0.7rem !important;
+    font-size: 0.82rem !important;
+  }
+}
+
+/* Opportunity filters: prevent dropdown chevron from tiling */
+#filter-type,
+#filter-location {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235b8dff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.85rem center !important;
+  background-size: 18px 18px !important;
+  padding-right: 2.6rem !important;
+}
+
+[data-theme="dark"] #filter-type,
+[data-theme="dark"] #filter-location {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.85rem center !important;
+  background-size: 18px 18px !important;
+}
