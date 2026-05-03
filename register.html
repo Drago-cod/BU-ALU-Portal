@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="image/Bugema_logo.png" />
+  <link rel="shortcut icon" type="image/png" href="image/Bugema_logo.png" />
   <script src="local-db.js"></script>
 </head>
 <body>
@@ -103,46 +105,40 @@
   </section>
 
 
-  <div class="container" style="max-width: 800px; margin: 0 auto; padding: 3rem 1rem;">
+  <div class="container" style="max-width: 700px; margin: 0 auto; padding: 3rem 1rem;">
     <!-- Main Form -->
     <div class="form-card scroll-reveal scale-in" style="padding: 3rem; border-radius: 24px;">
-      <!-- Strength Panel -->
-      <div class="strength-panel scroll-reveal" id="strengthPanel" aria-hidden="true">
-        <div class="strength-title">Must have at least 8 characters</div>
-        <div class="strength-divider">
-          <span id="meter-1"></span><span id="meter-2"></span><span id="meter-3"></span><span id="meter-4"></span>
-        </div>
-        <div class="strength-subtitle">It's better to have:</div>
-        <ul class="rule-list">
-          <li class="rule-item" id="rule-length">
-            <div class="icon"></div> At least 12 characters
-          </li>
-          <li class="rule-item" id="rule-case">
-            <div class="icon"></div> Uppercase and lowercase letters
-          </li>
-          <li class="rule-item" id="rule-number">
-            <div class="icon"></div> Numbers
-          </li>
-          <li class="rule-item" id="rule-symbol">
-            <div class="icon"></div> Symbols (#$&)
-          </li>
-        </ul>
+      <!-- Form Header -->
+      <div style="margin-bottom: 2.5rem; text-align: center;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text);">Complete Your Profile</h2>
+        <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.6;">Help us know you better by sharing your professional information</p>
       </div>
+
       <form id="registerForm" onsubmit="handleRegisterSubmit(event); return false;" novalidate>
         
+        <!-- Name Field -->
         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="username" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Username</label>
-          <div class="input-wrapper" id="usernameWrapper">
-            <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required style="padding: 1rem; border-radius: 12px;">
+          <label for="fullName" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">person</span>
+            Full Name
+            <span style="color: #ef4444;">*</span>
+          </label>
+          <div class="input-wrapper" id="nameWrapper">
+            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="John Doe" required style="padding: 1rem; border-radius: 12px;">
           </div>
-          <div class="field-error" id="usernameError" hidden>
+          <div class="field-error" id="nameError" hidden>
             <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Username is required
+            Please enter your full name
           </div>
         </div>
 
+        <!-- Email Field -->
         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="email" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Email Address</label>
+          <label for="email" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">mail</span>
+            Email Address
+            <span style="color: #ef4444;">*</span>
+          </label>
           <div class="input-wrapper" id="emailWrapper">
             <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email" style="padding: 1rem; border-radius: 12px;">
           </div>
@@ -152,92 +148,62 @@
           </div>
         </div>
 
+        <!-- Contact Field -->
         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="password" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Password</label>
-          <div class="input-wrapper" id="passwordWrapper">
-            <input type="password" id="password" class="form-control" placeholder="Create a strong password" required style="padding: 1rem; border-radius: 12px;">
-            <button type="button" id="togglePassword" class="toggle-pwd" aria-label="Toggle password visibility">
-              <span class="material-icons-round">visibility</span>
-            </button>
+          <label for="contact" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">phone</span>
+            Phone Number
+            <span style="color: #ef4444;">*</span>
+          </label>
+          <div class="input-wrapper" id="contactWrapper">
+            <input type="tel" id="contact" name="contact" class="form-control" placeholder="+1 (555) 000-0000" required style="padding: 1rem; border-radius: 12px;">
           </div>
-          <div class="field-error" id="passwordError" hidden>
+          <div class="field-error" id="contactError" hidden>
             <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Password is required
+            Please enter a valid phone number
           </div>
         </div>
 
+        <!-- Profession Field -->
         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="confirmPassword" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Confirm Password</label>
-          <div class="input-wrapper" id="confirmWrapper">
-            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required style="padding: 1rem; border-radius: 12px;">
-            <button type="button" class="toggle-pwd" id="toggleConfirm" aria-label="Toggle confirm password visibility">
-              <span class="material-icons-round">visibility</span>
-            </button>
+          <label for="profession" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">work</span>
+            Profession
+            <span style="color: #ef4444;">*</span>
+          </label>
+          <div class="input-wrapper" id="professionWrapper">
+            <input type="text" id="profession" name="profession" class="form-control" placeholder="e.g., Software Engineer, Marketing Manager" required style="padding: 1rem; border-radius: 12px;">
           </div>
-          <div class="field-error" id="confirmError" hidden>
+          <div class="field-error" id="professionError" hidden>
             <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Passwords do not match
+            Please enter your profession
           </div>
         </div>
 
-        <div class="form-group scroll-reveal fade-in-up">
-          <label for="referralSource" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">How did you get to know about us?</label>
-          <div class="input-wrapper" id="referralWrapper">
-            <select id="referralSource" class="form-control" required style="padding: 1rem; border-radius: 12px;">
-              <option value="">Please select an option</option>
-              <option value="social_media">Social Media</option>
-              <option value="friend">Friend or Colleague</option>
-              <option value="search_engine">Search Engine</option>
-              <option value="advertisement">Advertisement</option>
-              <option value="event">University Event</option>
-              <option value="email">Email Newsletter</option>
-              <option value="website">Another Website</option>
-              <option value="other">Other</option>
-            </select>
+        <!-- Residence Field -->
+        <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2.5rem;">
+          <label for="residence" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">location_on</span>
+            Residence
+            <span style="color: #ef4444;">*</span>
+          </label>
+          <div class="input-wrapper" id="residenceWrapper">
+            <input type="text" id="residence" name="residence" class="form-control" placeholder="City, Country" required style="padding: 1rem; border-radius: 12px;">
           </div>
-          <div class="field-error" id="referralError" hidden>
+          <div class="field-error" id="residenceError" hidden>
             <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please select how you heard about us
+            Please enter your residence
           </div>
         </div>
 
-        <div class="form-group scroll-reveal fade-in-up">
-          <label class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">How would you rate your experience finding us?</label>
-          <div class="rating-wrapper" id="ratingWrapper" style="padding: 1.5rem; border-radius: 12px;">
-            <div class="rating-stars" id="ratingStars">
-              <button type="button" class="star-btn" data-rating="1" aria-label="Rate 1 star">
-                <span class="material-icons-round">star_border</span>
-              </button>
-              <button type="button" class="star-btn" data-rating="2" aria-label="Rate 2 stars">
-                <span class="material-icons-round">star_border</span>
-              </button>
-              <button type="button" class="star-btn" data-rating="3" aria-label="Rate 3 stars">
-                <span class="material-icons-round">star_border</span>
-              </button>
-              <button type="button" class="star-btn" data-rating="4" aria-label="Rate 4 stars">
-                <span class="material-icons-round">star_border</span>
-              </button>
-              <button type="button" class="star-btn" data-rating="5" aria-label="Rate 5 stars">
-                <span class="material-icons-round">star_border</span>
-              </button>
-            </div>
-            <div class="rating-text" id="ratingText">Please rate your experience</div>
-            <input type="hidden" id="rating" name="rating" value="">
-          </div>
-          <div class="field-error" id="ratingError" hidden>
-            <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please provide a rating
-          </div>
+        <button type="submit" class="btn btn-primary btn-submit scroll-reveal fade-in-up" style="width: 100%; padding: 1rem 2rem; border-radius: 12px; font-size: 1rem; font-weight: 600;">Create My Profile</button>
+
+        <div class="auth-links" style="text-align: center; margin-top: 1.5rem;">
+          Already have an account? <a href="auth.html" style="color: var(--primary); font-weight: 600; text-decoration: none;">Sign in</a>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-submit scroll-reveal fade-in-up" style="width: 100%; padding: 1rem 2rem; margin-top: 1.5rem; border-radius: 12px; font-size: 1rem;">Start using BU Alumni Portal now</button>
-
-        <div class="auth-links">
-          Already have an account? <a href="auth.html">Sign in</a>
-        </div>
-
-        <div class="terms-text">
-          By continuing, you agree to our <a href="#">terms and conditions</a> and <a href="#">privacy policy</a>.
+        <div class="terms-text" style="text-align: center; font-size: 0.85rem; color: var(--muted); margin-top: 1rem;">
+          By continuing, you agree to our <a href="#" style="color: var(--primary); text-decoration: none;">terms and conditions</a> and <a href="#" style="color: var(--primary); text-decoration: none;">privacy policy</a>.
         </div>
       </form>
     </div>
