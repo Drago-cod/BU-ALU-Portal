@@ -20415,3 +20415,75 @@ a:hover {
     padding: 0.85rem 1.1rem !important;
   }
 }
+
+/* Final header action sizing: keep search/theme/login from sliding under the menu */
+@media (max-width: 599px) {
+  .site-header .nav-wrap {
+    justify-content: flex-start !important;
+  }
+
+  .site-header .nav-actions {
+    flex: 0 1 auto !important;
+    width: auto !important;
+    max-width: calc(100vw - 106px) !important;
+    min-width: 0 !important;
+    margin-left: auto !important;
+    overflow: visible !important;
+  }
+
+  .site-header .search-trigger,
+  .site-header .theme-toggle,
+  .site-header .nav-actions .btn {
+    flex: 0 0 auto !important;
+  }
+
+  .site-header .nav-actions .btn,
+  .site-header .nav-actions .btn-ghost {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 84px !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-header .nav-actions .btn-ghost {
+    max-width: 66px !important;
+    padding-left: 0.55rem !important;
+    padding-right: 0.55rem !important;
+  }
+}
+
+/* Country code dropdowns need a little extra room for flags */
+#event-country-code,
+#donor-country-code,
+#signup-country-code,
+#reg-country-code,
+#mem-country-code {
+  min-width: 150px !important;
+}
+
+@media (max-width: 480px) {
+  #event-country-code,
+  #donor-country-code,
+  #signup-country-code,
+  #reg-country-code,
+  #mem-country-code {
+    flex: 0 0 136px !important;
+    width: auto !important;
+    min-width: 136px !important;
+    font-size: 0.84rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  #event-country-code,
+  #donor-country-code,
+  #signup-country-code,
+  #reg-country-code,
+  #mem-country-code {
+    flex-basis: 124px !important;
+    min-width: 124px !important;
+    font-size: 0.8rem !important;
+  }
+}
