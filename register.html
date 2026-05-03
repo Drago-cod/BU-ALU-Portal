@@ -133,7 +133,7 @@
         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
           <label for="username" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Username</label>
           <div class="input-wrapper" id="usernameWrapper">
-            <input type="text" id="username" class="form-control" placeholder="Enter your username" required style="padding: 1rem; border-radius: 12px;">
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required style="padding: 1rem; border-radius: 12px;">
           </div>
           <div class="field-error" id="usernameError" hidden>
             <span class="material-icons-round" style="font-size: 16px;">error</span>
@@ -142,20 +142,13 @@
         </div>
 
         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="domain" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Email Domain</label>
-          <div class="input-wrapper" id="domainWrapper">
-            <select id="domain" class="form-control" required style="padding: 1rem; border-radius: 12px;">
-              <option value="">Select your domain</option>
-              <option value="@bu.edu.ug">@bu.edu.ug</option>
-              <option value="@alumni.bu.edu.ug">@alumni.bu.edu.ug</option>
-              <option value="@alumni.bugema.ac.ug">@alumni.bugema.ac.ug</option>
-              <option value="@alumni.bugemauniversity.ac.ug">@alumni.bugemauniversity.ac.ug</option>
-              <option value="@alumni.bugemauni.ac.ug">@alumni.bugemauni.ac.ug</option>
-            </select>
+          <label for="email" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">Email Address</label>
+          <div class="input-wrapper" id="emailWrapper">
+            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email" style="padding: 1rem; border-radius: 12px;">
           </div>
-          <div class="field-error" id="domainError" hidden>
+          <div class="field-error" id="emailError" hidden>
             <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please select your email domain
+            Please enter a valid email address
           </div>
         </div>
 
@@ -254,6 +247,7 @@
     // Elements
     const form = document.getElementById('registerForm');
     const username = document.getElementById('username');
+    const email = document.getElementById('email');
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');
     const referralSource = document.getElementById('referralSource');
@@ -266,6 +260,7 @@
     // Wrappers & Errors
     const wrappers = {
       username: document.getElementById('usernameWrapper'),
+      email: document.getElementById('emailWrapper'),
       password: document.getElementById('passwordWrapper'),
       confirm: document.getElementById('confirmWrapper'),
       referral: document.getElementById('referralWrapper'),
@@ -273,6 +268,7 @@
     };
     const errors = {
       username: document.getElementById('usernameError'),
+      email: document.getElementById('emailError'),
       password: document.getElementById('passwordError'),
       confirm: document.getElementById('confirmError'),
       referral: document.getElementById('referralError'),
@@ -306,6 +302,14 @@
       showError('username', errors.username, !isValid, 'This field is required');
       if(isValid) wrappers.username.classList.add('valid');
       else wrappers.username.classList.remove('valid');
+      return isValid;
+    }
+
+    function validateEmail() {
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+      showError('email', errors.email, !isValid, 'Please enter a valid email address');
+      if(isValid) wrappers.email.classList.add('valid');
+      else wrappers.email.classList.remove('valid');
       return isValid;
     }
 
@@ -354,6 +358,8 @@
     // --- Event Listeners ---
     username.addEventListener('input', validateUsername);
     username.addEventListener('blur', validateUsername);
+    email.addEventListener('input', validateEmail);
+    email.addEventListener('blur', validateEmail);
 
     password.addEventListener('focus', () => {
       strengthPanel.classList.add('active');
@@ -491,7 +497,7 @@
       
       // Get form values
       const username = form.username.value.trim();
-      const domain = form.domain.value;
+      const email = form.email.value.trim().toLowerCase();
       const password = form.password.value;
       const confirmPassword = form.confirmPassword.value;
       const referralSource = form.referralSource.value;
@@ -502,8 +508,8 @@
         alert('Please enter a username');
         return;
       }
-      if (!domain) {
-        alert('Please select an email domain');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Please enter a valid email address');
         return;
       }
       if (!password || password.length < 8) {
@@ -529,7 +535,6 @@
       submitBtn.disabled = true;
 
       try {
-        const email = username + domain;
         const donationId = 'ACC-' + Date.now();
         
         // Save to localStorage

@@ -20560,3 +20560,29 @@ a:hover {
   background-position: right 0.85rem center !important;
   background-size: 18px 18px !important;
 }
+
+/* Form hierarchy: stack fields in the order users should complete them */
+.portal-form .form-row,
+.mem-form .form-row,
+.donation-form .form-row,
+.modern-signup-form .form-row,
+.auth-signup-form-card .form-row {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1.15rem !important;
+}
+
+.portal-form,
+.mem-form,
+.donation-form,
+.modern-signup-form {
+  gap: 1.15rem !important;
+}
+
+.form-group {
+  width: 100% !important;
+}
+
+.form-group > div[style*="display: flex"] {
+  align-items: stretch !important;
+}
