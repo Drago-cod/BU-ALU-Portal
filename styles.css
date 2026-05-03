@@ -1,4 +1,3 @@
-@import url('enhancements.css');
 /* ── Glassmorphism Theme: Deep Royal Blue & White ── */
 :root,
 [data-theme="default"] {
@@ -11716,7 +11715,11 @@ html.page-ready {
 .slide-left.in-view,
 .slide-right.in-view,
 .scale-in.in-view,
-.scroll-reveal.in-view {
+.scroll-reveal.in-view,
+.fade-in-up.in-view,
+.fade-in-left.in-view,
+.fade-in-right.in-view,
+.scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0) translateX(0) scale(1);
 }

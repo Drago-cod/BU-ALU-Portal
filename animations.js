@@ -57,7 +57,8 @@ document.documentElement.classList.add('page-ready');
 /* ── 3. Intersection Observer — scroll reveals ────────────── */
 const REVEAL_CLASSES = [
   '.fade-up', '.fade-in', '.slide-left', '.slide-right',
-  '.scale-in', '.stagger-children',
+  '.scale-in', '.stagger-children', '.scroll-reveal',
+  '.fade-in-up', '.fade-in-left', '.fade-in-right',
 ];
 
 const io = new IntersectionObserver((entries) => {

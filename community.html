@@ -239,6 +239,43 @@
     .no-results{text-align:center;padding:2rem;color:var(--muted);font-size:0.9rem;}
     .learn-section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;}
     .results-count{font-size:0.8rem;color:var(--muted);}
+    .professional-profile-panel{display:none;padding:0;overflow:hidden;}
+    .professional-profile-cover{height:110px;background:linear-gradient(135deg,var(--primary),#0f766e);position:relative;}
+    .professional-profile-body{padding:0 1.4rem 1.4rem;}
+    .profile-editor-head{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:end;margin-top:-42px;position:relative;z-index:2;}
+    .profile-photo-control{position:relative;width:88px;height:88px;border-radius:50%;border:4px solid var(--surface);background:var(--surface-alt);overflow:hidden;box-shadow:var(--shadow);flex-shrink:0;}
+    .profile-photo-control img{width:100%;height:100%;object-fit:cover;display:none;}
+    .profile-photo-initials{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--primary),#3a5fe8);font-size:1.35rem;}
+    .profile-photo-upload{position:absolute;right:0;bottom:0;width:30px;height:30px;border-radius:50%;border:2px solid var(--surface);background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+    .profile-photo-upload .material-icons-round{font-size:1rem;color:#fff;}
+    .profile-photo-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+    .profile-summary-name{font-size:1.25rem;font-weight:800;color:var(--text);margin:0 0 0.15rem;}
+    .profile-summary-headline{font-size:0.9rem;color:var(--muted);margin:0;}
+    .profile-status-pill{display:inline-flex;align-items:center;gap:0.3rem;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:999px;padding:0.35rem 0.7rem;font-size:0.78rem;font-weight:700;white-space:nowrap;}
+    .profile-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.2rem;}
+    .profile-editor-grid .full{grid-column:1/-1;}
+    .profile-field label{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;font-weight:800;color:var(--text);margin-bottom:0.35rem;}
+    .profile-field label .material-icons-round{font-size:0.95rem;color:var(--primary);}
+    .profile-field input,.profile-field select,.profile-field textarea{width:100%;border:1px solid var(--border);border-radius:10px;background:var(--input-bg,#fff);color:var(--text);font-family:inherit;font-size:0.88rem;padding:0.68rem 0.78rem;}
+    .profile-field textarea{min-height:92px;resize:vertical;line-height:1.5;}
+    .profile-field input:focus,.profile-field select:focus,.profile-field textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(17,64,217,0.12);}
+    .profile-skills-preview{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.55rem;}
+    .skill-chip{display:inline-flex;align-items:center;border-radius:999px;background:rgba(17,64,217,0.08);color:var(--primary);font-size:0.75rem;font-weight:800;padding:0.28rem 0.62rem;}
+    .profile-actions-row{display:flex;gap:0.6rem;justify-content:flex-end;align-items:center;margin-top:1rem;flex-wrap:wrap;}
+    .profile-completion{display:grid;grid-template-columns:1fr auto;gap:0.6rem;align-items:center;margin-top:1rem;background:var(--surface-alt);border:1px solid var(--border);border-radius:12px;padding:0.75rem 0.9rem;}
+    .profile-completion-bar{height:7px;background:var(--border);border-radius:999px;overflow:hidden;}
+    .profile-completion-fill{height:100%;background:linear-gradient(90deg,var(--primary),#0f766e);border-radius:999px;width:0%;}
+    .profile-completion-text{font-size:0.78rem;font-weight:800;color:var(--muted);}
+    .profile-view-card{display:none;}
+    .profile-view-header{display:flex;gap:1rem;align-items:center;}
+    .profile-view-photo{width:76px;height:76px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,var(--primary),#3a5fe8);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.2rem;flex-shrink:0;}
+    .profile-view-photo img{width:100%;height:100%;object-fit:cover;display:none;}
+    .profile-view-meta{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;}
+    .profile-meta-pill{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.72rem;font-weight:700;color:var(--muted);background:var(--surface-alt);border-radius:999px;padding:0.24rem 0.55rem;}
+    .profile-meta-pill .material-icons-round{font-size:0.85rem;color:var(--primary);}
+    .avatar-circle.has-photo{background:none;padding:0;overflow:hidden;}
+    .avatar-circle.has-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+    @media(max-width:720px){.profile-editor-head{grid-template-columns:auto 1fr;align-items:end;}.profile-status-pill{grid-column:1/-1;width:fit-content;}.profile-editor-grid{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
@@ -389,7 +426,7 @@
                 <div style="font-weight:700;font-size:0.95rem;color:var(--text);" id="sidebar-name">Alumni User</div>
                 <div style="font-size:0.78rem;color:var(--muted);" id="sidebar-email">user@bu.edu</div>
               </div>
-              <a href="auth.html" style="font-size:0.78rem;color:var(--primary);font-weight:600;text-decoration:none;">Edit Profile</a>
+              <button type="button" onclick="showProfileEditor()" style="font-size:0.78rem;color:var(--primary);font-weight:600;text-decoration:none;border:0;background:none;cursor:pointer;">Edit Profile</button>
               <div style="display:flex;gap:1.2rem;margin-top:0.3rem;width:100%;justify-content:center;">
                 <div style="text-align:center;">
                   <div style="font-weight:800;font-size:1rem;color:var(--text);">12</div>
@@ -415,19 +452,19 @@
           <!-- Navigation menu -->
           <div class="comm-card" style="padding:0.5rem;">
             <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);padding:0.4rem 0.8rem 0.3rem;">Navigation</div>
-            <a class="comm-nav-item" href="auth.html">
+            <button class="comm-nav-item" onclick="openDirectory()" data-community-nav="directory">
               <span class="material-icons-round">people</span> Directory
-            </a>
-            <button class="comm-nav-item" onclick="openMessages()">
+            </button>
+            <button class="comm-nav-item" onclick="openMessages()" data-community-nav="messages">
               <span class="material-icons-round">chat</span> Messages
               <span class="comm-badge">3</span>
             </button>
-            <a class="comm-nav-item" href="#">
+            <button class="comm-nav-item" onclick="openGroups()" data-community-nav="groups">
               <span class="material-icons-round">groups</span> Groups
-            </a>
-            <a class="comm-nav-item" href="auth.html">
+            </button>
+            <button class="comm-nav-item" onclick="showProfileEditor()" data-community-nav="profile">
               <span class="material-icons-round">account_circle</span> My Profile
-            </a>
+            </button>
           </div>
         </aside>
 
@@ -471,8 +508,184 @@
             </div>
           </div>
 
+          <!-- -- Professional Profile Builder -- -->
+          <section class="comm-card professional-profile-panel" id="professional-profile-panel" aria-labelledby="professional-profile-title">
+            <div class="professional-profile-cover" aria-hidden="true"></div>
+            <div class="professional-profile-body">
+              <div class="profile-editor-head">
+                <div class="profile-photo-control">
+                  <span class="profile-photo-initials" id="profile-photo-initials">BU</span>
+                  <img id="profile-photo-preview" alt="Profile photo preview" />
+                  <label class="profile-photo-upload" title="Upload profile image">
+                    <span class="material-icons-round">photo_camera</span>
+                    <input type="file" id="profile-image-input" accept="image/*" />
+                  </label>
+                </div>
+                <div>
+                  <h2 class="profile-summary-name" id="professional-profile-title">Build your professional profile</h2>
+                  <p class="profile-summary-headline" id="profile-summary-headline">Add your role, expertise, skills, and professional story.</p>
+                </div>
+                <span class="profile-status-pill" id="profile-status-pill">
+                  <span class="material-icons-round" style="font-size:0.95rem;">verified_user</span>
+                  Alumni profile
+                </span>
+              </div>
+
+              <div class="profile-completion">
+                <div class="profile-completion-bar" aria-hidden="true"><div class="profile-completion-fill" id="profile-completion-fill"></div></div>
+                <span class="profile-completion-text" id="profile-completion-text">0% complete</span>
+              </div>
+
+              <form id="professional-profile-form" novalidate>
+                <div class="profile-editor-grid">
+                  <div class="profile-field">
+                    <label for="profile-full-name"><span class="material-icons-round">badge</span>Name</label>
+                    <input id="profile-full-name" name="fullName" type="text" placeholder="Your full name" required />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-profession"><span class="material-icons-round">work</span>Profession</label>
+                    <input id="profile-profession" name="profession" type="text" placeholder="Software Engineer, Nurse, Founder..." required />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-field"><span class="material-icons-round">category</span>Field of Professionalism</label>
+                    <select id="profile-field" name="field" required>
+                      <option value="">Select a field</option>
+                      <option>Technology</option>
+                      <option>Business and Finance</option>
+                      <option>Healthcare</option>
+                      <option>Education</option>
+                      <option>Law and Governance</option>
+                      <option>Agriculture and Sustainability</option>
+                      <option>Media and Communications</option>
+                      <option>Engineering</option>
+                      <option>Entrepreneurship</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-headline"><span class="material-icons-round">title</span>Professional Headline</label>
+                    <input id="profile-headline" name="headline" type="text" placeholder="Helping teams build secure digital products" />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-location"><span class="material-icons-round">location_on</span>Location</label>
+                    <input id="profile-location" name="location" type="text" placeholder="Kampala, Uganda" />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-company"><span class="material-icons-round">business</span>Company / Organization</label>
+                    <input id="profile-company" name="company" type="text" placeholder="Current workplace or venture" />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-skills"><span class="material-icons-round">psychology</span>Skills</label>
+                    <input id="profile-skills" name="skills" type="text" placeholder="Project Management, Python, Leadership" />
+                    <div class="profile-skills-preview" id="profile-skills-preview"></div>
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-availability"><span class="material-icons-round">handshake</span>Open To</label>
+                    <select id="profile-availability" name="availability">
+                      <option>Networking</option>
+                      <option>Mentoring students</option>
+                      <option>Hiring alumni</option>
+                      <option>Speaking opportunities</option>
+                      <option>Business partnerships</option>
+                      <option>Not currently open</option>
+                    </select>
+                  </div>
+                  <div class="profile-field full">
+                    <label for="profile-bio"><span class="material-icons-round">article</span>Professional Bio</label>
+                    <textarea id="profile-bio" name="bio" placeholder="Write a short professional summary, your achievements, and how alumni can connect with you."></textarea>
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-education"><span class="material-icons-round">school</span>Education</label>
+                    <input id="profile-education" name="education" type="text" placeholder="Bugema University, BSc Computer Science" />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-graduation-year"><span class="material-icons-round">event</span>Graduation Year</label>
+                    <input id="profile-graduation-year" name="graduationYear" type="text" placeholder="2020" />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-portfolio"><span class="material-icons-round">link</span>Portfolio / LinkedIn</label>
+                    <input id="profile-portfolio" name="portfolio" type="url" placeholder="https://linkedin.com/in/yourname" />
+                  </div>
+                  <div class="profile-field">
+                    <label for="profile-email"><span class="material-icons-round">mail</span>Professional Email</label>
+                    <input id="profile-email" name="email" type="email" placeholder="you@example.com" />
+                  </div>
+                </div>
+                <div class="profile-actions-row">
+                  <button type="button" class="btn btn-ghost" id="profile-reset-btn">Reset</button>
+                  <button type="submit" class="btn btn-primary">Save Professional Profile</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section class="comm-card profile-view-card" id="profile-view-card">
+            <div class="flex-between" style="gap:1rem;margin-bottom:1rem;align-items:flex-start;">
+              <div class="profile-view-header">
+                <div class="profile-view-photo" id="profile-view-photo"><span id="profile-view-initials">BU</span><img id="profile-view-image" alt="Profile photo" /></div>
+                <div>
+                  <h2 class="section-h2" id="profile-view-name" style="margin-bottom:0.15rem;">Alumni Member</h2>
+                  <p class="section-subtitle" id="profile-view-headline" style="margin-bottom:0;">Professional profile</p>
+                  <div class="profile-view-meta" id="profile-view-meta"></div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="edit-professional-profile-btn" type="button" style="white-space:nowrap;">Edit Profile</button>
+            </div>
+            <p id="profile-view-bio" style="color:var(--text);font-size:0.92rem;line-height:1.65;margin-bottom:0.8rem;"></p>
+            <div class="profile-skills-preview" id="profile-view-skills"></div>
+          </section>
+
           <!-- -- Social Feed -- -->
           <div id="feed-container"></div>
+
+          <!-- -- Groups -- -->
+          <section class="comm-card" id="groups-section" style="margin-top:2rem;padding:1.5rem;">
+            <div class="learn-section-header">
+              <div>
+                <div class="section-eyebrow">Alumni Groups</div>
+                <h2 class="section-h2">Professional Communities</h2>
+                <p class="section-subtitle">Join focused alumni groups by profession, industry, and shared interests.</p>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+              <article class="group-card" style="align-items:flex-start;padding:1rem;border:1px solid var(--border);border-radius:14px;background:var(--surface-alt);">
+                <div class="group-icon" style="width:48px;height:48px;"><span class="material-icons-round">computer</span></div>
+                <div class="group-info">
+                  <div class="group-name" style="font-size:1rem;">Tech &amp; Innovation</div>
+                  <div class="group-members">1,240 members</div>
+                  <p class="text-muted" style="margin:0.45rem 0 0.8rem;">Software, data, cybersecurity, cloud, and product builders.</p>
+                  <button class="join-btn">Join</button>
+                </div>
+              </article>
+              <article class="group-card" style="align-items:flex-start;padding:1rem;border:1px solid var(--border);border-radius:14px;background:var(--surface-alt);">
+                <div class="group-icon" style="width:48px;height:48px;"><span class="material-icons-round">business_center</span></div>
+                <div class="group-info">
+                  <div class="group-name" style="font-size:1rem;">Entrepreneurs Hub</div>
+                  <div class="group-members">876 members</div>
+                  <p class="text-muted" style="margin:0.45rem 0 0.8rem;">Founders, business owners, investors, and startup operators.</p>
+                  <button class="join-btn">Join</button>
+                </div>
+              </article>
+              <article class="group-card" style="align-items:flex-start;padding:1rem;border:1px solid var(--border);border-radius:14px;background:var(--surface-alt);">
+                <div class="group-icon" style="width:48px;height:48px;"><span class="material-icons-round">health_and_safety</span></div>
+                <div class="group-info">
+                  <div class="group-name" style="font-size:1rem;">Health Professionals</div>
+                  <div class="group-members">543 members</div>
+                  <p class="text-muted" style="margin:0.45rem 0 0.8rem;">Clinicians, public health leaders, researchers, and care teams.</p>
+                  <button class="join-btn">Join</button>
+                </div>
+              </article>
+              <article class="group-card" style="align-items:flex-start;padding:1rem;border:1px solid var(--border);border-radius:14px;background:var(--surface-alt);">
+                <div class="group-icon" style="width:48px;height:48px;"><span class="material-icons-round">school</span></div>
+                <div class="group-info">
+                  <div class="group-name" style="font-size:1rem;">Mentorship Circle</div>
+                  <div class="group-members">692 members</div>
+                  <p class="text-muted" style="margin:0.45rem 0 0.8rem;">Alumni mentors supporting students and new graduates.</p>
+                  <button class="join-btn">Join</button>
+                </div>
+              </article>
+            </div>
+          </section>
 
           <!-- -- Learning Opportunities -- -->
           <div id="learning-section" style="margin-top:2.5rem;padding-top:2rem;border-top:2px solid var(--border);">
@@ -828,8 +1041,60 @@
   <script src="share.js"></script>
   <script>
   /* -- Auth -- */
-  var user = (function(){ try{ return JSON.parse(localStorage.getItem('buCurrentUser')||'null'); }catch(e){ return null; } })();
+  var user = (function(){
+    try{
+      return JSON.parse(localStorage.getItem('buCurrentUser')||'null') ||
+             JSON.parse(localStorage.getItem('bu_alumni_account')||'null');
+    }catch(e){ return null; }
+  })();
   function ini(n){ if(!n) return 'BU'; var p=n.trim().split(/\s+/); return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():p[0].slice(0,2).toUpperCase(); }
+  function esc(v){return String(v||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function readJSON(key, fallback){try{var raw=localStorage.getItem(key);return raw?JSON.parse(raw):fallback;}catch(e){return fallback;}}
+  function writeJSON(key, value){localStorage.setItem(key, JSON.stringify(value));}
+  function profileKey(){return user?'buProfessionalProfile:'+(user.id||user.email||user.username||'current'):'buProfessionalProfile:guest';}
+  function getProfile(){
+    if(!user) return null;
+    var profile=readJSON(profileKey(), null) || {};
+    return Object.assign({
+      fullName:user.fullName||user.name||user.username||'Alumni Member',
+      email:user.email||'',
+      profession:user.profession||user.program||'BU Alumni',
+      field:user.field||'',
+      headline:'',
+      location:'',
+      company:'',
+      skills:'',
+      availability:'Networking',
+      bio:'',
+      education:user.program||'',
+      graduationYear:user.graduationYear||'',
+      portfolio:'',
+      photo:''
+    }, profile);
+  }
+  function saveProfile(profile){
+    if(!user) return;
+    writeJSON(profileKey(), profile);
+    user.fullName=profile.fullName;
+    user.name=profile.fullName;
+    user.email=profile.email||user.email;
+    user.profession=profile.profession;
+    user.program=profile.education||user.program;
+    user.graduationYear=profile.graduationYear||user.graduationYear;
+    localStorage.setItem('buCurrentUser', JSON.stringify(user));
+  }
+  function avatarHTML(name, photo, sizeClass){
+    var cls='avatar-circle '+(sizeClass||'')+(photo?' has-photo':'');
+    return '<div class="'+cls.trim()+'">'+(photo?'<img src="'+esc(photo)+'" alt="">':esc(ini(name)))+'</div>';
+  }
+  function skillList(profile){
+    return (profile&&profile.skills?profile.skills:'').split(',').map(function(s){return s.trim();}).filter(Boolean).slice(0,12);
+  }
+  function profileCompletion(profile){
+    var fields=['fullName','profession','field','headline','location','company','skills','availability','bio','education','graduationYear','portfolio','email','photo'];
+    var done=fields.filter(function(k){return profile&&String(profile[k]||'').trim();}).length;
+    return Math.round(done/fields.length*100);
+  }
 
   /* -- Feed data -- */
   var POSTS=[
@@ -839,6 +1104,129 @@
     {id:'p4',author:'Faith Nakato',profession:'Marketing Manager ? Class of 2021',time:'2 days ago',content:'Sharing this amazing resource ? the BU Career Guide library has CV templates and interview prep materials that actually work. Check it out!',type:'link',link:{text:'BU Career Resource Library',url:'career-guide.html'},likes:56,comments:[{a:'Grace Auma',t:'This helped me land my current role!'}]},
     {id:'p5',author:'Robert Ssali',profession:'VVP Member ? Class of 2010',time:'3 days ago',content:'Congratulations to all Class of 2026 graduates! The BU Alumni network is here for you ? mentorship, jobs, and community. Welcome home!',type:'update',likes:124,comments:[{a:'Alice Nakayiza',t:'Welcome to the family!'},{a:'Amara Ssekandi',t:'Reach out anytime!'}]}
   ];
+  POSTS = readJSON('buCommunityPosts', []).concat(POSTS);
+
+  function renderSkillChips(container, skills){
+    if(!container) return;
+    container.innerHTML = skills.length
+      ? skills.map(function(s){return '<span class="skill-chip">'+esc(s)+'</span>';}).join('')
+      : '<span class="text-muted">Add comma-separated skills to help alumni find you.</span>';
+  }
+
+  function fillProfessionalProfileForm(profile){
+    var form=document.getElementById('professional-profile-form');
+    if(!form||!profile) return;
+    Object.keys(profile).forEach(function(key){
+      var field=form.elements[key];
+      if(field && key!=='photo') field.value=profile[key]||'';
+    });
+    var initials=document.getElementById('profile-photo-initials');
+    var photo=document.getElementById('profile-photo-preview');
+    if(initials) initials.textContent=ini(profile.fullName);
+    if(photo){
+      photo.src=profile.photo||'';
+      photo.style.display=profile.photo?'block':'none';
+    }
+    if(initials) initials.style.display=profile.photo?'none':'flex';
+    updateProfilePreview(profile);
+  }
+
+  function updateProfilePreview(profile){
+    profile=profile||readProfileForm();
+    var pct=profileCompletion(profile);
+    var fill=document.getElementById('profile-completion-fill');
+    var text=document.getElementById('profile-completion-text');
+    var headline=document.getElementById('profile-summary-headline');
+    if(fill) fill.style.width=pct+'%';
+    if(text) text.textContent=pct+'% complete';
+    if(headline) headline.textContent=profile.headline||profile.profession||'Add your professional story.';
+    renderSkillChips(document.getElementById('profile-skills-preview'), skillList(profile));
+  }
+
+  function readProfileForm(){
+    var form=document.getElementById('professional-profile-form');
+    var old=getProfile()||{};
+    if(!form) return old;
+    return {
+      fullName:form.fullName.value.trim(),
+      profession:form.profession.value.trim(),
+      field:form.field.value,
+      headline:form.headline.value.trim(),
+      location:form.location.value.trim(),
+      company:form.company.value.trim(),
+      skills:form.skills.value.trim(),
+      availability:form.availability.value,
+      bio:form.bio.value.trim(),
+      education:form.education.value.trim(),
+      graduationYear:form.graduationYear.value.trim(),
+      portfolio:form.portfolio.value.trim(),
+      email:form.email.value.trim(),
+      photo:old.photo||''
+    };
+  }
+
+  function renderProfessionalProfile(){
+    if(!user) return;
+    var profile=getProfile();
+    fillProfessionalProfileForm(profile);
+    updateIdentity(profile);
+    renderProfileView(profile);
+    var hasCore=profile.fullName&&profile.profession&&profile.field&&profile.skills;
+    var editor=document.getElementById('professional-profile-panel');
+    var view=document.getElementById('profile-view-card');
+    if(editor) editor.style.display=hasCore?'none':'block';
+    if(view) view.style.display=hasCore?'block':'none';
+  }
+
+  function renderProfileView(profile){
+    var name=document.getElementById('profile-view-name');
+    var headline=document.getElementById('profile-view-headline');
+    var bio=document.getElementById('profile-view-bio');
+    var initials=document.getElementById('profile-view-initials');
+    var img=document.getElementById('profile-view-image');
+    var meta=document.getElementById('profile-view-meta');
+    if(name) name.textContent=profile.fullName||'Alumni Member';
+    if(headline) headline.textContent=profile.headline||profile.profession||'BU Alumni';
+    if(bio) bio.textContent=profile.bio||'This member has not added a professional bio yet.';
+    if(initials) initials.textContent=ini(profile.fullName);
+    if(img){img.src=profile.photo||'';img.style.display=profile.photo?'block':'none';}
+    if(initials) initials.style.display=profile.photo?'none':'block';
+    if(meta){
+      var items=[
+        ['work',profile.profession],
+        ['category',profile.field],
+        ['business',profile.company],
+        ['location_on',profile.location],
+        ['school',profile.graduationYear?'Class of '+profile.graduationYear:'']
+      ].filter(function(i){return i[1];});
+      meta.innerHTML=items.map(function(i){return '<span class="profile-meta-pill"><span class="material-icons-round">'+i[0]+'</span>'+esc(i[1])+'</span>';}).join('');
+    }
+    renderSkillChips(document.getElementById('profile-view-skills'), skillList(profile));
+  }
+
+  function updateIdentity(profile){
+    var av=document.getElementById('sidebar-avatar');
+    var ca=document.getElementById('composer-avatar');
+    [av,ca].forEach(function(el){
+      if(!el) return;
+      el.classList.toggle('has-photo', !!profile.photo);
+      el.innerHTML=profile.photo?'<img src="'+esc(profile.photo)+'" alt="">':esc(ini(profile.fullName));
+    });
+    var sn=document.getElementById('sidebar-name');
+    var se=document.getElementById('sidebar-email');
+    if(sn) sn.textContent=profile.fullName||'Alumni Member';
+    if(se) se.textContent=profile.profession||profile.email||'BU Alumni';
+  }
+
+  function showProfileEditor(){
+    if(!user){window.location.href='login.html';return;}
+    setCommunityNavActive('profile');
+    var editor=document.getElementById('professional-profile-panel');
+    var view=document.getElementById('profile-view-card');
+    if(editor) editor.style.display='block';
+    if(view) view.style.display='none';
+    if(editor) editor.scrollIntoView({behavior:'smooth',block:'start'});
+  }
 
   /* -- Course data -- */
   var COURSES=[
@@ -964,8 +1352,24 @@
     localStorage.setItem('buSavedCourses',JSON.stringify(savedCourses));
   }
 
+  function requireSignedIn(){
+    if(user) return true;
+    window.location.href='login.html';
+    return false;
+  }
+  function setCommunityNavActive(key){
+    document.querySelectorAll('[data-community-nav]').forEach(function(item){
+      item.classList.toggle('active', item.dataset.communityNav===key);
+    });
+  }
   function scrollToLearning(){document.getElementById('learning-section').scrollIntoView({behavior:'smooth',block:'start'});}
   function scrollToFeed(){document.getElementById('feed-section').scrollIntoView({behavior:'smooth',block:'start'});}
+  function openGroups(){
+    if(!requireSignedIn()) return;
+    setCommunityNavActive('groups');
+    var section=document.getElementById('groups-section');
+    if(section) section.scrollIntoView({behavior:'smooth',block:'start'});
+  }
   function setActiveTab(el){document.querySelectorAll('.comm-tab').forEach(function(t){t.classList.remove('active');});if(el)el.classList.add('active');}
 
   /* -- Render feed -- */
@@ -978,15 +1382,15 @@
       var comments=p.comments.map(function(c){return '<div class="comment-item"><div class="avatar-circle sm">'+ini(c.a)+'</div><div class="comment-bubble"><div class="comment-author">'+c.a+'</div><div class="comment-text">'+c.t+'</div></div></div>';}).join('');
       return '<article class="feed-post">'+
         '<div class="post-header">'+
-          '<div class="avatar-circle">'+ini(p.author)+'</div>'+
+          avatarHTML(p.author,p.photo,'')+
           '<div class="post-meta">'+
-            '<div class="post-author">'+p.author+'</div>'+
-            '<div class="post-profession">'+p.profession+'</div>'+
+            '<div class="post-author">'+esc(p.author)+'</div>'+
+            '<div class="post-profession">'+esc(p.profession)+'</div>'+
           '</div>'+
           '<span class="post-time">'+p.time+'</span>'+
         '</div>'+
         badge+
-        '<div class="post-content">'+p.content+'</div>'+
+        '<div class="post-content">'+esc(p.content)+'</div>'+
         link+
         '<div class="reaction-bar">'+
           '<button class="reaction-btn'+(ld.liked?' liked':'')+'" onclick="toggleLike(this.dataset.id,this)" data-id="'+p.id+'">'+
@@ -1044,15 +1448,24 @@
   function submitPost(){
     var ta=document.getElementById('post-textarea');
     if(!ta||!ta.value.trim()) return;
-    var name=user?(user.fullName||user.name||'You'):'You';
-    var newPost={id:'u'+Date.now(),author:name,profession:'BU Alumni',time:'Just now',content:ta.value.trim(),type:'update',likes:0,comments:[]};
+    var profile=getProfile()||{};
+    var name=profile.fullName||user&&user.fullName||user&&user.name||'You';
+    var profession=(profile.profession||'BU Alumni')+(profile.field?' - '+profile.field:'')+(profile.graduationYear?' - Class of '+profile.graduationYear:'');
+    var newPost={id:'u'+Date.now(),author:name,profession:profession,time:'Just now',content:ta.value.trim(),type:'update',likes:0,comments:[],photo:profile.photo||''};
     POSTS.unshift(newPost);
+    var saved=readJSON('buCommunityPosts',[]);
+    saved.unshift(newPost);
+    writeJSON('buCommunityPosts', saved.slice(0,50));
     renderFeed();
     ta.value=''; togglePostBtn();
   }
 
   /* -- Messages -- */
-  function openMessages(){document.getElementById('msg-panel').classList.add('open');}
+  function openMessages(){
+    if(!requireSignedIn()) return;
+    setCommunityNavActive('messages');
+    document.getElementById('msg-panel').classList.add('open');
+  }
   function closeMessages(){document.getElementById('msg-panel').classList.remove('open');}
   function sendMessage(){
     var inp=document.getElementById('msg-input');
@@ -1100,6 +1513,8 @@
     {name:'Alice Nakayiza',role:'Lawyer',year:'2015',ini:'AN',color:'#dc2626'}
   ];
   function openDirectory(){
+    if(!requireSignedIn()) return;
+    setCommunityNavActive('directory');
     renderDirGrid(DIR_ALUMNI);
     document.getElementById('dir-modal').classList.add('open');
   }
@@ -1117,7 +1532,7 @@
         '<div class="avatar-circle lg" style="background:'+a.color+';margin:0 auto 0.5rem;">'+a.ini+'</div>'+
         '<div style="font-weight:700;font-size:0.88rem;color:var(--text);">'+a.name+'</div>'+
         '<div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;">'+a.role+' ? Class of '+a.year+'</div>'+
-        '<button class="connect-btn" onclick="this.textContent=this.textContent===\'Connect\'?\'Connected\':\'Connect\'">Connect</button>'+
+        '<button class="connect-btn" onclick="if(requireSignedIn()) this.textContent=this.textContent===\'Connect\'?\'Connected\':\'Connect\'">Connect</button>'+
       '</div>';
     }).join('');
   }
@@ -1130,11 +1545,69 @@
 
   /* -- Group join -- */
   document.querySelectorAll('.join-btn').forEach(function(b){
-    b.addEventListener('click',function(){this.textContent=this.textContent==='Join'?'Joined':'Join';});
+    b.addEventListener('click',function(){
+      if(!requireSignedIn()) return;
+      this.textContent=this.textContent==='Join'?'Joined':'Join';
+    });
   });
   document.querySelectorAll('.connect-btn').forEach(function(b){
-    b.addEventListener('click',function(){this.textContent=this.textContent==='Connect'?'Connected':'Connect';});
+    b.addEventListener('click',function(){
+      if(!requireSignedIn()) return;
+      this.textContent=this.textContent==='Connect'?'Connected':'Connect';
+    });
   });
+
+  function bindProfessionalProfile(){
+    var form=document.getElementById('professional-profile-form');
+    var imageInput=document.getElementById('profile-image-input');
+    var resetBtn=document.getElementById('profile-reset-btn');
+    var editBtn=document.getElementById('edit-professional-profile-btn');
+    if(form){
+      form.addEventListener('input', function(){updateProfilePreview(readProfileForm());});
+      form.addEventListener('change', function(){updateProfilePreview(readProfileForm());});
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if(!user){window.location.href='login.html';return;}
+        var profile=readProfileForm();
+        if(!profile.fullName||!profile.profession||!profile.field){
+          alert('Please add your name, profession, and field of professionalism.');
+          return;
+        }
+        saveProfile(profile);
+        renderProfessionalProfile();
+        renderFeed();
+        var view=document.getElementById('profile-view-card');
+        if(view) view.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    }
+    if(imageInput){
+      imageInput.addEventListener('change', function(){
+        var file=this.files&&this.files[0];
+        if(!file) return;
+        if(!file.type.match(/^image\//)){alert('Please upload an image file.');return;}
+        if(file.size>1800000){alert('Please choose an image under 1.8MB.');return;}
+        var reader=new FileReader();
+        reader.onload=function(){
+          var profile=readProfileForm();
+          profile.photo=reader.result;
+          saveProfile(profile);
+          fillProfessionalProfileForm(profile);
+          updateIdentity(profile);
+          renderProfileView(profile);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    if(resetBtn){
+      resetBtn.addEventListener('click', function(){
+        if(!user) return;
+        if(!confirm('Clear your professional profile details?')) return;
+        localStorage.removeItem(profileKey());
+        renderProfessionalProfile();
+      });
+    }
+    if(editBtn) editBtn.addEventListener('click', showProfileEditor);
+  }
 
   /* -- Newsletter -- */
   function handleNewsletter(e){
@@ -1147,21 +1620,22 @@
 
   /* -- Init -- */
   document.addEventListener('DOMContentLoaded',function(){
+    bindProfessionalProfile();
     // Auth state
     if(user){
-      var name=user.fullName||user.name||'Alumni User';
+      var profile=getProfile();
+      var name=profile.fullName||user.fullName||user.name||'Alumni User';
       document.getElementById('profile-card').style.display='block';
-      document.getElementById('join-card').style.display='none';
+      var joinCard=document.getElementById('join-card');
+      if(joinCard) joinCard.style.display='none';
       document.getElementById('composer-signed-in').style.display='block';
       document.getElementById('composer-signed-out').style.display='none';
-      var av=document.getElementById('sidebar-avatar');
-      if(av) av.textContent=ini(name);
-      var sn=document.getElementById('sidebar-name');
-      if(sn) sn.textContent=name;
-      var se=document.getElementById('sidebar-email');
-      if(se) se.textContent=user.email||'';
-      var ca=document.getElementById('composer-avatar');
-      if(ca) ca.textContent=ini(name);
+      renderProfessionalProfile();
+    } else {
+      var editor=document.getElementById('professional-profile-panel');
+      var view=document.getElementById('profile-view-card');
+      if(editor) editor.style.display='none';
+      if(view) view.style.display='none';
     }
     renderFeed();
     filterCourses();

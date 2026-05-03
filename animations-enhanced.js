@@ -16,7 +16,7 @@ class ScrollReveal {
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
+          entry.target.classList.add('revealed', 'in-view');
           this.observer.unobserve(entry.target);
         }
       });

@@ -16,22 +16,27 @@
   }
 
   function createUserProfileCard() {
-    const account = window.BUAlumniAPI?.Auth?.getAccount();
+    const account = getSignedInAccount();
     if (!account) return null;
 
-    const initials = getUserInitials(account.fullName);
+    const profile = getProfessionalProfile(account);
+    const displayName = profile.fullName || account.fullName || account.name || account.username || 'Alumni Member';
+    const initials = getUserInitials(displayName);
+    const photoHTML = profile.photo
+      ? `<img src="${profile.photo}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">`
+      : initials;
     
     return `
       <div class="comm-card user-profile-card fade-up">
         <div class="user-profile-header">
           <div class="avatar-circle lg">
-            ${initials}
+            ${photoHTML}
           </div>
           <div class="user-profile-info">
-            <h3 class="user-profile-name">${account.fullName || 'Alumni Member'}</h3>
-            <p class="user-profile-email">${account.email || ''}</p>
-            ${account.program ? `<p class="user-profile-program">${account.program}</p>` : ''}
-            ${account.graduationYear ? `<p class="user-profile-year">Class of ${account.graduationYear}</p>` : ''}
+            <h3 class="user-profile-name">${displayName}</h3>
+            <p class="user-profile-email">${profile.profession || account.email || ''}</p>
+            ${profile.field ? `<p class="user-profile-program">${profile.field}</p>` : ''}
+            ${profile.graduationYear ? `<p class="user-profile-year">Class of ${profile.graduationYear}</p>` : ''}
           </div>
         </div>
         
@@ -51,11 +56,11 @@
         </div>
         
         <div class="user-profile-actions">
-          <a href="#" class="btn btn-secondary btn-sm" onclick="return false;">
+          <button class="btn btn-secondary btn-sm" onclick="showProfileEditor(); return false;">
             <span class="material-icons-round" style="font-size: 1rem;">person</span>
             <span data-i18n="community.view_profile">View Profile</span>
-          </a>
-          <button class="btn btn-ghost btn-sm" onclick="window.BUAlumniAPI.Auth.logout()">
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="CommunityProfile.signOut()">
             <span class="material-icons-round" style="font-size: 1rem;">logout</span>
             <span data-i18n="nav.signout">Sign Out</span>
           </button>
@@ -188,7 +193,7 @@
     const container = document.getElementById('community-profile-container');
     if (!container) return;
 
-    const isLoggedIn = window.BUAlumniAPI?.Auth?.isLoggedIn();
+    const isLoggedIn = !!getSignedInAccount();
     
     if (isLoggedIn) {
       const profileHTML = createUserProfileCard();
@@ -203,6 +208,32 @@
     if (window.BUi18n) {
       window.BUi18n.translatePage();
     }
+  }
+
+  function getSignedInAccount() {
+    try {
+      return JSON.parse(localStorage.getItem('buCurrentUser') || 'null') ||
+             window.BUAlumniAPI?.Auth?.getAccount() ||
+             JSON.parse(localStorage.getItem('bu_alumni_account') || 'null');
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function getProfessionalProfile(account) {
+    try {
+      const key = 'buProfessionalProfile:' + (account.id || account.email || account.username || 'current');
+      return JSON.parse(localStorage.getItem(key) || '{}');
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function signOut() {
+    localStorage.removeItem('buCurrentUser');
+    localStorage.removeItem('buIsLoggedIn');
+    if (window.BUAlumniAPI?.Auth) window.BUAlumniAPI.Auth.clearToken();
+    window.location.href = 'index.html';
   }
 
   // Initialize
@@ -221,7 +252,8 @@
 
   // Expose API
   window.CommunityProfile = {
-    update: updateCommunityProfile
+    update: updateCommunityProfile,
+    signOut
   };
 
 })();
