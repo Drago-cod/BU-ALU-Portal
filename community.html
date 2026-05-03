@@ -276,6 +276,26 @@
     .avatar-circle.has-photo{background:none;padding:0;overflow:hidden;}
     .avatar-circle.has-photo img{width:100%;height:100%;object-fit:cover;display:block;}
     @media(max-width:720px){.profile-editor-head{grid-template-columns:auto 1fr;align-items:end;}.profile-status-pill{grid-column:1/-1;width:fit-content;}.profile-editor-grid{grid-template-columns:1fr;}}
+    @media(max-width:640px){
+      .community-layout{grid-template-columns:1fr !important;gap:1rem;padding:1rem 0 2rem;}
+      .comm-main-col,.comm-card,.feed-post{min-width:0;width:100%;}
+      .learn-section-header{align-items:flex-start;}
+      .filter-bar-modern{display:grid !important;grid-template-columns:1fr !important;padding:1rem !important;gap:1rem !important;}
+      .filter-search-group{grid-column:auto !important;}
+      .filter-select-modern{
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235b8dff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+        background-repeat:no-repeat !important;
+        background-position:right 0.85rem center !important;
+        background-size:1.15rem !important;
+        padding-right:2.6rem !important;
+      }
+      .learn-grid,#course-grid{grid-template-columns:1fr !important;width:100% !important;}
+      .course-card{width:100% !important;min-width:0 !important;flex-direction:column !important;}
+      .course-card-header,.course-card-body,.course-card-footer{width:100% !important;min-width:0 !important;}
+      .course-card-header{flex-direction:row !important;align-items:center !important;}
+      .course-card-thumb-wrap{height:150px;}
+      .course-title,.course-desc{overflow-wrap:anywhere;}
+    }
   </style>
 </head>
 <body>

@@ -116,6 +116,8 @@ const mobileNav       = document.getElementById('mobile-nav');
 
 function setMobileNavOpen(isOpen) {
   if (!mobileNav || !navToggleButton) return;
+  const headerHeight = header ? Math.ceil(header.getBoundingClientRect().height) : 58;
+  document.documentElement.style.setProperty('--mobile-nav-top', headerHeight + 'px');
   mobileNav.classList.toggle('open', isOpen);
   navToggleButton.setAttribute('aria-expanded', String(isOpen));
   navToggleButton.innerHTML = isOpen ? '&#10005;' : '&#9776;';
