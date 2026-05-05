@@ -1,0 +1,206 @@
+/* Opportunities page: polished split hero in the portal's midnight palette */
+.opportunities-hero {
+  min-height: clamp(640px, 78vh, 820px) !important;
+  padding: clamp(5rem, 8vw, 7rem) 0 clamp(3.5rem, 5vw, 5rem) !important;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(59, 130, 246, 0.24), transparent 30rem),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.96) 0%, rgba(3, 14, 34, 0.94) 46%, rgba(3, 14, 34, 0.72) 66%, rgba(2, 6, 23, 0.58) 100%),
+    url("image/bk4.png") right center / contain no-repeat,
+    #020617 !important;
+  color: #ffffff !important;
+}
+
+.opportunities-hero::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  background:
+    linear-gradient(to bottom, rgba(2, 6, 23, 0.08), rgba(2, 6, 23, 0.64)),
+    radial-gradient(circle at 72% 45%, rgba(16, 185, 129, 0.10), transparent 26rem) !important;
+  pointer-events: none !important;
+}
+
+.opportunities-hero .page-hero-inner {
+  display: grid !important;
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr) !important;
+  align-items: center !important;
+  justify-items: stretch !important;
+  gap: clamp(2rem, 5vw, 4.5rem) !important;
+  max-width: 1180px !important;
+  text-align: left !important;
+}
+
+.opportunities-hero .page-hero-text {
+  max-width: 560px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: clamp(1.7rem, 3vw, 2.6rem) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  text-align: left !important;
+  background: rgba(10, 25, 47, 0.74) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+}
+
+.opportunities-hero .page-hero-eyebrow {
+  width: fit-content !important;
+  color: #93c5fd !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  background: rgba(59, 130, 246, 0.14) !important;
+  border: 1px solid rgba(59, 130, 246, 0.28) !important;
+  border-radius: 999px !important;
+  padding: 0.46rem 0.78rem !important;
+  margin-bottom: 1.15rem !important;
+  text-shadow: none !important;
+}
+
+.opportunities-hero .page-hero-eyebrow .material-icons-round {
+  color: #60a5fa !important;
+}
+
+.opportunities-hero h1 {
+  max-width: 540px !important;
+  margin: 0 !important;
+  color: #ffffff !important;
+  font-family: "Inter", Arial, sans-serif !important;
+  font-size: clamp(2.55rem, 5vw, 4.6rem) !important;
+  line-height: 1.02 !important;
+  font-weight: 850 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  text-shadow: 0 14px 34px rgba(0, 0, 0, 0.34) !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+.opportunities-hero .hero-copy {
+  max-width: 520px !important;
+  margin: 1.1rem 0 0 !important;
+  color: rgba(226, 232, 240, 0.92) !important;
+  text-align: left !important;
+  text-shadow: none !important;
+}
+
+.opportunities-hero .page-hero-actions {
+  justify-content: flex-start !important;
+  margin-top: 1.55rem !important;
+}
+
+.opportunities-hero .page-hero-btn-primary {
+  background: #3B82F6 !important;
+  border-color: #3B82F6 !important;
+  color: #ffffff !important;
+  box-shadow: 0 16px 34px rgba(59, 130, 246, 0.28) !important;
+}
+
+.opportunities-hero .page-hero-btn-ghost {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+  color: #ffffff !important;
+}
+
+.opportunities-hero .page-hero-badges {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: end !important;
+  justify-items: stretch !important;
+  gap: 0.85rem !important;
+  position: relative !important;
+  min-height: 520px !important;
+  margin: 0 !important;
+}
+
+.opportunities-hero .page-hero-badges::after {
+  display: none !important;
+}
+
+.opportunities-hero .page-hero-image {
+  width: 100% !important;
+  height: min(560px, 62vh) !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38) !important;
+}
+
+.opportunities-hero .page-hero-badge {
+  width: min(430px, 100%) !important;
+  margin-left: auto !important;
+  background: rgba(10, 25, 47, 0.78) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 18px !important;
+  color: #f8fafc !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22) !important;
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+}
+
+.opportunities-hero .page-hero-badge-val,
+.opportunities-hero .page-hero-badge span {
+  color: #60a5fa !important;
+}
+
+.opportunities-hero .page-hero-badge-text {
+  color: rgba(226, 232, 240, 0.80) !important;
+}
+
+.opportunities-hero .page-hero-stats {
+  max-width: 1180px !important;
+  margin-top: 2rem !important;
+  background: rgba(10, 25, 47, 0.68) !important;
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  border-radius: 22px !important;
+  padding: 0.75rem !important;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+}
+
+.opportunities-hero .page-hero-stat {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.opportunities-hero .page-hero-stat-val {
+  color: #60a5fa !important;
+}
+
+.opportunities-hero .page-hero-stat-lbl {
+  color: rgba(226, 232, 240, 0.78) !important;
+}
+
+@media (max-width: 960px) {
+  .opportunities-hero {
+    background:
+      linear-gradient(rgba(2, 6, 23, 0.82), rgba(2, 6, 23, 0.90)),
+      url("image/bk4.png") center / cover no-repeat,
+      #020617 !important;
+  }
+
+  .opportunities-hero .page-hero-inner {
+    grid-template-columns: 1fr !important;
+  }
+
+  .opportunities-hero .page-hero-text {
+    max-width: none !important;
+  }
+
+  .opportunities-hero .page-hero-badges {
+    min-height: 0 !important;
+  }
+
+  .opportunities-hero .page-hero-image {
+    height: 360px !important;
+  }
+}
