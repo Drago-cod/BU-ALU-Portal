@@ -36,7 +36,10 @@ CORS(app)
 BASE_DIR   = Path(__file__).parent          # backend/
 PORTAL_DIR = BASE_DIR.parent               # BU ALU Portal/
 TICKETS_DIR = BASE_DIR / "data" / "tickets"
-TICKETS_DIR.mkdir(parents=True, exist_ok=True)
+CERTIFICATES_DIR = BASE_DIR / "data" / "certificates"
+DONATION_LETTERS_DIR = BASE_DIR / "data" / "donation_letters"
+for directory in (TICKETS_DIR, CERTIFICATES_DIR, DONATION_LETTERS_DIR):
+    directory.mkdir(parents=True, exist_ok=True)
 
 BASE_URL   = os.getenv("BASE_URL", "http://localhost:5000").rstrip("/")
 JWT_SECRET = os.getenv("JWT_SECRET", "dev-secret-change-in-production")
@@ -214,6 +217,7 @@ def register_member():
         import database
         import utils
         import email_sender
+        import pdf_generator
 
         body = request.get_json(force=True) or {}
         full_name       = utils.sanitize(body.get("fullName", ""))
@@ -254,15 +258,33 @@ def register_member():
             "membershipType": membership_type,
             "profession":     profession,
             "location":       location,
+            "paymentMethod":  payment_method,
+            "registrationFee": "UGX 10,000",
+            "registeredAt":   member_data["registeredAt"],
         }
-        email_sent = email_sender.send_membership_confirmation_email(email_data)
+
+        logo_path = str(PORTAL_DIR / "image" / "Bugema_logo.png")
+        certificate_bytes = pdf_generator.generate_membership_certificate_pdf(
+            email_data,
+            logo_path=logo_path if Path(logo_path).exists() else None,
+        )
+        certificate_path = CERTIFICATES_DIR / f"{member_id}.pdf"
+        certificate_path.write_bytes(certificate_bytes)
+
+        email_sent = email_sender.send_membership_confirmation_email(
+            email_data,
+            certificate_bytes,
+            BASE_URL,
+        )
+        certificate_url = f"{BASE_URL}/api/member-certificate/{member_id}"
 
         logger.info("[register-member] %s — %s", member_id, email)
         return jsonify({
-            "success":   True,
-            "memberId":  member_id,
-            "emailSent": email_sent,
-            "message":   f"Membership registered successfully (ID: {member_id}).",
+            "success":        True,
+            "memberId":       member_id,
+            "certificateUrl": certificate_url,
+            "emailSent":      email_sent,
+            "message":        f"Membership registered successfully (ID: {member_id}). Your certificate has been emailed to {email}.",
         }), 201
 
     except Exception as exc:
@@ -374,6 +396,28 @@ def download_ticket(ticket_id):
     except Exception as exc:
         logger.error("[ticket] %s", exc)
         return jsonify({"error": "Failed to retrieve ticket."}), 500
+
+
+# ── 7b. GET /api/member-certificate/<memberId> ───────────────────────────────
+
+@app.route("/api/member-certificate/<member_id>", methods=["GET"])
+def download_member_certificate(member_id):
+    try:
+        safe_id = "".join(c for c in member_id if c.isalnum() or c == "-")
+        certificate_path = CERTIFICATES_DIR / f"{safe_id}.pdf"
+
+        if not certificate_path.exists():
+            return jsonify({"error": "Membership certificate not found."}), 404
+
+        return send_file(
+            str(certificate_path),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"BU-Membership-Certificate-{safe_id}.pdf",
+        )
+    except Exception as exc:
+        logger.error("[member-certificate] %s", exc)
+        return jsonify({"error": "Failed to retrieve membership certificate."}), 500
 
 
 # ── 8. POST /api/post-job ─────────────────────────────────────────────────────
@@ -517,6 +561,7 @@ def register_donation():
         import database
         import utils
         import email_sender
+        import pdf_generator
 
         body = request.get_json(force=True) or {}
         full_name      = utils.sanitize(body.get("fullName", ""))
@@ -557,20 +602,58 @@ def register_donation():
             "currency":      currency,
             "paymentMethod": payment_method,
             "message":       message,
+            "donatedAt":     donation_data["donatedAt"],
         }
-        email_sent = email_sender.send_donation_receipt_email(email_data)
+
+        logo_path = str(PORTAL_DIR / "image" / "Bugema_logo.png")
+        letter_bytes = pdf_generator.generate_donation_appreciation_pdf(
+            email_data,
+            logo_path=logo_path if Path(logo_path).exists() else None,
+        )
+        letter_path = DONATION_LETTERS_DIR / f"{donation_id}.pdf"
+        letter_path.write_bytes(letter_bytes)
+
+        email_sent = email_sender.send_donation_receipt_email(
+            email_data,
+            letter_bytes,
+            BASE_URL,
+        )
+        letter_url = f"{BASE_URL}/api/donation-letter/{donation_id}"
 
         logger.info("[register-donation] %s — %s %s from %s", donation_id, currency, amount, email)
         return jsonify({
-            "success":    True,
+            "success":   True,
             "donationId": donation_id,
+            "letterUrl":  letter_url,
             "emailSent":  email_sent,
-            "message":    f"Thank you for your donation (ID: {donation_id}). A receipt has been sent to {email}.",
+            "message":    f"Thank you for your donation (ID: {donation_id}). An appreciation letter has been sent to {email}.",
         }), 201
 
     except Exception as exc:
         logger.error("[register-donation] %s", exc)
         return jsonify({"error": "Failed to process donation. Please try again."}), 500
+
+
+# ── 10b. GET /api/donation-letter/<donationId> ───────────────────────────────
+
+@app.route("/api/donation-letter/<donation_id>", methods=["GET"])
+def download_donation_letter(donation_id):
+    try:
+        safe_id = "".join(c for c in donation_id if c.isalnum() or c == "-")
+        letter_path = DONATION_LETTERS_DIR / f"{safe_id}.pdf"
+
+        if not letter_path.exists():
+            return jsonify({"error": "Donation appreciation letter not found."}), 404
+
+        return send_file(
+            str(letter_path),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"BU-Donation-Appreciation-{safe_id}.pdf",
+        )
+    except Exception as exc:
+        logger.error("[donation-letter] %s", exc)
+        return jsonify({"error": "Failed to retrieve donation appreciation letter."}), 500
 
 
 # ── 11. POST /api/community/post ─────────────────────────────────────────────

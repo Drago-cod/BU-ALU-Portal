@@ -203,12 +203,18 @@ def send_event_registration_email(
 # Membership confirmation email
 # ---------------------------------------------------------------------------
 
-def send_membership_confirmation_email(data: dict) -> bool:
+def send_membership_confirmation_email(
+    data: dict,
+    pdf_bytes: Optional[bytes] = None,
+    base_url: Optional[str] = None,
+) -> bool:
     """Send membership registration confirmation email.
 
     Args:
         data: Dict with keys: fullName, email, memberId, membershipType,
               profession, location.
+        pdf_bytes: Optional membership certificate PDF bytes.
+        base_url: Optional public base URL for the certificate download link.
 
     Returns:
         True if sent successfully.
@@ -219,6 +225,20 @@ def send_membership_confirmation_email(data: dict) -> bool:
     mem_type    = data.get("membershipType", "Standard")
     profession  = data.get("profession", "")
     location    = data.get("location", "")
+    certificate_url = f"{base_url.rstrip('/')}/api/member-certificate/{member_id}" if base_url else ""
+    certificate_button = ""
+    if certificate_url:
+        certificate_button = f"""
+  <tr><td style="padding:0 40px 28px;text-align:center;">
+    <a href="{certificate_url}"
+       style="display:inline-block;background:#1d4ed8;color:#fff;text-decoration:none;
+              padding:12px 28px;border-radius:8px;font-weight:700;font-size:14px;">
+      Download Membership Certificate
+    </a>
+    <p style="color:#9ca3af;font-size:11px;margin:10px 0 0;">
+      The PDF certificate is also attached to this email.
+    </p>
+  </td></tr>"""
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -236,6 +256,7 @@ def send_membership_confirmation_email(data: dict) -> bool:
     <p style="color:#111827;font-size:16px;margin:0 0 8px;">Hi <strong>{full_name}</strong>,</p>
     <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 24px;">
       Welcome to the BU Alumni community! Your <strong>{mem_type}</strong> membership has been registered.
+      Your personalized membership certificate is attached as a PDF.
     </p>
   </td></tr>
   <tr><td style="padding:0 40px 28px;">
@@ -257,6 +278,7 @@ def send_membership_confirmation_email(data: dict) -> bool:
     </td></tr>
     </table>
   </td></tr>
+  {certificate_button}
   <tr><td style="background:#f9fafb;padding:18px 40px;text-align:center;border-top:1px solid #e5e7eb;">
     <p style="color:#9ca3af;font-size:11px;margin:0;">
       &copy; 2026 BU Alumni Association &nbsp;&middot;&nbsp; Bugema University, Kampala, Uganda
@@ -274,6 +296,15 @@ def send_membership_confirmation_email(data: dict) -> bool:
     msg["Subject"] = f"BU Alumni Membership Confirmed [{member_id}]"
     msg.attach(MIMEText(html, "html", "utf-8"))
 
+    if pdf_bytes:
+        attachment = MIMEApplication(pdf_bytes, _subtype="pdf")
+        attachment.add_header(
+            "Content-Disposition",
+            "attachment",
+            filename=f"BU-Membership-Certificate-{member_id}.pdf",
+        )
+        msg.attach(attachment)
+
     return _send(msg)
 
 
@@ -284,6 +315,7 @@ def send_membership_confirmation_email(data: dict) -> bool:
 def send_donation_receipt_email(
     data: dict,
     pdf_bytes: Optional[bytes] = None,
+    base_url: Optional[str] = None,
 ) -> bool:
     """Send donation receipt email with optional PDF attachment.
 
@@ -291,6 +323,7 @@ def send_donation_receipt_email(
         data:      Dict with keys: fullName, email, donationId, amount,
                    currency, paymentMethod, message.
         pdf_bytes: Optional PDF receipt bytes.
+        base_url:  Optional public base URL for the letter download link.
 
     Returns:
         True if sent successfully.
@@ -301,10 +334,24 @@ def send_donation_receipt_email(
     amount      = data.get("amount", 0)
     currency    = data.get("currency", "UGX")
     method      = data.get("paymentMethod", "")
+    letter_url  = f"{base_url.rstrip('/')}/api/donation-letter/{donation_id}" if base_url else ""
+    letter_button = ""
+    if letter_url:
+        letter_button = f"""
+  <tr><td style="padding:0 40px 28px;text-align:center;">
+    <a href="{letter_url}"
+       style="display:inline-block;background:#1d4ed8;color:#fff;text-decoration:none;
+              padding:12px 28px;border-radius:8px;font-weight:700;font-size:14px;">
+      Download Appreciation Letter
+    </a>
+    <p style="color:#9ca3af;font-size:11px;margin:10px 0 0;">
+      The appreciation letter is also attached to this email as a PDF.
+    </p>
+  </td></tr>"""
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>BU Donation Receipt</title></head>
+<head><meta charset="UTF-8"><title>BU Donation Appreciation Letter</title></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:32px 0;">
 <tr><td align="center">
@@ -312,12 +359,12 @@ def send_donation_receipt_email(
   style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);">
   <tr><td style="background:#1d4ed8;padding:28px 40px;text-align:center;">
     <h1 style="color:#fff;margin:0;font-size:22px;font-weight:800;">BU Alumni Portal</h1>
-    <p style="color:#bfdbfe;margin:6px 0 0;font-size:13px;">Donation Receipt</p>
+    <p style="color:#bfdbfe;margin:6px 0 0;font-size:13px;">Donation Appreciation Letter</p>
   </td></tr>
   <tr><td style="padding:32px 40px 0;">
     <p style="color:#111827;font-size:16px;margin:0 0 8px;">Hi <strong>{full_name}</strong>,</p>
     <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 24px;">
-      Thank you for your generous donation to the BU Alumni community!
+      Thank you for your generous donation to the BU Alumni community. Your appreciation letter and receipt are attached as a PDF.
     </p>
   </td></tr>
   <tr><td style="padding:0 40px 28px;">
@@ -337,6 +384,7 @@ def send_donation_receipt_email(
     </td></tr>
     </table>
   </td></tr>
+  {letter_button}
   <tr><td style="background:#f9fafb;padding:18px 40px;text-align:center;border-top:1px solid #e5e7eb;">
     <p style="color:#9ca3af;font-size:11px;margin:0;">
       &copy; 2026 BU Alumni Association &nbsp;&middot;&nbsp; Bugema University, Kampala, Uganda
@@ -359,7 +407,7 @@ def send_donation_receipt_email(
         attachment.add_header(
             "Content-Disposition",
             "attachment",
-            filename=f"BU-Donation-Receipt-{donation_id}.pdf",
+            filename=f"BU-Donation-Appreciation-{donation_id}.pdf",
         )
         msg.attach(attachment)
 
