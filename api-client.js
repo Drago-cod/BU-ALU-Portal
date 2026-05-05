@@ -7,8 +7,11 @@
   'use strict';
 
   // API Configuration
-  const API_BASE_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:5000' 
+  const localHostnames = ['localhost', '127.0.0.1', ''];
+  const isLocal = localHostnames.includes(window.location.hostname);
+  const isBackendPort = window.location.port === '5000';
+  const API_BASE_URL = isLocal && !isBackendPort
+    ? 'http://localhost:5000'
     : '';
 
   const API_ENDPOINTS = {
