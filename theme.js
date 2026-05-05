@@ -20,6 +20,12 @@
     dark:    'Dark',
   };
 
+  const NEXT_LABELS = {
+    default: 'Light',
+    light:   'Dark',
+    dark:    'Default',
+  };
+
   // Material icon names for each theme
   const ICONS = {
     default: 'auto_awesome',
@@ -40,6 +46,8 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEY, theme);
+    document.documentElement.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+    window.dispatchEvent(new CustomEvent('bu-theme-change', { detail: { theme } }));
   }
 
   // ── Cycle: default → light → dark → default ───────────────────────────────
@@ -65,6 +73,14 @@
       `<span class="material-icons-round theme-toggle-icon">${ICONS[theme]}</span>` +
       `<span class="theme-toggle-label">${LABELS[theme]}</span>`;
     btn.setAttribute('data-theme-current', theme);
+    btn.setAttribute('aria-label', `Theme: ${LABELS[theme]}. Switch to ${NEXT_LABELS[theme]} theme`);
+    btn.setAttribute('title', `Theme: ${LABELS[theme]}. Switch to ${NEXT_LABELS[theme]}`);
+  }
+
+  function updateAllToggles(theme) {
+    document.querySelectorAll('.theme-toggle').forEach((toggle) => {
+      updateToggleUI(toggle, theme);
+    });
   }
 
   // ── Inject into header ─────────────────────────────────────────────────────
@@ -78,11 +94,7 @@
       const current = document.documentElement.getAttribute('data-theme') || 'default';
       const next    = nextTheme(current);
       applyTheme(next);
-      updateToggleUI(btn, next);
-
-      // Also update mobile nav toggle if it exists
-      const mobileBtn = document.getElementById('theme-toggle-mobile');
-      if (mobileBtn) updateToggleUI(mobileBtn, next);
+      updateAllToggles(next);
     });
 
     // Insert before the first child (before Login/Register)
@@ -98,8 +110,7 @@
         const current = document.documentElement.getAttribute('data-theme') || 'default';
         const next    = nextTheme(current);
         applyTheme(next);
-        updateToggleUI(btn, next);
-        updateToggleUI(mobileBtn, next);
+        updateAllToggles(next);
       });
       // Insert after the divider
       const divider = mobileNav.querySelector('.mobile-nav-divider');
@@ -118,6 +129,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     injectToggle(initialTheme);
+    updateAllToggles(document.documentElement.getAttribute('data-theme') || initialTheme);
   });
 
 })();
