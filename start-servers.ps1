@@ -47,11 +47,11 @@ if (-not (Test-Path "backend\.env")) {
 Write-Host "📦 Checking Python dependencies..." -ForegroundColor Cyan
 Push-Location backend
 try {
-    python -c "import flask, flask_cors, jwt, bcrypt" 2>&1 | Out-Null
+    py -c "import flask, flask_cors, jwt, bcrypt" 2>&1 | Out-Null
     Write-Host "✅ Python dependencies OK" -ForegroundColor Green
 } catch {
     Write-Host "⚠️  Installing Python dependencies..." -ForegroundColor Yellow
-    pip install -r requirements.txt
+    py -m pip install -r requirements.txt
     if ($LASTEXITCODE -ne 0) {
         Write-Host "❌ Failed to install Python dependencies" -ForegroundColor Red
         Pop-Location
@@ -77,24 +77,24 @@ Write-Host ""
 
 # Start backend in new window
 $backendPath = Join-Path $PSScriptRoot "backend"
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$backendPath'; Write-Host 'Starting Backend Server...' -ForegroundColor Cyan; python app.py"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$backendPath'; Write-Host 'Starting Backend Server...' -ForegroundColor Cyan; py app.py; Read-Host 'Press Enter to close'"
 
 # Wait for backend to start
 Write-Host "⏳ Waiting for backend to start..." -ForegroundColor Yellow
 Start-Sleep -Seconds 3
 
 # Start frontend in new window
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$PSScriptRoot'; Write-Host 'Starting Frontend Server...' -ForegroundColor Cyan; node server.js"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$PSScriptRoot'; Write-Host 'Starting Frontend Server...' -ForegroundColor Cyan; node server.js; Read-Host 'Press Enter to close'"
 
 Write-Host ""
 Write-Host "✅ Servers started in separate windows" -ForegroundColor Green
 Write-Host ""
-Write-Host "📖 Next steps:" -ForegroundColor Cyan
-Write-Host "   1. Wait for both servers to finish starting (check the new windows)" -ForegroundColor White
+Write-Host "Next steps:" -ForegroundColor Cyan
+Write-Host "   1. Check both new windows to verify servers started" -ForegroundColor White
 Write-Host "   2. Open your browser" -ForegroundColor White
 Write-Host "   3. Go to http://localhost:3000" -ForegroundColor White
 Write-Host "   4. Test event registration on the Events page" -ForegroundColor White
 Write-Host ""
-Write-Host "📚 For troubleshooting, see QUICK_START_GUIDE.md" -ForegroundColor Cyan
+Write-Host "For troubleshooting, see QUICK_START_GUIDE.md" -ForegroundColor Cyan
 Write-Host ""
 Read-Host "Press Enter to exit"

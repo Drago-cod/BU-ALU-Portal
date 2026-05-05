@@ -490,6 +490,139 @@
 
       </div>
     </section>
+    
+    <!-- Event Registration Modal -->
+    <div id="event-registration-modal" class="event-registration-modal" style="display: none;">
+      <div class="event-registration-modal-overlay" onclick="closeEventModal()"></div>
+      <div class="event-registration-modal-content">
+        <button class="event-registration-modal-close" onclick="closeEventModal()" aria-label="Close registration form">
+          <span class="material-icons-round">close</span>
+        </button>
+        
+        <!-- Modal Header -->
+        <div class="event-registration-modal-header">
+          <div class="event-registration-badge">
+            <span class="material-icons-round">event_available</span>
+            <span>REGISTER FOR EVENT</span>
+          </div>
+          <h2 class="event-registration-modal-title" id="modal-register-form-title">Event Registration</h2>
+          <p class="event-registration-modal-subtitle">
+            Fill in your details below. Your ticket will be sent to your email address instantly.
+          </p>
+        </div>
+
+        <!-- Event Info Badge in Modal -->
+        <div class="event-info-badge-modal" id="event-info-badge-modal" style="display: none;">
+          <div class="event-info-badge-header">
+            <span class="material-icons-round">event</span>
+            <h3 id="modal-event-badge-title"></h3>
+          </div>
+          <div class="event-info-badge-details" id="modal-event-badge-details">
+            <div class="event-info-badge-item">
+              <span class="material-icons-round">calendar_today</span>
+              <span id="modal-event-badge-date"></span>
+            </div>
+            <div class="event-info-badge-item">
+              <span class="material-icons-round">schedule</span>
+              <span id="modal-event-badge-time"></span>
+            </div>
+            <div class="event-info-badge-item">
+              <span class="material-icons-round">location_on</span>
+              <span id="modal-event-badge-location"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Form -->
+        <form class="event-reg-form-modern event-reg-form-modal" id="event-reg-form-modal" onsubmit="handleEventRegistrationModal(event)" novalidate>
+          <!-- Hidden event metadata -->
+          <input type="hidden" id="modal-reg-event-name" value="" />
+          <input type="hidden" id="modal-reg-event-date" value="" />
+          <input type="hidden" id="modal-reg-event-location" value="" />
+          <input type="hidden" id="modal-reg-event-time" value="" />
+
+          <!-- Full Name -->
+          <div class="form-group-modern">
+            <label for="modal-reg-full-name" class="form-label-modern">
+              <span class="material-icons-round">person</span>
+              <span>Full Name</span>
+              <span class="form-required">*</span>
+            </label>
+            <input type="text" id="modal-reg-full-name" class="form-input-modern" placeholder="e.g. Amara Ssekandi" required autocomplete="name" oninput="validateModalFullName()" onblur="validateModalFullName()" />
+            <span class="field-error-message" id="modal-reg-full-name-error" style="display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; display: flex; align-items: center; gap: 0.25rem;">
+              <span class="material-icons-round" style="font-size: 1rem;">error</span>
+              <span></span>
+            </span>
+          </div>
+
+          <!-- Email Address -->
+          <div class="form-group-modern">
+            <label for="modal-reg-email" class="form-label-modern">
+              <span class="material-icons-round">email</span>
+              <span>Email Address</span>
+              <span class="form-required">*</span>
+            </label>
+            <input type="email" id="modal-reg-email" class="form-input-modern" placeholder="your@email.com" required autocomplete="email" oninput="validateModalEmail()" onblur="validateModalEmail()" />
+            <span class="field-error-message" id="modal-reg-email-error" style="display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; display: flex; align-items: center; gap: 0.25rem;">
+              <span class="material-icons-round" style="font-size: 1rem;">error</span>
+              <span></span>
+            </span>
+            <span class="form-hint-modern" id="modal-reg-email-hint">
+              <span class="material-icons-round">info</span>
+              <span>Your ticket & receipt will be sent here</span>
+            </span>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-group-modern">
+            <label for="modal-reg-phone" class="form-label-modern">
+              <span class="material-icons-round">phone</span>
+              <span>Phone Number</span>
+              <span class="form-required">*</span>
+            </label>
+            <div style="display: flex; gap: 0.5rem;">
+              <select id="modal-reg-country-code" class="form-input-modern" style="flex: 0 0 140px; padding-right: 2rem; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25rem; appearance: none;">
+                <option value="+256" data-country="UG" selected>UG +256</option>
+                <option value="+1" data-country="US">US/CA +1</option>
+                <option value="+44" data-country="GB">GB +44</option>
+                <option value="+254" data-country="KE">KE +254</option>
+                <option value="+255" data-country="TZ">TZ +255</option>
+                <option value="+250" data-country="RW">RW +250</option>
+                <option value="+27" data-country="ZA">ZA +27</option>
+                <option value="+234" data-country="NG">NG +234</option>
+                <option value="+233" data-country="GH">GH +233</option>
+                <option value="+91" data-country="IN">IN +91</option>
+                <option value="+86" data-country="CN">CN +86</option>
+                <option value="+81" data-country="JP">JP +81</option>
+                <option value="+49" data-country="DE">DE +49</option>
+                <option value="+33" data-country="FR">FR +33</option>
+                <option value="+39" data-country="IT">IT +39</option>
+                <option value="+34" data-country="ES">ES +34</option>
+                <option value="+61" data-country="AU">AU +61</option>
+              </select>
+              <input type="tel" id="modal-reg-phone" class="form-input-modern" placeholder="700 000 000" required autocomplete="tel" oninput="validateModalPhone()" onblur="validateModalPhone()" />
+            </div>
+            <span class="field-error-message" id="modal-reg-phone-error" style="display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; display: flex; align-items: center; gap: 0.25rem;">
+              <span class="material-icons-round" style="font-size: 1rem;">error</span>
+              <span></span>
+            </span>
+          </div>
+
+          <!-- Error Box -->
+          <div class="form-error-box" id="modal-reg-error" style="display: none;">
+            <span class="material-icons-round">error_outline</span>
+            <span id="modal-reg-error-text"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary btn-large" id="modal-reg-submit-btn" style="width: 100%; margin-top: 1.5rem;">
+            <span class="material-icons-round">check_circle</span>
+            <span>Complete Registration</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- Event Registration Form - Modern Design -->
     <section class="section event-registration-section" id="event-register">
       <div class="event-registration-bg-decoration"></div>
@@ -1062,7 +1195,9 @@
           eventTime:     document.getElementById('reg-event-time').value,
         };
 
+        console.log('Submitting registration:', registrationData);
         const result = await BUAlumniAPI.registerEvent(registrationData);
+        console.log('Registration result:', result);
 
         if (!result.success) {
           throw new Error(result.error || 'Registration failed. Please try again.');
@@ -1105,6 +1240,9 @@
         
         // Log error for debugging
         console.error('Registration error:', err);
+        
+        // Show alert as additional feedback
+        alert(`Registration Error: ${errorMessage}\n\nPlease check the console for more details or try again later.`);
       } finally {
         btn.disabled = false;
         btn.innerHTML = originalText;

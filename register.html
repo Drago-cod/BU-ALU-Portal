@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <script id="bu-lang-init">(function(){var l=localStorage.getItem('bu-language')||'en';document.documentElement.setAttribute('lang',l);document.documentElement.setAttribute('dir',l==='ar'?'rtl':'ltr');}());</script>
@@ -114,89 +114,111 @@
         <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.6;">Help us know you better by sharing your professional information</p>
       </div>
 
-      <form id="registerForm" onsubmit="handleRegisterSubmit(event); return false;" novalidate>
-        
-        <!-- Name Field -->
-        <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="fullName" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">person</span>
-            Full Name
-            <span style="color: #ef4444;">*</span>
-          </label>
-          <div class="input-wrapper" id="nameWrapper">
-            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="John Doe" required style="padding: 1rem; border-radius: 12px;">
-          </div>
-          <div class="field-error" id="nameError" hidden>
-            <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please enter your full name
-          </div>
-        </div>
+<form id="registerForm" onsubmit="handleRegisterSubmit(event); return false;" novalidate>
+         
+         <!-- Name Field -->
+         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
+           <label for="fullName" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+             <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">person</span>
+             Full Name
+             <span style="color: #ef4444;">*</span>
+           </label>
+           <div class="input-wrapper" id="nameWrapper">
+             <input type="text" id="fullName" name="fullName" class="form-control" placeholder="John Doe" required style="padding: 1rem; border-radius: 12px;">
+           </div>
+           <div class="field-error" id="nameError" hidden>
+             <span class="material-icons-round" style="font-size: 16px;">error</span>
+             Please enter your full name
+           </div>
+         </div>
 
-        <!-- Email Field -->
-        <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="email" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">mail</span>
-            Email Address
-            <span style="color: #ef4444;">*</span>
-          </label>
-          <div class="input-wrapper" id="emailWrapper">
-            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email" style="padding: 1rem; border-radius: 12px;">
-          </div>
-          <div class="field-error" id="emailError" hidden>
-            <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please enter a valid email address
-          </div>
-        </div>
+         <!-- Email Field -->
+         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
+           <label for="email" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+             <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">mail</span>
+             Email Address
+             <span style="color: #ef4444;">*</span>
+           </label>
+           <div class="input-wrapper" id="emailWrapper">
+             <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email" style="padding: 1rem; border-radius: 12px;">
+           </div>
+           <div class="field-error" id="emailError" hidden>
+             <span class="material-icons-round" style="font-size: 16px;">error</span>
+             Please enter a valid email address
+           </div>
+         </div>
 
-        <!-- Contact Field -->
-        <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="contact" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">phone</span>
-            Phone Number
-            <span style="color: #ef4444;">*</span>
-          </label>
-          <div class="input-wrapper" id="contactWrapper">
-            <input type="tel" id="contact" name="contact" class="form-control" placeholder="+1 (555) 000-0000" required style="padding: 1rem; border-radius: 12px;">
-          </div>
-          <div class="field-error" id="contactError" hidden>
-            <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please enter a valid phone number
-          </div>
-        </div>
+         <!-- Contact Field -->
+         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
+           <label for="phone" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+             <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">phone</span>
+             Phone Number
+             <span style="color: #ef4444;">*</span>
+           </label>
+           <div class="input-wrapper" id="contactWrapper">
+             <input type="tel" id="phone" name="phone" class="form-control" placeholder="+256 700 000 000" required style="padding: 1rem; border-radius: 12px;">
+           </div>
+           <div class="field-error" id="contactError" hidden>
+             <span class="material-icons-round" style="font-size: 16px;">error</span>
+             Please enter a valid phone number
+           </div>
+         </div>
 
-        <!-- Profession Field -->
-        <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
-          <label for="profession" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">work</span>
-            Profession
-            <span style="color: #ef4444;">*</span>
-          </label>
-          <div class="input-wrapper" id="professionWrapper">
-            <input type="text" id="profession" name="profession" class="form-control" placeholder="e.g., Software Engineer, Marketing Manager" required style="padding: 1rem; border-radius: 12px;">
-          </div>
-          <div class="field-error" id="professionError" hidden>
-            <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please enter your profession
-          </div>
-        </div>
+         <!-- Profession Field -->
+         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
+           <label for="profession" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+             <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">work</span>
+             Profession
+             <span style="color: #ef4444;">*</span>
+           </label>
+           <div class="input-wrapper" id="professionWrapper">
+             <input type="text" id="profession" name="profession" class="form-control" placeholder="e.g., Software Engineer, Marketing Manager" required style="padding: 1rem; border-radius: 12px;">
+           </div>
+           <div class="field-error" id="professionError" hidden>
+             <span class="material-icons-round" style="font-size: 16px;">error</span>
+             Please enter your profession
+           </div>
+         </div>
 
-        <!-- Residence Field -->
-        <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2.5rem;">
-          <label for="residence" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">location_on</span>
-            Residence
-            <span style="color: #ef4444;">*</span>
-          </label>
-          <div class="input-wrapper" id="residenceWrapper">
-            <input type="text" id="residence" name="residence" class="form-control" placeholder="City, Country" required style="padding: 1rem; border-radius: 12px;">
-          </div>
-          <div class="field-error" id="residenceError" hidden>
-            <span class="material-icons-round" style="font-size: 16px;">error</span>
-            Please enter your residence
-          </div>
-        </div>
+         <!-- Residence Field -->
+         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
+           <label for="location" class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+             <span class="material-icons-round" style="font-size: 1.2rem; color: var(--primary);">location_on</span>
+             Location
+             <span style="color: #ef4444;">*</span>
+           </label>
+           <div class="input-wrapper" id="residenceWrapper">
+             <input type="text" id="location" name="location" class="form-control" placeholder="City, Country" required style="padding: 1rem; border-radius: 12px;">
+           </div>
+           <div class="field-error" id="residenceError" hidden>
+             <span class="material-icons-round" style="font-size: 16px;">error</span>
+             Please enter your location
+           </div>
+         </div>
+         
+         <!-- Membership Tier Selection -->
+         <div class="form-group scroll-reveal fade-in-up" style="margin-bottom: 2rem;">
+           <label class="form-label" style="margin-bottom: 0.8rem; font-size: 0.95rem; font-weight: 600;">
+             Select Membership Tier
+           </label>
+           <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+             <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px; cursor: pointer;">
+               <input type="radio" name="membershipType" value="Standard" checked>
+               <span><strong>Standard</strong> - UGX 50,000/year</span>
+             </label>
+             <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px; cursor: pointer;">
+               <input type="radio" name="membershipType" value="Premium">
+               <span><strong>Premium</strong> - UGX 150,000/year</span>
+             </label>
+             <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px; cursor: pointer;">
+               <input type="radio" name="membershipType" value="Lifetime">
+               <span><strong>Lifetime</strong> - UGX 350,000 (includes insurance)</span>
+             </label>
+           </div>
+           <span class="field-hint" style="font-size: 0.85rem; color: var(--muted);">Registration fee: UGX 10,000 applies to all tiers</span>
+         </div>
 
-        <button type="submit" class="btn btn-primary btn-submit scroll-reveal fade-in-up" style="width: 100%; padding: 1rem 2rem; border-radius: 12px; font-size: 1rem; font-weight: 600;">Create My Profile</button>
+         <button type="submit" class="btn btn-primary btn-submit scroll-reveal fade-in-up" style="width: 100%; padding: 1rem 2rem; border-radius: 12px; font-size: 1rem; font-weight: 600;">Register & Get Membership Card</button>
 
         <div class="auth-links" style="text-align: center; margin-top: 1.5rem;">
           Already have an account? <a href="auth.html" style="color: var(--primary); font-weight: 600; text-decoration: none;">Sign in</a>
@@ -209,252 +231,36 @@
     </div>
   </div>
 
-  <script>
+<script>
     // Elements
     const form = document.getElementById('registerForm');
-    const username = document.getElementById('username');
+    const fullName = document.getElementById('fullName');
     const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirmPassword');
-    const referralSource = document.getElementById('referralSource');
-    const rating = document.getElementById('rating');
-    const ratingStars = document.getElementById('ratingStars');
-    const ratingText = document.getElementById('ratingText');
+    const phone = document.getElementById('phone');
+    const profession = document.getElementById('profession');
+    const location = document.getElementById('location');
     
-    const strengthPanel = document.getElementById('strengthPanel');
-    
-    // Wrappers & Errors
-    const wrappers = {
-      username: document.getElementById('usernameWrapper'),
-      email: document.getElementById('emailWrapper'),
-      password: document.getElementById('passwordWrapper'),
-      confirm: document.getElementById('confirmWrapper'),
-      referral: document.getElementById('referralWrapper'),
-      rating: document.getElementById('ratingWrapper')
-    };
-    const errors = {
-      username: document.getElementById('usernameError'),
-      email: document.getElementById('emailError'),
-      password: document.getElementById('passwordError'),
-      confirm: document.getElementById('confirmError'),
-      referral: document.getElementById('referralError'),
-      rating: document.getElementById('ratingError')
-    };
-
-    // Rules logic
-    const rules = {
-      length: (val) => val.length >= 12,
-      case: (val) => /[A-Z]/.test(val) && /[a-z]/.test(val),
-      number: (val) => /[0-9]/.test(val),
-      symbol: (val) => /[^A-Za-z0-9]/.test(val)
-    };
-
-    let generatedPassword = '';
-
     // --- Validation Helpers ---
     function showError(field, msgElement, show, msg = 'This field is required') {
       msgElement.innerHTML = `<span class="material-icons-round" style="font-size: 16px;">error</span> ${msg}`;
       if (show) {
-        wrappers[field].classList.add('error');
+        field.closest('.form-group').querySelector('.input-wrapper').classList.add('error');
         msgElement.classList.add('visible');
+        msgElement.hidden = false;
       } else {
-        wrappers[field].classList.remove('error');
+        field.closest('.form-group').querySelector('.input-wrapper').classList.remove('error');
         msgElement.classList.remove('visible');
+        msgElement.hidden = true;
       }
     }
 
-    function validateUsername() {
-      const isValid = username.value.trim().length > 0;
-      showError('username', errors.username, !isValid, 'This field is required');
-      if(isValid) wrappers.username.classList.add('valid');
-      else wrappers.username.classList.remove('valid');
+    function validateField(field, validator, msgElement, msg) {
+      const isValid = validator(field.value);
+      showError(field, msgElement, !isValid, msg);
       return isValid;
     }
-
-    function validateEmail() {
-      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-      showError('email', errors.email, !isValid, 'Please enter a valid email address');
-      if(isValid) wrappers.email.classList.add('valid');
-      else wrappers.email.classList.remove('valid');
-      return isValid;
-    }
-
-    function validatePassword() {
-      const val = password.value;
-      if (val.length === 0) {
-        showError('password', errors.password, true, 'This field is required');
-        return false;
-      }
-      if (val.length < 8) {
-        showError('password', errors.password, true, 'Must be at least 8 characters');
-        return false;
-      }
-      showError('password', errors.password, false);
-      return true;
-    }
-
-    function validateConfirmPassword() {
-      if(confirmPassword.value.length === 0) {
-        showError('confirm', errors.confirm, true, 'This field is required');
-        return false;
-      }
-      const isMatch = password.value === confirmPassword.value;
-      showError('confirm', errors.confirm, !isMatch, 'Passwords do not match');
-      return isMatch;
-    }
-
-    function validateReferralSource() {
-      const isValid = referralSource.value.trim().length > 0;
-      showError('referral', errors.referral, !isValid, 'Please select how you heard about us');
-      if(isValid) wrappers.referral.classList.add('valid');
-      else wrappers.referral.classList.remove('valid');
-      return isValid;
-    }
-
-    function generateStrongPassword() {
-      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
-      let pwd = "";
-      pwd += "A"; pwd += "a"; pwd += "1"; pwd += "$";
-      for (let i = 4; i < 16; i++) {
-        pwd += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return pwd.split('').sort(() => 0.5 - Math.random()).join(''); 
-    }
-
-    // --- Event Listeners ---
-    username.addEventListener('input', validateUsername);
-    username.addEventListener('blur', validateUsername);
-    email.addEventListener('input', validateEmail);
-    email.addEventListener('blur', validateEmail);
-
-    password.addEventListener('focus', () => {
-      strengthPanel.classList.add('active');
-    });
-
-    password.addEventListener('blur', () => {
-      validatePassword();
-      if(password.value.length === 0) strengthPanel.classList.remove('active');
-    });
-
-    function updateMeters(score) {
-      for(let i=1; i<=4; i++) {
-        const m = document.getElementById(`meter-${i}`);
-        if(score === 0) {
-          m.style.background = '#e5e7eb';
-        } else if (score < 3) {
-          m.style.background = i <= score ? '#f59e0b' : '#e5e7eb';
-        } else {
-          m.style.background = i <= score ? '#10b981' : '#e5e7eb';
-        }
-      }
-    }
-
-    function validatePasswordStrength() {
-      const val = password.value;
-      let score = 0;
-
-      Object.keys(rules).forEach(key => {
-        const item = document.getElementById(`rule-${key}`);
-        if (rules[key](val)) {
-          item.classList.add('valid');
-          score++;
-        } else {
-          item.classList.remove('valid');
-        }
-      });
-
-      if(val.length >= 8) updateMeters(score === 0 ? 1 : score);
-      else updateMeters(0);
-      
-      if(val.length >= 8) showError('password', errors.password, false);
-      if(confirmPassword.value.length > 0) validateConfirmPassword();
-    }
-
-    password.addEventListener('input', validatePasswordStrength);
-    confirmPassword.addEventListener('input', validateConfirmPassword);
-    confirmPassword.addEventListener('blur', validateConfirmPassword);
-    referralSource.addEventListener('change', validateReferralSource);
-    referralSource.addEventListener('blur', validateReferralSource);
-
-    // Rating functionality
-    let selectedRating = 0;
-    const ratingLabels = {
-      1: 'Poor',
-      2: 'Fair', 
-      3: 'Good',
-      4: 'Very Good',
-      5: 'Excellent'
-    };
-
-    // Rating star click handlers
-    const starButtons = ratingStars.querySelectorAll('.star-btn');
-    starButtons.forEach((btn, index) => {
-      btn.addEventListener('click', () => {
-        selectedRating = index + 1;
-        rating.value = selectedRating;
-        updateRatingDisplay(selectedRating);
-        validateRating();
-      });
-
-      btn.addEventListener('mouseenter', () => {
-        updateRatingDisplay(index + 1);
-      });
-    });
-
-    ratingStars.addEventListener('mouseleave', () => {
-      updateRatingDisplay(selectedRating);
-    });
-
-    function updateRatingDisplay(ratingValue) {
-      starButtons.forEach((btn, index) => {
-        const icon = btn.querySelector('.material-icons-round');
-        if (index < ratingValue) {
-          icon.textContent = 'star';
-          btn.classList.add('filled');
-        } else {
-          icon.textContent = 'star_border';
-          btn.classList.remove('filled');
-        }
-      });
-
-      if (ratingValue > 0) {
-        ratingText.textContent = ratingLabels[ratingValue];
-        ratingText.classList.add('has-rating');
-      } else {
-        ratingText.textContent = 'Please rate your experience';
-        ratingText.classList.remove('has-rating');
-      }
-    }
-
-    function validateRating() {
-      const ratingValue = parseInt(rating.value);
-      if (ratingValue < 1 || ratingValue > 5) {
-        showError('rating', errors.rating, true);
-        return false;
-      } else {
-        showError('rating', errors.rating, false);
-        return true;
-      }
-    }
-
-    function setupToggle(btnId, inputId) {
-      const btn = document.getElementById(btnId);
-      const input = document.getElementById(inputId);
-      const icon = btn.querySelector('span');
-      btn.addEventListener('click', () => {
-        if (input.type === 'password') {
-          input.type = 'text';
-          icon.textContent = 'visibility_off';
-        } else {
-          input.type = 'password';
-          icon.textContent = 'visibility';
-        }
-      });
-    }
-    setupToggle('togglePassword', 'password');
-    setupToggle('toggleConfirm', 'confirmPassword');
-
-    // Simple form submission handler (like donate form)
+    
+    // Simple form submission handler
     async function handleRegisterSubmit(event) {
       event.preventDefault();
       
@@ -462,91 +268,72 @@
       const submitBtn = document.querySelector('.btn-submit');
       
       // Get form values
-      const username = form.username.value.trim();
-      const email = form.email.value.trim().toLowerCase();
-      const password = form.password.value;
-      const confirmPassword = form.confirmPassword.value;
-      const referralSource = form.referralSource.value;
-      const ratingValue = form.rating.value;
-
+      const fullNameVal = form.fullName.value.trim();
+      const emailVal = form.email.value.trim().toLowerCase();
+      const phoneVal = form.phone.value.trim();
+      const professionVal = form.profession.value.trim();
+      const locationVal = form.location.value.trim();
+      const membershipType = form.membershipType.value;
+      
       // Simple validation
-      if (!username) {
-        alert('Please enter a username');
+      if (!fullNameVal) {
+        alert('Please enter your full name');
         return;
       }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
         alert('Please enter a valid email address');
         return;
       }
-      if (!password || password.length < 8) {
-        alert('Password must be at least 8 characters');
+      if (!phoneVal) {
+        alert('Please enter your phone number');
         return;
       }
-      if (password !== confirmPassword) {
-        alert('Passwords do not match');
+      if (!professionVal) {
+        alert('Please enter your profession');
         return;
       }
-      if (!referralSource) {
-        alert('Please select how you heard about us');
-        return;
-      }
-      if (!ratingValue) {
-        alert('Please provide a rating');
+      if (!locationVal) {
+        alert('Please enter your location');
         return;
       }
 
       // Show loading
       const originalText = submitBtn.textContent;
-      submitBtn.innerHTML = '<span class="loading-spinner"></span> Creating Account...';
+      submitBtn.innerHTML = '<span class="loading-spinner"></span> Registering...';
       submitBtn.disabled = true;
 
       try {
-        const donationId = 'ACC-' + Date.now();
+        const result = await BUAlumniAPI.registerMember({
+          fullName: fullNameVal,
+          email: emailVal,
+          phone: phoneVal,
+          profession: professionVal,
+          location: locationVal,
+          membershipType: membershipType
+        });
         
-        // Save to localStorage
-        const accounts = JSON.parse(localStorage.getItem('bu_accounts') || '[]');
-        
-        // Check if email exists
-        if (accounts.some(acc => acc.email === email)) {
-          throw new Error('This email is already registered. Please login instead.');
+        if (result.success) {
+          const formCard = document.querySelector('.form-card');
+          formCard.innerHTML = `
+            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 3rem; border-radius: 24px; text-align: center;">
+              <div style="width: 80px; height: 80px; background: white; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem; font-weight: bold;">✓</div>
+              <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Registration Successful!</h3>
+              <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Welcome, <strong>${fullNameVal}</strong>!</p>
+              <p style="margin-bottom: 1rem;">Your Membership ID: <strong style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 8px; font-family: monospace;">${result.data.memberId}</strong></p>
+              <p style="font-size: 1rem; margin-bottom: 0.5rem;">Membership Type: <strong>${membershipType}</strong></p>
+              <p style="font-size: 0.95rem; opacity: 0.9; margin-bottom: 1.5rem;">Your membership card has been sent to <strong>${emailVal}</strong></p>
+              <a href="/api/certificate/${result.data.memberId}" class="btn btn-secondary" style="background: white; color: #10b981; margin-right: 1rem;">Download Certificate</a>
+              <a href="index.html" class="btn btn-primary" style="background: rgba(255,255,255,0.2);">Go to Homepage</a>
+            </div>
+          `;
+        } else {
+          alert(result.error || 'Registration failed. Please try again.');
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
         }
         
-        const account = {
-          id: donationId,
-          username: username,
-          email: email,
-          password: password,
-          referralSource: referralSource,
-          rating: ratingValue,
-          createdAt: new Date().toISOString(),
-          status: 'active'
-        };
-        
-        accounts.push(account);
-        localStorage.setItem('bu_accounts', JSON.stringify(accounts));
-        
-        // Auto-login
-        localStorage.setItem('buCurrentUser', JSON.stringify(account));
-        localStorage.setItem('buIsLoggedIn', 'true');
-        
-        // Show success
-        const formCard = document.querySelector('.form-card');
-        formCard.innerHTML = `
-          <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 3rem; border-radius: 24px; text-align: center;">
-            <div style="width: 80px; height: 80px; background: white; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem; font-weight: bold;">âœ“</div>
-            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Account Created Successfully!</h3>
-            <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Welcome, <strong>${username}</strong>!</p>
-            <p style="margin-bottom: 1.5rem;">Your Account ID: <strong style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 8px; font-family: monospace;">${donationId}</strong></p>
-            <p style="font-size: 0.95rem; opacity: 0.9;">Redirecting to homepage...</p>
-          </div>
-        `;
-        
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 2500);
-        
       } catch (error) {
-        alert(error.message || 'Registration failed. Please try again.');
+        alert('Registration failed. Please try again.');
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
       }

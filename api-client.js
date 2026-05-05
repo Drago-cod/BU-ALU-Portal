@@ -9,9 +9,9 @@
   // API Configuration
   const localHostnames = ['localhost', '127.0.0.1', ''];
   const isLocal = localHostnames.includes(window.location.hostname);
-  const isBackendPort = window.location.port === '5000';
+  const isBackendPort = window.location.port === '8080';
   const API_BASE_URL = isLocal && !isBackendPort
-    ? 'http://localhost:5000'
+    ? 'http://localhost:8080'
     : '';
 
   const API_ENDPOINTS = {
