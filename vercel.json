@@ -1,11 +1,12 @@
 {
   "experimentalServices": {
     "frontend": {
+      "runtime": "@vercel/static",
       "routePrefix": "/"
     },
     "backend": {
       "entrypoint": "backend/app.py",
-      "routePrefix": "/api"
+      "routePrefix": "/_/backend"
     }
   }
 }
