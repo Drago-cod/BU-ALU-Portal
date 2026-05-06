@@ -4,7 +4,7 @@ const path = require('path');
 const url = require('url');
 const querystring = require('querystring');
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -1155,12 +1155,11 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n========================================`);
   console.log(`  BU Alumni Portal Server Running!`);
   console.log(`========================================`);
-  console.log(`\n  Local:   http://localhost:${PORT}`);
-  console.log(`  Network: http://127.0.0.1:${PORT}`);
+  console.log(`\n  Listening on: http://0.0.0.0:${PORT}`);
   console.log(`\n  API Endpoints:`);
   console.log(`  POST /api/register-member - Register member + send card PDF`);
   console.log(`  POST /api/register-event  - Register event + send ticket PDF`);
