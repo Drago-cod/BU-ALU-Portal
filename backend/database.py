@@ -150,6 +150,102 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (post_id) REFERENCES community_posts(id)
 );
 
+CREATE TABLE IF NOT EXISTS tasks (
+    id               TEXT PRIMARY KEY,
+    title            TEXT NOT NULL,
+    description      TEXT NOT NULL,
+    category         TEXT NOT NULL,
+    duration_hours   INTEGER,
+    points            INTEGER NOT NULL DEFAULT 0,
+    certificate      BOOLEAN DEFAULT 1,
+    requires_feedback BOOLEAN DEFAULT 1,
+    status           TEXT NOT NULL DEFAULT 'active',
+    created_at       TEXT NOT NULL,
+    updated_at       TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS task_registrations (
+    id               TEXT PRIMARY KEY,
+    task_id          TEXT NOT NULL,
+    user_email       TEXT NOT NULL,
+    full_name        TEXT NOT NULL,
+    phone            TEXT,
+    registered_at    TEXT NOT NULL,
+    FOREIGN KEY (task_id) REFERENCES tasks(id)
+);
+
+CREATE TABLE IF NOT EXISTS task_completions (
+    id               TEXT PRIMARY KEY,
+    task_id          TEXT NOT NULL,
+    registration_id  TEXT NOT NULL,
+    user_email       TEXT NOT NULL,
+    full_name        TEXT NOT NULL,
+    completion_date  TEXT NOT NULL,
+    completion_hours REAL,
+    points_earned    INTEGER,
+    certificate_id   TEXT,
+    ticket_id        TEXT,
+    receipt_id       TEXT,
+    status           TEXT NOT NULL DEFAULT 'completed',
+    FOREIGN KEY (task_id) REFERENCES tasks(id),
+    FOREIGN KEY (registration_id) REFERENCES task_registrations(id)
+);
+
+CREATE TABLE IF NOT EXISTS task_certificates (
+    id               TEXT PRIMARY KEY,
+    completion_id    TEXT NOT NULL,
+    task_id          TEXT NOT NULL,
+    user_email       TEXT NOT NULL,
+    full_name        TEXT NOT NULL,
+    issue_date       TEXT NOT NULL,
+    certificate_number TEXT NOT NULL,
+    file_path        TEXT,
+    FOREIGN KEY (completion_id) REFERENCES task_completions(id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id)
+);
+
+CREATE TABLE IF NOT EXISTS task_tickets (
+    id               TEXT PRIMARY KEY,
+    completion_id    TEXT NOT NULL,
+    task_id          TEXT NOT NULL,
+    user_email       TEXT NOT NULL,
+    full_name        TEXT NOT NULL,
+    ticket_number    TEXT NOT NULL,
+    issue_date       TEXT NOT NULL,
+    file_path        TEXT,
+    FOREIGN KEY (completion_id) REFERENCES task_completions(id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id)
+);
+
+CREATE TABLE IF NOT EXISTS task_receipts (
+    id               TEXT PRIMARY KEY,
+    completion_id    TEXT NOT NULL,
+    task_id          TEXT NOT NULL,
+    user_email       TEXT NOT NULL,
+    full_name        TEXT NOT NULL,
+    receipt_number   TEXT NOT NULL,
+    issue_date       TEXT NOT NULL,
+    amount           REAL DEFAULT 0,
+    currency         TEXT DEFAULT 'UGX',
+    file_path        TEXT,
+    FOREIGN KEY (completion_id) REFERENCES task_completions(id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id)
+);
+
+CREATE TABLE IF NOT EXISTS task_feedbacks (
+    id               TEXT PRIMARY KEY,
+    completion_id    TEXT NOT NULL,
+    task_id          TEXT NOT NULL,
+    user_email       TEXT NOT NULL,
+    full_name        TEXT NOT NULL,
+    rating           INTEGER,
+    comments         TEXT,
+    would_recommend  BOOLEAN,
+    submitted_at     TEXT NOT NULL,
+    FOREIGN KEY (completion_id) REFERENCES task_completions(id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id)
+);
+
 CREATE TABLE IF NOT EXISTS stats (
     key   TEXT PRIMARY KEY,
     value TEXT NOT NULL
@@ -481,5 +577,179 @@ def list_comments(post_id: str) -> List[Dict[str, Any]]:
         rows = conn.execute(
             "SELECT * FROM comments WHERE post_id=? ORDER BY created_at ASC",
             (post_id,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+# ── Tasks ────────────────────────────────────────────────────────────────────
+
+def create_task(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Create a new task."""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO tasks (id, title, description, category, duration_hours, points, certificate, requires_feedback, status, created_at, updated_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+            (data["id"], data["title"], data["description"], data["category"],
+             data.get("durationHours", 0), data.get("points", 0),
+             data.get("certificate", 1), data.get("requiresFeedback", 1),
+             data.get("status", "active"), data["createdAt"], data["updatedAt"]),
+        )
+        row = conn.execute("SELECT * FROM tasks WHERE id=?", (data["id"],)).fetchone()
+    return dict(row)
+
+
+def get_task_by_id(task_id: str) -> Optional[Dict[str, Any]]:
+    """Retrieve a task by ID."""
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM tasks WHERE id=?", (task_id,)).fetchone()
+    return dict(row) if row else None
+
+
+def list_tasks(status: str = "active") -> List[Dict[str, Any]]:
+    """List all tasks with optional status filter."""
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM tasks WHERE status=? ORDER BY created_at DESC", (status,)
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def register_task(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Register a user for a task."""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO task_registrations (id, task_id, user_email, full_name, phone, registered_at)
+               VALUES (?,?,?,?,?,?)""",
+            (data["id"], data["taskId"], data["userEmail"], data["fullName"],
+             data.get("phone", ""), data["registeredAt"]),
+        )
+        row = conn.execute(
+            "SELECT * FROM task_registrations WHERE id=?", (data["id"],)
+        ).fetchone()
+    return dict(row)
+
+
+def get_task_registration(registration_id: str) -> Optional[Dict[str, Any]]:
+    """Get a task registration by ID."""
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT * FROM task_registrations WHERE id=?", (registration_id,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def complete_task(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Mark a task as completed."""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO task_completions (id, task_id, registration_id, user_email, full_name, completion_date, completion_hours, points_earned, certificate_id, ticket_id, receipt_id, status)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (data["id"], data["taskId"], data["registrationId"], data["userEmail"],
+             data["fullName"], data["completionDate"], data.get("completionHours", 0),
+             data.get("pointsEarned", 0), data.get("certificateId", ""),
+             data.get("ticketId", ""), data.get("receiptId", ""), "completed"),
+        )
+        row = conn.execute(
+            "SELECT * FROM task_completions WHERE id=?", (data["id"],)
+        ).fetchone()
+    return dict(row)
+
+
+def get_task_completion(completion_id: str) -> Optional[Dict[str, Any]]:
+    """Get a task completion record."""
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT * FROM task_completions WHERE id=?", (completion_id,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def create_certificate(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Create a certificate record."""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO task_certificates (id, completion_id, task_id, user_email, full_name, issue_date, certificate_number, file_path)
+               VALUES (?,?,?,?,?,?,?,?)""",
+            (data["id"], data["completionId"], data["taskId"], data["userEmail"],
+             data["fullName"], data["issueDate"], data["certificateNumber"], data.get("filePath", "")),
+        )
+        row = conn.execute(
+            "SELECT * FROM task_certificates WHERE id=?", (data["id"],)
+        ).fetchone()
+    return dict(row)
+
+
+def create_ticket(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Create a ticket record."""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO task_tickets (id, completion_id, task_id, user_email, full_name, ticket_number, issue_date, file_path)
+               VALUES (?,?,?,?,?,?,?,?)""",
+            (data["id"], data["completionId"], data["taskId"], data["userEmail"],
+             data["fullName"], data["ticketNumber"], data["issueDate"], data.get("filePath", "")),
+        )
+        row = conn.execute(
+            "SELECT * FROM task_tickets WHERE id=?", (data["id"],)
+        ).fetchone()
+    return dict(row)
+
+
+def create_receipt(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Create a receipt record."""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO task_receipts (id, completion_id, task_id, user_email, full_name, receipt_number, issue_date, amount, currency, file_path)
+               VALUES (?,?,?,?,?,?,?,?,?,?)""",
+            (data["id"], data["completionId"], data["taskId"], data["userEmail"],
+             data["fullName"], data["receiptNumber"], data["issueDate"],
+             data.get("amount", 0), data.get("currency", "UGX"), data.get("filePath", "")),
+        )
+        row = conn.execute(
+            "SELECT * FROM task_receipts WHERE id=?", (data["id"],)
+        ).fetchone()
+    return dict(row)
+
+
+def submit_feedback(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Submit feedback for a completed task."""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO task_feedbacks (id, completion_id, task_id, user_email, full_name, rating, comments, would_recommend, submitted_at)
+               VALUES (?,?,?,?,?,?,?,?,?)""",
+            (data["id"], data["completionId"], data["taskId"], data["userEmail"],
+             data["fullName"], data.get("rating", 0), data.get("comments", ""),
+             data.get("wouldRecommend", False), data["submittedAt"]),
+        )
+        row = conn.execute(
+            "SELECT * FROM task_feedbacks WHERE id=?", (data["id"],)
+        ).fetchone()
+    return dict(row)
+
+
+def get_feedback_by_completion(completion_id: str) -> Optional[Dict[str, Any]]:
+    """Get feedback for a specific task completion."""
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT * FROM task_feedbacks WHERE completion_id=?", (completion_id,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def list_user_tasks(user_email: str) -> List[Dict[str, Any]]:
+    """List all tasks a user has registered for."""
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM task_registrations WHERE user_email=? ORDER BY registered_at DESC",
+            (user_email,)
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def list_user_completions(user_email: str) -> List[Dict[str, Any]]:
+    """List all completed tasks for a user."""
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM task_completions WHERE user_email=? ORDER BY completion_date DESC",
+            (user_email,)
         ).fetchall()
     return [dict(r) for r in rows]

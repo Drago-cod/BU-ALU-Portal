@@ -9,8 +9,9 @@
   // API Configuration
   const localHostnames = ['localhost', '127.0.0.1', ''];
   const isLocal = localHostnames.includes(window.location.hostname);
-  const isBackendPort = window.location.port === '8080';
-  const API_BASE_URL = isLocal && !isBackendPort
+  const isFile = window.location.protocol === 'file:';
+  const isAppServer = window.location.port === '8080';
+  const API_BASE_URL = isLocal && !isAppServer
     ? 'http://localhost:8080'
     : '';
 
@@ -117,8 +118,12 @@
 
       return { success: true, data, response };
     } catch (error) {
+      const message = error instanceof TypeError && error.message === 'Failed to fetch'
+        ? `Cannot reach the BU Alumni API at ${API_BASE_URL || window.location.origin}. Start the server with "node server.js" and open http://localhost:8080/${isFile ? ' instead of opening the HTML file directly.' : ''}`
+        : error.message;
+
       console.error(`API Error (${endpoint}):`, error);
-      return { success: false, error: error.message };
+      return { success: false, error: message };
     }
   }
 

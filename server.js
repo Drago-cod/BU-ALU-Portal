@@ -28,6 +28,12 @@ const mimeTypes = {
 const members = [];
 const events = [];
 const tickets = [];
+const accounts = [];
+const communityPosts = [];
+const postLikes = {}; // { postId: { userEmail: true } }
+const postComments = {}; // { postId: [comments] }
+const connections = {}; // { userEmail: [connectedEmails] }
+const messages = {}; // { chatKey: [messages] }
 
 // Generate unique IDs
 function generateId(prefix) {
@@ -469,26 +475,97 @@ async function handleRegisterAccount(req, res) {
   try {
     const data = await parseBody(req);
     
+    // Check if email already exists
+    const existingAccount = accounts.find(a => a.email === data.email);
+    if (existingAccount) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Email already registered' }));
+      return;
+    }
+    
     const account = {
       accountId: generateId('ACC'),
-      username: data.username,
+      fullName: data.fullName || data.username,
       email: data.email,
-      password: data.password,
+      password: data.password, // In production, hash this!
+      phone: data.phone || '',
       createdAt: new Date().toISOString(),
       status: 'active'
     };
     
-    // In production, hash password and store in database
+    accounts.push(account);
+    
+    // Generate a simple token
+    const token = Buffer.from(`${account.accountId}:${Date.now()}`).toString('base64');
     
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       success: true,
       data: {
         accountId: account.accountId,
-        email: account.email
+        email: account.email,
+        fullName: account.fullName,
+        token: token
+      },
+      token: token,
+      account: {
+        accountId: account.accountId,
+        email: account.email,
+        fullName: account.fullName
       }
     }));
   } catch (e) {
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+async function handleLoginAccount(req, res) {
+  try {
+    const data = await parseBody(req);
+    
+    console.log('Login attempt:', data.email);
+    console.log('Available accounts:', accounts.map(a => a.email));
+    
+    // Find account by email
+    const account = accounts.find(a => a.email === data.email);
+    
+    if (!account) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Invalid email or password' }));
+      return;
+    }
+    
+    // Check password (in production, use proper password hashing!)
+    if (account.password !== data.password) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Invalid email or password' }));
+      return;
+    }
+    
+    // Generate a simple token
+    const token = Buffer.from(`${account.accountId}:${Date.now()}`).toString('base64');
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        accountId: account.accountId,
+        email: account.email,
+        fullName: account.fullName,
+        token: token
+      },
+      token: token,
+      account: {
+        accountId: account.accountId,
+        email: account.email,
+        fullName: account.fullName
+      }
+    }));
+    
+    console.log('Login successful for:', account.email);
+  } catch (e) {
+    console.error('Login error:', e);
     res.writeHead(500, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: false, error: e.message }));
   }
@@ -522,25 +599,32 @@ async function handleCertificate(req, res) {
 async function handleDownloadTicket(req, res) {
   try {
     const ticketId = req.url.split('/')[3];
+    console.log('Download ticket request for:', ticketId);
+    console.log('Available tickets:', tickets.map(t => t.ticketId));
+    
     const ticket = tickets.find(t => t.ticketId === ticketId);
     
     if (!ticket) {
-      res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: 'Ticket not found' }));
+      console.log('Ticket not found:', ticketId);
+      res.writeHead(404, { 'Content-Type': 'text/html' });
+      res.end('<h1>404 - Ticket Not Found</h1><p>The ticket you are looking for does not exist.</p>');
       return;
     }
     
+    console.log('Generating PDF for ticket:', ticket);
     const pdfBuffer = await generateTicket(ticket);
     
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="ticket-${ticketId}.pdf"`,
+      'Content-Disposition': `attachment; filename="BU-Ticket-${ticketId}.pdf"`,
       'Content-Length': pdfBuffer.length
     });
     res.end(pdfBuffer);
+    console.log('Ticket PDF sent successfully');
   } catch (e) {
-    res.writeHead(500, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: false, error: e.message }));
+    console.error('Error downloading ticket:', e);
+    res.writeHead(500, { 'Content-Type': 'text/html' });
+    res.end(`<h1>500 - Server Error</h1><p>${e.message}</p>`);
   }
 }
 
@@ -556,9 +640,399 @@ async function handleGetStats(req, res) {
   }));
 }
 
+async function handleRegisterDonation(req, res) {
+  try {
+    const data = await parseBody(req);
+    
+    const donation = {
+      donationId: generateId('DON'),
+      fullName: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      amount: data.amount,
+      currency: data.currency || 'UGX',
+      paymentMethod: data.paymentMethod,
+      message: data.message || '',
+      createdAt: new Date().toISOString(),
+      status: 'pending' // In demo mode, we'll mark as completed
+    };
+    
+    console.log('Donation received:', donation);
+    
+    // DEMO MODE: Simulate successful payment
+    // In production, you would integrate with actual payment APIs
+    const paymentMethodNames = {
+      'mtn_momo': 'MTN Mobile Money',
+      'airtel_money': 'Airtel Money',
+      'visa_mastercard': 'Visa/Mastercard',
+      'bank_transfer': 'Bank Transfer'
+    };
+    
+    const paymentName = paymentMethodNames[data.paymentMethod] || 'Mobile Money';
+    
+    // Simulate payment success after 2 seconds
+    donation.status = 'completed';
+    donation.transactionRef = generateId('TXN');
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        donationId: donation.donationId,
+        transactionRef: donation.transactionRef,
+        amount: donation.amount,
+        currency: donation.currency,
+        paymentMethod: paymentName,
+        message: `✅ Thank you for your donation of ${donation.currency} ${donation.amount.toLocaleString()}! Your ${paymentName} payment has been processed successfully. (Demo Mode - No actual payment was made)`
+      }
+    }));
+    
+    console.log('Donation processed (demo mode):', donation.donationId);
+  } catch (e) {
+    console.error('Donation error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+// Community API handlers
+async function handleGetPosts(req, res) {
+  try {
+    const parsedUrl = url.parse(req.url, true);
+    const limit = parseInt(parsedUrl.query.limit) || 20;
+    const offset = parseInt(parsedUrl.query.offset) || 0;
+    
+    // Return posts with like counts and comment counts
+    const postsWithStats = communityPosts.slice(offset, offset + limit).map(post => {
+      const likes = postLikes[post.id] || {};
+      const comments = postComments[post.id] || [];
+      
+      return {
+        ...post,
+        likes: Object.keys(likes).length,
+        commentCount: comments.length,
+        comments: comments
+      };
+    });
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        posts: postsWithStats,
+        total: communityPosts.length,
+        limit: limit,
+        offset: offset
+      }
+    }));
+  } catch (e) {
+    console.error('Get posts error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+async function handleCreatePost(req, res) {
+  try {
+    const data = await parseBody(req);
+    
+    const post = {
+      id: generateId('POST'),
+      author: data.author || 'Anonymous',
+      authorEmail: data.authorEmail || '',
+      profession: data.profession || 'BU Alumni',
+      avatar: data.avatar || '',
+      photo: data.photo || '',
+      content: data.content,
+      photos: data.photos || [],
+      type: data.type || 'update',
+      badge: data.badge || '',
+      link: data.link || null,
+      time: 'Just now',
+      createdAt: new Date().toISOString()
+    };
+    
+    communityPosts.unshift(post);
+    postLikes[post.id] = {};
+    postComments[post.id] = [];
+    
+    console.log('Post created:', post.id, 'with', post.photos?.length || 0, 'photos');
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        post: {
+          ...post,
+          likes: 0,
+          commentCount: 0,
+          comments: []
+        }
+      }
+    }));
+  } catch (e) {
+    console.error('Create post error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+async function handleToggleLike(req, res) {
+  try {
+    const data = await parseBody(req);
+    const postId = data.postId;
+    const userEmail = data.userEmail;
+    
+    if (!postId || !userEmail) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Missing postId or userEmail' }));
+      return;
+    }
+    
+    if (!postLikes[postId]) {
+      postLikes[postId] = {};
+    }
+    
+    const isLiked = postLikes[postId][userEmail];
+    
+    if (isLiked) {
+      delete postLikes[postId][userEmail];
+    } else {
+      postLikes[postId][userEmail] = true;
+    }
+    
+    const likeCount = Object.keys(postLikes[postId]).length;
+    
+    console.log(`Post ${postId} ${isLiked ? 'unliked' : 'liked'} by ${userEmail}. Total likes: ${likeCount}`);
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        postId: postId,
+        liked: !isLiked,
+        likeCount: likeCount
+      }
+    }));
+  } catch (e) {
+    console.error('Toggle like error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+async function handleAddComment(req, res) {
+  try {
+    const data = await parseBody(req);
+    const postId = data.postId;
+    const authorName = data.authorName;
+    const content = data.content;
+    
+    if (!postId || !authorName || !content) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Missing required fields' }));
+      return;
+    }
+    
+    if (!postComments[postId]) {
+      postComments[postId] = [];
+    }
+    
+    const comment = {
+      id: generateId('COMMENT'),
+      author: authorName,
+      avatar: data.avatar || '',
+      text: content,
+      createdAt: new Date().toISOString()
+    };
+    
+    postComments[postId].push(comment);
+    
+    console.log(`Comment added to post ${postId} by ${authorName}`);
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        comment: comment,
+        commentCount: postComments[postId].length
+      }
+    }));
+  } catch (e) {
+    console.error('Add comment error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+// Connection API handlers
+async function handleSendConnection(req, res) {
+  try {
+    const data = await parseBody(req);
+    const fromEmail = data.fromEmail;
+    const toEmail = data.toEmail;
+    
+    if (!fromEmail || !toEmail) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Missing required fields' }));
+      return;
+    }
+    
+    if (!connections[fromEmail]) {
+      connections[fromEmail] = [];
+    }
+    
+    if (!connections[fromEmail].includes(toEmail)) {
+      connections[fromEmail].push(toEmail);
+    }
+    
+    // Add reverse connection
+    if (!connections[toEmail]) {
+      connections[toEmail] = [];
+    }
+    
+    if (!connections[toEmail].includes(fromEmail)) {
+      connections[toEmail].push(fromEmail);
+    }
+    
+    console.log(`Connection created between ${fromEmail} and ${toEmail}`);
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        connected: true,
+        connectionCount: connections[fromEmail].length
+      }
+    }));
+  } catch (e) {
+    console.error('Send connection error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+async function handleGetConnections(req, res) {
+  try {
+    const parsedUrl = url.parse(req.url, true);
+    const userEmail = parsedUrl.query.email;
+    
+    if (!userEmail) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Missing email parameter' }));
+      return;
+    }
+    
+    const userConnections = connections[userEmail] || [];
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        connections: userConnections,
+        count: userConnections.length
+      }
+    }));
+  } catch (e) {
+    console.error('Get connections error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+// Messaging API handlers
+async function handleSendMessage(req, res) {
+  try {
+    const data = await parseBody(req);
+    const fromEmail = data.fromEmail;
+    const toEmail = data.toEmail;
+    const text = data.text;
+    
+    if (!fromEmail || !toEmail || !text) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Missing required fields' }));
+      return;
+    }
+    
+    // Create chat key (sorted emails)
+    const chatKey = [fromEmail, toEmail].sort().join(':');
+    
+    if (!messages[chatKey]) {
+      messages[chatKey] = [];
+    }
+    
+    const message = {
+      id: generateId('MSG'),
+      sender: fromEmail,
+      text: text,
+      timestamp: new Date().toISOString()
+    };
+    
+    messages[chatKey].push(message);
+    
+    console.log(`Message sent from ${fromEmail} to ${toEmail}`);
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        message: message,
+        chatKey: chatKey
+      }
+    }));
+  } catch (e) {
+    console.error('Send message error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
+async function handleGetMessages(req, res) {
+  try {
+    const parsedUrl = url.parse(req.url, true);
+    const email1 = parsedUrl.query.email1;
+    const email2 = parsedUrl.query.email2;
+    
+    if (!email1 || !email2) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Missing email parameters' }));
+      return;
+    }
+    
+    const chatKey = [email1, email2].sort().join(':');
+    const chatMessages = messages[chatKey] || [];
+    
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      data: {
+        messages: chatMessages,
+        chatKey: chatKey,
+        count: chatMessages.length
+      }
+    }));
+  } catch (e) {
+    console.error('Get messages error:', e);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, error: e.message }));
+  }
+}
+
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
+  
+  // Add CORS headers for all requests
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
   
   // API Routes
   if (pathname === '/api/register-member' && req.method === 'POST') {
@@ -573,6 +1047,14 @@ const server = http.createServer((req, res) => {
     return handleRegisterAccount(req, res);
   }
   
+  if (pathname === '/api/login-account' && req.method === 'POST') {
+    return handleLoginAccount(req, res);
+  }
+  
+  if (pathname === '/api/register-donation' && req.method === 'POST') {
+    return handleRegisterDonation(req, res);
+  }
+  
   if (pathname.startsWith('/api/certificate/') && req.method === 'GET') {
     return handleCertificate(req, res);
   }
@@ -583,6 +1065,41 @@ const server = http.createServer((req, res) => {
   
   if (pathname === '/api/stats' && req.method === 'GET') {
     return handleGetStats(req, res);
+  }
+  
+  // Community API Routes
+  if (pathname === '/api/community/posts' && req.method === 'GET') {
+    return handleGetPosts(req, res);
+  }
+  
+  if (pathname === '/api/community/post' && req.method === 'POST') {
+    return handleCreatePost(req, res);
+  }
+  
+  if (pathname === '/api/community/like' && req.method === 'POST') {
+    return handleToggleLike(req, res);
+  }
+  
+  if (pathname === '/api/community/comment' && req.method === 'POST') {
+    return handleAddComment(req, res);
+  }
+  
+  // Connection API Routes
+  if (pathname === '/api/connections/send' && req.method === 'POST') {
+    return handleSendConnection(req, res);
+  }
+  
+  if (pathname === '/api/connections/list' && req.method === 'GET') {
+    return handleGetConnections(req, res);
+  }
+  
+  // Messaging API Routes
+  if (pathname === '/api/messages/send' && req.method === 'POST') {
+    return handleSendMessage(req, res);
+  }
+  
+  if (pathname === '/api/messages/list' && req.method === 'GET') {
+    return handleGetMessages(req, res);
   }
   
   // Serve static files
@@ -648,9 +1165,19 @@ server.listen(PORT, () => {
   console.log(`  POST /api/register-member - Register member + send card PDF`);
   console.log(`  POST /api/register-event  - Register event + send ticket PDF`);
   console.log(`  POST /api/register-account - Register account`);
+  console.log(`  POST /api/login-account    - Login to account`);
+  console.log(`  POST /api/register-donation - Process donation (demo mode)`);
   console.log(`  GET  /api/certificate/:id - Download membership certificate`);
   console.log(`  GET  /api/ticket/:id      - Download event ticket`);
   console.log(`  GET  /api/stats           - Get system statistics`);
+  console.log(`  GET  /api/community/posts - Get community posts`);
+  console.log(`  POST /api/community/post  - Create new post`);
+  console.log(`  POST /api/community/like  - Toggle like on post`);
+  console.log(`  POST /api/community/comment - Add comment to post`);
+  console.log(`  POST /api/connections/send - Send connection request`);
+  console.log(`  GET  /api/connections/list - Get user connections`);
+  console.log(`  POST /api/messages/send    - Send direct message`);
+  console.log(`  GET  /api/messages/list    - Get chat messages`);
   console.log(`\n  Press Ctrl+C to stop the server`);
   console.log(`========================================\n`);
 });

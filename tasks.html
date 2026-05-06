@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <script id="bu-lang-init">(function(){var l=localStorage.getItem('bu-language')||'en';document.documentElement.setAttribute('lang',l);document.documentElement.setAttribute('dir',l==='ar'?'rtl':'ltr');}());</script>
+  <script id="bu-theme-init">(function(){var t=localStorage.getItem('bu-theme');if(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)t='dark';document.documentElement.setAttribute('data-theme',t||'default');}());</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU Alumni Portal | Tasks & Completion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="image/Bugema_logo.png" />
+  <link rel="shortcut icon" type="image/png" href="image/Bugema_logo.png" />
+  <style>
+    .task-hero {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      color: #ffffff;
+    }
+
+    .tasks-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    .task-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .task-card:hover {
+      box-shadow: 0 10px 30px rgba(29, 78, 216, 0.1);
+      border-color: #1d4ed8;
+      transform: translateY(-4px);
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+
+    .task-category {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .task-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 12px 0;
+      line-height: 1.4;
+    }
+
+    .task-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 12px 0;
+      line-height: 1.5;
+    }
+
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 16px 0;
+      padding: 12px 0;
+      border-top: 1px solid #f3f4f6;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .task-points {
+      background: #dcfce7;
+      color: #166534;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn-task {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-register {
+      background: #1d4ed8;
+      color: #ffffff;
+    }
+
+    .btn-register:hover {
+      background: #1e40af;
+    }
+
+    .btn-complete {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .btn-complete:hover {
+      background: #15803d;
+    }
+
+    .btn-feedback {
+      background: #f59e0b;
+      color: #ffffff;
+    }
+
+    .btn-feedback:hover {
+      background: #d97706;
+    }
+
+    .completion-flow {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 32px;
+      margin: 40px 0;
+    }
+
+    .flow-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .flow-header h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .flow-header p {
+      font-size: 16px;
+      color: #6b7280;
+    }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .flow-step {
+      text-align: center;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: #1d4ed8;
+      color: #ffffff;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .step-description {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #1d4ed8;
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .rating-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .star {
+      font-size: 28px;
+      cursor: pointer;
+      color: #d1d5db;
+      transition: all 0.2s ease;
+    }
+
+    .star:hover,
+    .star.active {
+      color: #f59e0b;
+      transform: scale(1.1);
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .modal-footer button {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit {
+      background: #1d4ed8;
+      color: #ffffff;
+    }
+
+    .btn-submit:hover {
+      background: #1e40af;
+    }
+
+    .btn-cancel {
+      background: #e5e7eb;
+      color: #0f172a;
+    }
+
+    .btn-cancel:hover {
+      background: #d1d5db;
+    }
+
+    .completion-summary {
+      background: #dcfce7;
+      border-left: 4px solid #16a34a;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 24px 0;
+    }
+
+    .completion-summary h3 {
+      color: #15803d;
+      margin-bottom: 12px;
+    }
+
+    .completion-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0;
+      font-size: 14px;
+      color: #166534;
+    }
+
+    .completion-item svg {
+      width: 20px;
+      height: 20px;
+      fill: #16a34a;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: #f9fafb;
+      border-radius: 12px;
+      color: #6b7280;
+    }
+
+    .empty-state svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Go to homepage">
+        <img src="image/Bugema_logo.png" alt="BU Alumni Portal logo" class="brand-logo" />
+        <span>BU Alumni Portal</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities</a>
+        <a href="community.html">Community</a>
+        <a href="events.html">Events</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="opportunities.html">Opportunities</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="login.html">Sign In</a>
+        <a class="btn btn-secondary" href="register.html">Sign Up</a>
+        <a class="btn btn-primary" href="donate.html">Donate</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">&#9776;</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="activities.html">Activities</a>
+      <a href="community.html">Community</a>
+      <a href="events.html">Events</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="opportunities.html">Opportunities</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="login.html">Sign In</a>
+      <a href="register.html">Sign Up</a>
+      <a href="donate.html">Donate</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="page-hero task-hero">
+      <div class="page-hero-dot-grid" aria-hidden="true"></div>
+      <div class="container">
+        <div class="page-hero-inner">
+          <div class="page-hero-text">
+            <div class="page-hero-eyebrow">
+              <span class="material-icons-round">task</span>
+              <span>GROW & ENGAGE</span>
+            </div>
+            <h1 class="activities-hero-title">Tasks & Skill Development</h1>
+            <p class="hero-copy">Complete meaningful tasks, earn certificates, tickets, and receipts. Track your professional growth and share your achievements with our alumni community.</p>
+            <div class="page-hero-actions">
+              <a class="page-hero-btn-primary" href="#tasks">
+                <span class="material-icons-round">explore</span>
+                Explore Tasks
+              </a>
+              <a class="page-hero-btn-ghost" href="#flow">
+                <span class="material-icons-round">info</span>
+                How It Works
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="flow" class="container" style="margin-top: 60px;">
+      <div class="completion-flow">
+        <div class="flow-header">
+          <h2>Task Completion Workflow</h2>
+          <p>From registration to certificates—a complete, seamless experience</p>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="step-number">1</div>
+            <div class="step-title">Register for Task</div>
+            <div class="step-description">Choose and register for a task that interests you</div>
+          </div>
+          <div class="flow-step">
+            <div class="step-number">2</div>
+            <div class="step-title">Complete Task</div>
+            <div class="step-description">Participate and complete the task requirements</div>
+          </div>
+          <div class="flow-step">
+            <div class="step-number">3</div>
+            <div class="step-title">Get Documents</div>
+            <div class="step-description">Automatically receive certificate, ticket & receipt</div>
+          </div>
+          <div class="flow-step">
+            <div class="step-number">4</div>
+            <div class="step-title">Share Feedback</div>
+            <div class="step-description">Rate and review your experience</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Tasks -->
+    <section id="tasks" class="container" style="margin-top: 60px;">
+      <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 32px;">Available Tasks</h2>
+      <div class="tasks-container" id="tasksContainer">
+        <!-- Tasks will be loaded here -->
+        <div class="empty-state">
+          <p>Loading tasks...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Tasks -->
+    <section class="container" style="margin-top: 60px; margin-bottom: 60px;">
+      <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 32px;">My Tasks & Completions</h2>
+      <div id="userTasksSection" style="display: none;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
+          <div id="userTasksList"></div>
+          <div id="userCompletionsList"></div>
+        </div>
+      </div>
+      <div id="notLoggedInMessage" style="text-align: center; padding: 40px 20px;">
+        <p style="font-size: 16px; color: #6b7280; margin-bottom: 16px;">Sign in to see your registered tasks and track your progress.</p>
+        <a href="login.html" class="btn btn-primary">Sign In</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Task Registration Modal -->
+  <div class="modal-overlay" id="registerModal">
+    <div class="modal-content">
+      <div class="modal-header">Register for Task</div>
+      <form id="registerForm">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="regFullName" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="regEmail" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" id="regPhone" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn-submit">Register</button>
+          <button type="button" class="btn-cancel" onclick="closeModal('registerModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Task Completion Modal -->
+  <div class="modal-overlay" id="completeModal">
+    <div class="modal-content">
+      <div class="modal-header">Complete Task</div>
+      <form id="completeForm">
+        <div class="completion-summary" id="completionSummary"></div>
+        <div class="form-group">
+          <label class="form-label">Hours Spent</label>
+          <input type="number" class="form-input" id="completionHours" step="0.5" min="0" value="1" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Receipt Amount (if applicable)</label>
+          <input type="number" class="form-input" id="receiptAmount" step="1000" min="0" value="0" />
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn-submit">Complete Task</button>
+          <button type="button" class="btn-cancel" onclick="closeModal('completeModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal-overlay" id="feedbackModal">
+    <div class="modal-content">
+      <div class="modal-header">Share Your Feedback</div>
+      <form id="feedbackForm">
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <div class="rating-group" id="ratingGroup">
+            <span class="star" data-rating="1">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="5">★</span>
+          </div>
+          <input type="hidden" id="feedbackRating" value="0" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Comments</label>
+          <textarea class="form-textarea" id="feedbackComments" placeholder="Share your experience..."></textarea>
+        </div>
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: normal;">
+            <input type="checkbox" id="wouldRecommend" />
+            I would recommend this task to others
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn-submit">Submit Feedback</button>
+          <button type="button" class="btn-cancel" onclick="closeModal('feedbackModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2024 Bugema University Alumni Association. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="global-state.js"></script>
+  <script src="tasks.js"></script>
+</body>
+</html>

@@ -121,8 +121,14 @@
     const menu = document.getElementById('qaMenu');
     const backdrop = document.getElementById('qaBackdrop');
     const closeBtn = document.getElementById('qaClose');
+    const widget = document.getElementById('quickActionsWidget');
 
-    if (!trigger || !menu || !backdrop) return;
+    if (!trigger || !menu || !backdrop || !widget) return;
+
+    // Keep the fixed menu independent from the floating button container.
+    // Mobile browsers can otherwise clip it to the button when the widget is transformed.
+    document.body.appendChild(menu);
+    document.body.appendChild(backdrop);
 
     // Toggle menu
     function toggleMenu(show) {
@@ -131,9 +137,11 @@
       menu.classList.toggle('open', isOpen);
       backdrop.classList.toggle('open', isOpen);
       trigger.classList.toggle('active', isOpen);
+      widget.classList.toggle('menu-open', isOpen);
       trigger.setAttribute('aria-expanded', String(isOpen));
       
       if (isOpen) {
+        widget.style.transform = 'translateY(0)';
         document.body.style.overflow = 'hidden';
       } else {
         document.body.style.overflow = '';
@@ -157,6 +165,17 @@
     window.addEventListener('scroll', () => {
       const currentScroll = window.pageYOffset;
       const widget = document.getElementById('quickActionsWidget');
+      const menu = document.getElementById('qaMenu');
+
+      if (!widget || menu?.classList.contains('open')) {
+        return;
+      }
+
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        widget.style.transform = 'translateY(0)';
+        lastScroll = currentScroll;
+        return;
+      }
       
       if (currentScroll > lastScroll && currentScroll > 300) {
         widget.style.transform = 'translateY(120px)';

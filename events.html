@@ -1198,12 +1198,21 @@
         console.log('Submitting registration:', registrationData);
         const result = await BUAlumniAPI.registerEvent(registrationData);
         console.log('Registration result:', result);
+        console.log('Ticket data:', result.data);
 
         if (!result.success) {
           throw new Error(result.error || 'Registration failed. Please try again.');
         }
 
         const data = result.data;
+        
+        // Validate ticket data
+        if (!data.ticketId) {
+          console.error('No ticketId in response:', data);
+          throw new Error('Server did not return a valid ticket ID');
+        }
+        
+        console.log('Ticket ID received:', data.ticketId);
 
         // Hide error box on success
         errorEl.style.display = 'none';
@@ -1218,9 +1227,15 @@
 
         // Wire up the download button
         const dlBtn = document.getElementById('ticket-download-btn');
-        dlBtn.href     = data.downloadUrl || `${window.location.origin}/api/ticket/${data.ticketId}`;
-        dlBtn.download = `BU-Ticket-${data.ticketId}.pdf`;
-        dlBtn.onclick = null; // Use default link behavior
+        if (dlBtn && data.ticketId) {
+          dlBtn.href = `/api/ticket/${data.ticketId}`;
+          dlBtn.download = `BU-Ticket-${data.ticketId}.pdf`;
+          dlBtn.onclick = function(e) {
+            e.preventDefault();
+            console.log('Downloading ticket:', data.ticketId);
+            window.open(`/api/ticket/${data.ticketId}`, '_blank');
+          };
+        }
 
         // Swap form → success
         document.getElementById('event-reg-form').parentElement.hidden = true;

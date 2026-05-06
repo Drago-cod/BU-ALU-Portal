@@ -41,7 +41,17 @@ The BU Alumni Portal is now **fully functional** with a complete backend API:
 - ✅ Comments system
 - ✅ Real-time interactions
 
-### 📊 Statistics & Admin
+### � Tasks & Skill Development
+- ✅ Task registration and enrollment
+- ✅ Task completion tracking
+- ✅ Automatic certificate generation (PDF)
+- ✅ Event ticket generation
+- ✅ Participation receipt generation
+- ✅ Post-completion feedback system
+- ✅ 5-star rating and comments
+- ✅ User task history and document downloads
+
+### �📊 Statistics & Admin
 - ✅ Dynamic statistics
 - ✅ Admin stats updates
 - ✅ Real-time counters
@@ -209,8 +219,93 @@ ENVIRONMENT=development
 ## 📚 Documentation
 
 - **SETUP.md** - Detailed setup instructions
+- **TASK_SYSTEM.md** - Task system documentation
 - **backend/test_api.py** - API testing script
+- **backend/seed_tasks.py** - Sample task seeding script
 - **Code comments** - Inline documentation
+
+## 📚 Task Completion System
+
+The portal now includes a **complete task management system** for alumni skill development:
+
+### Features
+- 📝 Task registration with detailed information
+- ✅ Task completion tracking with hours
+- 🎖️ Automatic certificate generation (PDF)
+- 🎫 Event ticket generation
+- 💰 Participation receipt generation
+- ⭐ Post-completion feedback (5-star rating)
+- 📥 Document downloads
+- 📊 User task history
+
+### Getting Started with Tasks
+
+#### 1. Seed Sample Tasks (Run Once)
+```bash
+cd "BU ALU Portal\backend"
+python seed_tasks.py
+```
+
+This creates 10 sample tasks including:
+- Advanced Leadership Workshop
+- Digital Marketing Fundamentals Seminar
+- Professional Networking Conference 2024
+- Python Programming Bootcamp
+- Financial Planning for Young Professionals
+- And 5 more skill-building tasks
+
+#### 2. Access the Tasks Page
+```
+http://localhost:5000/tasks.html
+```
+
+#### 3. Complete Task Workflow
+1. **Register** for a task (name/email/phone)
+2. **Complete** the task (track hours spent, optional amount)
+3. **Get Documents** (certificate, ticket, receipt auto-generated)
+4. **Leave Feedback** (5-star rating + comments)
+
+### API Endpoints for Tasks
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/tasks` | GET | List all tasks |
+| `/api/tasks` | POST | Create task (admin) |
+| `/api/tasks/<id>` | GET | Get task details |
+| `/api/tasks/<id>/register` | POST | Register for task |
+| `/api/task-completion` | POST | Complete task + generate docs |
+| `/api/task-feedback` | POST | Submit task feedback |
+| `/api/user-tasks/<email>` | GET | Get user's registrations |
+| `/api/user-completions/<email>` | GET | Get user's completions |
+| `/api/task-certificate/<id>` | GET | Download certificate |
+| `/api/task-ticket/<id>` | GET | Download ticket |
+| `/api/task-receipt/<id>` | GET | Download receipt |
+
+### Generated Documents
+
+When a task is completed, the system automatically generates:
+
+1. **Certificate** - Landscape PDF with task details, hours, signature block
+2. **Ticket** - Event/workshop participation ticket (A4)
+3. **Receipt** - Amount and participation details (A4)
+
+All documents are saved to:
+- Certificates: `backend/data/certificates/`
+- Tickets: `backend/data/tickets/`
+- Receipts: `backend/data/donation_letters/`
+
+### Database Schema
+
+Task system uses 8 interconnected tables:
+- `tasks` - Task definitions
+- `task_registrations` - User registrations
+- `task_completions` - Completion records
+- `task_certificates` - Certificate metadata
+- `task_tickets` - Ticket metadata
+- `task_receipts` - Receipt metadata
+- `task_feedbacks` - User feedback
+
+See [TASK_SYSTEM.md](TASK_SYSTEM.md) for complete API documentation.
 
 ## 🗺️ Roadmap
 
@@ -220,6 +315,8 @@ ENVIRONMENT=development
 - [x] ✅ Donation processing
 - [x] ✅ Job board
 - [x] ✅ Community features
+- [x] ✅ Task completion system with auto document generation
+- [x] ✅ Feedback collection system
 - [ ] Real payment gateway integration
 - [ ] Admin dashboard
 - [ ] Analytics & reporting

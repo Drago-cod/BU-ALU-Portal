@@ -125,6 +125,87 @@
     togglePostBtn();
   };
 
+  // Handle photo upload for posts
+  window.handlePhotoUpload = function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.multiple = true;
+    input.onchange = function(e) {
+      const files = Array.from(e.target.files);
+      if (files.length === 0) return;
+      
+      // Limit to 4 photos
+      const limitedFiles = files.slice(0, 4);
+      
+      // Store files temporarily
+      window.pendingPostPhotos = window.pendingPostPhotos || [];
+      
+      limitedFiles.forEach(file => {
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`${file.name} is too large. Maximum size is 5MB.`);
+          return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          window.pendingPostPhotos.push({
+            name: file.name,
+            data: event.target.result,
+            type: file.type
+          });
+          
+          // Show preview
+          showPhotoPreview();
+        };
+        reader.readAsDataURL(file);
+      });
+    };
+    input.click();
+  };
+
+  // Show photo preview in composer
+  function showPhotoPreview() {
+    const photos = window.pendingPostPhotos || [];
+    if (photos.length === 0) return;
+    
+    let previewContainer = document.getElementById('photo-preview-container');
+    if (!previewContainer) {
+      previewContainer = document.createElement('div');
+      previewContainer.id = 'photo-preview-container';
+      previewContainer.style.cssText = 'display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;';
+      
+      const composerWrap = document.querySelector('.composer-wrap > div');
+      if (composerWrap) {
+        composerWrap.appendChild(previewContainer);
+      }
+    }
+    
+    previewContainer.innerHTML = photos.map((photo, index) => `
+      <div style="position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 1;">
+        <img src="${photo.data}" style="width: 100%; height: 100%; object-fit: cover;" alt="Preview ${index + 1}">
+        <button onclick="removePhotoPreview(${index})" style="position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.7); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">&times;</button>
+      </div>
+    `).join('');
+    
+    togglePostBtn();
+  }
+
+  // Remove photo from preview
+  window.removePhotoPreview = function(index) {
+    window.pendingPostPhotos = window.pendingPostPhotos || [];
+    window.pendingPostPhotos.splice(index, 1);
+    
+    if (window.pendingPostPhotos.length === 0) {
+      const previewContainer = document.getElementById('photo-preview-container');
+      if (previewContainer) previewContainer.remove();
+    } else {
+      showPhotoPreview();
+    }
+    
+    togglePostBtn();
+  };
+
   // Submit new post
   window.submitPost = async function() {
     const textarea = document.getElementById('post-textarea');
@@ -133,7 +214,9 @@
     if (!textarea || !postBtn) return;
     
     const content = textarea.value.trim();
-    if (!content) return;
+    const photos = window.pendingPostPhotos || [];
+    
+    if (!content && photos.length === 0) return;
     
     const account = window.BUAlumniAPI?.Auth?.getAccount();
     if (!account) {
@@ -151,38 +234,47 @@
       if (content.includes('🏆') || content.toLowerCase().includes('achievement')) type = 'achievement';
       if (content.includes('❓') || content.includes('?')) type = 'question';
       
-      // Create new post
-      const newPost = {
-        id: 'post-' + Date.now(),
+      // Get user initials
+      const initials = getUserInitials(account.fullName);
+      
+      // Create post via API
+      const result = await window.BUAlumniAPI.createPost({
         author: account.fullName,
+        authorEmail: account.email,
         profession: account.program || 'BU Alumni',
-        avatar: getUserInitials(account.fullName),
-        time: 'Just now',
+        avatar: initials,
         content: content,
-        likes: 0,
-        comments: [],
-        liked: false,
-        type: type
-      };
+        type: type,
+        photos: photos
+      });
       
-      // Add to posts array
-      posts.unshift(newPost);
-      
-      // Clear textarea
-      textarea.value = '';
-      togglePostBtn();
-      
-      // Re-render feed
-      renderFeed();
-      
-      // Show success
-      postBtn.innerHTML = '<span class="material-icons-round">check</span> Posted!';
-      postBtn.style.background = '#10b981';
-      
-      setTimeout(() => {
-        postBtn.innerHTML = 'Post';
-        postBtn.style.background = '';
-      }, 2000);
+      if (result.success) {
+        // Add to local posts array
+        const newPost = result.data.post;
+        posts.unshift(newPost);
+        
+        // Clear textarea and photos
+        textarea.value = '';
+        window.pendingPostPhotos = [];
+        const previewContainer = document.getElementById('photo-preview-container');
+        if (previewContainer) previewContainer.remove();
+        
+        togglePostBtn();
+        
+        // Re-render feed
+        renderFeed();
+        
+        // Show success
+        postBtn.innerHTML = '<span class="material-icons-round">check</span> Posted!';
+        postBtn.style.background = '#10b981';
+        
+        setTimeout(() => {
+          postBtn.innerHTML = 'Post';
+          postBtn.style.background = '';
+        }, 2000);
+      } else {
+        throw new Error(result.error || 'Failed to create post');
+      }
       
     } catch (error) {
       console.error('Error posting:', error);
@@ -215,6 +307,15 @@
          </a>`
       : '';
     
+    // Photo gallery
+    const photosHTML = post.photos && post.photos.length > 0
+      ? `<div class="post-photos" style="display: grid; grid-template-columns: ${post.photos.length === 1 ? '1fr' : 'repeat(2, 1fr)'}; gap: 0.5rem; margin-bottom: 0.8rem; border-radius: 12px; overflow: hidden;">
+           ${post.photos.map(photo => `
+             <img src="${photo.data}" alt="Post photo" style="width: 100%; height: ${post.photos.length === 1 ? '400px' : '200px'}; object-fit: cover; cursor: pointer;" onclick="openPhotoModal('${photo.data}')" />
+           `).join('')}
+         </div>`
+      : '';
+    
     const commentsHTML = post.comments.length > 0
       ? `<div class="comments-section">
            ${post.comments.map(comment => `
@@ -229,15 +330,35 @@
          </div>`
       : '';
     
+    const account = window.BUAlumniAPI?.Auth?.getAccount();
+    const currentUserEmail = account?.email || '';
+    
     const commentInputHTML = isLoggedIn
       ? `<div class="comment-input-wrap" style="margin-top: 0.75rem; display: none;" id="comment-input-${post.id}">
            <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
-             <div class="avatar-circle sm">${getUserInitials(window.BUAlumniAPI?.Auth?.getAccount()?.fullName || 'U')}</div>
+             <div class="avatar-circle sm">${getUserInitials(account?.fullName || 'U')}</div>
              <input type="text" class="comment-input" placeholder="Write a comment..." 
                     style="flex: 1; border: 1px solid var(--border); border-radius: 20px; padding: 0.5rem 1rem; font-size: 0.875rem;"
                     onkeypress="if(event.key==='Enter') addComment('${post.id}', this.value, this)" />
            </div>
          </div>`
+      : '';
+    
+    // Connection button (if not own post)
+    const isOwnPost = post.authorEmail === currentUserEmail;
+    const connectionHTML = !isOwnPost && isLoggedIn
+      ? `<button class="reaction-btn" onclick="sendConnectionRequest('${post.authorEmail}', '${post.author}')" title="Connect with ${post.author}">
+           <span class="material-icons-round">person_add</span>
+           <span>Connect</span>
+         </button>`
+      : '';
+    
+    // Message button (if not own post)
+    const messageHTML = !isOwnPost && isLoggedIn
+      ? `<button class="reaction-btn" onclick="openChatWith('${post.authorEmail}', '${post.author}')" title="Message ${post.author}">
+           <span class="material-icons-round">chat</span>
+           <span>Message</span>
+         </button>`
       : '';
     
     return `
@@ -252,6 +373,7 @@
         </div>
         ${badgeHTML}
         <div class="post-content">${post.content}</div>
+        ${photosHTML}
         ${linkHTML}
         <div class="reaction-bar">
           <button class="reaction-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike('${post.id}')" ${!isLoggedIn ? 'disabled title="Sign in to react"' : ''}>
@@ -262,6 +384,8 @@
             <span class="material-icons-round">chat_bubble_outline</span>
             <span>${post.comments.length}</span>
           </button>
+          ${connectionHTML}
+          ${messageHTML}
           <button class="reaction-btn" onclick="sharePost('${post.id}')" ${!isLoggedIn ? 'disabled title="Sign in to share"' : ''}>
             <span class="material-icons-round">share</span>
           </button>
@@ -273,14 +397,28 @@
   }
 
   // Toggle like
-  window.toggleLike = function(postId) {
+  window.toggleLike = async function(postId) {
     const post = posts.find(p => p.id === postId);
     if (!post) return;
     
-    post.liked = !post.liked;
-    post.likes += post.liked ? 1 : -1;
+    const account = window.BUAlumniAPI?.Auth?.getAccount();
+    if (!account) {
+      alert('Please sign in to like posts');
+      return;
+    }
     
-    renderFeed();
+    try {
+      // Call API to toggle like
+      const result = await window.BUAlumniAPI.toggleLike(postId, account.email);
+      
+      if (result.success) {
+        post.liked = result.data.liked;
+        post.likes = result.data.likeCount;
+        renderFeed();
+      }
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
   };
 
   // Toggle comment input
@@ -295,7 +433,7 @@
   };
 
   // Add comment
-  window.addComment = function(postId, text, input) {
+  window.addComment = async function(postId, text, input) {
     if (!text || !text.trim()) return;
     
     const post = posts.find(p => p.id === postId);
@@ -304,16 +442,30 @@
     const account = window.BUAlumniAPI?.Auth?.getAccount();
     if (!account) return;
     
-    const newComment = {
-      author: account.fullName,
-      avatar: getUserInitials(account.fullName),
-      text: text.trim()
-    };
-    
-    post.comments.push(newComment);
-    input.value = '';
-    
-    renderFeed();
+    try {
+      // Call API to add comment
+      const result = await window.BUAlumniAPI.addComment(
+        postId,
+        account.fullName,
+        text.trim()
+      );
+      
+      if (result.success) {
+        const newComment = {
+          author: account.fullName,
+          avatar: getUserInitials(account.fullName),
+          text: text.trim()
+        };
+        
+        post.comments.push(newComment);
+        input.value = '';
+        
+        renderFeed();
+      }
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      alert('Failed to add comment. Please try again.');
+    }
   };
 
   // Share post
@@ -332,6 +484,160 @@
       navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard!');
     }
+  };
+
+  // Open photo modal
+  window.openPhotoModal = function(photoUrl) {
+    const modal = document.createElement('div');
+    modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 2rem;';
+    modal.onclick = function() { modal.remove(); };
+    
+    const img = document.createElement('img');
+    img.src = photoUrl;
+    img.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;';
+    img.onclick = function(e) { e.stopPropagation(); };
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.style.cssText = 'position: absolute; top: 1rem; right: 1rem; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); color: white; border: none; font-size: 32px; cursor: pointer; backdrop-filter: blur(10px);';
+    closeBtn.onclick = function() { modal.remove(); };
+    
+    modal.appendChild(img);
+    modal.appendChild(closeBtn);
+    document.body.appendChild(modal);
+  };
+
+  // Send connection request
+  window.sendConnectionRequest = function(email, name) {
+    const account = window.BUAlumniAPI?.Auth?.getAccount();
+    if (!account) {
+      alert('Please sign in to connect with alumni');
+      return;
+    }
+    
+    // Store connection request
+    const connections = JSON.parse(localStorage.getItem('buConnections') || '{}');
+    if (!connections[account.email]) connections[account.email] = [];
+    
+    if (connections[account.email].includes(email)) {
+      alert(`You are already connected with ${name}`);
+      return;
+    }
+    
+    connections[account.email].push(email);
+    localStorage.setItem('buConnections', JSON.stringify(connections));
+    
+    alert(`Connection request sent to ${name}! 🤝`);
+    
+    // Update UI
+    event.target.innerHTML = '<span class="material-icons-round">check</span><span>Connected</span>';
+    event.target.disabled = true;
+    event.target.style.opacity = '0.6';
+  };
+
+  // Open chat with user
+  window.openChatWith = function(email, name) {
+    const account = window.BUAlumniAPI?.Auth?.getAccount();
+    if (!account) {
+      alert('Please sign in to message alumni');
+      return;
+    }
+    
+    // Open messages panel
+    const msgPanel = document.getElementById('msg-panel');
+    if (msgPanel) {
+      msgPanel.classList.add('open');
+      
+      // Set active chat
+      const msgPanelTitle = msgPanel.querySelector('.msg-panel-title');
+      if (msgPanelTitle) {
+        msgPanelTitle.textContent = `Chat with ${name}`;
+      }
+      
+      // Load or create chat
+      const chatKey = [account.email, email].sort().join(':');
+      const chats = JSON.parse(localStorage.getItem('buChats') || '{}');
+      
+      if (!chats[chatKey]) {
+        chats[chatKey] = {
+          participants: [account.email, email],
+          participantNames: [account.fullName, name],
+          messages: []
+        };
+        localStorage.setItem('buChats', JSON.stringify(chats));
+      }
+      
+      // Display chat messages
+      displayChatMessages(chatKey);
+    }
+  };
+
+  // Display chat messages
+  function displayChatMessages(chatKey) {
+    const chats = JSON.parse(localStorage.getItem('buChats') || '{}');
+    const chat = chats[chatKey];
+    
+    if (!chat) return;
+    
+    const msgList = document.getElementById('msg-list');
+    if (!msgList) return;
+    
+    const account = window.BUAlumniAPI?.Auth?.getAccount();
+    
+    msgList.innerHTML = chat.messages.map(msg => {
+      const isOwn = msg.sender === account.email;
+      return `
+        <div style="display: flex; flex-direction: column; align-items: ${isOwn ? 'flex-end' : 'flex-start'}; margin-bottom: 0.8rem;">
+          <div style="background: ${isOwn ? 'var(--primary)' : 'var(--surface-alt)'}; color: ${isOwn ? '#fff' : 'var(--text)'}; padding: 0.6rem 1rem; border-radius: 18px; max-width: 70%; word-wrap: break-word;">
+            ${msg.text}
+          </div>
+          <div style="font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem;">
+            ${new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    // Scroll to bottom
+    msgList.scrollTop = msgList.scrollHeight;
+    
+    // Store active chat
+    window.activeChatKey = chatKey;
+  }
+
+  // Send message (update existing function)
+  window.sendMessage = function() {
+    const input = document.getElementById('msg-input');
+    if (!input || !input.value.trim()) return;
+    
+    const account = window.BUAlumniAPI?.Auth?.getAccount();
+    if (!account) return;
+    
+    const chatKey = window.activeChatKey;
+    if (!chatKey) {
+      alert('Please select a chat first');
+      return;
+    }
+    
+    const chats = JSON.parse(localStorage.getItem('buChats') || '{}');
+    const chat = chats[chatKey];
+    
+    if (!chat) return;
+    
+    // Add message
+    chat.messages.push({
+      sender: account.email,
+      text: input.value.trim(),
+      timestamp: new Date().toISOString()
+    });
+    
+    localStorage.setItem('buChats', JSON.stringify(chats));
+    
+    // Clear input
+    input.value = '';
+    
+    // Refresh display
+    displayChatMessages(chatKey);
   };
 
   // Add event to calendar

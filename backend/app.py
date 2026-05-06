@@ -779,6 +779,438 @@ def community_posts():
         return jsonify({"error": "Failed to fetch posts. Please try again."}), 500
 
 
+# ── 15. TASKS API ENDPOINTS ──────────────────────────────────────────────────
+
+# GET /api/tasks — List all active tasks
+@app.route("/api/tasks", methods=["GET"])
+def list_tasks():
+    try:
+        import database
+        tasks = database.list_tasks(status="active")
+        return jsonify({"success": True, "tasks": tasks}), 200
+    except Exception as exc:
+        logger.error("[tasks GET] %s", exc)
+        return jsonify({"error": "Failed to fetch tasks."}), 500
+
+
+# POST /api/tasks — Create a new task (Admin only)
+@app.route("/api/tasks", methods=["POST"])
+def create_task():
+    try:
+        import database
+        import utils
+
+        body = request.get_json(force=True) or {}
+        title = utils.sanitize(body.get("title", ""))
+        description = utils.sanitize(body.get("description", ""))
+        category = utils.sanitize(body.get("category", ""))
+        duration_hours = int(body.get("durationHours", 0))
+        points = int(body.get("points", 0))
+        certificate = body.get("certificate", True)
+        requires_feedback = body.get("requiresFeedback", True)
+
+        if not title or not description or not category:
+            return jsonify({"error": "title, description, and category are required."}), 400
+
+        task_id = utils.generate_id("TSK")
+        task_data = {
+            "id": task_id,
+            "title": title,
+            "description": description,
+            "category": category,
+            "durationHours": duration_hours,
+            "points": points,
+            "certificate": certificate,
+            "requiresFeedback": requires_feedback,
+            "status": "active",
+            "createdAt": utils.now_iso(),
+            "updatedAt": utils.now_iso(),
+        }
+        task = database.create_task(task_data)
+
+        logger.info("[tasks POST] %s — '%s'", task_id, title)
+        return jsonify({"success": True, "taskId": task_id, "task": task}), 201
+
+    except Exception as exc:
+        logger.error("[tasks POST] %s", exc)
+        return jsonify({"error": "Failed to create task."}), 500
+
+
+# GET /api/tasks/<taskId> — Get task details
+@app.route("/api/tasks/<task_id>", methods=["GET"])
+def get_task(task_id):
+    try:
+        import database
+        safe_id = "".join(c for c in task_id if c.isalnum() or c == "-")
+        task = database.get_task_by_id(safe_id)
+        if not task:
+            return jsonify({"error": "Task not found."}), 404
+        return jsonify({"success": True, "task": task}), 200
+    except Exception as exc:
+        logger.error("[task GET] %s", exc)
+        return jsonify({"error": "Failed to fetch task."}), 500
+
+
+# POST /api/tasks/<taskId>/register — Register for a task
+@app.route("/api/tasks/<task_id>/register", methods=["POST"])
+def register_task(task_id):
+    try:
+        import database
+        import utils
+
+        body = request.get_json(force=True) or {}
+        user_email = utils.sanitize(body.get("userEmail", "")).lower()
+        full_name = utils.sanitize(body.get("fullName", ""))
+        phone = utils.sanitize(body.get("phone", ""))
+
+        if not user_email or not full_name:
+            return jsonify({"error": "userEmail and fullName are required."}), 400
+        if not utils.validate_email(user_email):
+            return jsonify({"error": "Invalid email address."}), 400
+
+        safe_task_id = "".join(c for c in task_id if c.isalnum() or c == "-")
+        task = database.get_task_by_id(safe_task_id)
+        if not task:
+            return jsonify({"error": "Task not found."}), 404
+
+        reg_id = utils.generate_id("REG")
+        reg_data = {
+            "id": reg_id,
+            "taskId": safe_task_id,
+            "userEmail": user_email,
+            "fullName": full_name,
+            "phone": phone,
+            "registeredAt": utils.now_iso(),
+        }
+        registration = database.register_task(reg_data)
+
+        logger.info("[register-task] %s — %s registered for %s", reg_id, user_email, safe_task_id)
+        return jsonify({
+            "success": True,
+            "registrationId": reg_id,
+            "registration": registration,
+            "message": f"Successfully registered for {task['title']}",
+        }), 201
+
+    except Exception as exc:
+        logger.error("[register-task] %s", exc)
+        return jsonify({"error": "Failed to register for task."}), 500
+
+
+# POST /api/task-completion — Complete a task
+@app.route("/api/task-completion", methods=["POST"])
+def complete_task_endpoint():
+    try:
+        import database
+        import utils
+        import pdf_generator
+
+        body = request.get_json(force=True) or {}
+        task_id = utils.sanitize(body.get("taskId", ""))
+        registration_id = utils.sanitize(body.get("registrationId", ""))
+        user_email = utils.sanitize(body.get("userEmail", "")).lower()
+        full_name = utils.sanitize(body.get("fullName", ""))
+        completion_hours = float(body.get("completionHours", 0))
+
+        if not task_id or not registration_id or not user_email or not full_name:
+            return jsonify({"error": "taskId, registrationId, userEmail, and fullName are required."}), 400
+
+        # Verify task and registration exist
+        task = database.get_task_by_id(task_id)
+        if not task:
+            return jsonify({"error": "Task not found."}), 404
+
+        reg = database.get_task_registration(registration_id)
+        if not reg:
+            return jsonify({"error": "Registration not found."}), 404
+
+        # Create completion record
+        completion_id = utils.generate_id("COMP")
+        completion_data = {
+            "id": completion_id,
+            "taskId": task_id,
+            "registrationId": registration_id,
+            "userEmail": user_email,
+            "fullName": full_name,
+            "completionDate": utils.now_iso(),
+            "completionHours": completion_hours,
+            "pointsEarned": task.get("points", 0),
+            "certificateId": "",
+            "ticketId": "",
+            "receiptId": "",
+            "status": "completed",
+        }
+        completion = database.complete_task(completion_data)
+
+        # Generate Certificate
+        cert_id = None
+        if task.get("certificate"):
+            cert_id = utils.generate_id("CERT")
+            cert_number = f"BU-CERT-{cert_id}"
+            cert_data = {
+                "id": cert_id,
+                "completionId": completion_id,
+                "taskId": task_id,
+                "userEmail": user_email,
+                "fullName": full_name,
+                "issueDate": utils.now_iso(),
+                "certificateNumber": cert_number,
+                "filePath": "",
+            }
+
+            logo_path = str(PORTAL_DIR / "image" / "Bugema_logo.png")
+            cert_pdf = pdf_generator.generate_task_certificate_pdf(
+                {
+                    **cert_data,
+                    "taskTitle": task.get("title", ""),
+                    "completionHours": completion_hours,
+                },
+                logo_path=logo_path if Path(logo_path).exists() else None,
+            )
+            cert_path = CERTIFICATES_DIR / f"{cert_id}.pdf"
+            cert_path.write_bytes(cert_pdf)
+            cert_data["filePath"] = str(cert_path)
+            database.create_certificate(cert_data)
+
+        # Generate Ticket
+        ticket_id = None
+        if task.get("category") in ["workshop", "seminar", "conference", "training"]:
+            ticket_id = utils.generate_id("TICKET")
+            ticket_number = f"BU-TICKET-{ticket_id}"
+            ticket_data = {
+                "id": ticket_id,
+                "completionId": completion_id,
+                "taskId": task_id,
+                "userEmail": user_email,
+                "fullName": full_name,
+                "ticketNumber": ticket_number,
+                "issueDate": utils.now_iso(),
+                "filePath": "",
+            }
+
+            logo_path = str(PORTAL_DIR / "image" / "Bugema_logo.png")
+            ticket_pdf = pdf_generator.generate_task_ticket_pdf(
+                {
+                    **ticket_data,
+                    "taskTitle": task.get("title", ""),
+                },
+                logo_path=logo_path if Path(logo_path).exists() else None,
+            )
+            ticket_path = TICKETS_DIR / f"{ticket_id}.pdf"
+            ticket_path.write_bytes(ticket_pdf)
+            ticket_data["filePath"] = str(ticket_path)
+            database.create_ticket(ticket_data)
+
+        # Generate Receipt
+        receipt_id = None
+        receipt_amount = float(body.get("receiptAmount", 0))
+        if receipt_amount > 0:
+            receipt_id = utils.generate_id("RCP")
+            receipt_number = f"BU-RECEIPT-{receipt_id}"
+            receipt_data = {
+                "id": receipt_id,
+                "completionId": completion_id,
+                "taskId": task_id,
+                "userEmail": user_email,
+                "fullName": full_name,
+                "receiptNumber": receipt_number,
+                "issueDate": utils.now_iso(),
+                "amount": receipt_amount,
+                "currency": "UGX",
+                "filePath": "",
+            }
+
+            logo_path = str(PORTAL_DIR / "image" / "Bugema_logo.png")
+            receipt_pdf = pdf_generator.generate_task_receipt_pdf(
+                {
+                    **receipt_data,
+                    "taskTitle": task.get("title", ""),
+                },
+                logo_path=logo_path if Path(logo_path).exists() else None,
+            )
+            receipt_path = DONATION_LETTERS_DIR / f"{receipt_id}.pdf"
+            receipt_path.write_bytes(receipt_pdf)
+            receipt_data["filePath"] = str(receipt_path)
+            database.create_receipt(receipt_data)
+
+        # Update completion with document IDs
+        if cert_id or ticket_id or receipt_id:
+            update_query = "UPDATE task_completions SET "
+            updates = []
+            params = []
+            if cert_id:
+                updates.append("certificate_id=?")
+                params.append(cert_id)
+            if ticket_id:
+                updates.append("ticket_id=?")
+                params.append(ticket_id)
+            if receipt_id:
+                updates.append("receipt_id=?")
+                params.append(receipt_id)
+            params.append(completion_id)
+            if updates:
+                from database import get_conn
+                with get_conn() as conn:
+                    conn.execute(
+                        update_query + ", ".join(updates) + " WHERE id=?",
+                        params
+                    )
+
+        logger.info("[task-completion] %s — %s completed %s", completion_id, user_email, task_id)
+        return jsonify({
+            "success": True,
+            "completionId": completion_id,
+            "certificateId": cert_id,
+            "ticketId": ticket_id,
+            "receiptId": receipt_id,
+            "message": "Task completed successfully! Your certificates and documents are ready.",
+        }), 201
+
+    except Exception as exc:
+        logger.error("[task-completion] %s", exc)
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": "Failed to complete task."}), 500
+
+
+# POST /api/task-feedback — Submit feedback for a completed task
+@app.route("/api/task-feedback", methods=["POST"])
+def submit_task_feedback():
+    try:
+        import database
+        import utils
+
+        body = request.get_json(force=True) or {}
+        completion_id = utils.sanitize(body.get("completionId", ""))
+        task_id = utils.sanitize(body.get("taskId", ""))
+        user_email = utils.sanitize(body.get("userEmail", "")).lower()
+        full_name = utils.sanitize(body.get("fullName", ""))
+        rating = int(body.get("rating", 0))
+        comments = utils.sanitize(body.get("comments", ""))
+        would_recommend = body.get("wouldRecommend", False)
+
+        if not completion_id or not task_id or not user_email or not full_name:
+            return jsonify({"error": "completionId, taskId, userEmail, and fullName are required."}), 400
+
+        if rating < 1 or rating > 5:
+            return jsonify({"error": "rating must be between 1 and 5."}), 400
+
+        # Check if feedback already exists
+        existing = database.get_feedback_by_completion(completion_id)
+        if existing:
+            return jsonify({"error": "Feedback already submitted for this completion."}), 409
+
+        feedback_id = utils.generate_id("FB")
+        feedback_data = {
+            "id": feedback_id,
+            "completionId": completion_id,
+            "taskId": task_id,
+            "userEmail": user_email,
+            "fullName": full_name,
+            "rating": rating,
+            "comments": comments,
+            "wouldRecommend": would_recommend,
+            "submittedAt": utils.now_iso(),
+        }
+        feedback = database.submit_feedback(feedback_data)
+
+        logger.info("[task-feedback] %s — %s gave rating %d", feedback_id, user_email, rating)
+        return jsonify({
+            "success": True,
+            "feedbackId": feedback_id,
+            "message": "Thank you for your feedback!",
+        }), 201
+
+    except Exception as exc:
+        logger.error("[task-feedback] %s", exc)
+        return jsonify({"error": "Failed to submit feedback."}), 500
+
+
+# GET /api/task-certificate/<certId> — Download task certificate
+@app.route("/api/task-certificate/<cert_id>", methods=["GET"])
+def download_task_certificate(cert_id):
+    try:
+        safe_id = "".join(c for c in cert_id if c.isalnum() or c == "-")
+        cert_path = CERTIFICATES_DIR / f"{safe_id}.pdf"
+        if not cert_path.exists():
+            return jsonify({"error": "Certificate not found."}), 404
+        return send_file(
+            str(cert_path),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"BU-Task-Certificate-{safe_id}.pdf",
+        )
+    except Exception as exc:
+        logger.error("[task-certificate] %s", exc)
+        return jsonify({"error": "Failed to retrieve certificate."}), 500
+
+
+# GET /api/task-ticket/<ticketId> — Download task ticket
+@app.route("/api/task-ticket/<ticket_id>", methods=["GET"])
+def download_task_ticket(ticket_id):
+    try:
+        safe_id = "".join(c for c in ticket_id if c.isalnum() or c == "-")
+        ticket_path = TICKETS_DIR / f"{safe_id}.pdf"
+        if not ticket_path.exists():
+            return jsonify({"error": "Ticket not found."}), 404
+        return send_file(
+            str(ticket_path),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"BU-Task-Ticket-{safe_id}.pdf",
+        )
+    except Exception as exc:
+        logger.error("[task-ticket] %s", exc)
+        return jsonify({"error": "Failed to retrieve ticket."}), 500
+
+
+# GET /api/task-receipt/<receiptId> — Download task receipt
+@app.route("/api/task-receipt/<receipt_id>", methods=["GET"])
+def download_task_receipt(receipt_id):
+    try:
+        safe_id = "".join(c for c in receipt_id if c.isalnum() or c == "-")
+        receipt_path = DONATION_LETTERS_DIR / f"{safe_id}.pdf"
+        if not receipt_path.exists():
+            return jsonify({"error": "Receipt not found."}), 404
+        return send_file(
+            str(receipt_path),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"BU-Task-Receipt-{safe_id}.pdf",
+        )
+    except Exception as exc:
+        logger.error("[task-receipt] %s", exc)
+        return jsonify({"error": "Failed to retrieve receipt."}), 500
+
+
+# GET /api/user-tasks/<userEmail> — Get user's registered tasks
+@app.route("/api/user-tasks/<user_email>", methods=["GET"])
+def get_user_tasks(user_email):
+    try:
+        import database
+        from urllib.parse import unquote
+        email = unquote(user_email).lower()
+        tasks = database.list_user_tasks(email)
+        return jsonify({"success": True, "tasks": tasks}), 200
+    except Exception as exc:
+        logger.error("[user-tasks] %s", exc)
+        return jsonify({"error": "Failed to fetch user tasks."}), 500
+
+
+# GET /api/user-completions/<userEmail> — Get user's completed tasks
+@app.route("/api/user-completions/<user_email>", methods=["GET"])
+def get_user_completions(user_email):
+    try:
+        import database
+        from urllib.parse import unquote
+        email = unquote(user_email).lower()
+        completions = database.list_user_completions(email)
+        return jsonify({"success": True, "completions": completions}), 200
+    except Exception as exc:
+        logger.error("[user-completions] %s", exc)
+        return jsonify({"error": "Failed to fetch user completions."}), 500
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":

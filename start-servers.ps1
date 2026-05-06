@@ -67,9 +67,9 @@ Write-Host "🚀 Starting servers..." -ForegroundColor Cyan
 Write-Host ""
 Write-Host "═══════════════════════════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host "  Backend:  http://localhost:5000" -ForegroundColor White
-Write-Host "  Frontend: http://localhost:3000" -ForegroundColor White
+Write-Host "  Frontend: http://localhost:8080" -ForegroundColor White
 Write-Host ""
-Write-Host "  Open your browser and go to: http://localhost:3000" -ForegroundColor Green
+Write-Host "  Open your browser and go to: http://localhost:8080" -ForegroundColor Green
 Write-Host ""
 Write-Host "  Press Ctrl+C in each window to stop the servers" -ForegroundColor Yellow
 Write-Host "═══════════════════════════════════════════════════════════════" -ForegroundColor Cyan
@@ -92,7 +92,7 @@ Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Cyan
 Write-Host "   1. Check both new windows to verify servers started" -ForegroundColor White
 Write-Host "   2. Open your browser" -ForegroundColor White
-Write-Host "   3. Go to http://localhost:3000" -ForegroundColor White
+Write-Host "   3. Go to http://localhost:8080" -ForegroundColor White
 Write-Host "   4. Test event registration on the Events page" -ForegroundColor White
 Write-Host ""
 Write-Host "For troubleshooting, see QUICK_START_GUIDE.md" -ForegroundColor Cyan

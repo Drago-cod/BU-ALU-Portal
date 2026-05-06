@@ -623,3 +623,386 @@ def generate_donation_appreciation_pdf(
     c.save()
     buf.seek(0)
     return buf.read()
+
+
+def generate_task_certificate_pdf(
+    data: dict,
+    logo_path: Optional[str] = None,
+) -> bytes:
+    """Generate a task completion certificate PDF."""
+    from reportlab.lib.pagesizes import A4, landscape  # type: ignore
+    from reportlab.pdfgen.canvas import Canvas  # type: ignore
+
+    full_name = data.get("fullName", "")
+    task_title = data.get("taskTitle", "Task")
+    cert_number = data.get("certificateNumber", "")
+    issue_date = _format_display_date(data.get("issueDate", ""))
+    completion_hours = data.get("completionHours", 0)
+
+    buf = io.BytesIO()
+    W, H = landscape(A4)
+    c = Canvas(buf, pagesize=(W, H))
+
+    def fill(hex_color: str):
+        r, g, b = _hex_to_rgb(hex_color)
+        c.setFillColorRGB(r, g, b)
+
+    def stroke(hex_color: str):
+        r, g, b = _hex_to_rgb(hex_color)
+        c.setStrokeColorRGB(r, g, b)
+
+    # Background and borders
+    fill("#f8fafc")
+    c.rect(0, 0, W, H, fill=1, stroke=0)
+    fill("#fef3c7")
+    c.roundRect(30, 30, W - 60, H - 60, 22, fill=1, stroke=0)
+    stroke("#f59e0b")
+    c.setLineWidth(3)
+    c.roundRect(46, 46, W - 92, H - 92, 18, fill=0, stroke=1)
+
+    # Logo and institution name
+    if logo_path and os.path.exists(logo_path):
+        try:
+            c.drawImage(logo_path, W / 2 - 36, H - 116, width=72, height=72,
+                        preserveAspectRatio=True, mask="auto")
+        except Exception:
+            pass
+
+    fill(DARK)
+    c.setFont("Helvetica-Bold", 16)
+    c.drawCentredString(W / 2, H - 138, "Bugema University Alumni Association")
+    fill(MUTED)
+    c.setFont("Helvetica", 9)
+    c.drawCentredString(W / 2, H - 154, "Task Completion Certificate")
+
+    # Certificate content
+    fill("#f59e0b")
+    c.setFont("Helvetica-Bold", 34)
+    c.drawCentredString(W / 2, H - 210, "Certificate of Completion")
+
+    fill(MUTED)
+    c.setFont("Helvetica", 13)
+    c.drawCentredString(W / 2, H - 246, "This certifies that")
+
+    fill(DARK)
+    name_size = 32 if len(full_name) <= 34 else 26
+    c.setFont("Helvetica-Bold", name_size)
+    c.drawCentredString(W / 2, H - 292, full_name)
+
+    fill(MUTED)
+    c.setFont("Helvetica", 13)
+    c.drawCentredString(W / 2, H - 326, f"has successfully completed the task:")
+
+    fill(PRIMARY)
+    c.setFont("Helvetica-Bold", 14)
+    task_display = task_title if len(task_title) <= 50 else task_title[:47] + "..."
+    c.drawCentredString(W / 2, H - 356, task_display)
+
+    # Detail card
+    card_w = W - 210
+    card_h = 92
+    card_x = (W - card_w) / 2
+    card_y = 132
+    fill("#ffffff")
+    stroke("#fcd34d")
+    c.setLineWidth(1.2)
+    c.roundRect(card_x, card_y, card_w, card_h, 12, fill=1, stroke=1)
+
+    detail_rows = [
+        ("Certificate No", cert_number),
+        ("Hours Completed", f"{completion_hours:.1f}"),
+        ("Issued On", issue_date),
+    ]
+    col_w = card_w / 3
+    for idx, (label, value) in enumerate(detail_rows):
+        x = card_x + idx * col_w
+        fill(MUTED)
+        c.setFont("Helvetica", 9)
+        c.drawCentredString(x + col_w / 2, card_y + 56, label.upper())
+        fill("#f59e0b" if idx == 0 else DARK)
+        c.setFont("Helvetica-Bold", 13)
+        c.drawCentredString(x + col_w / 2, card_y + 34, str(value))
+
+    # Signature footer
+    stroke(BORDER)
+    c.setLineWidth(1)
+    c.line(118, 86, 278, 86)
+    c.line(W - 278, 86, W - 118, 86)
+    fill(DARK)
+    c.setFont("Helvetica-Bold", 9)
+    c.drawCentredString(198, 70, "Task Coordinator")
+    c.drawCentredString(W - 198, 70, "Alumni Office")
+    fill(MUTED)
+    c.setFont("Helvetica", 8)
+    c.drawCentredString(W / 2, 48, "Generated automatically by the BU Alumni Portal.")
+
+    c.showPage()
+    c.save()
+    buf.seek(0)
+    return buf.read()
+
+
+def generate_task_ticket_pdf(
+    data: dict,
+    logo_path: Optional[str] = None,
+) -> bytes:
+    """Generate a task attendance ticket PDF."""
+    from reportlab.lib.pagesizes import A4  # type: ignore
+    from reportlab.pdfgen.canvas import Canvas  # type: ignore
+
+    full_name = data.get("fullName", "")
+    task_title = data.get("taskTitle", "Task")
+    ticket_number = data.get("ticketNumber", "")
+    issue_date = _format_display_date(data.get("issueDate", ""))
+
+    buf = io.BytesIO()
+    W, H = A4
+    MARGIN = 50
+    CW = W - 2 * MARGIN
+    c = Canvas(buf, pagesize=A4)
+
+    def fill(hex_color: str):
+        r, g, b = _hex_to_rgb(hex_color)
+        c.setFillColorRGB(r, g, b)
+
+    def stroke(hex_color: str):
+        r, g, b = _hex_to_rgb(hex_color)
+        c.setStrokeColorRGB(r, g, b)
+
+    def hr(y: float, color: str = BORDER, width: float = 1.0):
+        r, g, b = _hex_to_rgb(color)
+        c.setStrokeColorRGB(r, g, b)
+        c.setLineWidth(width)
+        c.line(MARGIN, y, MARGIN + CW, y)
+
+    # Header
+    if logo_path and os.path.exists(logo_path):
+        try:
+            c.drawImage(logo_path, MARGIN, H - 60, width=40, height=40,
+                        preserveAspectRatio=True, mask="auto")
+        except Exception:
+            pass
+
+    fill(MUTED)
+    c.setFont("Helvetica", 10)
+    c.drawRightString(MARGIN + CW, H - 30, "BU Alumni Portal")
+    c.setFont("Helvetica", 8)
+    c.drawRightString(MARGIN + CW, H - 42, "alumni@bualumni.org")
+
+    hr(H - 70)
+    y = H - 90
+
+    # Title
+    fill(PRIMARY)
+    c.setFont("Helvetica-Bold", 20)
+    c.drawCentredString(W / 2, y, "TASK ATTENDANCE TICKET")
+    y -= 22
+
+    # Ticket ID
+    fill(SUCCESS)
+    c.setFont("Helvetica-Bold", 11)
+    c.drawCentredString(W / 2, y, f"Ticket: {ticket_number}")
+    y -= 28
+
+    # Task info box
+    box_h = 80
+    fill(LIGHT_BG)
+    stroke(PRIMARY)
+    c.setLineWidth(1.5)
+    c.roundRect(MARGIN, y - box_h, CW, box_h, 8, fill=1, stroke=1)
+
+    fill(PRIMARY)
+    c.setFont("Helvetica-Bold", 14)
+    task_display = task_title if len(task_title) <= 60 else task_title[:57] + "..."
+    c.drawString(MARGIN + 20, y - 18, task_display)
+
+    fill(BLUE_DK)
+    c.setFont("Helvetica", 10)
+    c.drawString(MARGIN + 20, y - 36, f"Issued: {issue_date}")
+    c.drawString(MARGIN + 20, y - 50, f"Status: Confirmed ✓")
+
+    y -= box_h + 20
+
+    # Attendee details
+    fill(DARK)
+    c.setFont("Helvetica-Bold", 12)
+    c.drawString(MARGIN, y, "Participant Details")
+    y -= 18
+
+    rows = [
+        ("Full Name", full_name),
+        ("Ticket Number", ticket_number),
+        ("Issue Date", issue_date),
+        ("Status", "Valid - Please present at event"),
+    ]
+    for label, value in rows:
+        fill(MUTED)
+        c.setFont("Helvetica", 10)
+        c.drawString(MARGIN, y, f"{label}:")
+        fill(DARK)
+        c.setFont("Helvetica-Bold", 10)
+        c.drawString(MARGIN + 120, y, str(value))
+        y -= 16
+
+    y -= 20
+    hr(y)
+    y -= 16
+
+    fill(MUTED)
+    c.setFont("Helvetica", 9)
+    c.drawCentredString(W / 2, y, "Present this ticket (printed or digital) at check-in.")
+
+    c.showPage()
+    c.save()
+    buf.seek(0)
+    return buf.read()
+
+
+def generate_task_receipt_pdf(
+    data: dict,
+    logo_path: Optional[str] = None,
+) -> bytes:
+    """Generate a task participation receipt PDF."""
+    from reportlab.lib.pagesizes import A4  # type: ignore
+    from reportlab.pdfgen.canvas import Canvas  # type: ignore
+
+    full_name = data.get("fullName", "")
+    task_title = data.get("taskTitle", "Task")
+    receipt_number = data.get("receiptNumber", "")
+    amount = data.get("amount", 0)
+    currency = data.get("currency", "UGX")
+    issue_date = _format_display_date(data.get("issueDate", ""))
+
+    try:
+        amount_display = f"{currency} {float(amount):,.0f}"
+    except Exception:
+        amount_display = f"{currency} {amount}"
+
+    buf = io.BytesIO()
+    W, H = A4
+    MARGIN = 54
+    CW = W - (2 * MARGIN)
+    c = Canvas(buf, pagesize=A4)
+
+    def fill(hex_color: str):
+        r, g, b = _hex_to_rgb(hex_color)
+        c.setFillColorRGB(r, g, b)
+
+    def stroke(hex_color: str):
+        r, g, b = _hex_to_rgb(hex_color)
+        c.setStrokeColorRGB(r, g, b)
+
+    fill("#ffffff")
+    c.rect(0, 0, W, H, fill=1, stroke=0)
+
+    # Header band
+    fill(SUCCESS)
+    c.rect(0, H - 118, W, 118, fill=1, stroke=0)
+    if logo_path and os.path.exists(logo_path):
+        try:
+            c.drawImage(logo_path, MARGIN, H - 94, width=54, height=54,
+                        preserveAspectRatio=True, mask="auto")
+        except Exception:
+            pass
+
+    fill("#ffffff")
+    c.setFont("Helvetica-Bold", 18)
+    c.drawString(MARGIN + 70, H - 64, "BU Alumni Association")
+    c.setFont("Helvetica", 10)
+    c.drawString(MARGIN + 70, H - 82, "Task Participation Receipt")
+
+    # Title
+    y = H - 162
+    fill(SUCCESS)
+    c.setFont("Helvetica-Bold", 23)
+    c.drawString(MARGIN, y, "Participation Receipt")
+    y -= 24
+
+    fill(MUTED)
+    c.setFont("Helvetica", 10)
+    c.drawString(MARGIN, y, f"Receipt: {receipt_number}")
+    c.drawRightString(MARGIN + CW, y, f"Date: {issue_date}")
+    y -= 42
+
+    fill(DARK)
+    c.setFont("Helvetica", 11)
+    c.drawString(MARGIN, y, "This receipt confirms your participation in:")
+    y -= 20
+
+    fill(PRIMARY)
+    c.setFont("Helvetica-Bold", 12)
+    task_display = task_title if len(task_title) <= 70 else task_title[:67] + "..."
+    c.drawString(MARGIN, y, task_display)
+    y -= 30
+
+    # Summary box
+    box_h = 100
+    fill(LIGHT_BG)
+    stroke(SUCCESS)
+    c.setLineWidth(1.2)
+    c.roundRect(MARGIN, y - box_h, CW, box_h, 10, fill=1, stroke=1)
+
+    rows = [
+        ("Receipt Number", receipt_number),
+        ("Participant", full_name),
+        ("Task", task_display),
+        ("Amount", amount_display),
+    ]
+    row_y = y - 24
+    for label, value in rows:
+        fill(MUTED)
+        c.setFont("Helvetica", 9)
+        c.drawString(MARGIN + 18, row_y, label)
+        fill(DARK)
+        c.setFont("Helvetica-Bold", 10)
+        c.drawString(MARGIN + 150, row_y, str(value)[:70])
+        row_y -= 20
+
+    y -= box_h + 24
+
+    fill(DARK)
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(MARGIN, y, "Receipt Details")
+    y -= 16
+
+    fill("#374151")
+    description = (
+        f"This receipt confirms that {full_name} participated in the task: {task_title}. "
+        f"An amount of {amount_display} was processed for this participation."
+    )
+    words = description.split()
+    line = ""
+    while words:
+        candidate = f"{line} {words[0]}".strip() if line else words[0]
+        if len(candidate) > 90:
+            if line:
+                c.drawString(MARGIN, y, line)
+                y -= 16
+            line = words.pop(0)
+        else:
+            line = candidate
+            words.pop(0)
+    if line:
+        c.drawString(MARGIN, y, line)
+
+    y -= 32
+
+    fill(DARK)
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(MARGIN, y, "BU Alumni Office")
+    fill(MUTED)
+    c.setFont("Helvetica", 9)
+    c.drawString(MARGIN, y - 16, "Bugema University Alumni Association")
+
+    # Footer
+    stroke(BORDER)
+    c.setLineWidth(1)
+    c.line(MARGIN, 58, MARGIN + CW, 58)
+    fill(MUTED)
+    c.setFont("Helvetica", 8)
+    c.drawCentredString(W / 2, 40, "Generated automatically by the BU Alumni Portal.")
+
+    c.showPage()
+    c.save()
+    buf.seek(0)
+    return buf.read()
